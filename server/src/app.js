@@ -4,6 +4,9 @@ const app = express();
 
 app.use(express.json);
 
+//database connection
+const pool = require("../src/dbConnection");
+
 //import Routes
 const adminRouter = require("./routes/adminRoutes");
 const driverRouter = require("./routes/driverRoutes");

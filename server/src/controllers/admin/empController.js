@@ -1,3 +1,5 @@
+const query = require("../../models/adminModel");
+
 //add employee function -> POST method
 const addEmployee = async (req, res) => {
   try {

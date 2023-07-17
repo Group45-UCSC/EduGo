@@ -1,3 +1,5 @@
+const query = require("../../models/userModel");
+
 //login function -> POST method
 const login = async (req, res) => {
   try {

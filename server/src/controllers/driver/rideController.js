@@ -1,3 +1,5 @@
+const query = require("../../models/driverModel");
+
 //view ride function -> GET method
 const viewRide = async (req, res) => {
   try {

@@ -1,3 +1,5 @@
+const query = require("../../models/vcModel");
+
 //view emergency details -> GET
 const viewEmergency = (req, res) => {
     try {

@@ -1,3 +1,5 @@
+const query = require("../../models/parentModel");
+
 //update child details function -> PUT method
 const updateChild = async (req, res) => {
   try {

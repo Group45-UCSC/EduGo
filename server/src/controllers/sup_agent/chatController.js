@@ -1,3 +1,5 @@
+const query = require("../../models/supAgentModel");
+
 //view complaints function
 const viewAllComplaints = async (req, res) => {
   try {

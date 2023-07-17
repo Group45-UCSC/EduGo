@@ -1,3 +1,5 @@
+const query = require("../../models/vcModel");
+
 //view all rides function -> GET
 const viewAllRides = (req, res) => {
   try {
