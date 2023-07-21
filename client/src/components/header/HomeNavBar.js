@@ -1,5 +1,4 @@
 import React from "react";
-import "./home_nav_bar.css";
 import { NavLink } from "react-router-dom";
 import { useState , useEffect} from "react";
 
@@ -46,8 +45,8 @@ const HomeNavBarRegister = ({ name }) => {
 
             {isDropdownOpen && (
                 <div className="dropDown absolute flex flex-col mt-6">
-                    <NavLink className="dropDownItem px-12 py-3" to="/parent/register">Parent</NavLink>
-                    <NavLink className="dropDownItem px-12 py-3" to="/driver/register">Driver</NavLink>
+                    <NavLink className="dropDownItem px-12 py-3 bg-gray hover:bg-black hover:text-white" to="/parent/register">Parent</NavLink>
+                    <NavLink className="dropDownItem px-12 py-3 bg-gray hover:bg-black hover:text-white" to="/driver/register">Driver</NavLink>
                 </div>
             )}
         </div>
@@ -60,10 +59,10 @@ const HomeNavBarRegister = ({ name }) => {
 //main homeNavbar function
 function HomeNavBar() {
   return (
-    <div className="homeNavBar p-6 sticky flex flex-row gap-3 justify-between items-center">
+    <div className="homeNavBar bg-orange p-6 sticky flex flex-row gap-3 justify-between items-center">
 
       <div>
-        <img src="../../images/logo.png" alt="logo" />
+        {/* <img src="../../../images/logo.png" alt="logo" className="border w-1 h-16 mr-2"/> */}
       </div>
 
       <div className="homeNavItems flex flex-row">
