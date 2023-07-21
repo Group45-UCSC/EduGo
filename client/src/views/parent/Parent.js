@@ -1,8 +1,9 @@
 import React from 'react'
+import MainLayout from "../../components/layout/MainLayout";
 
 function Parent() {
   return (
-    <div>This is Parent's Landing page</div>
+    <div><MainLayout>This is Parent's Landing page</MainLayout></div>
   )
 }
 

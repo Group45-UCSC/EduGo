@@ -1,9 +1,12 @@
-import React from 'react'
+import React from "react";
+import MainLayout from "../../components/layout/MainLayout";
 
 function Driver() {
   return (
-    <div>This is driver's landing page</div>
-  )
+    <div>
+      <MainLayout>This is driver's landing page</MainLayout>
+    </div>
+  );
 }
 
-export default Driver
+export default Driver;
