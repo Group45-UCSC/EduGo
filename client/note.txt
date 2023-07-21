@@ -17,7 +17,7 @@ npm i dotenv
 npm i fs path
 
 
-#to run the application:
+#to start run the application:
 
 --client--
 cd client

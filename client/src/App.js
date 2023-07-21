@@ -10,8 +10,8 @@ import ParentRegister from "./views/parent/ParentRegister";
 import Driver from "./views/driver/Driver";
 import Parent from "./views/parent/Parent";
 import Admin from "./views/admin/Admin";
-import V_coordinator from "./views/v_coordinator/V_coordinator";
-import Sup_agent from "./views/sup_agent/Sup_agent";
+import Vcoordinator from "./views/v_coordinator/Vcoordinator";
+import SupAgent from "./views/sup_agent/SupAgent";
 
 //define routes
 
@@ -27,12 +27,13 @@ function App() {
           <Route exact path="/driver/home" element={<Driver/>} />
           <Route exact path="/parent/home" element={<Parent/>} />
           <Route exact path="/admin/home" element={<Admin/>} />
-          <Route exact path="/vc/home" element={<V_coordinator/>} />
-          <Route exact path="/sup_agent/home" element={<Sup_agent/>} />
+          <Route exact path="/vc/home" element={<Vcoordinator/>} />
+          <Route exact path="/sup_agent/home" element={<SupAgent/>} />
         </Routes>
       </Router>
     </div>
   );
 }
+
 
 export default App;

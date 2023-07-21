@@ -1,9 +1,9 @@
 import React from 'react'
 
-function Sup_agent() {
+function SupAgent() {
   return (
     <div>This is Admin's Landing page</div>
   )
 }
 
-export default Sup_agent
+export default SupAgent
