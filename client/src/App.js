@@ -3,8 +3,8 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom"
 
 function App() {
   return (
-    <div>
-      
+    <div className='text-lg text-red-500'>
+      hello
     </div>
   )
 }
