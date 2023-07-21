@@ -15,7 +15,7 @@ const NavbarItem = ({ path, name }) => {
 
 function TopNavBar() {
     return (
-        <div className='fixed w-full p-4 text-black bg-white flex flex-row gap-3 justify-between items-center shadow-md'>
+        <div className='w-full p-4 text-black bg-white sticky flex flex-row gap-3 justify-between items-center shadow-md'>
             <FaBars></FaBars>
 
             <div className='flex flex-row gap-6'>
