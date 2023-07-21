@@ -1,9 +1,9 @@
 import React from 'react'
 
-function V_coordinator() {
+function Vcoordinator() {
   return (
     <div>This is vehicle coordinator's Landing page</div>
   )
 }
 
-export default V_coordinator
+export default Vcoordinator
