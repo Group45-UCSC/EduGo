@@ -1,8 +1,9 @@
 import React from 'react'
+import MainLayout from "../../components/layout/MainLayout";
 
 function Vcoordinator() {
   return (
-    <div>This is vehicle coordinator's Landing page</div>
+    <div><MainLayout>This is vehicle coordinator's Landing page</MainLayout></div>
   )
 }
 

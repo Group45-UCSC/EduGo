@@ -13,7 +13,7 @@ const NavbarItem = ({ path, name }) => {
 }
 
 
-function ParentNavBar() {
+function TopNavBar() {
     return (
         <div className='fixed w-full p-4 text-black bg-white flex flex-row gap-3 justify-between items-center shadow-md'>
             <FaBars></FaBars>
@@ -27,4 +27,6 @@ function ParentNavBar() {
     )
 }
 
-export default ParentNavBar 
+export default TopNavBar 
+
+

@@ -1,9 +1,12 @@
-import React from 'react'
+import React from "react";
+import MainLayout from "../../components/layout/MainLayout";
 
 function Admin() {
   return (
-    <div>This is Admin's Landing page</div>
-  )
+    <div>
+      <MainLayout>This is Admin's Landing page </MainLayout>
+    </div>
+  );
 }
 
-export default Admin
+export default Admin;

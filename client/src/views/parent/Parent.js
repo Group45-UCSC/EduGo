@@ -1,11 +1,9 @@
 import React from 'react'
-import TopNavBar from '../../components/header/TopNavBar'
+import MainLayout from "../../components/layout/MainLayout";
 
 function Parent() {
   return (
-    <div>
-      <TopNavBar></TopNavBar>
-    </div>
+    <div><MainLayout>This is Parent's Landing page</MainLayout></div>
   )
 }
 
