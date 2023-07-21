@@ -3,7 +3,6 @@ import { NavLink } from "react-router-dom";
 import { useState , useEffect} from "react";
 
 
-
 //reusable component for homeNavbar items(without REGISTER item)
 const HomeNavBarItem = ({ path, name }) => {
     return (
@@ -62,7 +61,8 @@ function HomeNavBar() {
     <div className="homeNavBar bg-orange p-6 sticky flex flex-row gap-3 justify-between items-center">
 
       <div>
-        {/* <img src="../../../images/logo.png" alt="logo" className="border w-1 h-16 mr-2"/> */}
+        {/* <img src={Logo} alt="logo" className="border w-16 h-16 mr-2"/> */}
+        
       </div>
 
       <div className="homeNavItems flex flex-row">
