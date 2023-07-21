@@ -1,8 +1,11 @@
 import React from 'react'
+import TopNavBar from '../../components/header/TopNavBar'
 
 function Parent() {
   return (
-    <div>This is Parent's Landing page</div>
+    <div>
+      <TopNavBar></TopNavBar>
+    </div>
   )
 }
 
