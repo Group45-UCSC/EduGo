@@ -1,0 +1,33 @@
+#color codes:
+
+#999999ff - ash color
+#ff9900ff - orange
+
+#installed packages: 
+
+--client--
+npm install react-icons --save
+npm i react-router-dom
+npm i formik yup
+
+--server--
+npm i express pg cors
+npm i nodemon
+npm i dotenv
+npm i fs path
+
+
+#to run the application:
+
+--client--
+cd client
+npm start
+
+--server--
+cd server
+npm run server
+
+#postgresql db
+\l => list all dbs in pg
+\c <dbName> => move inside to a db   
+\dt => show table in db
