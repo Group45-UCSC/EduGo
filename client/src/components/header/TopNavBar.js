@@ -15,8 +15,8 @@ import { FaRegBell } from 'react-icons/fa'
 
 function TopNavBar() {
     return (
-        <div className='w-full p-6 text-black bg-white sticky flex flex-row gap-3 justify-between items-center shadow-md'>
-            <FaBars></FaBars>
+        <div className='w-full p-4 text-black bg-white sticky flex flex-row gap-3 justify-between items-center shadow-md'>
+            <div></div>
 
             <div className='flex flex-row gap-6'>
                 <FaRegBell></FaRegBell>

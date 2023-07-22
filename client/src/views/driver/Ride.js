@@ -2,7 +2,8 @@ import React from "react";
 import MainLayout from "../../components/layout/MainLayout";
 import { FaBeer } from "react-icons/fa";
 
-function Driver() {
+function Ride() {
+
   const sideNavBarLinks = [
     { title: "Dashboard", path: "/driver/dashboard", icon: <FaBeer /> },
     { title: "School Ride", path: "/driver/ride", icon: <FaBeer /> },
@@ -14,10 +15,10 @@ function Driver() {
   return (
     <div>
       <MainLayout data={sideNavBarLinks}>
-        This is driver's landing page
+        This is Driver Ride Page
       </MainLayout>
     </div>
   );
 }
 
-export default Driver;
+export default Ride;

@@ -1,7 +1,7 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
 import { useState , useEffect} from "react";
-
+import Logo from "../../images/logo.png"
 
 
 //reusable component for homeNavbar items(without REGISTER item)
@@ -62,7 +62,8 @@ function HomeNavBar() {
     <div className="homeNavBar bg-orange p-6 sticky flex flex-row gap-3 justify-between items-center">
 
       <div>
-        {/* <img src="../../../images/logo.png" alt="logo" className="border w-1 h-16 mr-2"/> */}
+        <img src={Logo} alt="logo" className="h-8 mr-2"/>
+        
       </div>
 
       <div className="homeNavItems flex flex-row">
