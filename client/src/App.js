@@ -9,6 +9,7 @@ import DriverRegister from "./views/driver/DriverRegister";
 import ParentRegister from "./views/parent/ParentRegister";
 import Driver from "./views/driver/Driver";
 import Parent from "./views/parent/Parent";
+import ChildrenPage from "./views/parent/ChildrenPage";
 import Admin from "./views/admin/Admin";
 import Vcoordinator from "./views/v_coordinator/Vcoordinator";
 import SupAgent from "./views/sup_agent/SupAgent";
@@ -29,6 +30,7 @@ function App() {
           <Route exact path="/driver/finance" element={<DriverFinance/>} />
           <Route exact path="/driver/feedback" element={<DriverFeedback/>} />
           <Route exact path="/parent/home" element={<Parent/>} />
+          <Route exact path="/parent/children" element={<ChildrenPage/>} />
           <Route exact path="/admin/home" element={<Admin/>} />
           <Route exact path="/vc/home" element={<Vcoordinator/>} />
           <Route exact path="/sup_agent/home" element={<SupAgent/>} />
