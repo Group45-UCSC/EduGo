@@ -10,7 +10,7 @@ const sideNavBarLinks = [
   { title: "Feedback", path: "/driver/feedback", icon: <FaBeer /> },
 ];
 
-function Driver() {
+function DriverDashboardPg() {
   return (
     <div>
       <MainLayout data={sideNavBarLinks}>
@@ -20,4 +20,4 @@ function Driver() {
   );
 }
 
-export default Driver;
+export default DriverDashboardPg;
