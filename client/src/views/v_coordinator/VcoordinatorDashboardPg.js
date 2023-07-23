@@ -9,7 +9,7 @@ const sideNavBarLinks = [
   { title: "Emergency", path: "/vc/emergency", icon: <FaBeer /> },
 ];
 
-function Vcoordinator() {
+function VcoordinatorDashboardPg() {
   return (
     <div>
       <MainLayout data={sideNavBarLinks}>
@@ -19,4 +19,4 @@ function Vcoordinator() {
   );
 }
 
-export default Vcoordinator;
+export default VcoordinatorDashboardPg;

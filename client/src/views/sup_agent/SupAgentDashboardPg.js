@@ -8,7 +8,7 @@ const sideNavBarLinks = [
   { title: "Drivers", path: "/sup_agent/drivers", icon: <FaBeer /> },
 ];
 
-function SupAgent() {
+function SupAgentDashboardPg() {
   return (
     <div>
       <MainLayout data={sideNavBarLinks}>
@@ -18,4 +18,4 @@ function SupAgent() {
   );
 }
 
-export default SupAgent;
+export default SupAgentDashboardPg;
