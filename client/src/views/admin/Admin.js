@@ -15,7 +15,7 @@ function Admin() {
   return (
     <div>
       <MainLayout data={sideNavBarLinks}>
-        This is Admin's Landing page{" "}
+        This is Admin's Landing page.
       </MainLayout>
     </div>
   );
