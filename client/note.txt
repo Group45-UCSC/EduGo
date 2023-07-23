@@ -15,7 +15,7 @@ npm i express pg cors
 npm i nodemon
 npm i dotenv
 npm i fs path
-
+npm i bcrypt - a library to help you hash passwords.
 
 #to start run the application:
 
