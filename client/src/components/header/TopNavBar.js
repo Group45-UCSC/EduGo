@@ -1,6 +1,5 @@
-import {FaBars} from 'react-icons/fa'
-import { FaUserAlt } from 'react-icons/fa'
 import { FaRegBell } from 'react-icons/fa'
+import user from '../../images/user.png'
 // import { useNavigate } from 'react-router-dom';
 // import { NavLink } from 'react-router-dom';
 
@@ -18,9 +17,12 @@ function TopNavBar() {
         <div className='w-full p-4 text-black bg-white sticky flex flex-row gap-3 justify-between items-center shadow-md'>
             <div></div>
 
-            <div className='flex flex-row gap-6'>
-                <FaRegBell></FaRegBell>
-                <FaUserAlt></FaUserAlt>
+            <div className='flex item-center relative flex-row gap-6'>
+                <FaRegBell className='mt-[6px]'></FaRegBell>
+                <p>User Name</p>
+                <div>
+                    <img src={user} alt='user' className='w-8 bg-slate-300 cursor-pointer rounded-full p-1'></img>
+                </div>
                 
             </div>
         </ div>
