@@ -10,7 +10,7 @@ function MainLayout({ data, children }) {
         <div className="basis-[5%] h-[100vh] z-20">
           <SideNavBar data={data} />
         </div>
-        <div className="basis-[95%] border">
+        <div className="basis-[95%]">
           <TopNavBar /> 
           {children}
         </div>
