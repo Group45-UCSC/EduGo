@@ -46,7 +46,7 @@ function Children() {
         <div className='flex'>
 
             {/* parent's details container */}
-            <div className='bg-slate-200 w-1/5 h-80 ml-12 mt-8 rounded-lg shadow-md'>
+            <div className='bg-slate-200 w-80 h-80 ml-12 mt-8 rounded-lg shadow-md'>
                 
                 {/* title holder */}
                 <div className='font-bold mt-4 ml-3'>
@@ -64,7 +64,7 @@ function Children() {
             </div>
 
             {/* Vehicle details container */}
-            <div className='bg-slate-200 w-1/5 h-80 ml-12 mt-8 rounded-lg shadow-md'>
+            <div className='bg-slate-200 w-80 h-80 ml-12 mt-8 rounded-lg shadow-md'>
                 
                 {/* title holder */}
                 <div className='font-bold mt-4 ml-3'>
@@ -85,7 +85,7 @@ function Children() {
             </div>
 
             {/* Siblings details container */}
-            <div className='bg-slate-200 w-1/5 h-80 ml-12 mt-8 rounded-lg shadow-md'>
+            <div className='bg-slate-200 w-80 h-80 ml-12 mt-8 rounded-lg shadow-md'>
                 
                 {/* title holder */}
                 <div className='font-bold mt-4 ml-3'>
@@ -94,11 +94,11 @@ function Children() {
 
                 {/* rest of details */}
                 <div className='mt-4 ml-3'>
-                    <div className='mt-2 ml-3 w-64 h-16 font-serif cursor-pointer rounded-md bg-slate-50 shadow-md'>
+                    <div className='mt-2 ml-4 p-2 w-64 h-16 font-serif cursor-pointer rounded-md bg-slate-50 shadow-md'>
                         <p>Name: Pasindu Sanjeewa</p>
                         <p>Vehicle: NA - 1111</p>
                     </div>
-                    <div className='mt-2 ml-3 w-64 h-16 font-serif cursor-pointer rounded-md bg-slate-50 shadow-md'>
+                    <div className='mt-2 ml-4 p-2 w-64 h-16 font-serif cursor-pointer rounded-md bg-slate-50 shadow-md'>
                         <p>Name: Kavindu Sanjeewa</p>
                         <p>Vehicle: NA - 1111</p>
                     </div>
