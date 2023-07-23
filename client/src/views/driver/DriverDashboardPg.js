@@ -10,12 +10,14 @@ const sideNavBarLinks = [
   { title: "Feedback", path: "/driver/feedback", icon: <FaBeer /> },
 ];
 
-function Ride() {
+function DriverDashboardPg() {
   return (
     <div>
-      <MainLayout data={sideNavBarLinks}>This is Driver Ride Page</MainLayout>
+      <MainLayout data={sideNavBarLinks}>
+        This is driver's landing page
+      </MainLayout>
     </div>
   );
 }
 
-export default Ride;
+export default DriverDashboardPg;

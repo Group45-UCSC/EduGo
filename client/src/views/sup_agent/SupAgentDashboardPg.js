@@ -8,12 +8,14 @@ const sideNavBarLinks = [
   { title: "Drivers", path: "/sup_agent/drivers", icon: <FaBeer /> },
 ];
 
-function Drivers() {
+function SupAgentDashboardPg() {
   return (
-    <MainLayout data={sideNavBarLinks}>
-      This is Sup Agents's driver details page
-    </MainLayout>
+    <div>
+      <MainLayout data={sideNavBarLinks}>
+        This is Sup Agents's Landing page
+      </MainLayout>
+    </div>
   );
 }
 
-export default Drivers;
+export default SupAgentDashboardPg;

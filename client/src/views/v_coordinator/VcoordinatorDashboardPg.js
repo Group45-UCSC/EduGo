@@ -9,12 +9,14 @@ const sideNavBarLinks = [
   { title: "Emergency", path: "/vc/emergency", icon: <FaBeer /> },
 ];
 
-function Emergency() {
+function VcoordinatorDashboardPg() {
   return (
-    <MainLayout data={sideNavBarLinks}>
-      This is vehicle coordinator's Emergency page
-    </MainLayout>
+    <div>
+      <MainLayout data={sideNavBarLinks}>
+        This is vehicle coordinator's Landing page
+      </MainLayout>
+    </div>
   );
 }
 
-export default Emergency;
+export default VcoordinatorDashboardPg;

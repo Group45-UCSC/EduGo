@@ -11,14 +11,14 @@ const sideNavBarLinks = [
   { title: "Finance", path: "/admin/finance", icon: <FaBeer /> },
 ];
 
-function Admin() {
+function AdminDashboardPg() {
   return (
     <div>
       <MainLayout data={sideNavBarLinks}>
-        This is Admin's Landing page{" "}
+        This is Admin's Landing page.
       </MainLayout>
     </div>
   );
 }
 
-export default Admin;
+export default AdminDashboardPg;
