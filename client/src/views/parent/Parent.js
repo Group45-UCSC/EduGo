@@ -1,6 +1,6 @@
 import React from "react";
 import MainLayout from "../../components/layout/MainLayout";
-import { FaBeer,FaEnvelope,FaRegCalendarMinus,FaChild } from "react-icons/fa";
+import {FaEnvelope,FaRegCalendarMinus,FaChild } from "react-icons/fa";
 import { MdOutlineCrisisAlert, MdPayments,MdSupportAgent, MdOutlineRateReview } from "react-icons/md";
 import {AiFillDashboard} from "react-icons/ai"
 import parentMap from "../../images/parentMap.png";
