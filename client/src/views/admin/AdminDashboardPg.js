@@ -7,7 +7,7 @@ const sideNavBarLinks = [
   { title: "Employees", path: "/admin/employees", icon: <FaBeer /> },
   { title: "Drivers", path: "/admin/drivers", icon: <FaBeer /> },
   { title: "School Rides", path: "/admin/rides", icon: <FaBeer /> },
-  { title: "Children", path: "/admin/children", icon: <FaBeer /> },
+  { title: "Children", path: "/admin/childrenlist", icon: <FaBeer /> },
   { title: "Finance", path: "/admin/finance", icon: <FaBeer /> },
 ];
 
