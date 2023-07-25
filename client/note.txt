@@ -9,6 +9,7 @@
 npm install react-icons --save
 npm i react-router-dom
 npm i formik yup
+npm i recharts
 
 --server--
 npm i express pg cors
@@ -16,6 +17,7 @@ npm i nodemon
 npm i dotenv
 npm i fs path
 npm i bcrypt - a library to help you hash passwords.
+npm i jsonwebtoken
 
 #to start run the application:
 
