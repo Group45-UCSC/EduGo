@@ -25,6 +25,7 @@ import AdminEmployees from "./views/admin/Employees";
 import AdminDrivers from "./views/admin/Drivers";
 import AdminRides from "./views/admin/Rides";
 import AdminChildren from "./views/admin/Children";
+import AdminChildrenList from "./views/admin/ChildrenList";
 import AdminFinance from "./views/admin/Finance"
 
 import VcoordinatorDashboardPg from "./views/v_coordinator/VcoordinatorDashboardPg";
@@ -68,6 +69,7 @@ function App() {
           <Route exact path="/admin/drivers" element={<AdminDrivers />} />
           <Route exact path="/admin/rides" element={<AdminRides />} />
           <Route exact path="/admin/children" element={<AdminChildren />} />
+          <Route exact path="/admin/childrenlist" element={<AdminChildrenList />} />
           <Route exact path="/admin/finance" element={<AdminFinance />} />
 
           <Route exact path="/vc/dashboard" element={<VcoordinatorDashboardPg />} />
