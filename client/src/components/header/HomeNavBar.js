@@ -67,13 +67,15 @@ function HomeNavBar() {
       </div>
 
       <div className="homeNavItems flex flex-row">
+        <HomeNavBarItem path="/" name="Home" />
+        <HomeNavBarItem name="Services" />
+        <HomeNavBarItem name="About" />
+        <HomeNavBarItem name="Contact" />
+        <HomeNavBarItem path="/login" name="Login" />
+        {/* <HomeNavBarItem name="Register" /> */}
         <div>
             <HomeNavBarRegister path="/register" name="Register" />
         </div>
-        <HomeNavBarItem path="/login" name="Login" />
-        <HomeNavBarItem name="Contact" />
-        <HomeNavBarItem name="About" />
-        <HomeNavBarItem name="Service" />
       </div>
 
     </div>
