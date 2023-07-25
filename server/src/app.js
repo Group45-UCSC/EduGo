@@ -4,7 +4,7 @@ const cors = require("cors");
 const app = express();
 
 //middleware
-app.use(express.json());
+app.use(express.json());  //req.body
 app.use(cors());
 
 //database connection
@@ -18,16 +18,16 @@ const supAgentRoutes = require("./routes/supAgentRoutes");
 const vcRoutes = require("./routes/vcRoutes");
 const userRoutes = require("./routes/userRoutes");
 //register and login routes
-const jwtAuthRoutes = require("./routes/jwtAuth");
+// const jwtAuthRoutes = require("./routes/jwtAuth");
 
 //define routes to use in app
-app.use("/api/admin", adminRouter);
-app.use("/api/driver", driverRouter);
-app.use("/api/parent", parentRoutes);
-app.use("api/supAgent", supAgentRoutes);
-app.use("/api/vc", vcRoutes);
-app.use("/api/user", userRoutes);
-app.use("/api/auth", jwtAuthRoutes);
+app.use("/edugo/admin", adminRouter);
+app.use("/edugo/driver", driverRouter);
+app.use("/edugo/parent", parentRoutes);
+app.use("edugo/supAgent", supAgentRoutes);
+app.use("/edugo/vc", vcRoutes);
+app.use("/edugo/user", userRoutes);
+// app.use("/api/auth", jwtAuthRoutes);
 
 //export object
 module.exports = app;
