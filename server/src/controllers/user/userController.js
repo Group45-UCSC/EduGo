@@ -11,8 +11,6 @@ const jwtGenerator = require("../../utils/jwtGenerator");
 
 
 
-
-
 //----------------------user register function----------------------------------------------------------------------
 const register = async (req, res) => {
   try {
@@ -112,4 +110,26 @@ const login = async (req, res) => {
   }
 };
 
-module.exports = { login, register };
+
+
+//---------------logged user authorizing-----------------------
+
+const verify = async(req,res) => {
+  try {
+
+    // res.json(req.user);
+
+    const user = await pool.query("SELECT user_name FROM users WHERE user_id = $1", [req.user]);
+    
+    res.json(user.rows[0]);
+
+  } catch (error) {
+    console.error(err.message);
+    res.status(500).send("Server Error");
+  }
+}
+
+
+
+
+module.exports = { login, register, verify };
