@@ -1,65 +1,72 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
-import { useState , useEffect} from "react";
+import { Link } from "react-scroll";
+// import { useState , useEffect} from "react";
 import Logo from "../../images/logo.png"
 
 
 //reusable component for homeNavbar items(without REGISTER item)
-const HomeNavBarItem = ({ path, name }) => {
+const HomeNavBarItem = ({ to, name }) => {
     return (
-        <p className="homeNavItem px-5 cursor-pointer hover:text-white transition-all ease-in-out">
-        <NavLink to={path}>{name}</NavLink>
-        </p>
+      <p className="homeNavItem px-5 cursor-pointer hover:text-white transition-all ease-in-out">
+        <Link to={to} smooth={true} duration={500}>
+          {name}
+        </Link>
+    </p>
     );
 };
 
 
 
 //reusable component for homeNavbar REGISTER item
-const HomeNavBarRegister = ({ name }) => {
+// const HomeNavBarRegister = ({ name }) => {
 
-    const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+//     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
-    const handleMouseClick = () => {
-        setIsDropdownOpen(!isDropdownOpen)
-    }
+//     const handleMouseClick = () => {
+//         setIsDropdownOpen(!isDropdownOpen)
+//     }
 
-    const handleOutsideClick = (event) => {
-        if (event.target.closest('.dropDown')) return;
-        setIsDropdownOpen(false);
-      };
+//     const handleOutsideClick = (event) => {
+//         if (event.target.closest('.dropDown')) return;
+//         setIsDropdownOpen(false);
+//       };
     
-      useEffect(() => {
-        document.addEventListener('mousedown', handleOutsideClick);
-        return () => {
-          document.removeEventListener('mousedown', handleOutsideClick);
-        };
-      }, []);
+//       useEffect(() => {
+//         document.addEventListener('mousedown', handleOutsideClick);
+//         return () => {
+//           document.removeEventListener('mousedown', handleOutsideClick);
+//         };
+//       }, []);
 
-    return (
-        <div>
-            <div className="homeNavItem pl-12 pr-5 cursor-pointer hover:text-white transition-all ease-in-out"
-                onClick = {handleMouseClick} >
-                {name}
-            </div>
+//     return (
+//         <div>
+//             <div className="homeNavItem pl-12 pr-5 cursor-pointer hover:text-white transition-all ease-in-out"
+//                 onClick = {handleMouseClick} >
+//                 {name}
+//             </div>
 
-            {isDropdownOpen && (
-                <div className="dropDown absolute flex flex-col mt-6">
-                    <NavLink className="dropDownItem px-12 py-3 bg-gray hover:bg-black hover:text-white" to="/parent/register">Parent</NavLink>
-                    <NavLink className="dropDownItem px-12 py-3 bg-gray hover:bg-black hover:text-white" to="/driver/register">Driver</NavLink>
-                </div>
-            )}
-        </div>
+//             {isDropdownOpen && (
+//                 <div className="dropDown absolute flex flex-col mt-6">
+//                     <NavLink className="dropDownItem px-12 py-3 bg-gray hover:bg-black hover:text-white" to="/parent/register">Parent</NavLink>
+//                     <NavLink className="dropDownItem px-12 py-3 bg-gray hover:bg-black hover:text-white" to="/driver/register">Driver</NavLink>
+//                 </div>
+//             )}
+//         </div>
 
-    );
-}
+//     );
+// }
 
 
 
 //main homeNavbar function
 function HomeNavBar() {
   return (
-    <div className="homeNavBar bg-orange p-6 sticky flex flex-row gap-3 justify-between items-center">
+    <div className="homeNavBar bg-orange p-6 sticky flex flex-row gap-3 justify-between items-center" 
+    style={{
+      top: "0",
+      zIndex: "100",
+    }}>
 
       <div>
         <img src={Logo} alt="logo" className="h-8 mr-2"/>
@@ -67,15 +74,17 @@ function HomeNavBar() {
       </div>
 
       <div className="homeNavItems flex flex-row">
-        <HomeNavBarItem path="/" name="Home" />
-        <HomeNavBarItem name="Services" />
-        <HomeNavBarItem name="About" />
-        <HomeNavBarItem name="Contact" />
-        <HomeNavBarItem path="/login" name="Login" />
-        {/* <HomeNavBarItem name="Register" /> */}
-        <div>
+        <HomeNavBarItem to="section1" name="Home" />
+        <HomeNavBarItem to="section2" name="Services" />
+        <HomeNavBarItem to="section3" name="About" />
+        <HomeNavBarItem to="section4" name="Contact" />
+        <HomeNavBarItem to="section5" name="Register" />
+        <NavLink to="/login" className="homeNavItem px-5 cursor-pointer hover:text-white transition-all ease-in-out">
+          Login
+        </NavLink>
+        {/* <div>
             <HomeNavBarRegister path="/register" name="Register" />
-        </div>
+        </div> */}
       </div>
 
     </div>
