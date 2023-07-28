@@ -10,6 +10,7 @@ npm install react-icons --save
 npm i react-router-dom
 npm i formik yup
 npm i recharts
+npm install react-scroll
 
 --server--
 npm i express pg cors
