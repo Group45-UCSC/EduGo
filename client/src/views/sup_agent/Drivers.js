@@ -28,15 +28,19 @@ const initialVehicleData = [
 const initialDriverData = [
   {
     id: 1,
-    contact: "John Doe",
+    name: "John Doe",
+    contact: "0332250444",
     address: "Rosmead Place, Colombo 7",
     vnum: "V12345",
+    img: "https://image.shutterstock.com/image-photo/portrait-handsome-caucasian-man-formal-260nw-2142820441.jpg",
   },
   {
     id: 2,
-    contact: "Nethmini Abeykoon",
+    name: "Nethmini Abeykoon",
+    contact: "0332250444",
     address: "Flower Rd, Rajagiriya",
     vnum: "V98765",
+    img: "https://image.shutterstock.com/image-photo/portrait-happy-mid-adult-man-260nw-1812937819.jpg",
   },
 ];
 
@@ -110,6 +114,7 @@ function Drivers() {
                 <thead className="bg-[#999999] border-2 text-xl">
                   <tr className="">
                     <th className="px-4 py-4 text-left">ID</th>
+                    <th className="px-4 py-4 text-left">Name</th>
                     <th className="px-4 py-4 text-left">Contact</th>
                     <th className="px-4 py-4 text-left">Address</th>
                     <th className="px-4 py-4 text-left">Vehicle Number</th>
@@ -124,6 +129,7 @@ function Drivers() {
                       onClick={() => handleRowClick(driver)}
                     >
                       <td className="text-left px-4 py-4">{driver.id}</td>
+                      <td className="text-left px-4 py-4">{driver.name}</td>
                       <td className="text-left px-4 py-4">{driver.contact}</td>
                       <td className="text-left px-4 py-4">{driver.address}</td>
                       <td className="text-left px-4 py-4">{driver.vnum}</td>
@@ -193,52 +199,74 @@ function Drivers() {
               </table>
             </div>
           )}
-          {/* -------------------------end children data----------------------------- */}
+          {/* -------------------------end vehicle data----------------------------- */}
         </div>
-    {activeTab ==="vehicles" && selectedRow && (
-      <DriverVehicleDetails
-      isOpen={selectedRow !== null}
-      onClose={handleClosePopup}
-      content={
-        <div className="grid grid-cols-3 flex-row gap-15">
-            <div className="bg-black w-[100px] h-2"></div>
-            <div className="bg-orange w-[100px] h-2"></div>
-            <div className="bg-gray w-[100px] h-2"></div>
-          </div>
-      }
-      
-      />
-    )}
-{activeTab === "drivers" && selectedRow && (
-        <DriverVehicleDetails
-          isOpen={selectedRow !== null}
-          onClose={handleClosePopup}
-          activeTab={activeTab} // Pass the activeTab prop here
-          content={
-            <div></div>
-          }
-        />
-      )}
+        
+        {activeTab === "drivers" && selectedRow && (
+          <DriverVehicleDetails
+            isOpen={selectedRow !== null}
+            onClose={handleClosePopup}
+            activeTab={activeTab} // Pass the activeTab prop here
+            content={
+              <div>
+                <div className="">
+                  <div className="grid grid-cols-2 p-2">
+                    <div className="flex flex-col gap-2">
+                      <img
+                        src={selectedRow.img}
+                        className="w-[8rem] rounded-full"
+                        alt="Avatar"
+                      />
+                      <h2 className="font-bold text-xl ml mt-4">
+                        {selectedRow.name}
+                      </h2>
+                    </div>
+                    <div className="bg-gradient-to-tl from-[#f6ad55] to-[#fbd38d] w-full h-auto p-5 rounded-xl">
+                      <p>
+                        <strong className="mr-2">ID:</strong> {selectedRow.id}
+                      </p>
+                      <p>
+                        <strong className="mr-2">NIC Number:</strong>{" "}
+                        {selectedRow.nicNumber}
+                      </p>
+                      <p>
+                        <strong className="mr-2">Contact No:</strong>{" "}
+                        {selectedRow.contact}
+                      </p>
+                      <p>
+                        <strong className="mr-2">Address:</strong>{" "}
+                        {selectedRow.address}
+                      </p>
+                    </div>
+                  </div>
 
+                  <div className="bg-[#EEEEEE] w-full h-[15rem] mt-5 rounded-xl p-3">
+                    <p className="text-xl font-semibold">Dependent's Details</p>
+                    <div className="flex flex-1 gap-20 p-2">
+                      <div className="bg-[#F9F9F9] w-2/5 h-5"></div>
+                      <div className="bg-[#F9F9F9] w-2/5 h-5"> </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            }
+          />
+        )}
 
-
-{activeTab ==="vehicles" && selectedRow && (
-      <DriverVehicleDetails
-      isOpen={selectedRow !== null}
-      onClose={handleClosePopup}
-      activeTab={activeTab}
-      content={
-        <div className="grid grid-cols-3 flex-row gap-15">
-            <div className="bg-black w-[100px] h-2"></div>
-            <div className="bg-orange w-[100px] h-2"></div>
-            <div className="bg-gray w-[100px] h-2"></div>
-          </div>
-      }
-      
-      />
-    )}
-
-
+        {activeTab === "vehicles" && selectedRow && (
+          <DriverVehicleDetails
+            isOpen={selectedRow !== null}
+            onClose={handleClosePopup}
+            activeTab={activeTab}
+            content={
+              <div className="grid grid-cols-3 flex-row gap-15">
+                <div className="bg-black w-[100px] h-2"></div>
+                <div className="bg-orange w-[100px] h-2"></div>
+                <div className="bg-gray w-[100px] h-2"></div>
+              </div>
+            }
+          />
+        )}
       </MainLayout>
     </div>
   );

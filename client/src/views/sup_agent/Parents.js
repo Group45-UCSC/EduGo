@@ -206,25 +206,26 @@ function Parents() {
           )}
           {/* -------------------------end children data----------------------------- */}
         </div>
-        <ParentChildDetails
-          isOpen={selectedRow !== null}
-          onClose={handleClosePopup}
-          content={
-            selectedRow && (
+        {activeTab === "parents" && selectedRow && (
+          <ParentChildDetails
+            isOpen={selectedRow !== null}
+            onClose={handleClosePopup}
+            activeTab={activeTab} // Pass the activeTab prop here
+            content={
               <div>
-                <h2 className="font-bold text-xl">
-                  {selectedRow.name}'s Details
-                </h2>
-                <div className="p-2">
-                  <div className="inline-flex gap-[10rem]">
-                    <div>
+                <div className="">
+                  <div className="grid grid-cols-2 p-2">
+                    <div className="flex flex-col gap-2">
                       <img
                         src={selectedRow.img}
                         className="w-[8rem] rounded-full"
                         alt="Avatar"
                       />
+                      <h2 className="font-bold text-xl ml mt-4">
+                        {selectedRow.name}
+                      </h2>
                     </div>
-                    <div className="bg-gradient-to-tl from-[#f6ad55] to-[#fbd38d] w-[25rem] h-auto p-5 rounded-xl">
+                    <div className="bg-gradient-to-tl from-[#f6ad55] to-[#fbd38d] w-full h-auto p-5 rounded-xl">
                       <p>
                         <strong className="mr-2">ID:</strong> {selectedRow.id}
                       </p>
@@ -252,9 +253,59 @@ function Parents() {
                   </div>
                 </div>
               </div>
-            )
-          }
-        />
+            }
+          />
+        )}
+        {activeTab === "children" && selectedRow && (
+          <ParentChildDetails
+            isOpen={selectedRow !== null}
+            onClose={handleClosePopup}
+            activeTab={activeTab} // Pass the activeTab prop here
+            content={
+              <div>
+                <div className="">
+                  <div className="grid grid-cols-2 p-2">
+                    <div className="flex flex-col gap-2">
+                      <img
+                        src={selectedRow.img}
+                        className="w-[8rem] rounded-full"
+                        alt="Avatar"
+                      />
+                      <h2 className="font-bold text-xl ml mt-4">
+                        {selectedRow.name}
+                      </h2>
+                    </div>
+                    <div className="bg-gradient-to-tl from-[#f6ad55] to-[#fbd38d] w-full h-auto p-5 rounded-xl">
+                      <p>
+                        <strong className="mr-2">ID:</strong> {selectedRow.id}
+                      </p>
+                      <p>
+                        <strong className="mr-2">NIC Number:</strong>{" "}
+                        {selectedRow.nicNumber}
+                      </p>
+                      <p>
+                        <strong className="mr-2">Contact No:</strong>{" "}
+                        {selectedRow.contact}
+                      </p>
+                      <p>
+                        <strong className="mr-2">Address:</strong>{" "}
+                        {selectedRow.address}
+                      </p>
+                    </div>
+                  </div>
+
+                  <div className="bg-[#EEEEEE] w-full h-[15rem] mt-5 rounded-xl p-3">
+                    <p className="text-xl font-semibold">Dependent's Details</p>
+                    <div className="flex flex-1 gap-20 p-2">
+                      <div className="bg-[#F9F9F9] w-2/5 h-5"></div>
+                      <div className="bg-[#F9F9F9] w-2/5 h-5"> </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            }
+          />
+        )}
       </MainLayout>
     </div>
   );

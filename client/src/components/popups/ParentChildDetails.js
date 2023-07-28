@@ -1,6 +1,6 @@
-import React from 'react';
-import { FaTimes } from 'react-icons/fa';
-const ParentChildDetails = ({ isOpen, onClose, content }) => {
+import React from "react";
+import { FaTimes } from "react-icons/fa";
+const ParentChildDetails = ({ isOpen, onClose, content,activeTab }) => {
   return (
     <>
       {isOpen && (
@@ -12,9 +12,21 @@ const ParentChildDetails = ({ isOpen, onClose, content }) => {
             >
               <FaTimes className="h-6 w-6" />
             </button>
-            <div className="mt-4">
-              {/* Replace this with your actual content */}
-              <p className="text-gray-700">{content}</p>
+            <div className="mt-1">
+              {activeTab === "parents" && (
+                <div>
+                  <h1 className="font-bold text-2xl mb-3">Parent Details</h1>
+                  {/* Replace this with the actual content for the Driver tab */}
+                  <p className="">{content}</p>
+                </div>
+              )}
+
+              {activeTab === "children" && (
+                <div>
+                  <h1 className="font-bold text-2xl">Child Details</h1>
+                  <p className="text-gray-700">{content}</p>
+                </div>
+              )}
             </div>
           </div>
         </div>

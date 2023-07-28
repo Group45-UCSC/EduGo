@@ -4,20 +4,20 @@ import CarouselLayout from "../carousel/CarouselLayout";
 
 const CAROUSEL_DATA = [
   {
-    image:"https://riyasewana.com/uploads/toyota-shell-lh61-271528574871.jpg",
-    imageAlt: "minions",
+    image: "https://riyasewana.com/uploads/toyota-shell-lh61-271528574871.jpg",
+    imageAlt: "v1 img1",
   },
   {
     image: "https://riyasewana.com/uploads/toyota-shell-lh61-271528574692.jpg",
-    imageAlt: "thor",
+    imageAlt: "v1 img2 ",
   },
   {
-    image:"https://riyasewana.com/uploads/toyota-shell-lh61-271529516704.jpg",
-    imageAlt: "space",
+    image: "https://riyasewana.com/uploads/toyota-shell-lh61-271529516704.jpg",
+    imageAlt: "v1 img3",
   },
 ];
 
-const DriverVehicleDetails = ({ isOpen, onClose, content,activeTab}) => {
+const DriverVehicleDetails = ({ isOpen, onClose, content, activeTab }) => {
   return (
     <>
       {isOpen && (
@@ -29,26 +29,23 @@ const DriverVehicleDetails = ({ isOpen, onClose, content,activeTab}) => {
             >
               <FaTimes className="h-6 w-6" />
             </button>
-            <div className="mt-4">
+            <div className="mt-1">
               {activeTab === "drivers" && (
                 <div>
-                  <h1 className="font-bold text-2xl">Driver Details</h1>
+                  <h1 className="font-bold text-2xl mb-3">Driver Details</h1>
                   {/* Replace this with the actual content for the Driver tab */}
-                  <p className="text-gray-700">{content}</p>
+                  <p className="">{content}</p>
                 </div>
               )}
-      
-      {activeTab === "vehicles" && (
-              
+
+              {activeTab === "vehicles" && (
                 <div>
                   <h1 className="font-bold text-2xl">Vehicle Details</h1>
                   <CarouselLayout data={CAROUSEL_DATA} />
                   <p className="text-gray-700">{content}</p>
                 </div>
               )}
-
             </div>
-            {/* <CarouselLayout data={CAROUSEL_DATA}/> */}
           </div>
         </div>
       )}
