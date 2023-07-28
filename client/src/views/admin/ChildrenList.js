@@ -11,7 +11,7 @@ const sideNavBarLinks = [
   { title: "Finance", path: "/admin/finance", icon: <FaBeer /> },
 ];
 
-function ChildrenList() {
+function AdminChildrenList() {
 
     const handleClick = () => {
         window.location.href = `/admin/children`;
@@ -109,4 +109,4 @@ function ChildrenList() {
   )
 }
 
-export default ChildrenList
+export default AdminChildrenList

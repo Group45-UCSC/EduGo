@@ -11,7 +11,7 @@ const sideNavBarLinks = [
   { title: "Finance", path: "/admin/finance", icon: <FaBeer /> },
 ];
 
-function Children() {
+function AdminChildren() {
   return (
     <div>
       <MainLayout data={sideNavBarLinks}>
@@ -116,4 +116,4 @@ function Children() {
   );
 }
 
-export default Children;
+export default AdminChildren;

@@ -11,7 +11,10 @@ const sideNavBarLinks = [
   { title: "Finance", path: "/admin/finance", icon: <FaBeer /> },
 ];
 
-function Rides() {
+function AdminRides() {
+  const handleClick = () => {
+    window.location.href = `/admin/ridedetails`;
+  };
   return (
     <div>
       <MainLayout data={sideNavBarLinks}>
@@ -32,7 +35,7 @@ function Rides() {
           </thead>
 
           <tbody className=''>
-            <tr className=' bg-[#D9D9D9] bg-opacity-60 hover:cursor-pointer hover:bg-[#eaeaea] drop-shadow-md'>
+            <tr onClick={handleClick} className=' bg-[#D9D9D9] bg-opacity-60 hover:cursor-pointer hover:bg-[#eaeaea] drop-shadow-md'>
                 <td className='text-center  p-3'> 001</td>
                 <td>NA - 1111</td>
                 <td>Arawwala</td>
@@ -113,4 +116,4 @@ function Rides() {
   );
 }
 
-export default Rides;
+export default AdminRides;
