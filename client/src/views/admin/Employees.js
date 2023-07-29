@@ -14,7 +14,10 @@ const sideNavBarLinks = [
 function Employees() {
 
   const handleClick = () => {
-    window.location.href = `/admin/employeeetails`;
+    window.location.href = `/admin/supportagent`;
+  };
+  const handleClickVC = () => {
+    window.location.href = `/admin/V_Coordinator`;
   };
   return (
     <div>
@@ -44,7 +47,7 @@ function Employees() {
                   <td>962382312V</td>
               </tr>
               
-              <tr onClick={handleClick} className=' bg-[#D9D9D9] bg-opacity-60 hover:cursor-pointer hover:bg-[#eaeaea] drop-shadow-md'>
+              <tr onClick={handleClickVC} className=' bg-[#D9D9D9] bg-opacity-60 hover:cursor-pointer hover:bg-[#eaeaea] drop-shadow-md'>
                   <td className='text-center  p-3'> 002</td>
                   <td>Sachintha Muthuhetti</td>
                   <td>sachintha@gmail.com</td>
