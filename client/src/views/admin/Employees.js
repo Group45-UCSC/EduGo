@@ -17,7 +17,7 @@ function Employees() {
     window.location.href = `/admin/supportagent`;
   };
   const handleClickVC = () => {
-    window.location.href = `/admin/V_Coordinator`;
+    window.location.href = `/admin/VCoordinator`;
   };
   return (
     <div>
