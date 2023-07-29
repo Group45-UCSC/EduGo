@@ -1,6 +1,9 @@
-import React from "react";
+import React, {useState} from "react";
 import MainLayout from "../../components/layout/MainLayout";
 import { FaBeer } from "react-icons/fa";
+import { BsPlusCircleFill } from "react-icons/bs";
+import { BsPencilFill } from "react-icons/bs";
+import { BsTrashFill } from "react-icons/bs";
 
 const sideNavBarLinks = [
   { title: "Dashboard", path: "/admin/dashboard", icon: <FaBeer /> },
@@ -13,6 +16,12 @@ const sideNavBarLinks = [
 
 function Employees() {
 
+  const [toggle, setToggle] = useState(1);
+
+  function updateToggle(id) {
+    setToggle(id);
+  }
+
   const handleClick = () => {
     window.location.href = `/admin/supportagent`;
   };
@@ -24,7 +33,24 @@ function Employees() {
       <MainLayout data={sideNavBarLinks}>
       <div className='font-bold ml-12 mt-4 text-2xl'>Employees</div>
 
-        <div className='ml-32 mt-12 mr-32 shadow-md overflow-auto '>
+        {/* add employee button */}
+        <div className="text-center ml-32 mr-32 mt-12">
+          <div className="flex float-right h-11 w-44 shadow-lg bg-orange font-semibold text-lg pt-2 cursor-pointer hover:scale-[102%] hover:bg-amber-500 transition-transform ease-in-out"><BsPlusCircleFill className="mt-1 ml-2 mr-2" />Add employee</div>
+        </div>
+
+          {/*employees button container */}
+          <div className="flex text-center ml-32 mt-24">
+
+            {/* buttons */}
+            <div onClick={()=>updateToggle(1)} className={toggle === 1 ? "h-11 w-44 shadow-lg bg-amber-600 scale-[102%] font-semibold text-lg pt-2 cursor-pointer" : "h-11 w-44 shadow-lg bg-orange font-semibold text-lg pt-2 cursor-pointer hover:scale-[102%] hover:bg-amber-600 transition-transform ease-in-out"}>Support Agent</div>
+            <div onClick={()=>updateToggle(2)} className={toggle === 2 ? "ml-1 h-11 w-44 shadow-lg bg-amber-600 scale-[102%] font-semibold text-lg pt-2 cursor-pointer" : "h-11 w-44 ml-1 shadow-lg bg-orange font-semibold text-lg pt-2 cursor-pointer hover:scale-[102%] hover:bg-amber-600 transition-transform ease-in-out"}>Vehicle Coordinator</div>
+          </div>
+
+          {/* support agent table */}
+        
+        <div className={toggle === 1 ? "details" : "details hidden"}>
+
+        <div className='ml-32 mr-32 shadow-md overflow-auto '>
           <table className='w-full text-center border-separate border-spacing-y-2 border border-slate-50 '>
             <thead className='border-y-4 border-white drop-shadow '>
               <tr className=' bg-[#999999] text-white border-b-2 text-[18px] drop-shadow-md '>
@@ -33,7 +59,7 @@ function Employees() {
                 <th className='px-3.5 w-30'>Email</th>
                 <th className='px-3.5 w-30'>Address</th>
                 <th className='px-3.5 w-30'>Contact</th>
-                <th className='px-3.5 w-30'>NIC</th>  
+                <th className='px-3.5 w-30'></th>  
               </tr>
             </thead>
 
@@ -44,16 +70,26 @@ function Employees() {
                   <td>ashan@gmail.com</td>
                   <td>No.87 main street, Piliyandala</td>
                   <td>0711234567</td>
-                  <td>962382312V</td>
+                  <td>
+                    <div className="flex ml-2 h-8 w-20 bg-orange rounded-md shadow-md">
+                      <BsPencilFill className="mt-2 ml-4 hover:scale-[110%] transition-transform ease-in-out"/>
+                      <BsTrashFill className="mt-2 ml-4 hover:scale-[110%] transition-transform ease-in-out"/>
+                    </div>
+                  </td>
               </tr>
               
-              <tr onClick={handleClickVC} className=' bg-[#D9D9D9] bg-opacity-60 hover:cursor-pointer hover:bg-[#eaeaea] drop-shadow-md'>
+              <tr onClick={handleClick} className=' bg-[#D9D9D9] bg-opacity-60 hover:cursor-pointer hover:bg-[#eaeaea] drop-shadow-md'>
                   <td className='text-center  p-3'> 002</td>
                   <td>Sachintha Muthuhetti</td>
                   <td>sachintha@gmail.com</td>
                   <td>No.34/5 Mutuwal, Modara</td>
                   <td>0757676763</td>
-                  <td>987787781V</td>
+                  <td>
+                    <div className="flex ml-2 h-8 w-20 bg-orange rounded-md shadow-md">
+                      <BsPencilFill className="mt-2 ml-4 hover:scale-[110%] transition-transform ease-in-out"/>
+                      <BsTrashFill className="mt-2 ml-4 hover:scale-[110%] transition-transform ease-in-out"/>
+                    </div>
+                  </td>
               </tr>
 
               <tr onClick={handleClick} className=' bg-[#D9D9D9] bg-opacity-60 hover:cursor-pointer hover:bg-[#eaeaea] drop-shadow-md'>
@@ -62,7 +98,12 @@ function Employees() {
                   <td>nifas@gmail.com</td>
                   <td>No.23/5, maley street, colombo</td>
                   <td>0710912873</td>
-                  <td>998781231V</td>
+                  <td>
+                    <div className="flex ml-2 h-8 w-20 bg-orange rounded-md shadow-md">
+                      <BsPencilFill className="mt-2 ml-4 hover:scale-[110%] transition-transform ease-in-out"/>
+                      <BsTrashFill className="mt-2 ml-4 hover:scale-[110%] transition-transform ease-in-out"/>
+                    </div>
+                  </td>
               </tr>
 
               <tr onClick={handleClick} className=' bg-[#D9D9D9] bg-opacity-60 hover:cursor-pointer hover:bg-[#eaeaea] drop-shadow-md'>
@@ -71,7 +112,12 @@ function Employees() {
                   <td>ridma@gmail.com</td>
                   <td>No.7 School lane, Wijerama</td>
                   <td>0778765432</td>
-                  <td>959898989V</td>
+                  <td>
+                    <div className="flex ml-2 h-8 w-20 bg-orange rounded-md shadow-md">
+                      <BsPencilFill className="mt-2 ml-4 hover:scale-[110%] transition-transform ease-in-out"/>
+                      <BsTrashFill className="mt-2 ml-4 hover:scale-[110%] transition-transform ease-in-out"/>
+                    </div>
+                  </td>
               </tr>
 
               <tr onClick={handleClick} className=' bg-[#D9D9D9] bg-opacity-60 hover:cursor-pointer hover:bg-[#eaeaea] drop-shadow-md'>
@@ -80,7 +126,12 @@ function Employees() {
                   <td>hiran@gmail.com</td>
                   <td>No.2 Akbar street, Malabe</td>
                   <td>0712342345</td>
-                  <td>912349876V</td>
+                  <td>
+                    <div className="flex ml-2 h-8 w-20 bg-orange rounded-md shadow-md">
+                      <BsPencilFill className="mt-2 ml-4 hover:scale-[110%] transition-transform ease-in-out"/>
+                      <BsTrashFill className="mt-2 ml-4 hover:scale-[110%] transition-transform ease-in-out"/>
+                    </div>
+                  </td>
               </tr>
 
               <tr onClick={handleClick} className=' bg-[#D9D9D9] bg-opacity-60 hover:cursor-pointer hover:bg-[#eaeaea] drop-shadow-md'>
@@ -89,7 +140,12 @@ function Employees() {
                   <td>nishantha@gmail.com</td>
                   <td>No.7 School Road, Raththanapitiya</td>
                   <td>0729874567</td>
-                  <td>912212212V</td>
+                  <td>
+                    <div className="flex ml-2 h-8 w-20 bg-orange rounded-md shadow-md">
+                      <BsPencilFill className="mt-2 ml-4 hover:scale-[110%] transition-transform ease-in-out"/>
+                      <BsTrashFill className="mt-2 ml-4 hover:scale-[110%] transition-transform ease-in-out"/>
+                    </div>
+                  </td>
               </tr>
 
               <tr onClick={handleClick} className=' bg-[#D9D9D9] bg-opacity-60 hover:cursor-pointer hover:bg-[#eaeaea] drop-shadow-md'>
@@ -98,7 +154,12 @@ function Employees() {
                   <td>pasindu@gmail.com</td>
                   <td>No.22 Good shed road, Kohuwala</td>
                   <td>0708765421</td>
-                  <td>998732318V</td>
+                  <td>
+                    <div className="flex ml-2 h-8 w-20 bg-orange rounded-md shadow-md">
+                      <BsPencilFill className="mt-2 ml-4 hover:scale-[110%] transition-transform ease-in-out"/>
+                      <BsTrashFill className="mt-2 ml-4 hover:scale-[110%] transition-transform ease-in-out"/>
+                    </div>
+                  </td>
               </tr>
 
               <tr onClick={handleClick} className=' bg-[#D9D9D9] bg-opacity-60 hover:cursor-pointer hover:bg-[#eaeaea] drop-shadow-md'>
@@ -107,12 +168,154 @@ function Employees() {
                   <td>gayan@gmail.com</td>
                   <td>No.22 main street, Meepe</td>
                   <td>0770987654</td>
-                  <td>952334310V</td>
+                  <td>
+                    <div className="flex ml-2 h-8 w-20 bg-orange rounded-md shadow-md">
+                      <BsPencilFill className="mt-2 ml-4 hover:scale-[110%] transition-transform ease-in-out"/>
+                      <BsTrashFill className="mt-2 ml-4 hover:scale-[110%] transition-transform ease-in-out"/>
+                    </div>
+                  </td>
               </tr>
             </tbody>
 
           </table>
         </div>
+        </div>
+
+        {/* vehicle coordiator table */}
+
+        <div className={toggle === 2 ? "details" : "details hidden"}>
+        
+        <div className='details ml-32 mr-32 shadow-md overflow-auto '>
+          <table className='w-full text-center border-separate border-spacing-y-2 border border-slate-50 '>
+            <thead className='border-y-4 border-white drop-shadow '>
+              <tr className=' bg-[#999999] text-white border-b-2 text-[18px] drop-shadow-md '>
+                <th className='px-3.5 p-1 w-24 '>ID</th>
+                <th className='px-3.5 w-30'>Name</th>
+                <th className='px-3.5 w-30'>Email</th>
+                <th className='px-3.5 w-30'>Address</th>
+                <th className='px-3.5 w-30'>Contact</th>
+                <th className='px-3.5 w-30'></th>  
+              </tr>
+            </thead>
+
+            <tbody className=''>
+              <tr onClick={handleClickVC} className=' bg-[#D9D9D9] bg-opacity-60 hover:cursor-pointer hover:bg-[#eaeaea] drop-shadow-md'>
+                  <td className='text-center  p-3'> 009</td>
+                  <td>Ashan Dhanushka</td>
+                  <td>ashan@gmail.com</td>
+                  <td>No.87 main street, Piliyandala</td>
+                  <td>0711234567</td>
+                  <td>
+                    <div className="flex ml-2 h-8 w-20 bg-orange rounded-md shadow-md">
+                      <BsPencilFill className="mt-2 ml-4 hover:scale-[110%] transition-transform ease-in-out"/>
+                      <BsTrashFill className="mt-2 ml-4 hover:scale-[110%] transition-transform ease-in-out"/>
+                    </div>
+                  </td>
+              </tr>
+              
+              <tr onClick={handleClickVC} className=' bg-[#D9D9D9] bg-opacity-60 hover:cursor-pointer hover:bg-[#eaeaea] drop-shadow-md'>
+                  <td className='text-center  p-3'> 010</td>
+                  <td>Sachintha Muthuhetti</td>
+                  <td>sachintha@gmail.com</td>
+                  <td>No.34/5 Mutuwal, Modara</td>
+                  <td>0757676763</td>
+                  <td>
+                    <div className="flex ml-2 h-8 w-20 bg-orange rounded-md shadow-md">
+                      <BsPencilFill className="mt-2 ml-4 hover:scale-[110%] transition-transform ease-in-out"/>
+                      <BsTrashFill className="mt-2 ml-4 hover:scale-[110%] transition-transform ease-in-out"/>
+                    </div>
+                  </td>
+              </tr>
+
+              <tr onClick={handleClickVC} className=' bg-[#D9D9D9] bg-opacity-60 hover:cursor-pointer hover:bg-[#eaeaea] drop-shadow-md'>
+                  <td className='text-center  p-3'> 011</td>
+                  <td>Nifas Rizwan</td>
+                  <td>nifas@gmail.com</td>
+                  <td>No.23/5, maley street, colombo</td>
+                  <td>0710912873</td>
+                  <td>
+                    <div className="flex ml-2 h-8 w-20 bg-orange rounded-md shadow-md">
+                      <BsPencilFill className="mt-2 ml-4 hover:scale-[110%] transition-transform ease-in-out"/>
+                      <BsTrashFill className="mt-2 ml-4 hover:scale-[110%] transition-transform ease-in-out"/>
+                    </div>
+                  </td>
+              </tr>
+
+              <tr onClick={handleClickVC} className=' bg-[#D9D9D9] bg-opacity-60 hover:cursor-pointer hover:bg-[#eaeaea] drop-shadow-md'>
+                  <td className='text-center  p-3'> 012</td>
+                  <td>Ridma Priyanjan</td>
+                  <td>ridma@gmail.com</td>
+                  <td>No.7 School lane, Wijerama</td>
+                  <td>0778765432</td>
+                  <td>
+                    <div className="flex ml-2 h-8 w-20 bg-orange rounded-md shadow-md">
+                      <BsPencilFill className="mt-2 ml-4 hover:scale-[110%] transition-transform ease-in-out"/>
+                      <BsTrashFill className="mt-2 ml-4 hover:scale-[110%] transition-transform ease-in-out"/>
+                    </div>
+                  </td>
+              </tr>
+
+              <tr onClick={handleClickVC} className=' bg-[#D9D9D9] bg-opacity-60 hover:cursor-pointer hover:bg-[#eaeaea] drop-shadow-md'>
+                  <td className='text-center  p-3'> 013</td>
+                  <td>Hiran Jayashanka</td>
+                  <td>hiran@gmail.com</td>
+                  <td>No.2 Akbar street, Malabe</td>
+                  <td>0712342345</td>
+                  <td>
+                    <div className="flex ml-2 h-8 w-20 bg-orange rounded-md shadow-md">
+                      <BsPencilFill className="mt-2 ml-4 hover:scale-[110%] transition-transform ease-in-out"/>
+                      <BsTrashFill className="mt-2 ml-4 hover:scale-[110%] transition-transform ease-in-out"/>
+                    </div>
+                  </td>
+              </tr>
+
+              <tr onClick={handleClickVC} className=' bg-[#D9D9D9] bg-opacity-60 hover:cursor-pointer hover:bg-[#eaeaea] drop-shadow-md'>
+                  <td className='text-center  p-3'> 014</td>
+                  <td>Nishantha Gamlath</td>
+                  <td>nishantha@gmail.com</td>
+                  <td>No.7 School Road, Raththanapitiya</td>
+                  <td>0729874567</td>
+                  <td>
+                    <div className="flex ml-2 h-8 w-20 bg-orange rounded-md shadow-md">
+                      <BsPencilFill className="mt-2 ml-4 hover:scale-[110%] transition-transform ease-in-out"/>
+                      <BsTrashFill className="mt-2 ml-4 hover:scale-[110%] transition-transform ease-in-out"/>
+                    </div>
+                  </td>
+              </tr>
+
+              <tr onClick={handleClickVC} className=' bg-[#D9D9D9] bg-opacity-60 hover:cursor-pointer hover:bg-[#eaeaea] drop-shadow-md'>
+                  <td className='text-center  p-3'> 015</td>
+                  <td>Pasindu Gayashan</td>
+                  <td>pasindu@gmail.com</td>
+                  <td>No.22 Good shed road, Kohuwala</td>
+                  <td>0708765421</td>
+                  <td>
+                    <div className="flex ml-2 h-8 w-20 bg-orange rounded-md shadow-md">
+                      <BsPencilFill className="mt-2 ml-4 hover:scale-[110%] transition-transform ease-in-out"/>
+                      <BsTrashFill className="mt-2 ml-4 hover:scale-[110%] transition-transform ease-in-out"/>
+                    </div>
+                  </td>
+              </tr>
+
+              <tr onClick={handleClickVC} className=' bg-[#D9D9D9] bg-opacity-60 hover:cursor-pointer hover:bg-[#eaeaea] drop-shadow-md'>
+                  <td className='text-center  p-3'> 016</td>
+                  <td>Gayan Anushka</td>
+                  <td>gayan@gmail.com</td>
+                  <td>No.22 main street, Meepe</td>
+                  <td>0770987654</td>
+                  <td>
+                    <div className="flex ml-2 h-8 w-20 bg-orange rounded-md shadow-md">
+                      <BsPencilFill className="mt-2 ml-4 hover:scale-[110%] transition-transform ease-in-out"/>
+                      <BsTrashFill className="mt-2 ml-4 hover:scale-[110%] transition-transform ease-in-out"/>
+                    </div>
+                  </td>
+              </tr>
+            </tbody>
+
+          </table>
+        </div>
+        </div>
+
       </MainLayout>
     </div>
   );

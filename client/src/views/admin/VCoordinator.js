@@ -28,7 +28,7 @@ function AdminVCoordinator() {
                   {/* driver's details container */}
                   <div className='bg-slate-200 h-64 ml-12 w-[750px] mt-8 rounded-lg shadow-md'>
 
-                      <div className='mt-4 ml-8 leading-8'>
+                      <div className='mt-4 ml-8 leading-8 font-semibold'>
                           <p className='mb-1'>ID: 002</p>
                           <p className='mb-1'>Name: Sachithra Dissanayake</p>
                           <p className='mb-1'>Email: Sachithra@gmail.com</p>
