@@ -27,7 +27,9 @@ import AdminRides from "./views/admin/Rides";
 import AdminRideDetails from "./views/admin/RideDetails";
 import AdminChildren from "./views/admin/Children";
 import AdminChildrenList from "./views/admin/ChildrenList";
-import AdminFinance from "./views/admin/Finance"
+import AdminFinance from "./views/admin/Finance";
+import AdminSupportAgent from "./views/admin/SupportAgent";
+import AdminVCoordinator from "./views/admin/VCoordinator";
 
 import VcoordinatorDashboardPg from "./views/v_coordinator/VcoordinatorDashboardPg";
 import VcVehicles from "./views/v_coordinator/Vehicles";
@@ -73,6 +75,8 @@ function App() {
           <Route exact path="/admin/children" element={<AdminChildren />} />
           <Route exact path="/admin/childrenlist" element={<AdminChildrenList />} />
           <Route exact path="/admin/finance" element={<AdminFinance />} />
+          <Route exact path="/admin/supportagent" element={<AdminSupportAgent />} />
+          <Route exact path="/admin/VCoordinator" element={<AdminVCoordinator />} />
 
           <Route exact path="/vc/dashboard" element={<VcoordinatorDashboardPg />} />
           <Route exact path="/vc/vehicles" element={<VcVehicles />} />
