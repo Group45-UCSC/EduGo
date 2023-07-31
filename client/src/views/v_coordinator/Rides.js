@@ -10,6 +10,11 @@ const sideNavBarLinks = [
 ];
 
 function Rides() {
+
+  const handleClick = () => {
+    window.location.href = `/vc/ridesdetails`;
+  };
+
   return (
     <MainLayout data={sideNavBarLinks}>
            <div>
@@ -51,7 +56,7 @@ function Rides() {
           </thead>
 
           <tbody className=''>
-            <tr className=' bg-[#D9D9D9] bg-opacity-60 hover:cursor-pointer hover:bg-[#eaeaea] drop-shadow-md'>
+            <tr onClick={handleClick} className=' bg-[#D9D9D9] bg-opacity-60 hover:cursor-pointer hover:bg-[#eaeaea] drop-shadow-md'>
                 <td className='text-center  p-3'> 001</td>
                 <td className='text-center'> KS 7879</td>
                 <td className='text-center'>Homagama</td>
@@ -60,7 +65,7 @@ function Rides() {
                 <td className='text-center'>Completed</td>
             </tr>
             
-            <tr className=' bg-[#D9D9D9] bg-opacity-60 hover:cursor-pointer hover:bg-[#eaeaea] drop-shadow-md'>
+            <tr onClick={handleClick} className=' bg-[#D9D9D9] bg-opacity-60 hover:cursor-pointer hover:bg-[#eaeaea] drop-shadow-md'>
                 <td className='text-center  p-3'> 002</td>
                 <td className='text-center'> AB 2819</td>
                 <td className='text-center'>Gampaha</td>
@@ -69,7 +74,7 @@ function Rides() {
                 <td className='text-center'>Completed</td>
             </tr>
 
-            <tr className=' bg-[#D9D9D9] bg-opacity-60 hover:cursor-pointer hover:bg-[#eaeaea] drop-shadow-md'>
+            <tr onClick={handleClick} className=' bg-[#D9D9D9] bg-opacity-60 hover:cursor-pointer hover:bg-[#eaeaea] drop-shadow-md'>
                 <td className='text-center  p-3'> 003</td>
                 <td className='text-center'> RR 8839</td>
                 <td className='text-center'>Homagama</td>
@@ -78,7 +83,7 @@ function Rides() {
                 <td className='text-center'>OnGoing</td>
             </tr>
 
-            <tr className=' bg-[#D9D9D9] bg-opacity-60 hover:cursor-pointer hover:bg-[#eaeaea] drop-shadow-md'>
+            <tr onClick={handleClick} className=' bg-[#D9D9D9] bg-opacity-60 hover:cursor-pointer hover:bg-[#eaeaea] drop-shadow-md'>
                 <td className='text-center  p-3'> 004</td>
                 <td className='text-center'> KS 7879</td>
                 <td className='text-center'>Homagama</td>
@@ -87,7 +92,7 @@ function Rides() {
                 <td className='text-center'>Completed</td>
             </tr>
 
-            <tr className=' bg-[#D9D9D9] bg-opacity-60 hover:cursor-pointer hover:bg-[#eaeaea] drop-shadow-md'>
+            <tr onClick={handleClick} className=' bg-[#D9D9D9] bg-opacity-60 hover:cursor-pointer hover:bg-[#eaeaea] drop-shadow-md'>
                 <td className='text-center  p-3'> 005</td>
                 <td className='text-center'> EE 8759</td>
                 <td className='text-center'>Homagama</td>
@@ -96,7 +101,7 @@ function Rides() {
                 <td className='text-center'>OnGoing</td>
             </tr>
 
-            <tr className=' bg-[#D9D9D9] bg-opacity-60 hover:cursor-pointer hover:bg-[#eaeaea] drop-shadow-md'>
+            <tr onClick={handleClick} className=' bg-[#D9D9D9] bg-opacity-60 hover:cursor-pointer hover:bg-[#eaeaea] drop-shadow-md'>
                 <td className='text-center  p-3'> 006</td>
                 <td className='text-center'> CR 5678</td>
                 <td className='text-center'>Homagama</td>
@@ -105,7 +110,7 @@ function Rides() {
                 <td className='text-center'>OnGoing</td>
             </tr>
 
-            <tr className=' bg-[#D9D9D9] bg-opacity-60 hover:cursor-pointer hover:bg-[#eaeaea] drop-shadow-md'>
+            <tr onClick={handleClick} className=' bg-[#D9D9D9] bg-opacity-60 hover:cursor-pointer hover:bg-[#eaeaea] drop-shadow-md'>
                 <td className='text-center  p-3'> 007</td>
                 <td className='text-center'> DS 1999</td>
                 <td className='text-center'>Rathmalana</td>
@@ -114,7 +119,7 @@ function Rides() {
                 <td className='text-center'>Completed</td>
             </tr>
 
-            <tr className=' bg-[#D9D9D9] bg-opacity-60 hover:cursor-pointer hover:bg-[#eaeaea] drop-shadow-md'>
+            <tr onClick={handleClick} className=' bg-[#D9D9D9] bg-opacity-60 hover:cursor-pointer hover:bg-[#eaeaea] drop-shadow-md'>
                 <td className='text-center  p-3'> 008</td>
                 <td className='text-center'> CD 3333</td>
                 <td className='text-center'>ja-Ela</td>
