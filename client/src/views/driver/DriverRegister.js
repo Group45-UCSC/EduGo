@@ -6,7 +6,7 @@ function DriverRegister() {
     <div>
       Driver Register Page
       <br></br>
-      <NavLink to="/driver/home">click me to go Driver landing page</NavLink>
+      <NavLink to="/driver/dashboard">click me to go Driver landing page</NavLink>
     </div>
   );
 }

@@ -17,8 +17,6 @@ const parentRoutes = require("./routes/parentRoutes");
 const supAgentRoutes = require("./routes/supAgentRoutes");
 const vcRoutes = require("./routes/vcRoutes");
 const userRoutes = require("./routes/userRoutes");
-//register and login routes
-// const jwtAuthRoutes = require("./routes/jwtAuth");
 
 //define routes to use in app
 app.use("/edugo/admin", adminRouter);
@@ -27,7 +25,6 @@ app.use("/edugo/parent", parentRoutes);
 app.use("edugo/supAgent", supAgentRoutes);
 app.use("/edugo/vc", vcRoutes);
 app.use("/edugo/user", userRoutes);
-// app.use("/api/auth", jwtAuthRoutes);
 
 //export object
 module.exports = app;

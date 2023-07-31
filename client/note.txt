@@ -11,6 +11,7 @@ npm i react-router-dom
 npm i formik yup
 npm i recharts
 npm install react-scroll
+npm i react-toastify
 
 --server--
 npm i express pg cors
