@@ -18,14 +18,14 @@ function Parent() {
   return (
     <div>
       <MainLayout data={sideNavBarLinks}>
-        <div className="pt-[25px] px-[25px] bg-[#F8F9FC]">
+        <div className="pt-6 px-6">
           <h1 className="text-[#5a5c69] text-[28px] leading-8 font-normal cursor-pointer">
             Dashboard
           </h1>
 
           <div className="grid grid-cols-2 gap-[150px] mt-[25px] pb-[15px]">
             {/* Registered Children */}
-            <div className=" h-[110px] rounded-[8px] bg-white border-l-[4px] border-orange flex items-center justify-between px-[30px] cursor-pointer hover:shadow-lg transform hover:scale-[103%] transition duration-300 ease-out">
+            <div className=" h-[110px] rounded-[8px] bg-slate-200 border-l-[4px] border-orange flex items-center justify-between px-[30px] cursor-pointer hover:shadow-lg transform hover:scale-[103%] transition duration-300 ease-out">
               <div>
                 <h1 className="text-[20px] leading-[24px] font-bold text-[#5a5c69] mt-[5px] pb-1">
                   Registered Children
@@ -40,7 +40,7 @@ function Parent() {
               <FaRegCalendarMinus fontSize={28} color="" />
             </div>
             {/* Alerts */}
-            <div className=" h-[110px] rounded-[8px] bg-white border-l-[4px] border-orange flex items-center justify-between px-[30px] cursor-pointer hover:shadow-lg transform hover:scale-[103%] transition duration-300 ease-out">
+            <div className=" h-[110px] rounded-[8px] bg-slate-200 border-l-[4px] border-orange flex items-center justify-between px-[30px] cursor-pointer hover:shadow-lg transform hover:scale-[103%] transition duration-300 ease-out">
               <div>
                 <h1 className="text-[20px] leading-[24px] font-bold text-[#5a5c69] mt-[5px] pb-1">
                   Alerts
