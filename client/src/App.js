@@ -32,6 +32,7 @@ import AdminSupportAgent from "./views/admin/SupportAgent";
 import AdminVCoordinator from "./views/admin/VCoordinator";
 import AdminDriverInfo from "./views/admin/DriverInfo";
 import AdminVehicleInfo from "./views/admin/VehicleInfo";
+import AdminParentsInfo from "./views/admin/ParentsInfo";
 
 import VcoordinatorDashboardPg from "./views/v_coordinator/VcoordinatorDashboardPg";
 import VcVehicles from "./views/v_coordinator/Vehicles";
@@ -81,6 +82,7 @@ function App() {
           <Route exact path="/admin/VCoordinator" element={<AdminVCoordinator />} />
           <Route exact path="/admin/DriverInfo" element={<AdminDriverInfo />} />
           <Route exact path="/admin/VehicleInfo" element={<AdminVehicleInfo />} />
+          <Route exact path="/admin/ParentsInfo" element={<AdminParentsInfo />} />
 
           <Route exact path="/vc/dashboard" element={<VcoordinatorDashboardPg />} />
           <Route exact path="/vc/vehicles" element={<VcVehicles />} />

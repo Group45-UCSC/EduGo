@@ -23,12 +23,12 @@ function AdminChildrenList() {
         window.location.href = `/admin/children`;
       };
       const handleClickP = () => {
-        window.location.href = `/admin/parentsdetails`;
+        window.location.href = `/admin/parentsinfo`;
       };
   return (
     <div>
         <MainLayout data={sideNavBarLinks}>
-        <div className='font-bold ml-12 mt-4 text-2xl'>Children and Parents</div>
+        <h1 className="text-[#5a5c69] pt-[25px] px-[25px] text-[28px] leading-8 font-normal cursor-pointer">Children and Parents</h1>
 
         {/*employees button container */}
         <div className="flex text-center ml-32 mt-12">
