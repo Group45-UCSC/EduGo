@@ -37,6 +37,7 @@ import VcVehicles from "./views/v_coordinator/Vehicles";
 import VcVehiclesDetails from "./views/v_coordinator/VehiclesDetails";
 import VcRides from "./views/v_coordinator/Rides";
 import VcRidesDetails from "./views/v_coordinator/RidesDetails";
+import VcTrack from"./views/v_coordinator/Track";
 import VcEmergency from "./views/v_coordinator/Emergency";
 import VcEmergencyDetails from "./views/v_coordinator/EmergencyDetails";
 
@@ -89,6 +90,7 @@ function App() {
           <Route exact path="/vc/vehiclesdetails" element={<VcVehiclesDetails />} />
           <Route exact path="/vc/rides" element={<VcRides />} />
           <Route exact path="/vc/ridesdetails" element={<VcRidesDetails />} />
+          <Route exact path="/vc/track" element={<VcTrack />} />
           <Route exact path="/vc/emergency" element={<VcEmergency />} />
           <Route exact path="/vc/emergencydetails" element={<VcEmergencyDetails/>} />
 
