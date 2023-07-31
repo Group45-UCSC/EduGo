@@ -29,7 +29,7 @@ function Drivers() {
   return (
     <div>
       <MainLayout data={sideNavBarLinks}>
-        <div className='font-bold ml-12 mt-4 text-2xl'>Drivers and Vehicles</div>
+      <h1 className="text-[#5a5c69] pt-[25px] px-[25px] text-[28px] leading-8 font-normal cursor-pointer">Drivers and Vehicles</h1>
 
             {/*employees button container */}
             <div className="flex text-center ml-32 mt-12">
