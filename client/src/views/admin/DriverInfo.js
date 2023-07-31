@@ -18,7 +18,7 @@ function AdminDriverInfo() {
         <MainLayout data={sideNavBarLinks}>
             <div>
             {/* topic */}
-            <div className='font-bold ml-20 mt-4 text-2xl'>Driver details</div>
+            <div className='font-bold ml-12 mt-4 text-2xl'>Driver Details</div>
 
             {/* image and details container */}
             <div className='flex'>
