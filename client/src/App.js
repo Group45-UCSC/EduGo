@@ -34,6 +34,7 @@ import AdminDriverInfo from "./views/admin/DriverInfo";
 
 import VcoordinatorDashboardPg from "./views/v_coordinator/VcoordinatorDashboardPg";
 import VcVehicles from "./views/v_coordinator/Vehicles";
+import VcVehiclesDetails from "./views/v_coordinator/VehiclesDetails";
 import VcRides from "./views/v_coordinator/Rides";
 import VcRidesDetails from "./views/v_coordinator/RidesDetails";
 import VcEmergency from "./views/v_coordinator/Emergency";
@@ -85,6 +86,7 @@ function App() {
 
           <Route exact path="/vc/dashboard" element={<VcoordinatorDashboardPg />} />
           <Route exact path="/vc/vehicles" element={<VcVehicles />} />
+          <Route exact path="/vc/vehiclesdetails" element={<VcVehiclesDetails />} />
           <Route exact path="/vc/rides" element={<VcRides />} />
           <Route exact path="/vc/ridesdetails" element={<VcRidesDetails />} />
           <Route exact path="/vc/emergency" element={<VcEmergency />} />
