@@ -17,7 +17,7 @@ function AdminVCoordinator() {
       <MainLayout data={sideNavBarLinks}>
         <div>
             {/* topic */}
-            <div className='font-bold ml-12 mt-4 text-2xl'>Vehicle Coordinator</div>
+            <h1 className="text-[#5a5c69] pt-[25px] px-[25px] text-[28px] leading-8 font-normal cursor-pointer">Vehicle Coordinator</h1>
 
             {/* image and details container */}
             <div className='flex'>

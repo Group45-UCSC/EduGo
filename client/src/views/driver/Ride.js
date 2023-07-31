@@ -1,5 +1,6 @@
 import React from "react";
 import { useState } from "react";
+import "../driver/Tabs.css"
 import MainLayout from "../../components/layout/MainLayout";
 import { FaBeer } from "react-icons/fa";
 
@@ -19,69 +20,110 @@ function Ride() {
   const toggleTab = (index) => {
     setToggleState(index);
   };
+  const data1 = [
+    { id: "001", type: "Van", make: "Nissan", model: "Caravan", contact: "0716548792", departure: "Homagama" },
+    { id: "002", type: "Van", make: "Nissan", model: "Hiace", contact: "0716548792", departure: "Colombo 07" },
+    { id: "003", type: "Bus", make: "Toyota", model: "coster", contact: "0716548792", departure: "Kirulapone" },
+    { id: "004", type: "Bus", make: "Mitshubishi", model: "Rosa", contact: "0716548792", departure: "Gampaha" },
+
+  ];
+  const data2 = [
+    { id: "001", type: "Van", make: "Mazda", model: "Hiace", contact: "0716548792", departure: "Homagama" },
+    { id: "002", type: "Van", make: "Toyota", model: "Hiace", contact: "0716548792", departure: "Colombo 07" },
+    { id: "003", type: "Van", make: "Nissan", model: "Hiace", contact: "0716548792", departure: "Kirulapone" },
+    { id: "004", type: "Bus", make: "Micro", model: "Kinglong", contact: "0716548792", departure: "Gampaha" },
+
+  ];
   return (
     <div>
-      <MainLayout data={sideNavBarLinks}>
-        <div className="flex flex-col relative w-500 h-300 bg-gray-200 m-100px-auto-0 break-all border border-gray-300">
+      <MainLayout data={sideNavBarLinks} >
+                  <h1 className="text-[#5a5c69] text-[28px] pt-6 px-6 leading-8 font-normal cursor-pointer">
+            School Ride
+          </h1>
+        <div className="flex flex-col relative my-50 mx-auto break-all p-20">
+          
           <div className="flex">
             <button
-              className={toggleState === 1 ? "tabs active-tabs" : "py-4 text-center w-1/2 bg-gray-300 cursor-pointer border-b border-gray-300 box-content relative outline-none"}
+              className={toggleState === 1 ? "tabs active-tabs" : "tabs"}
               onClick={() => toggleTab(1)}
             >
-              Tab 1
+              Current Rides
             </button>
             <button
-              className={toggleState === 2 ? "tabs active-tabs" : "py-4 text-center w-1/2 bg-gray-300 cursor-pointer border-b border-gray-300 box-content relative outline-none"}
+              className={toggleState === 2 ? "tabs active-tabs" : "tabs"}
               onClick={() => toggleTab(2)}
             >
-              Tab 2
+              Past Rides
             </button>
-            <button
-              className={toggleState === 3 ? "tabs active-tabs" : "py-4 text-center w-1/2 bg-gray-300 cursor-pointer border-b border-gray-300 box-content relative outline-none"}
-              onClick={() => toggleTab(3)}
-            >
-              Tab 3
-            </button>
+
           </div>
 
           <div className="content-tabs">
             <div
-              className={toggleState === 1 ? "content  active-content" : "bg-white p-20 w-full h-full hidden"}
+              className={toggleState === 1 ? "content  active-content" : "content"}
             >
-              <h2>Content 1</h2>
+              <h2>Current Rides</h2>
               <hr />
-              <p>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Obcaecati
-                praesentium incidunt quia aspernatur quasi quidem facilis quo nihil
-                vel voluptatum?
-              </p>
+              <table className="w-full border-separate border-spacing-y-2 border border-slate-50">
+                <thead className="border-y-4 border-white drop-shadow">
+                  <tr className="bg-[#999999] text-white text-[18px] border-b-2 drop-shadow-md">
+                    <th className="px-3.5 py-1 w-24">ID</th>
+                    <th className="px-3.5 w-30">Type</th>
+                    <th className="px-3.5 w-30">Make</th>
+                    <th className="px-3.5 w-30">Model</th>
+                    <th className="px-3.5 w-30">Contact</th>
+                    <th className="px-3.5 w-30">Departure</th>
+                  </tr>
+                </thead>
+
+                <tbody>
+                  {data1.map((item) => (
+                    <tr key={item.id} className="bg-[#D9D9D9] bg-opacity-60 hover:cursor-pointer hover:bg-[#eaeaea] drop-shadow-md">
+                      <td className="text-center p-3">{item.id}</td>
+                      <td className="text-center">{item.type}</td>
+                      <td className="text-center">{item.make}</td>
+                      <td className="text-center">{item.model}</td>
+                      <td className="text-center">{item.contact}</td>
+                      <td className="text-center">{item.departure}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
             </div>
 
             <div
               className={toggleState === 2 ? "content  active-content" : "content"}
             >
-              <h2>Content 2</h2>
+              <h2>Past Rides</h2>
               <hr />
-              <p>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Sapiente
-                voluptatum qui adipisci.
-              </p>
+              <table className="w-full border-separate border-spacing-y-2 border border-slate-50">
+                <thead className="border-y-4 border-white drop-shadow">
+                  <tr className="bg-[#999999] text-white text-[18px] border-b-2 drop-shadow-md">
+                    <th className="px-3.5 py-1 w-24">ID</th>
+                    <th className="px-3.5 w-30">Type</th>
+                    <th className="px-3.5 w-30">Make</th>
+                    <th className="px-3.5 w-30">Model</th>
+                    <th className="px-3.5 w-30">Contact</th>
+                    <th className="px-3.5 w-30">Departure</th>
+                  </tr>
+                </thead>
+
+                <tbody>
+                  {data2.map((item) => (
+                    <tr key={item.id} className="bg-[#D9D9D9] bg-opacity-60 hover:cursor-pointer hover:bg-[#eaeaea] drop-shadow-md">
+                      <td className="text-center p-3">{item.id}</td>
+                      <td className="text-center">{item.type}</td>
+                      <td className="text-center">{item.make}</td>
+                      <td className="text-center">{item.model}</td>
+                      <td className="text-center">{item.contact}</td>
+                      <td className="text-center">{item.departure}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
             </div>
 
-            <div
-              className={toggleState === 3 ? "content  active-content" : "content"}
-            >
-              <h2>Content 3</h2>
-              <hr />
-              <p>
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eos sed
-                nostrum rerum laudantium totam unde adipisci incidunt modi alias!
-                Accusamus in quia odit aspernatur provident et ad vel distinctio
-                recusandae totam quidem repudiandae omnis veritatis nostrum
-                laboriosam architecto optio rem, dignissimos voluptatum beatae
-                aperiam voluptatem atque. Beatae rerum dolores sunt.
-              </p>
-            </div>
+
           </div>
         </div>
       </MainLayout>

@@ -31,7 +31,7 @@ function Employees() {
   return (
     <div>
       <MainLayout data={sideNavBarLinks}>
-      <div className='font-bold ml-12 mt-4 text-2xl'>Employees</div>
+      <h1 className="text-[#5a5c69] pt-[25px] px-[25px] text-[28px] leading-8 font-normal cursor-pointer">Employees</h1>
 
         {/* add employee button */}
         <div className="text-center ml-32 mr-32 mt-12">

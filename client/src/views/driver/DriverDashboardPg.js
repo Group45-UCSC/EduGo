@@ -100,7 +100,7 @@ function DriverDashboardPg() {
   return (
     <div>
       <MainLayout data={sideNavBarLinks}>
-        <div className="pt-[25px] px-[25px] bg-[#F8F9FC]">
+        <div className="pt-[25px] px-[25px] ">
           <h1 className="text-[#5a5c69] text-[28px] leading-8 font-normal cursor-pointer">
             Dashboard
           </h1>
