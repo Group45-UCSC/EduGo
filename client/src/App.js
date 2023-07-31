@@ -36,6 +36,7 @@ import VcoordinatorDashboardPg from "./views/v_coordinator/VcoordinatorDashboard
 import VcVehicles from "./views/v_coordinator/Vehicles";
 import VcRides from "./views/v_coordinator/Rides";
 import VcEmergency from "./views/v_coordinator/Emergency";
+import VcEmergencyDetails from "./views/v_coordinator/EmergencyDetails"
 
 import SupAgentDashboardPg from "./views/sup_agent/SupAgentDashboardPg";
 import SupParents from "./views/sup_agent/Parents";
@@ -84,6 +85,7 @@ function App() {
           <Route exact path="/vc/vehicles" element={<VcVehicles />} />
           <Route exact path="/vc/rides" element={<VcRides />} />
           <Route exact path="/vc/emergency" element={<VcEmergency />} />
+          <Route exact path="/vc/emergencydetails" element={<VcEmergencyDetails/>} />
 
           <Route exact path="/sup_agent/dashboard" element={<SupAgentDashboardPg />} />
           <Route exact path="/sup_agent/parents" element={<SupParents />} />
