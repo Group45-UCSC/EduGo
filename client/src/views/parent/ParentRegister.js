@@ -6,7 +6,7 @@ function ParentRegister() {
     <div>
       Parent Register Page
       <br></br>
-      <NavLink to="/parent/home">click me to go Parent landing page</NavLink>
+      <NavLink to="/parent/dashboard">click me to go Parent landing page</NavLink>
     </div>
   )
 }

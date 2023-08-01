@@ -1,4 +1,5 @@
 import React from "react";
+import { NavLink } from "react-router-dom";
 import HomeNavBar from "../../components/header/HomeNavBar";
 
 function Home() {
@@ -40,13 +41,13 @@ function Home() {
               <div className="parent-registration">
                 <h2>Register as a Parent</h2>
                 <p>Are you a parent looking for a reliable school transportation service for your child? Register now to explore available options and ensure a stress-free journey to school.</p>
-                <button className="btn-primary">Register as Parent</button>
+                <NavLink to="/parent/register" className="btn-primary">Register as Parent</NavLink>
               </div>
 
               <div className="driver-registration">
                 <h2>Register as a Driver</h2>
                 <p>Are you a responsible driver with a valid license and a vehicle suitable for school transportation? Join our team of drivers to offer safe and efficient rides to students.</p>
-                <button className="btn-primary">Register as Driver</button>
+                <NavLink to="/driver/register" className="btn-primary">Register as Driver</NavLink>
               </div>
             </div>
           </div>
