@@ -43,6 +43,7 @@ import VcTrack from"./views/v_coordinator/Track";
 import VcEmergency from "./views/v_coordinator/Emergency";
 import VcEmergencyDetails from "./views/v_coordinator/EmergencyDetails";
 import VcConditionCheck from "./views/v_coordinator/ConditionCheck";
+import VcFeedback from "./views/v_coordinator/Feedback";
 
 
 import SupAgentDashboardPg from "./views/sup_agent/SupAgentDashboardPg";
@@ -99,6 +100,7 @@ function App() {
           <Route exact path="/vc/emergency" element={<VcEmergency />} />
           <Route exact path="/vc/emergencydetails" element={<VcEmergencyDetails/>} />
           <Route exact path="/vc/conditioncheck" element={<VcConditionCheck/>} />
+          <Route exact path="/vc/feedback" element={<VcFeedback/>} />
 
           <Route exact path="/sup_agent/dashboard" element={<SupAgentDashboardPg />} />
           <Route exact path="/sup_agent/parents" element={<SupParents />} />
