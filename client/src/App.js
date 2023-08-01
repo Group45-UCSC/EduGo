@@ -36,8 +36,13 @@ import AdminParentsInfo from "./views/admin/ParentsInfo";
 
 import VcoordinatorDashboardPg from "./views/v_coordinator/VcoordinatorDashboardPg";
 import VcVehicles from "./views/v_coordinator/Vehicles";
+import VcVehiclesDetails from "./views/v_coordinator/VehiclesDetails";
 import VcRides from "./views/v_coordinator/Rides";
+import VcRidesDetails from "./views/v_coordinator/RidesDetails";
+import VcTrack from"./views/v_coordinator/Track";
 import VcEmergency from "./views/v_coordinator/Emergency";
+import VcEmergencyDetails from "./views/v_coordinator/EmergencyDetails";
+
 
 import SupAgentDashboardPg from "./views/sup_agent/SupAgentDashboardPg";
 import SupParents from "./views/sup_agent/Parents";
@@ -86,8 +91,12 @@ function App() {
 
           <Route exact path="/vc/dashboard" element={<VcoordinatorDashboardPg />} />
           <Route exact path="/vc/vehicles" element={<VcVehicles />} />
+          <Route exact path="/vc/vehiclesdetails" element={<VcVehiclesDetails />} />
           <Route exact path="/vc/rides" element={<VcRides />} />
+          <Route exact path="/vc/ridesdetails" element={<VcRidesDetails />} />
+          <Route exact path="/vc/track" element={<VcTrack />} />
           <Route exact path="/vc/emergency" element={<VcEmergency />} />
+          <Route exact path="/vc/emergencydetails" element={<VcEmergencyDetails/>} />
 
           <Route exact path="/sup_agent/dashboard" element={<SupAgentDashboardPg />} />
           <Route exact path="/sup_agent/parents" element={<SupParents />} />

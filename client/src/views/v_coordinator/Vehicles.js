@@ -10,6 +10,11 @@ const sideNavBarLinks = [
 ];
 
 function Vehicles() {
+
+  const handleClick = () => {
+    window.location.href = `/vc/vehiclesdetails`;
+  };
+
   return (
     <MainLayout data={sideNavBarLinks}>
             <div>
@@ -50,7 +55,7 @@ function Vehicles() {
               </thead>
 
               <tbody className=''>
-                <tr className=' bg-[#D9D9D9] bg-opacity-60 hover:cursor-pointer hover:bg-[#eaeaea] drop-shadow-md'>
+                <tr onClick={handleClick} className=' bg-[#D9D9D9] bg-opacity-60 hover:cursor-pointer hover:bg-[#eaeaea] drop-shadow-md'>
                     <td className='text-center  p-3'> 001</td>
                     <td className='text-center'> Van</td>
                     <td className='text-center'>Nissan</td>
@@ -59,7 +64,7 @@ function Vehicles() {
                     <td className='text-center'>Homagama</td>
                 </tr>
                 
-                <tr className=' bg-[#D9D9D9] bg-opacity-60 hover:cursor-pointer hover:bg-[#eaeaea] drop-shadow-md'>
+                <tr onClick={handleClick} className=' bg-[#D9D9D9] bg-opacity-60 hover:cursor-pointer hover:bg-[#eaeaea] drop-shadow-md'>
                     <td className='text-center  p-3'> 002</td>
                     <td className='text-center'> Van</td>
                     <td className='text-center'>Nissan</td>
@@ -68,7 +73,7 @@ function Vehicles() {
                     <td className='text-center'>Colombo 07</td>
                 </tr>
 
-                <tr className=' bg-[#D9D9D9] bg-opacity-60 hover:cursor-pointer hover:bg-[#eaeaea] drop-shadow-md'>
+                <tr onClick={handleClick} className=' bg-[#D9D9D9] bg-opacity-60 hover:cursor-pointer hover:bg-[#eaeaea] drop-shadow-md'>
                     <td className='text-center  p-3'> 003</td>
                     <td className='text-center'> Van</td>
                     <td className='text-center'>Nissan</td>
@@ -77,7 +82,7 @@ function Vehicles() {
                     <td className='text-center'>Kirulapone</td>
                 </tr>
 
-                <tr className=' bg-[#D9D9D9] bg-opacity-60 hover:cursor-pointer hover:bg-[#eaeaea] drop-shadow-md'>
+                <tr onClick={handleClick} className=' bg-[#D9D9D9] bg-opacity-60 hover:cursor-pointer hover:bg-[#eaeaea] drop-shadow-md'>
                     <td className='text-center  p-3'> 004</td>
                     <td className='text-center'> Van</td>
                     <td className='text-center'>Nissan</td>
@@ -86,7 +91,7 @@ function Vehicles() {
                     <td className='text-center'>Gampaha</td>
                 </tr>
 
-                <tr className=' bg-[#D9D9D9] bg-opacity-60 hover:cursor-pointer hover:bg-[#eaeaea] drop-shadow-md'>
+                <tr onClick={handleClick} className=' bg-[#D9D9D9] bg-opacity-60 hover:cursor-pointer hover:bg-[#eaeaea] drop-shadow-md'>
                     <td className='text-center  p-3'> 005</td>
                     <td className='text-center'> Van</td>
                     <td className='text-center'>Nissan</td>
@@ -95,7 +100,7 @@ function Vehicles() {
                     <td className='text-center'>Dompe</td>
                 </tr>
 
-                <tr className=' bg-[#D9D9D9] bg-opacity-60 hover:cursor-pointer hover:bg-[#eaeaea] drop-shadow-md'>
+                <tr onClick={handleClick} className=' bg-[#D9D9D9] bg-opacity-60 hover:cursor-pointer hover:bg-[#eaeaea] drop-shadow-md'>
                     <td className='text-center  p-3'> 006</td>
                     <td className='text-center'> Van</td>
                     <td className='text-center'>Nissan</td>
@@ -104,7 +109,7 @@ function Vehicles() {
                     <td className='text-center'>Athurugiriya</td>
                 </tr>
 
-                <tr className=' bg-[#D9D9D9] bg-opacity-60 hover:cursor-pointer hover:bg-[#eaeaea] drop-shadow-md'>
+                <tr onClick={handleClick} className=' bg-[#D9D9D9] bg-opacity-60 hover:cursor-pointer hover:bg-[#eaeaea] drop-shadow-md'>
                     <td className='text-center  p-3'> 007</td>
                     <td className='text-center'> Van</td>
                     <td className='text-center'>Nissan</td>
@@ -113,7 +118,7 @@ function Vehicles() {
                     <td className='text-center'>Malabe</td>
                 </tr>
 
-                <tr className=' bg-[#D9D9D9] bg-opacity-60 hover:cursor-pointer hover:bg-[#eaeaea] drop-shadow-md'>
+                <tr onClick={handleClick} className=' bg-[#D9D9D9] bg-opacity-60 hover:cursor-pointer hover:bg-[#eaeaea] drop-shadow-md'>
                     <td className='text-center  p-3'> 008</td>
                     <td className='text-center'> Van</td>
                     <td className='text-center'>Nissan</td>

@@ -13,6 +13,8 @@ npm i recharts
 npm install react-scroll
 npm i react-toastify
 
+npm i react-responsive-carousel
+
 --server--
 npm i express pg cors
 npm i nodemon

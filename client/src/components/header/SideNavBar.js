@@ -94,14 +94,22 @@
 
 
 
-import React from "react";
+import React, {useState} from "react";
 import ArrowImg from "../../images/arrow.png";
 import Logo from "../../images/logo.png";
 import { NavLink } from "react-router-dom";
+// import { CiLogout } from "react-icons/ci";
 
 function SideNavBar({ data, open, setOpen }) {
+
+  const [activeLink, setActiveLink] = useState(null);
+
+  const handleNavLinkClick = (index) => {
+    setActiveLink(index === activeLink ? null : index);
+  };
+
   return (
-    <div className={`${open ? "w-[260px]" : "w-[100px]"} duration-300 h-screen p-5 pt-8 bg-gray`}>
+    <div className={`${open ? "w-[260px]" : "w-[100px]"} duration-300 h-screen p-5 pt-4 bg-gray`}>
       <img
         src={ArrowImg}
         alt="icon"
@@ -113,16 +121,18 @@ function SideNavBar({ data, open, setOpen }) {
         <img
           src={Logo}
           alt="logo"
-          className={`cursor-pointer duration-300 scale-75 ${!open && "scale-100 mb-7"
+          className={`cursor-pointer mb-0 pb-0 duration-300 scale-75 ${!open && "scale-100 mb-7"
             }`}
         />
       </div>
-      <div className="pt-7">
+      <div className="pt-2">
         {data.map((link, index) => (
           <NavLink
             key={index}
             to={link.path}
-            className={`text-black text-m flex items-center gap-x-7 cursor-pointer p-2 hover:bg-black hover:text-white border-2 border-black rounded-md bg-orange my-10 ${!open && 'p-4 mt-17 pl-5'}`}
+            exact
+            onClick={() => handleNavLinkClick(index)}
+            className={`text-black text-m flex items-center gap-x-7 cursor-pointer p-2 hover:bg-black hover:text-white border border-black rounded-md my-10 ${!open && 'p-4 mt-17 pl-5'} ${activeLink === index ? "bg-black text-white" : "bg-orange"}`}
           >
             {link.icon}
             <span className={`${!open && 'hidden'} origin-left duration-200`}>
@@ -131,6 +141,7 @@ function SideNavBar({ data, open, setOpen }) {
           </NavLink>
         ))}
       </div>
+      {/* <CiLogout className="text-black scale-150 font-semibold ml-6 mt-3"/> */}
     </div>
   );
 }
