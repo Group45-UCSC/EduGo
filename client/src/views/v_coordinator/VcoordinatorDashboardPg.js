@@ -10,6 +10,15 @@ const sideNavBarLinks = [
 ];
 
 function VcoordinatorDashboardPg() {
+
+  const handleClick = () => {
+    window.location.href = `/vc/vrrequest`;
+  };
+
+  const handleClick2 = () => {
+    window.location.href = `/vc/vcrequest`;
+  };
+
   return (
     <div>
       <MainLayout data={sideNavBarLinks}>
@@ -42,7 +51,7 @@ function VcoordinatorDashboardPg() {
 
         </div>
 
-        <div className='h-[100px] rounded-[8px] bg-[#EEEEEE] border-l-8 border-[#FF9900] pl-6 flex items-center justify-between px-[30px] cursor-pointer hover:shadow-lg transform hover:scale-[101%] trasition duration-300 ease-out shadow-md'>
+        <div onClick={handleClick} className='h-[100px] rounded-[8px] bg-[#EEEEEE] border-l-8 border-[#FF9900] pl-6 flex items-center justify-between px-[30px] cursor-pointer hover:shadow-lg transform hover:scale-[101%] trasition duration-300 ease-out shadow-md'>
           <div>
             <h2 className='text-[#000000] text-[18px] leading-[17px] font-bold'> Vehicle Register Requests</h2>
             <h1 className='text-[20px] leading-[24px] font-bold mt-[15px] ml-3'> 2 </h1>
@@ -54,7 +63,7 @@ function VcoordinatorDashboardPg() {
 
         </div>
 
-        <div className='h-[100px] rounded-[8px] bg-[#EEEEEE] border-l-8 border-[#FF9900] pl-6 flex items-center justify-between px-[30px] cursor-pointer hover:shadow-lg transform hover:scale-[101%] trasition duration-300 ease-out shadow-md'>
+        <div onClick={handleClick2}  className='h-[100px] rounded-[8px] bg-[#EEEEEE] border-l-8 border-[#FF9900] pl-6 flex items-center justify-between px-[30px] cursor-pointer hover:shadow-lg transform hover:scale-[101%] trasition duration-300 ease-out shadow-md'>
           <div>
             <h2 className='text-[#000000] text-[18px] leading-[17px] font-bold'> Condition Check</h2>
             <h1 className='text-[20px] leading-[24px] font-bold mt-[15px] ml-3'> 4 </h1>
