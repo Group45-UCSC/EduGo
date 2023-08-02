@@ -100,7 +100,7 @@ function DriverDashboardPg() {
   return (
     <div>
       <MainLayout data={sideNavBarLinks}>
-        <div className="pt-[25px] px-[25px] bg-[#F8F9FC]">
+        <div className="pt-[25px] px-[25px] ">
           <h1 className="text-[#5a5c69] text-[28px] leading-8 font-normal cursor-pointer">
             Dashboard
           </h1>
@@ -151,27 +151,29 @@ function DriverDashboardPg() {
                 <h2 className='text-[#4e73df] text-[16px] leading-[19px] font-bold'>Earnings Overview</h2>
                 <FaEllipsisV color="gray" className='cursor-pointer' />
               </div>
-              <diV className="w-full">
-                <LineChart
-                  width={500}
-                  height={300}
-                  data={data}
-                  margin={{
-                    top: 5,
-                    right: 30,
-                    left: 20,
-                    bottom: 5,
-                  }}
-                >
-                  <CartesianGrid strokeDasharray="3 3" />
-                  <XAxis dataKey="name" />
-                  <YAxis />
-                  <Tooltip />
-                  <Legend />
-                  <Line type="monotone" dataKey="pv" stroke="#8884d8" activeDot={{ r: 8 }} />
-                  <Line type="monotone" dataKey="uv" stroke="#82ca9d" />
-                </LineChart>
-              </diV>
+              <div className="w-full">
+
+                  <LineChart
+                    width={500}
+                    height={300}
+                    data={data}
+                    margin={{
+                      top: 5,
+                      right: 30,
+                      left: 20,
+                      bottom: 5,
+                    }}
+                  >
+                    <CartesianGrid strokeDasharray="3 3" />
+                    <XAxis dataKey="name" />
+                    <YAxis />
+                    <Tooltip />
+                    <Legend />
+                    <Line type="monotone" dataKey="pv" stroke="#8884d8" activeDot={{ r: 8 }} />
+                    <Line type="monotone" dataKey="uv" stroke="#82ca9d" />
+                  </LineChart>
+
+              </div>
 
             </div>
             <div className=" bg-white shadow-md cursor-pointer rounded-[4px]">
@@ -180,7 +182,7 @@ function DriverDashboardPg() {
                 <FaEllipsisV color="gray" className='cursor-pointer' />
               </div>
               <diV className="">
-                  <img src={parentMap} alt="parentMap"></img>
+                <img src={parentMap} alt="parentMap"></img>
               </diV>
 
             </div>

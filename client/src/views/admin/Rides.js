@@ -11,12 +11,15 @@ const sideNavBarLinks = [
   { title: "Finance", path: "/admin/finance", icon: <FaBeer /> },
 ];
 
-function Rides() {
+function AdminRides() {
+  const handleClick = () => {
+    window.location.href = `/admin/ridedetails`;
+  };
   return (
     <div>
       <MainLayout data={sideNavBarLinks}>
 
-      <div className='font-bold ml-12 mt-4 text-2xl'>School rides details</div>
+      <h1 className="text-[#5a5c69] pt-[25px] px-[25px] text-[28px] leading-8 font-normal cursor-pointer">School rides details</h1>
 
       <div className='ml-32 mt-12 mr-32 shadow-md overflow-auto '>
         <table className='w-full text-center border-separate border-spacing-y-2 border border-slate-50 '>
@@ -32,7 +35,7 @@ function Rides() {
           </thead>
 
           <tbody className=''>
-            <tr className=' bg-[#D9D9D9] bg-opacity-60 hover:cursor-pointer hover:bg-[#eaeaea] drop-shadow-md'>
+            <tr onClick={handleClick} className=' bg-[#D9D9D9] bg-opacity-60 hover:cursor-pointer hover:bg-[#eaeaea] drop-shadow-md'>
                 <td className='text-center  p-3'> 001</td>
                 <td>NA - 1111</td>
                 <td>Arawwala</td>
@@ -113,4 +116,4 @@ function Rides() {
   );
 }
 
-export default Rides;
+export default AdminRides;
