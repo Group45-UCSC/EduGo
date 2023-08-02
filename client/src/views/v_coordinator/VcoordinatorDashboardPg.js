@@ -16,7 +16,7 @@ function VcoordinatorDashboardPg() {
   };
 
   const handleClick2 = () => {
-    window.location.href = `/vc/vcrequest`;
+    window.location.href = `/vc/ccrequest`;
   };
 
   return (

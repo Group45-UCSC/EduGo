@@ -1,4 +1,4 @@
-import schoolVan from"../../../src/images/SchoolVan.jpeg"
+import schoolVan from"../../images/schoolVan.jpeg"
 import { BsChevronLeft } from "react-icons/bs";
 import { BsChevronRight } from "react-icons/bs";
 
@@ -7,7 +7,7 @@ function VCmodal({visible, onClose}) {
   return (
    
     <div className="fixed inset-0 bg-black bg-opacity-70 backdrop-blur-sm overflow-y-scroll ">
-        <div className="ml-64 mt-8 mb-6 pt-4 bg-[#F4F4F4] w-[970px] h-[880px] rounded-lg shadow-lg drop-shadow-lg">
+        <div className="ml-[380px] mt-8 mb-6 pt-4 bg-[#F4F4F4] w-[970px] h-[880px] rounded-lg shadow-lg drop-shadow-lg">
         {/* topic */}
         <div className='font-bold ml-12 mt-4 text-2xl'>Condition Check</div>
 
