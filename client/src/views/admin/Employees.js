@@ -22,6 +22,10 @@ function Employees() {
     setToggle(id);
   }
 
+  const addEmp = () => {
+    window.location.href = `/admin/addemployee`;
+  };
+
   const handleClick = () => {
     window.location.href = `/admin/supportagent`;
   };
@@ -31,11 +35,11 @@ function Employees() {
   return (
     <div>
       <MainLayout data={sideNavBarLinks}>
-      <div className='font-bold ml-12 mt-4 text-2xl'>Employees</div>
+      <h1 className="text-[#5a5c69] pt-[25px] px-[25px] text-[28px] leading-8 font-normal cursor-pointer">Employees</h1>
 
         {/* add employee button */}
         <div className="text-center ml-32 mr-32 mt-12">
-          <div className="flex float-right h-11 w-44 shadow-lg bg-orange font-semibold text-lg pt-2 cursor-pointer hover:scale-[102%] hover:bg-amber-500 transition-transform ease-in-out"><BsPlusCircleFill className="mt-1 ml-2 mr-2" />Add employee</div>
+          <div onClick={addEmp} className="flex float-right h-11 w-44 shadow-lg bg-orange font-semibold text-lg pt-2 cursor-pointer hover:scale-[102%] hover:bg-amber-500 transition-transform ease-in-out"><BsPlusCircleFill className="mt-1 ml-2 mr-2" />Add employee</div>
         </div>
 
           {/*employees button container */}

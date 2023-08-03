@@ -10,6 +10,12 @@ const sideNavBarLinks = [
 ];
 
 function Emergency() {
+
+  const handleClick = () => {
+    window.location.href = `/vc/emergencyDetails`;
+  };
+
+
   return (
     <MainLayout data={sideNavBarLinks}>
 
@@ -38,7 +44,7 @@ function Emergency() {
         </div>
       </div>
 
-      <div className='ml-32 mt-16 mr-32 shadow-md overflow-auto '>
+      <div className='ml-32 mt-16 mr-32 mb-10 shadow-md overflow-auto '>
         <table className='w-full text-center border-separate border-spacing-y-2 border border-slate-50 '>
           <thead className='border-y-4 border-white drop-shadow '>
             <tr className=' bg-[#999999] text-white border-b-2 text-[18px] drop-shadow-md '>
@@ -52,7 +58,7 @@ function Emergency() {
           </thead>
 
           <tbody className=''>
-            <tr className=' bg-[#D9D9D9] bg-opacity-60 hover:cursor-pointer hover:bg-[#eaeaea] drop-shadow-md'>
+            <tr onClick={handleClick}  className=' bg-[#D9D9D9] bg-opacity-60 hover:cursor-pointer hover:bg-[#eaeaea] drop-shadow-md'>
                 <td className='text-center  p-3'> 001</td>
                 <td> Car</td>
                 <td>Saman kumara</td>
@@ -61,7 +67,7 @@ function Emergency() {
                 <td>Completed</td>
             </tr>
             
-            <tr className=' bg-[#D9D9D9] bg-opacity-60 hover:cursor-pointer  hover:bg-[#eaeaea] drop-shadow-md' >
+            <tr onClick={handleClick}  className=' bg-[#D9D9D9] bg-opacity-60 hover:cursor-pointer  hover:bg-[#eaeaea] drop-shadow-md' >
               <td className='text-center  p-3 ' >002</td>
               <td>Van</td>
               <td>Namal Balachandran</td>
@@ -70,7 +76,7 @@ function Emergency() {
               <td>Completed</td>
             </tr>
 
-            <tr className=' bg-[#D9D9D9] bg-opacity-60 hover:cursor-pointer  hover:bg-[#eaeaea] drop-shadow-md'>
+            <tr onClick={handleClick}  className=' bg-[#D9D9D9] bg-opacity-60 hover:cursor-pointer  hover:bg-[#eaeaea] drop-shadow-md'>
               <td className='text-center  p-3 ' >003</td>
               <td>Bus</td>
               <td>Pawan Madura</td>
@@ -79,7 +85,7 @@ function Emergency() {
               <td>Not done</td>
             </tr>
 
-            <tr className=' bg-[#D9D9D9] bg-opacity-60 hover:cursor-pointer  hover:bg-[#eaeaea] drop-shadow-md'>
+            <tr onClick={handleClick}  className=' bg-[#D9D9D9] bg-opacity-60 hover:cursor-pointer  hover:bg-[#eaeaea] drop-shadow-md'>
               <td className='text-center  p-3 ' >004</td>
               <td>Van</td>
               <td>Nilantha Jayasooriya</td>
@@ -88,7 +94,7 @@ function Emergency() {
               <td>Completed</td>
             </tr>
 
-            <tr className=' bg-[#D9D9D9] bg-opacity-60 hover:cursor-pointer hover:bg-[#eaeaea] drop-shadow-md'>
+            <tr onClick={handleClick}  className=' bg-[#D9D9D9] bg-opacity-60 hover:cursor-pointer hover:bg-[#eaeaea] drop-shadow-md'>
               <td className='text-center  p-3 ' >005</td>
               <td>Bus</td>
               <td>Charitha Dassanayaka</td>
@@ -97,7 +103,7 @@ function Emergency() {
               <td >Completed</td>
             </tr>
 
-            <tr className=' bg-[#D9D9D9] bg-opacity-60 hover:cursor-pointer  hover:bg-[#eaeaea] drop-shadow-md'>
+            <tr onClick={handleClick}  className=' bg-[#D9D9D9] bg-opacity-60 hover:cursor-pointer  hover:bg-[#eaeaea] drop-shadow-md'>
               <td className='text-center  p-3 ' >006</td>
               <td>Bus</td>
               <td>Manoj Sanjaya</td>
@@ -106,7 +112,7 @@ function Emergency() {
               <td>Not done</td>
             </tr>
 
-            <tr className=' bg-[#D9D9D9] bg-opacity-60 hover:cursor-pointer  hover:bg-[#eaeaea] drop-shadow-md'>
+            <tr onClick={handleClick}  className=' bg-[#D9D9D9] bg-opacity-60 hover:cursor-pointer  hover:bg-[#eaeaea] drop-shadow-md'>
               <td className='text-center  p-3 ' >007</td>
               <td>Van</td>
               <td>Sanath Nihantha</td>
@@ -115,7 +121,7 @@ function Emergency() {
               <td>Completed</td>
             </tr>
 
-            <tr className=' bg-[#D9D9D9] bg-opacity-60 hover:cursor-pointer  hover:bg-[#eaeaea] drop-shadow-md'>
+            <tr onClick={handleClick}  className=' bg-[#D9D9D9] bg-opacity-60 hover:cursor-pointer  hover:bg-[#eaeaea] drop-shadow-md'>
               <td className='text-center  p-3 ' >008</td>
               <td>Car</td>
               <td>Nishan Danushka</td>
