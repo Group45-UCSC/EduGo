@@ -22,6 +22,10 @@ function Employees() {
     setToggle(id);
   }
 
+  const addEmp = () => {
+    window.location.href = `/admin/addemployee`;
+  };
+
   const handleClick = () => {
     window.location.href = `/admin/supportagent`;
   };
@@ -35,7 +39,7 @@ function Employees() {
 
         {/* add employee button */}
         <div className="text-center ml-32 mr-32 mt-12">
-          <div className="flex float-right h-11 w-44 shadow-lg bg-orange font-semibold text-lg pt-2 cursor-pointer hover:scale-[102%] hover:bg-amber-500 transition-transform ease-in-out"><BsPlusCircleFill className="mt-1 ml-2 mr-2" />Add employee</div>
+          <div onClick={addEmp} className="flex float-right h-11 w-44 shadow-lg bg-orange font-semibold text-lg pt-2 cursor-pointer hover:scale-[102%] hover:bg-amber-500 transition-transform ease-in-out"><BsPlusCircleFill className="mt-1 ml-2 mr-2" />Add employee</div>
         </div>
 
           {/*employees button container */}

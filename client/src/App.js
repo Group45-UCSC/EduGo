@@ -33,6 +33,7 @@ import AdminVCoordinator from "./views/admin/VCoordinator";
 import AdminDriverInfo from "./views/admin/DriverInfo";
 import AdminVehicleInfo from "./views/admin/VehicleInfo";
 import AdminParentsInfo from "./views/admin/ParentsInfo";
+import AdminAddEmployee from "./views/admin/AddEmployee";
 
 import VcoordinatorDashboardPg from "./views/v_coordinator/VcoordinatorDashboardPg";
 import VcVehicles from "./views/v_coordinator/Vehicles";
@@ -42,10 +43,13 @@ import VcRidesDetails from "./views/v_coordinator/RidesDetails";
 import VcTrack from"./views/v_coordinator/Track";
 import VcEmergency from "./views/v_coordinator/Emergency";
 import VcEmergencyDetails from "./views/v_coordinator/EmergencyDetails";
+
 import VcConditionCheck from "./views/v_coordinator/ConditionCheck";
 import VcFeedback from "./views/v_coordinator/Feedback";
 import VRRequest from "./views/v_coordinator/VRRequest";
 import CCRequest from "./views/v_coordinator/CCRequest";
+
+
 
 
 import SupAgentDashboardPg from "./views/sup_agent/SupAgentDashboardPg";
@@ -93,6 +97,7 @@ function App() {
           <Route exact path="/admin/DriverInfo" element={<AdminDriverInfo />} />
           <Route exact path="/admin/VehicleInfo" element={<AdminVehicleInfo />} />
           <Route exact path="/admin/ParentsInfo" element={<AdminParentsInfo />} />
+          <Route exact path="/admin/AddEmployee" element={<AdminAddEmployee />} />
 
           <Route exact path="/vc/dashboard" element={<VcoordinatorDashboardPg />} />
           <Route exact path="/vc/vehicles" element={<VcVehicles />} />
@@ -102,6 +107,7 @@ function App() {
           <Route exact path="/vc/track" element={<VcTrack />} />
           <Route exact path="/vc/emergency" element={<VcEmergency />} />
           <Route exact path="/vc/emergencydetails" element={<VcEmergencyDetails/>} />
+
           <Route exact path="/vc/conditioncheck" element={<VcConditionCheck/>} />
           <Route exact path="/vc/feedback" element={<VcFeedback/>} />
           <Route exact path="/vc/vrrequest" element={<VRRequest/>}/>
