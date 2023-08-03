@@ -25,7 +25,7 @@ function AdminParentsInfo() {
                 {/* image */}
                 <div className='bg-slate-200 ml-12 mt-8 w-40 h-40 rounded-full shadow-md'></div>
 
-                {/* child's details */}
+                {/* parent's details */}
                 <div className='bg-slate-200 h-80 ml-12 w-[450px] mt-8 rounded-lg shadow-md overflow-auto'>
 
                     <div className='ml-8 leading-8 font-semibold'>
