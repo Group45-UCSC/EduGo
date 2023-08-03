@@ -1,12 +1,13 @@
 import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+// import { useState, useEffect } from "react";
 
 //import route files
 
 import Home from "./views/user/Home";
-import Login from "./views/user/Login";
+import Login from "./views/user/Login"; //
 import DriverRegister from "./views/driver/DriverRegister";
-import ParentRegister from "./views/parent/ParentRegister";
+import ParentRegister from "./views/parent/ParentRegister"; //
 
 import DriverDashboardPg from "./views/driver/DriverDashboardPg";
 import DriverFinance from "./views/driver/Finance";
@@ -14,7 +15,7 @@ import DriverFeedback from "./views/driver/Feedback";
 import DriverRide from "./views/driver/Ride";
 import DriverSupport from "./views/driver/Support";
 
-import Parent from "./views/parent/Parent";
+import ParentDashboardPg from "./views/parent/Parent"; //
 import ParentChildren from "./views/parent/Children";
 import ParentPayment from "./views/parent/Payment";
 import ParentSupport from "./views/parent/Support";
@@ -57,11 +58,38 @@ import SupParents from "./views/sup_agent/Parents";
 import SupDrivers from "./views/sup_agent/Drivers";
 
 
-
-
 //define routes
 
 function App() {
+  // const [isAuthenticated, setIsAuthenticated] = useState(false);
+
+  // const setAuth = (boolean) => {
+  //   setIsAuthenticated(boolean);
+  // };
+
+  // async function isAuth() {
+  //   try {
+  //     const response = await fetch(
+  //       "http://localhost:5000/edugo/user/is_verify",
+  //       {
+  //         method: "GET",
+  //         headers: { token: localStorage.token },
+  //       }
+  //     );
+
+  //     const parseRes = await response.json();
+  //     console.log(parseRes);
+
+  //     parseRes === true ? setIsAuthenticated(true) : setIsAuthenticated(false);
+  //   } catch (err) {
+  //     console.error(err.message);
+  //   }
+  // }
+
+  // useEffect(() => {
+  //   isAuth();
+  // });
+
   return (
     <div>
       <Router>
@@ -69,16 +97,51 @@ function App() {
           <Route exact path="/" element={<Home />} />
           <Route exact path="/login" element={<Login />} />
 
+          {/* <Route
+            exact
+            path="/login"
+            element={
+              !isAuthenticated ? (
+                <Login setAuth={setAuth} />
+              ) : (
+                <DriverDashboardPg setAuth={setAuth}/>
+              )
+            }
+          /> */}
+
+          {/* <Route
+            exact
+            path="/driver/register"
+            element={
+              !isAuthenticated ? (
+                <DriverRegister setAuth={setAuth} />
+              ) : (
+                <Login setAuth={setAuth}/>
+              )
+            }
+          /> */}
           <Route exact path="/driver/register" element={<DriverRegister />} />
           <Route exact path="/parent/register" element={<ParentRegister />} />
+
+          {/* <Route
+            exact
+            path="/driver/dashboard"
+            element={
+              !isAuthenticated ? (
+                <Login setAuth={setAuth} />
+              ) : (
+                <DriverDashboardPg setAuth={setAuth} />
+              )
+            }
+          /> */}
 
           <Route exact path="/driver/dashboard" element={<DriverDashboardPg />} />
           <Route exact path="/driver/ride" element={<DriverRide />} />
           <Route exact path="/driver/finance" element={<DriverFinance />} />
           <Route exact path="/driver/support" element={<DriverSupport />} />
           <Route exact path="/driver/feedback" element={<DriverFeedback />} />
-
-          <Route exact path="/parent/dashboard" element={<Parent />} />
+          
+          <Route exact path="/parent/dashboard" element={<ParentDashboardPg />} />
           <Route exact path="/parent/children" element={<ParentChildren />} />
           <Route exact path="/parent/payment" element={<ParentPayment />} />
           <Route exact path="/parent/support" element={<ParentSupport />} />
