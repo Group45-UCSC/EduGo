@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import MainLayout from "../../components/layout/MainLayout";
 import { FaBeer } from "react-icons/fa";
 import { FaMapMarkerAlt } from "react-icons/fa";
@@ -15,20 +15,15 @@ const sideNavBarLinks = [
 
 function AdminEmergency() {
 
-    const popup = document.getElementById('popup');
-    const popupbtn = document.getElementById('popupbtn');
-    const closebtn = document.getElementById('closebtn');
+    const [viewPopup, setViewPopup] = useState(false);
 
-    function displaypopup() {
-        popup.classList.remove('hidden');
+    function showPopup() {
+        setViewPopup(true);
     }
 
-    function closepopup() {
-        popup.classList.add('hidden');
+    function hidePopup() {
+        setViewPopup(false);
     }
-    
-    popupbtn.addEventListener('click', displaypopup);
-    closebtn.addEventListener('click', closepopup);
 
   return (
     <div>
@@ -65,7 +60,7 @@ function AdminEmergency() {
 
           {/* locate button */}
           <div>
-            <div id="popupbtn" className="flex mt-8 ml-12 h-11 w-32 rounded-lg shadow-lg bg-orange font-semibold text-lg pt-2 pl-5 cursor-pointer hover:scale-[102%] hover:bg-amber-500 transition-transform ease-in-out">
+            <div onClick={showPopup} className="flex mt-8 ml-12 h-11 w-32 rounded-lg shadow-lg bg-orange font-semibold text-lg pt-2 pl-5 cursor-pointer hover:scale-[102%] hover:bg-amber-500 transition-transform ease-in-out">
               Locate
               <FaMapMarkerAlt className="mt-1 ml-4" />
             </div>
@@ -121,10 +116,12 @@ function AdminEmergency() {
         </div>
 
         {/* popup container */}
-        <div id="popup" className="fixed top-0 left-0 translate-x-[-16px] w-[102.6%] h-full bg-stone-900/75 hidden">
+
+        {viewPopup && (
+        <div className="fixed top-0 left-0 translate-x-[-16px] w-[102.6%] h-full bg-stone-900/75">
           
           {/* close button */}
-          <div id="closebtn" className="flex w-16 h-12 bg-red-600 float-right mr-16 mt-4 text-white text-lg pt-2 pl-4">
+          <div onClick={hidePopup} className="flex w-16 h-12 bg-red-600 float-right mr-16 mt-4 text-white text-lg pt-2 pl-4 cursor-pointer hover:bg-red-700 shadow-lg">
             <AiOutlineClose className="mt-2 ml-2" />
           </div>
           
@@ -137,6 +134,8 @@ function AdminEmergency() {
             ></iframe>
           </div>
         </div>
+
+        )}
       </MainLayout>
     </div>
   );
