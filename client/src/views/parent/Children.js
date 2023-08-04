@@ -5,6 +5,8 @@ import { MdLocationOn, MdPersonAdd, MdPayments, MdSupportAgent, MdOutlineRateRev
 import { AiFillDashboard } from "react-icons/ai"
 import user from "../../images/user.png"
 import FormInput from "../../components/layout/FormInput";
+import { NavLink } from 'react-router-dom';
+
 
 function Children() {
   const sideNavBarLinks = [
@@ -32,8 +34,7 @@ function Children() {
       name: "username",
       type: "text",
       placeholder: "Username",
-      errorMessage:
-        "Username should be 3-16 characters and shouldn't include any special character!",
+      errorMessage: "Username should be 3-16 characters and shouldn't include any special character!",
       label: "Username",
       pattern: "^[A-Za-z0-9]{3,16}$",
       required: true,
@@ -112,6 +113,7 @@ function Children() {
                     onChange={onChange}
                   />
                 ))}
+                <FormInput  ></FormInput>
 
 
               </div>
@@ -232,24 +234,18 @@ function Children() {
                     <div className=" flex gap-5">
                       {/*---------------------Buttons-----------------------------*/}
                       <div className="">
-                        <button
-                          className="flex justify-center  w-36 h-10  bg-orange hover:bg-[#b3913b] rounded-md cursor-pointer"
-                        // onClick={() => {
-                        //   setModalOpen(true);
-                        // }}
-                        >
-                          <div className='flex mt-2 gap-3 font-semibold'><MdLocationOn className=' text-[25px]' />Location</div>
-                        </button>
+                        <NavLink to="/parent/children/childlocation">
+                          <button className="flex justify-center  w-36 h-10  bg-orange hover:bg-[#b3913b] rounded-md cursor-pointer">
+                            <div className='flex mt-2 gap-3 font-semibold'><MdLocationOn className=' text-[25px]' />Location</div>
+                          </button>
+                        </NavLink>
                       </div>
                       <div className=''>
-                        <button
-                          className="flex justify-center  w-40 h-10 bg-orange hover:bg-[#b3913b] rounded-md cursor-pointer"
-                        // onClick={() => {
-                        //   setModalOpen(true);
-                        // }}
-                        >
+
+                        <button className="flex justify-center  w-40 h-10 bg-orange hover:bg-[#b3913b] rounded-md cursor-pointer">
                           <div className='flex mt-2 gap-3 font-semibold'><FaEye fontSize={28} color="" />View Ride</div>
                         </button>
+
                       </div>
                     </div>
                   </div>
@@ -306,24 +302,24 @@ function Children() {
                     <div className=" flex gap-5">
                       {/*---------------------Buttons-----------------------------*/}
                       <div className="">
-                        <button
-                          className="flex justify-center w-48 h-10  bg-orange hover:bg-[#b3913b] rounded-md cursor-pointer"
-                        // onClick={() => {
-                        //   setModalOpen(true);
-                        // }}
-                        >
-                          <div className='flex mt-2 gap-3 font-semibold'>Choose School Ride</div>
-                        </button>
+                        <NavLink to="/parent/Children/addnewride">
+                          <button className="flex justify-center w-48 h-10  bg-orange hover:bg-[#b3913b] rounded-md cursor-pointer">
+                            <div className='flex mt-2 gap-3 font-semibold'>Choose School Ride</div>
+                          </button>
+                        </NavLink>
                       </div>
                     </div>
                   </div>
                 ))}
               </div>
             </div>
+
           </div>
         </div>
+
         {modalOpen && <Modal setOpenModal={setModalOpen} />}
       </MainLayout>
+
     </div>
   )
 }

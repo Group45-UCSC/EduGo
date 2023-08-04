@@ -16,6 +16,8 @@ import DriverSupport from "./views/driver/Support";
 
 import Parent from "./views/parent/Parent";
 import ParentChildren from "./views/parent/Children";
+import ViewChildLocation from "./views/parent/ViewChildLocation";
+import AddSchoolRide from "./views/parent/AddSchoolRide";
 import ParentPayment from "./views/parent/Payment";
 import ParentSupport from "./views/parent/Support";
 import ParentFeedback from "./views/parent/Feedback";
@@ -40,6 +42,7 @@ import VcEmergency from "./views/v_coordinator/Emergency";
 import SupAgentDashboardPg from "./views/sup_agent/SupAgentDashboardPg";
 import SupParents from "./views/sup_agent/Parents";
 import SupDrivers from "./views/sup_agent/Drivers";
+// import AddSchoolRide from "./views/parent/AddSchoolRide";
 
 
 
@@ -64,6 +67,8 @@ function App() {
 
           <Route exact path="/parent/dashboard" element={<Parent />} />
           <Route exact path="/parent/children" element={<ParentChildren />} />
+          <Route exact path="/parent/children/childlocation" element={<ViewChildLocation />} />
+          <Route exact path="/parent/Children/addnewride" element={<AddSchoolRide />} />
           <Route exact path="/parent/payment" element={<ParentPayment />} />
           <Route exact path="/parent/support" element={<ParentSupport />} />
           <Route exact path="/parent/feedback" element={<ParentFeedback />} />
