@@ -5,7 +5,7 @@ import parentMap from "../../images/parentMap.png";
 import { NavLink } from 'react-router-dom';
 import { AiFillDashboard } from "react-icons/ai"
 import { FaChild, FaEye } from "react-icons/fa"
-import { MdPayments, MdSupportAgent, MdOutlineRateReview, MdLocationOn } from "react-icons/md";
+import { MdPayments, MdSupportAgent, MdOutlineRateReview } from "react-icons/md";
 
 function ViewChildLocation() {
   const sideNavBarLinks = [
@@ -83,14 +83,9 @@ function ViewChildLocation() {
                     </div>
                     <div className=" flex gap-5">
                       {/*---------------------Buttons-----------------------------*/}
-                      <div className="">
-                        <NavLink to="/parent/children/childlocation">
-                          <button className="flex justify-center  w-36 h-10  bg-orange hover:bg-[#b3913b] rounded-md cursor-pointer">
-                            <div className='flex mt-2 gap-3 font-semibold'><MdLocationOn className=' text-[25px]' />Location</div>
-                          </button>
-                        </NavLink>
-                      </div>
+  
                       <div className=''>
+                        <NavLink to="/parent/children/viewride">
                         <button
                           className="flex justify-center  w-40 h-10 bg-orange hover:bg-[#b3913b] rounded-md cursor-pointer"
                         // onClick={() => {
@@ -99,6 +94,7 @@ function ViewChildLocation() {
                         >
                           <div className='flex mt-2 gap-3 font-semibold'><FaEye fontSize={28} color="" />View Ride</div>
                         </button>
+                        </NavLink>
                       </div>
                     </div>
                   </div>
