@@ -131,30 +131,59 @@
 // export default Login;
 
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import img from "../../images/loginImage.jpg";
 import logo from "../../images/logo.png";
 import { FaUser, FaLock } from "react-icons/fa";
 import LoginValidation from "./LoginValidation";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function Login() {
+  const navigate = useNavigate();
   const [values, setValues] = useState({
     email: "",
     password: "",
   });
+  const { email, password } = values;
 
   const [errors, setErrors] = useState({});
 
   const handleInput = (event) => {
     setValues((prev) => ({
       ...prev,
-      [event.target.name]: [event.target.value],
+      // [event.target.name]: [event.target.value],
+      [event.target.name]: event.target.value,
     }));
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    setErrors(LoginValidation(values));
+    const err = LoginValidation(values);
+    setErrors(err);
+
+    if (!Object.values(err).some((error) => error)) {
+      try {
+        const body = { email, password };
+
+        const response = await fetch("http://localhost:5000/edugo/user/login", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(body),
+        });
+
+        if (response.status == 401) {
+          toast.error("User Not Found!");
+        } else if (response.status == 402) {
+          toast.error("Incorrect Password!");
+        } else {
+          console.log(response);
+          navigate("/parent/dashboard");
+        }
+      } catch (err) {
+        console.error(err.message);
+      }
+    }
   };
 
   return (
@@ -177,6 +206,7 @@ function Login() {
             Welcome to Edugo
           </div>
           <form action="" onSubmit={handleSubmit}>
+            <ToastContainer />
             <div className="mb-10 relative">
               <div className="flex items-center">
                 <FaUser className="text-orange mr-2" />
@@ -188,7 +218,9 @@ function Login() {
                   onChange={handleInput}
                 />
               </div>
-              {errors.email && <span className="text-xs text-red-500">{errors.email}</span>}
+              {errors.email && (
+                <span className="text-xs text-red-500">{errors.email}</span>
+              )}
             </div>
             <div className="mb-1 relative">
               <div className="flex items-center">
@@ -201,7 +233,9 @@ function Login() {
                   onChange={handleInput}
                 />
               </div>
-              {errors.password && <span className="text-xs text-red-500">{errors.password}</span>}
+              {errors.password && (
+                <span className="text-xs text-red-500">{errors.password}</span>
+              )}
             </div>
             <div className="flex justify-end mt-2 mb-12">
               <button className="text-orange  hover:text-black">

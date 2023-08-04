@@ -4,6 +4,8 @@ import img from "../../images/loginImage.jpg";
 import logo from "../../images/logo.png";
 import Regvalidation from "../user/ParentRegValidation";
 import { useState } from "react";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function ParentRegister() {
   const navigate = useNavigate();
@@ -38,9 +40,8 @@ function ParentRegister() {
     //   errors.tpNum === "" &&
     //   errors.password === "" &&
     //   errors.re_password === ""
-    // ) 
-    if (!Object.values(err).some(error => error))
-    {
+    // )
+    if (!Object.values(err).some((error) => error)) {
       try {
         const body = { name, email, tpNum, nic, password };
 
@@ -52,8 +53,16 @@ function ParentRegister() {
             body: JSON.stringify(body),
           }
         );
-        console.log(response);
-        navigate("/login");
+
+        if (response.status == 401) {
+          toast.error("User Already Exists!");
+          // errors.email = "User Already Exists";
+          // alert("already exists");
+        } else {
+          console.log(response);
+          // toast.success("Registration Successfull!");
+          navigate("/login");
+        }
       } catch (err) {
         console.error(err.message);
       }
@@ -109,6 +118,7 @@ function ParentRegister() {
             Hello Parents!
           </div>
           <form action="" onSubmit={handleSubmit}>
+            <ToastContainer />
             <div className="mb-4 relative">
               <input
                 className="w-full px-3 py-1 border-b bg-[#f0f0f0] border-orange focus:border-gray outline-none"
