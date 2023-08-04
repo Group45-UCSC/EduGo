@@ -4,6 +4,13 @@ const pool = require("../../dbConnection");
 
 //password security
 const bcrypt = require("bcrypt");
+var session = require("express-session");
+
+// //session handling
+// import session from "express-session";
+
+// //cookies
+// import cookieParser from "cookie-parser";
 
 // //jwtGenerator
 // const jwtGenerator = require("../../utils/jwtGenerator");
@@ -205,15 +212,45 @@ const login = async (req, res) => {
     }
 
     //4. login success
+    req.session.username = user.rows[0].name;
+    req.session.useremail = user.rows[0].email;
+    // console.log(req.session.username);
 
-    return res.json(user.rows[0]);
+    return res.json({ Login: true });
   } catch (err) {
     console.error(err.message);
     res.status(500).send("Server Error");
   }
 };
 
-module.exports = { register, login };
+const isAuth = async (req, res) => {
+  try {
+    // console.log("Session username:", req.session.username);
+    if (req.session.username) {
+      return res.json({ valid: true, username: req.session.username });
+    } else {
+      return res.json({ valid: false });
+    }
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send("Server Error");
+  }
+};
+
+// const isAuth = async (req, res) => {
+//   try {
+//     if (req.session.username) {
+//       return res.json({ valid: true, username: req.session.username });
+//     } else {
+//       return res.json({ valid: false });
+//     }
+//   } catch (err) {
+//     console.error(err.message);
+//     res.status(500).send("Server Error");
+//   }
+// };
+
+module.exports = { register, login, isAuth };
 
 // const register = async (req, res) => {
 //     try {

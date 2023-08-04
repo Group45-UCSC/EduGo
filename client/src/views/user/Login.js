@@ -112,7 +112,7 @@
 //       </NavLink>
 //       <br />
 //       <NavLink to="/parent/dashboard">
-//         click me to go Parent Agent landing page
+//         click me to go Parent landing page
 //       </NavLink>
 //       <br />
 //       <NavLink to="/admin/dashboard">click me to go Admin landing page</NavLink>
@@ -131,13 +131,14 @@
 // export default Login;
 
 import React, { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate , NavLink} from "react-router-dom";
 import img from "../../images/loginImage.jpg";
 import logo from "../../images/logo.png";
 import { FaUser, FaLock } from "react-icons/fa";
 import LoginValidation from "./LoginValidation";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+// import axios from "axios";
 
 function Login() {
   const navigate = useNavigate();
@@ -157,6 +158,7 @@ function Login() {
     }));
   };
 
+  // axios.defaults.withCredentials = true;
   const handleSubmit = async (event) => {
     event.preventDefault();
     const err = LoginValidation(values);
@@ -172,11 +174,12 @@ function Login() {
           body: JSON.stringify(body),
         });
 
-        if (response.status == 401) {
+        if (response.status === 401) {
           toast.error("User Not Found!");
-        } else if (response.status == 402) {
+        } else if (response.status === 402) {
           toast.error("Incorrect Password!");
         } else {
+          //if(res.data.Login)
           console.log(response);
           navigate("/parent/dashboard");
         }
@@ -257,6 +260,25 @@ function Login() {
           </form>
         </div>
       </div>
+      <br></br>
+      <NavLink to="/">Register</NavLink> <br></br>
+      <NavLink to="/driver/dashboard">
+        click me to go Driver landing page
+      </NavLink>
+      <br />
+      <NavLink to="/parent/dashboard">
+        click me to go Parent landing page
+      </NavLink>
+      <br />
+      <NavLink to="/admin/dashboard">click me to go Admin landing page</NavLink>
+      <br />
+      <NavLink to="/sup_agent/dashboard">
+        click me to go Support Agent landing page
+      </NavLink>
+      <br />
+      <NavLink to="/vc/dashboard">
+        click me to go Vehicle Coordinator landing page
+      </NavLink>
     </div>
   );
 }

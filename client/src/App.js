@@ -9,6 +9,8 @@ import Login from "./views/user/Login"; //
 import DriverRegister from "./views/driver/DriverRegister";
 import ParentRegister from "./views/parent/ParentRegister"; //
 
+import UserProfile from "./views/user/UserProfile";
+
 import DriverDashboardPg from "./views/driver/DriverDashboardPg";
 import DriverFinance from "./views/driver/Finance";
 import DriverFeedback from "./views/driver/Feedback";
@@ -44,7 +46,7 @@ import VcVehicles from "./views/v_coordinator/Vehicles";
 import VcVehiclesDetails from "./views/v_coordinator/VehiclesDetails";
 import VcRides from "./views/v_coordinator/Rides";
 import VcRidesDetails from "./views/v_coordinator/RidesDetails";
-import VcTrack from"./views/v_coordinator/Track";
+import VcTrack from "./views/v_coordinator/Track";
 import VcEmergency from "./views/v_coordinator/Emergency";
 import VcEmergencyDetails from "./views/v_coordinator/EmergencyDetails";
 
@@ -53,14 +55,10 @@ import VcFeedback from "./views/v_coordinator/Feedback";
 import VRRequest from "./views/v_coordinator/VRRequest";
 import CCRequest from "./views/v_coordinator/CCRequest";
 
-
-
-
 import SupAgentDashboardPg from "./views/sup_agent/SupAgentDashboardPg";
 import SupParents from "./views/sup_agent/Parents";
 import SupDrivers from "./views/sup_agent/Drivers";
 // import AddSchoolRide from "./views/parent/AddSchoolRide";
-
 
 //define routes
 
@@ -127,6 +125,8 @@ function App() {
           <Route exact path="/driver/register" element={<DriverRegister />} />
           <Route exact path="/parent/register" element={<ParentRegister />} />
 
+          <Route exact path="/user/profile" element={<UserProfile />} />
+
           {/* <Route
             exact
             path="/driver/dashboard"
@@ -139,16 +139,32 @@ function App() {
             }
           /> */}
 
-          <Route exact path="/driver/dashboard" element={<DriverDashboardPg />} />
+          <Route
+            exact
+            path="/driver/dashboard"
+            element={<DriverDashboardPg />}
+          />
           <Route exact path="/driver/ride" element={<DriverRide />} />
           <Route exact path="/driver/finance" element={<DriverFinance />} />
           <Route exact path="/driver/support" element={<DriverSupport />} />
           <Route exact path="/driver/feedback" element={<DriverFeedback />} />
-          
-          <Route exact path="/parent/dashboard" element={<ParentDashboardPg />} />
+
+          <Route
+            exact
+            path="/parent/dashboard"
+            element={<ParentDashboardPg />}
+          />
           <Route exact path="/parent/children" element={<ParentChildren />} />
-          <Route exact path="/parent/children/childlocation" element={<ViewChildLocation />} />
-          <Route exact path="/parent/Children/addnewride" element={<AddSchoolRide />} />
+          <Route
+            exact
+            path="/parent/children/childlocation"
+            element={<ViewChildLocation />}
+          />
+          <Route
+            exact
+            path="/parent/Children/addnewride"
+            element={<AddSchoolRide />}
+          />
           <Route exact path="/parent/payment" element={<ParentPayment />} />
           <Route exact path="/parent/support" element={<ParentSupport />} />
           <Route exact path="/parent/feedback" element={<ParentFeedback />} />
@@ -157,35 +173,81 @@ function App() {
           <Route exact path="/admin/employees" element={<AdminEmployees />} />
           <Route exact path="/admin/drivers" element={<AdminDrivers />} />
           <Route exact path="/admin/rides" element={<AdminRides />} />
-          <Route exact path="/admin/ridedetails" element={<AdminRideDetails />} />
+          <Route
+            exact
+            path="/admin/ridedetails"
+            element={<AdminRideDetails />}
+          />
           <Route exact path="/admin/children" element={<AdminChildren />} />
-          <Route exact path="/admin/childrenlist" element={<AdminChildrenList />} />
+          <Route
+            exact
+            path="/admin/childrenlist"
+            element={<AdminChildrenList />}
+          />
           <Route exact path="/admin/finance" element={<AdminFinance />} />
-          <Route exact path="/admin/supportagent" element={<AdminSupportAgent />} />
-          <Route exact path="/admin/VCoordinator" element={<AdminVCoordinator />} />
+          <Route
+            exact
+            path="/admin/supportagent"
+            element={<AdminSupportAgent />}
+          />
+          <Route
+            exact
+            path="/admin/VCoordinator"
+            element={<AdminVCoordinator />}
+          />
           <Route exact path="/admin/DriverInfo" element={<AdminDriverInfo />} />
-          <Route exact path="/admin/VehicleInfo" element={<AdminVehicleInfo />} />
-          <Route exact path="/admin/ParentsInfo" element={<AdminParentsInfo />} />
-          <Route exact path="/admin/AddEmployee" element={<AdminAddEmployee />} />
+          <Route
+            exact
+            path="/admin/VehicleInfo"
+            element={<AdminVehicleInfo />}
+          />
+          <Route
+            exact
+            path="/admin/ParentsInfo"
+            element={<AdminParentsInfo />}
+          />
+          <Route
+            exact
+            path="/admin/AddEmployee"
+            element={<AdminAddEmployee />}
+          />
           <Route exact path="/admin/Emergency" element={<AdminEmergency />} />
 
-          <Route exact path="/vc/dashboard" element={<VcoordinatorDashboardPg />} />
+          <Route
+            exact
+            path="/vc/dashboard"
+            element={<VcoordinatorDashboardPg />}
+          />
           <Route exact path="/vc/vehicles" element={<VcVehicles />} />
-          <Route exact path="/vc/vehiclesdetails" element={<VcVehiclesDetails />} />
+          <Route
+            exact
+            path="/vc/vehiclesdetails"
+            element={<VcVehiclesDetails />}
+          />
           <Route exact path="/vc/rides" element={<VcRides />} />
           <Route exact path="/vc/ridesdetails" element={<VcRidesDetails />} />
           <Route exact path="/vc/track" element={<VcTrack />} />
           <Route exact path="/vc/emergency" element={<VcEmergency />} />
-          <Route exact path="/vc/emergencydetails" element={<VcEmergencyDetails/>} />
+          <Route
+            exact
+            path="/vc/emergencydetails"
+            element={<VcEmergencyDetails />}
+          />
 
-          <Route exact path="/vc/conditioncheck" element={<VcConditionCheck/>} />
-          <Route exact path="/vc/feedback" element={<VcFeedback/>} />
-          <Route exact path="/vc/vrrequest" element={<VRRequest/>}/>
-          <Route exact path="/vc/ccrequest" element={<CCRequest/>}/>
-          
+          <Route
+            exact
+            path="/vc/conditioncheck"
+            element={<VcConditionCheck />}
+          />
+          <Route exact path="/vc/feedback" element={<VcFeedback />} />
+          <Route exact path="/vc/vrrequest" element={<VRRequest />} />
+          <Route exact path="/vc/ccrequest" element={<CCRequest />} />
 
-
-          <Route exact path="/sup_agent/dashboard" element={<SupAgentDashboardPg />} />
+          <Route
+            exact
+            path="/sup_agent/dashboard"
+            element={<SupAgentDashboardPg />}
+          />
           <Route exact path="/sup_agent/parents" element={<SupParents />} />
           <Route exact path="/sup_agent/drivers" element={<SupDrivers />} />
         </Routes>
