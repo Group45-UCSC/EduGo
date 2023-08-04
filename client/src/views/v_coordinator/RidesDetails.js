@@ -3,21 +3,24 @@ import MainLayout from "../../components/layout/MainLayout";
 import { FaBeer } from "react-icons/fa";
 
 const sideNavBarLinks = [
-  { title: "Dashboard", path: "/admin/dashboard", icon: <FaBeer /> },
-  { title: "Employees", path: "/admin/employees", icon: <FaBeer /> },
-  { title: "Drivers", path: "/admin/drivers", icon: <FaBeer /> },
-  { title: "School Rides", path: "/admin/rides", icon: <FaBeer /> },
-  { title: "Children", path: "/admin/childrenlist", icon: <FaBeer /> },
-  { title: "Finance", path: "/admin/finance", icon: <FaBeer /> },
+  { title: "Dashboard", path: "/vc/dashboard", icon: <FaBeer /> },
+  { title: "Vehicles", path: "/vc/vehicles", icon: <FaBeer /> },
+  { title: "School Rides", path: "/vc/rides", icon: <FaBeer /> },
+  { title: "Emergency", path: "/vc/emergency", icon: <FaBeer /> },
 ];
 
-function AdminRideDetails() {
+function RidesDetails() {
+
+    const handleClick = () => {
+        window.location.href = `/vc/track`;
+      };
+
   return (
+    <MainLayout data={sideNavBarLinks}>
     <div>
-        <MainLayout data={sideNavBarLinks}>
-        <div>
+        
         {/* topic */}
-        <h1 className="text-[#5a5c69] pt-[25px] px-[25px] text-[28px] leading-8 font-normal cursor-pointer">Ride details</h1>
+        <div className='font-bold ml-20 mt-4 text-2xl'>Ride details</div>
 
         {/* image and details container */}
         <div className='flex'>
@@ -67,21 +70,21 @@ function AdminRideDetails() {
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-7 h-7 pt-1">
                 <path fill-rule="evenodd" d="M11.54 22.351l.07.04.028.016a.76.76 0 00.723 0l.028-.015.071-.041a16.975 16.975 0 001.144-.742 19.58 19.58 0 002.683-2.282c1.944-1.99 3.963-4.98 3.963-8.827a8.25 8.25 0 00-16.5 0c0 3.846 2.02 6.837 3.963 8.827a19.58 19.58 0 002.682 2.282 16.975 16.975 0 001.145.742zM12 13.5a3 3 0 100-6 3 3 0 000 6z" clip-rule="evenodd" />
             </svg>
-            <p className='text-[15px] absolute -mt-6 ml-8 font-semibold'>Track</p>
+            <p onClick={handleClick} className='text-[15px] absolute -mt-6 ml-8 font-semibold'>Track</p>
           </div>
         </div>
       </div>
 
       {/* table of children */}
-      <div className='ml-32 mt-16 mr-32 shadow-md overflow-auto '>
+      <div className='ml-20 mt-16 mr-32 mb-10 shadow-md overflow-auto '>
         <table className='w-full border-separate border-spacing-y-2 border border-slate-50 '>
           <thead className='border-y-4 border-white drop-shadow '>
             <tr className=' bg-[#999999] text-white border-b-2 text-[18px] drop-shadow-md '>
-              <th className='px-3.5 p-1 w-24 '>ID</th>
-              <th className='px-3.5 w-30'>Name</th>
-              <th className='px-3.5 w-30'>Contact</th>
-              <th className='px-3.5 w-30'>Destination</th>
-              <th className='px-3.5 w-30'>Status</th>  
+              <th className='px-3.5 p-1 w-30  '>ID</th>
+              <th className='px-3.5 w-30 pl-28 '>Name</th>
+              <th className='px-3.5 w-30 pl-16'>Contact</th>
+              <th className='px-3.5 w-30 pl-20 '>Destination</th>
+              <th className='px-3.5 w-30 pl-16'>Status</th>  
             </tr>
           </thead>
 
@@ -115,9 +118,8 @@ function AdminRideDetails() {
       </div>
 
     </div>
-        </MainLayout>
-    </div>
+    </MainLayout>
   )
 }
 
-export default AdminRideDetails
+export default RidesDetails
