@@ -1,5 +1,5 @@
 // //db connection
-// const pool = require("../../dbConnection");
+const pool = require("../../dbConnection");
 // // const query = require("../../models/userModel");
 
 // //password security
@@ -124,7 +124,55 @@
 
 //------------------------------------------------------------------------------------------------------------------------------------------
 
-const register = async (req, res) => {};
+// const register = async (req, res) => {
+
+//   const query =
+//     "INSERT INTO register (id,name,email,tpnum,nic,password, reg_date) VALUES(?, ?, ?, ?, ?, ?, NOW())";
+//   const values = [
+//     1,
+//     req.body.name,
+//     req.body.email,
+//     req.body.tpNum,
+//     req.body.nic,
+//     req.body.password,
+//   ];
+//   await pool.query(query, [values], (err, data) => {
+//     if (err) {
+//       return res.json(err);
+//     }
+//     return res.json(data);
+//   });
+// };
+
+const register = async (req, res) => {
+  try {
+    const { name, email, tpNum, nic, password } = req.body;
+
+    const newUser = await pool.query(
+      "INSERT INTO register (name,email,tpnum,nic,password,reg_date) VALUES($1,$2,$3,$4,$5,NOW()) RETURNING * ",
+      [name, email, tpNum, nic, password]
+    );
+    return res.json(newUser.rows[0]);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send("Server Error");
+  }
+};
+
 const login = async (req, res) => {};
 
 module.exports = { register, login };
+
+// const register = async (req, res) => {
+//     try {
+//       const { name, email, tpNum, nic, password } = req.body;
+
+//       const newUser = await pool.query(
+//         "INSERT INTO register (name,email,tpNum,nic,password) VALUES($1,$2,$3,$4,$5) RETURNING * ",
+//         [name, email, tpNum, nic, password]
+//       );
+//       return res.json(data);
+//     } catch (error) {
+//       return res.json("Error");
+//     }
+//   };

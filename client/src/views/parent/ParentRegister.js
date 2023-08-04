@@ -1,12 +1,12 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import img from "../../images/loginImage.jpg";
 import logo from "../../images/logo.png";
 import Regvalidation from "../user/ParentRegValidation";
 import { useState } from "react";
-import axios from "axios";
 
 function ParentRegister() {
+  const navigate = useNavigate();
   const [values, setValues] = useState({
     name: "",
     email: "",
@@ -15,35 +15,73 @@ function ParentRegister() {
     password: "",
     re_password: "",
   });
+  const { name, email, tpNum, nic, password } = values;
 
   const [errors, setErrors] = useState({});
 
   const handleInput = (event) => {
     setValues((prev) => ({
       ...prev,
-      [event.target.name]: [event.target.value],
+      // [event.target.name]: [event.target.value],
+      [event.target.name]: event.target.value,
     }));
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    // setErrors(Regvalidation(values));
     const err = Regvalidation(values);
     setErrors(err);
-    if (
-      errors.name === "" &&
-      errors.email === "" &&
-      errors.nic === "" &&
-      errors.tpNum === "" &&
-      errors.password === "" &&
-      errors.re_password === ""
-    ) {
-      axios
-        .post("http://localhost:5000/edugo/user/register", values)
-        .then((res) => console.log(res))
-        .catch((err) => console.log(err));
+    // if (
+    //   errors.name === "" &&
+    //   errors.email === "" &&
+    //   errors.nic === "" &&
+    //   errors.tpNum === "" &&
+    //   errors.password === "" &&
+    //   errors.re_password === ""
+    // ) 
+    if (!Object.values(err).some(error => error))
+    {
+      try {
+        const body = { name, email, tpNum, nic, password };
+
+        const response = await fetch(
+          "http://localhost:5000/edugo/user/register",
+          {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(body),
+          }
+        );
+        console.log(response);
+        navigate("/login");
+      } catch (err) {
+        console.error(err.message);
+      }
     }
   };
+
+  // const handleSubmit = (event) => {
+  //   event.preventDefault();
+  //   // setErrors(Regvalidation(values));
+  //   const err = Regvalidation(values);
+  //   setErrors(err);
+  //   if (
+  //     errors.name === "" &&
+  //     errors.email === "" &&
+  //     errors.nic === "" &&
+  //     errors.tpNum === "" &&
+  //     errors.password === "" &&
+  //     errors.re_password === ""
+  //   ) {
+  //     axios
+  //       .post("http://localhost:5000/edugo/user/register", values)
+  //       .then((res) => {
+  //         console.log(res);
+  //         navigate("/login");
+  //       })
+  //       .catch((err) => console.log(err));
+  //   }
+  // };
 
   return (
     // <div>

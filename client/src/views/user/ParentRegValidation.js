@@ -50,10 +50,10 @@ function LoginValidation(values) {
 
   if (values.re_password === "") {
     error.re_password = "* Re-enter your password";
-  } else if (values.re_password.toString() !== values.password.toString()) {
-    error.re_password = "* Password Mismatched";
-  } else {
+  } else if (values.re_password.toString() === values.password.toString()) {
     error.re_password = "";
+  } else {
+    error.re_password = "* Password misatch";
   }
 
   return error;
