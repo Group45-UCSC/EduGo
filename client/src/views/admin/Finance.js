@@ -29,6 +29,10 @@ function Finance() {
     window.location.href = `/admin/transactioninfo`;
   };
 
+  const analysis = () => {
+    window.location.href = `/admin/analysis`;
+  };
+
   return (
     <div>
       <MainLayout data={sideNavBarLinks}>
@@ -85,7 +89,7 @@ function Finance() {
           </div>
 
           {/* analytics */}
-            <div className="flex mt-8 ml-28 h-11 w-36 rounded-lg shadow-lg bg-orange font-semibold text-lg pt-2 pl-4 cursor-pointer hover:scale-[102%] hover:bg-amber-500 transition-transform ease-in-out">Analytics<BsFillBarChartFill className="mt-1 ml-4"/></div>
+            <div onClick={analysis} className="flex mt-8 ml-28 h-11 w-36 rounded-lg shadow-lg bg-orange font-semibold text-lg pt-2 pl-4 cursor-pointer hover:scale-[102%] hover:bg-amber-500 transition-transform ease-in-out">Analytics<BsFillBarChartFill className="mt-1 ml-4"/></div>
 
             {/*transaction button container */}
             <div className="flex text-center ml-32 mt-12">
