@@ -19,6 +19,7 @@ function AddSchoolRide() {
   const vehicleData = [
     {
       id: 1,
+      rating: 4,
       price: "RS. 380/KM",
       type: "Van",
       model: "Hiace",
@@ -27,42 +28,47 @@ function AddSchoolRide() {
     },
     {
       id: 2,
+      rating: 2,
       price: "RS. 380/KM",
       type: "Van",
       model: "Hiace",
-      start: "Pannipitiya",
+      start: "Maharagama",
       image: require("../../images/schoolVan.jpeg"),
     },
     {
       id: 3,
+      rating: 3.2,
       price: "RS. 380/KM",
       type: "Van",
       model: "Hiace",
-      start: "Pannipitiya",
+      start: "Homagama",
       image: require("../../images/schoolVan.jpeg"),
     },
     {
       id: 4,
+      rating: 4.5,
       price: "RS. 380/KM",
       type: "Van",
       model: "Hiace",
-      start: "Pannipitiya",
+      start: "Padukka",
       image: require("../../images/schoolVan.jpeg"),
     },
     {
       id: 5,
+      rating: 2.5,
       price: "RS. 380/KM",
       type: "Van",
       model: "Hiace",
-      start: "Pannipitiya",
+      start: "Boralasgamuwa",
       image: require("../../images/schoolVan.jpeg"),
     },
     {
       id: 6,
+      rating: 4,
       price: "RS. 380/KM",
       type: "Van",
       model: "Hiace",
-      start: "Pannipitiya",
+      start: "Horana",
       image: require("../../images/schoolVan.jpeg"),
     }
   ];
@@ -85,6 +91,7 @@ function AddSchoolRide() {
         return "0%";
       }
     };
+
 
     return (
       <div className="rating">
@@ -127,16 +134,17 @@ function AddSchoolRide() {
 
               <div className="products">
                 {vehicleData.map((vehicleData) => (
-                  <div className="product mx-3 my-3"key={vehicleData.id}>
-                    <img className="product-image"src={ vehicleData.image} alt={vehicleData.image} /><RatingStars rating={vehicleData.rating }/>
+                  <div className="product mx-3 my-3" key={vehicleData.id}>
+                    <img className="product-image" src={vehicleData.image} alt={vehicleData.image} /><RatingStars rating={vehicleData.rating} />
                     <div className=" justify-center p-2">
-                    <span className="product-price font-mono">
-                      {vehicleData.price}
-                    </span>
-                    <h4 className="product-name">
-                      Type: {vehicleData.type}
-                    </h4>
-                    <p>Model: {vehicleData.model}</p>
+                      <span className="product-price font-mono">
+                        {vehicleData.price}
+                      </span>
+                      <h4 className="product-name">
+                        Type: {vehicleData.type}
+                      </h4>
+                      <p>Model: {vehicleData.model}</p>
+                      <p>Start: {vehicleData.start}</p>
                     </div>
                     <div className="buttons">
                       <button

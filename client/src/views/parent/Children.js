@@ -241,11 +241,11 @@ function Children() {
                         </NavLink>
                       </div>
                       <div className=''>
-
+                      <NavLink to="/parent/children/viewride">
                         <button className="flex justify-center  w-40 h-10 bg-orange hover:bg-[#b3913b] rounded-md cursor-pointer">
                           <div className='flex mt-2 gap-3 font-semibold'><FaEye fontSize={28} color="" />View Ride</div>
                         </button>
-
+                        </NavLink>
                       </div>
                     </div>
                   </div>
