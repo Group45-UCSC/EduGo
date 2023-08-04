@@ -14,6 +14,11 @@ function Feedback() {
   return (
     <div>
       <MainLayout data={sideNavBarLinks}>
+        <div className="pt-[25px] px-[25px] ">
+          <h1 className="text-[#5a5c69] text-[28px] leading-8 font-normal cursor-pointer">
+            Feedback
+          </h1>
+        </div>
         This is Driver Feedback Page
       </MainLayout>
     </div>

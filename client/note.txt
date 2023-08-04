@@ -12,8 +12,8 @@ npm i formik yup
 npm i recharts
 npm install react-scroll
 npm i react-toastify
-
 npm i react-responsive-carousel
+npm i axios
 
 --server--
 npm i express pg cors
@@ -22,6 +22,7 @@ npm i dotenv
 npm i fs path
 npm i bcrypt - a library to help you hash passwords.
 npm i jsonwebtoken
+npm install express-session body-parser cookie-parser
 
 #to start run the application:
 
