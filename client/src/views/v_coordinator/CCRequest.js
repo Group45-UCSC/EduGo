@@ -24,8 +24,8 @@ function CCRequest() {
         
     <h1 className='text-[26px] font-bold ml-12 mt-8'> Vehicle Condition Requests </h1>
         
-        <div className='ml-12 mt-8 mr-20 mb-40 shadow-md overflow-auto '>
-        <table className='w-full border-separate border-spacing-y-2 border border-slate-50 '>
+        <div className='ml-12 mt-8 mr-20 mb-64 w-[1000px] shadow-md'>
+        <table className=' border-separate border-spacing-y-2 border border-slate-50 w-[1000px] '>
           <thead className='border-y-4 border-white drop-shadow '>
             <tr className=' bg-[#999999] text-white border-b-2 text-[18px] drop-shadow-md '>
                 <th className='px-3.5 w-40'>Type</th>
@@ -43,9 +43,7 @@ function CCRequest() {
                 <td className='text-center'>976543442V</td>
                 <td className='text-center'>071-xxxxxxx</td>
                 <td className='text-center'>
-                <button onClick={() =>setshowVCmodal(true)} className='buttons bg-gradient-to-b from-amber-500 to-amber-300 w-32 h-9 ml-28 mt-3 mb-2 rounded-lg shadow-md hover:shadow-lg transform hover:scale-[103%] trasition duration-300 ease-out  hover:cursor-pointer'>
-                    View more..
-                    </button>
+                  <button  onClick={() =>setshowVCmodal(true)} className="bg-gradient-to-b from-amber-500 to-amber-300  w-40 h-9 ml-4 mt-2 mb-2 rounded-lg shadow-md hover:shadow-lg transform hover:scale-[103%] trasition duration-300 ease-out  hover:cursor-pointer">Request Form..</button>
                 </td>
             </tr>
             
@@ -55,9 +53,7 @@ function CCRequest() {
               <td className='text-center'>954678922V</td>
               <td className='text-center'>071-xxxxxxx</td>
               <td className='text-center'>
-              <button onClick={() =>setshowVCmodal(true)} className='buttons bg-gradient-to-b from-amber-500 to-amber-300 w-32 h-9 ml-28 mt-3 mb-2 rounded-lg shadow-md hover:shadow-lg transform hover:scale-[103%] trasition duration-300 ease-out  hover:cursor-pointer'>
-                    View more..
-                    </button>
+               <button  onClick={() =>setshowVCmodal(true)} className="bg-gradient-to-b from-amber-500 to-amber-300  w-40 h-9 ml-4 mt-2 mb-2 rounded-lg shadow-md hover:shadow-lg transform hover:scale-[103%] trasition duration-300 ease-out  hover:cursor-pointer">Request Form..</button>
                 </td>
             </tr>
 
@@ -67,10 +63,7 @@ function CCRequest() {
               <td className='text-center'>998674555V</td>
               <td className='text-center'>071-xxxxxxx</td>
               <td className='text-center'>
-                    <button onClick={() =>setshowVCmodal(true)} className='buttons bg-gradient-to-b from-amber-500 to-amber-300 w-32 h-9 ml-28 mt-3 mb-2 rounded-lg shadow-md hover:shadow-lg transform hover:scale-[103%] trasition duration-300 ease-out  hover:cursor-pointer'>
-                    View more..
-                    </button>
-
+              <button  onClick={() =>setshowVCmodal(true)} className="bg-gradient-to-b from-amber-500 to-amber-300  w-40 h-9 ml-4 mt-2 mb-2 rounded-lg shadow-md hover:shadow-lg transform hover:scale-[103%] trasition duration-300 ease-out  hover:cursor-pointer">Request Form..</button>
                 </td>
             </tr>
 
@@ -80,9 +73,7 @@ function CCRequest() {
               <td className='text-center'>917865999V</td>
               <td className='text-center'>071-xxxxxxx</td>
               <td className='text-center'>
-              <button onClick={() =>setshowVCmodal(true)} className='buttons bg-gradient-to-b from-amber-500 to-amber-300 w-32 h-9 ml-28 mt-3 mb-2 rounded-lg shadow-md hover:shadow-lg transform hover:scale-[103%] trasition duration-300 ease-out  hover:cursor-pointer'>
-                    View more..
-                    </button>
+              <button  onClick={() =>setshowVCmodal(true)} className="bg-gradient-to-b from-amber-500 to-amber-300  w-40 h-9 ml-4 mt-2 mb-2 rounded-lg shadow-md hover:shadow-lg transform hover:scale-[103%] trasition duration-300 ease-out  hover:cursor-pointer">Request Form..</button>
                 </td>
             </tr>
           </tbody>
