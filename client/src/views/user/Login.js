@@ -181,7 +181,7 @@ function Login() {
         } else {
           //if(res.data.Login)
           console.log(response);
-          navigate("/driver/dashboard");
+          navigate("/driver/landing");
         }
       } catch (err) {
         console.error(err.message);
@@ -255,7 +255,7 @@ function Login() {
               Don't have an account yet?
             </p>
             <div className="w-full text-center py-3 text-orange  hover:text-black hover:underline">
-              <Link to="/parent/register">Create Account</Link>
+              <Link to="/driver/register">Create Account</Link>
             </div>
           </form>
         </div>
