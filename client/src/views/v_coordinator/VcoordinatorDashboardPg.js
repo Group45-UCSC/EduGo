@@ -25,11 +25,11 @@ function VcoordinatorDashboardPg() {
 
  
       <div>
-          <h1 className='ml-14 mt-10 font-semibold text-[25px]'>Dashboard</h1>
+          <h1 className='ml-12 mt-10 font-semibold text-[25px]'>Dashboard</h1>
       </div>
 
       {/*cards */}
-      <div className='grid grid-cols-4 gap-[50px] mt-[35px] pb-[15px] ml-14 mr-20 w-[1050px] mb-10 shadow-md drop-shadow-md'>
+      <div className='grid grid-cols-4 gap-[50px] mt-[35px] pb-[15px] ml-12 mr-16 w-[1050px] mb-10 shadow-md drop-shadow-md'>
         <div className='h-[100px] rounded-[8px] bg-[#EEEEEE] border-l-8 border-red-500 pl-6 flex items-center justify-between px-[30px] cursor-pointer hover:shadow-lg transform hover:scale-[101%] trasition duration-300 ease-out shadow-md'>
           <div>
             <h2 className='text-[#fa3a3a] text-[18px] leading-[17px] font-bold'> Emergency</h2>
@@ -80,15 +80,15 @@ function VcoordinatorDashboardPg() {
 
 
 {/* table of children */}
-<div className='ml-14 mt-3 mb-4 mr-24 shadow-md overflow-auto '>
-<table className=' border-separate border-spacing-y-2 border border-slate-50 '>
+<div className='ml-16 mt-3 mb-24 mr-16 shadow-md w-[1000px]'>
+<table className=' border-separate border-spacing-y-2 border border-slate-50 w-[1000px]'>
   <thead className='border-y-4 border-white drop-shadow '>
     <tr className=' bg-[#999999] text-white border-b-2 text-[18px] drop-shadow-md '>
       <th className='px-3.5 pt-2 pb-2 w-52 pl-16 '>Situation</th>
       <th className='px-3.5 w-44 pl-16'>Type</th>
       <th className='px-3.5 w-48 pl-16'>Registration</th>
       <th className='px-3.5 w-48 pl-12'>Contact</th> 
-      <th className=""></th>
+      <th className='px-3.5 w-52 pl-12'></th>
     
     </tr>
   </thead>
