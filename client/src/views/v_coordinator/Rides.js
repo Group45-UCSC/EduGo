@@ -42,7 +42,7 @@ function Rides() {
       </div>
     </div>
 
-      <div className='ml-32 mt-16 mr-32 shadow-md overflow-auto '>
+      <div className='ml-32 mt-16 mb-12 mr-32 shadow-md overflow-auto '>
         <table className='w-full border-separate border-spacing-y-2 border border-slate-50 '>
           <thead className='border-y-4 border-white drop-shadow '>
             <tr className=' bg-[#999999] text-white border-b-2 text-[18px] drop-shadow-md '>
