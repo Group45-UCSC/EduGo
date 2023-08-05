@@ -45,8 +45,8 @@ function Feedback() {
           </h1>
           <div className="grid grid-cols-2 grid-rows-2 gap-6 mt-3">
             {/* -----------Rate Driver--------------- */}
-            <div className=" bg-slate-200 rounded-md  h-[300px]">
-              <div className="grid gap-4 p-4  mt-3">
+            <div className=" bg-slate-200 rounded-md  h-[250px]">
+              <div className="grid gap-4 p-6  mt-3">
                 <div className=" h-8  flex justify-center">
                   <h1 className="text-xl font-bold">Rate our Service</h1>
                 </div>
