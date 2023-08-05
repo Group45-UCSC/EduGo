@@ -260,7 +260,7 @@ function Login() {
           </form>
         </div>
       </div>
-      {/* <br></br>
+      <br></br>
       <NavLink to="/">Register</NavLink> <br></br>
       <NavLink to="/driver/dashboard">
         click me to go Driver landing page
@@ -278,7 +278,7 @@ function Login() {
       <br />
       <NavLink to="/vc/dashboard">
         click me to go Vehicle Coordinator landing page
-      </NavLink> */}
+      </NavLink>
     </div>
   );
 }
