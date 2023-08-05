@@ -1,47 +1,48 @@
 import React from "react";
 import MainLayout from "../../components/layout/MainLayout";
-import { FaBeer, FaEllipsisV } from "react-icons/fa";
+import { FaBeer } from "react-icons/fa";
+import { AiOutlineFileAdd } from "react-icons/ai";
 import { BarChart, Bar, Cell, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 const data = [
   {
     name: 0,
-    uv: 4000,
+    income: 4000,
     pv: 2400,
     amt: 2400,
   },
   {
     name: 1,
-    uv: 3000,
+    income: 3000,
     pv: 1398,
     amt: 2210,
   },
   {
     name: 2,
-    uv: 2000,
+    income: 2000,
     pv: 9800,
     amt: 2290,
   },
   {
     name: 3,
-    uv: 2780,
+    income: 2780,
     pv: 3908,
     amt: 2000,
   },
   {
     name: 4,
-    uv: 1890,
+    income: 1890,
     pv: 4800,
     amt: 2181,
   },
   {
     name: 5,
-    uv: 2390,
+    income: 2390,
     pv: 3800,
     amt: 2500,
   },
   {
     name: 6,
-    uv: 3490,
+    income: 3490,
     pv: 4300,
     amt: 2100,
   },
@@ -95,6 +96,19 @@ function Finance() {
           <h1 className="text-[#5a5c69] text-[28px] leading-8 font-normal cursor-pointer">
             My Income
           </h1>
+          <div className="flex justify-end w-5/6 ml-44 mb-4">
+              <button
+                className="flex justify-center w-56 h-10 bg-orange rounded-md cursor-pointer hover:shadow-lg transform hover:scale-[103%] transition duration-300 ease-out"
+                // onClick={() => {
+                //   setModalOpen(true);
+                // }}
+              >
+                <div className="flex mt-2 gap-3 font-semibold">
+                  <AiOutlineFileAdd className="text-[25px]" />
+                  Add Payment
+                </div>
+              </button>
+            </div>
           <div className="grid grid-cols-2 grid-rows-2 gap-6 mt-3">
             <div className=" h-[200px]">
               {/* ----------Income box-------------- */}
@@ -105,7 +119,7 @@ function Finance() {
                   </h1>
                   <div className=" flex justify-center gap-32">
                     <div>
-                      <h2 className=" text-blue-600 text-[38px] leading-[17px] font-bold mb-3">
+                      <h2 className=" text-orange text-[38px] leading-[17px] font-bold mb-3">
                         LKR 3400
                       </h2>
 
@@ -123,7 +137,7 @@ function Finance() {
                   <YAxis />
                   <Tooltip />
                   <Legend />
-                  <Bar dataKey="uv" fill="#8884d8" />
+                  <Bar dataKey="income" fill=" rgb(51 65 85)" />
 
                 </BarChart>
               </ResponsiveContainer>
