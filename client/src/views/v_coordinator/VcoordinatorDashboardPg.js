@@ -100,11 +100,7 @@ function VcoordinatorDashboardPg() {
         <td className='text-center'>QL-2234</td>
         <td className='text-center'>071-xxxxxxx</td>
         <td className='text-center'>
-            <div className='buttons bg-gradient-to-b from-amber-500 to-amber-300 w-40 h-9 ml-28 mb-2  rounded-lg shadow-md hover:shadow-lg transform hover:scale-[103%] trasition duration-300 ease-out  hover:cursor-pointer mr-4'>
-              <div className='ml-4 mt-4 text-lg'>
-                <p className='text-[15px] absolute mt-1 ml-3 font-semibold'>View more..</p>
-              </div>
-            </div>
+              <button className="bg-gradient-to-b from-amber-500 to-amber-300  w-40 h-9 ml-4 mt-2 mb-2 rounded-lg shadow-md hover:shadow-lg transform hover:scale-[103%] trasition duration-300 ease-out  hover:cursor-pointer">View more...</button>
         </td>
     </tr>
     
@@ -114,12 +110,8 @@ function VcoordinatorDashboardPg() {
       <td className='text-center'>RK-2889</td>
       <td className='text-center'>071-xxxxxxx</td>
       <td className='text-center'>
-            <div className='buttons bg-gradient-to-b from-amber-500 to-amber-300 w-40 h-9 ml-28 mb-2 rounded-lg shadow-md hover:shadow-lg transform hover:scale-[103%] trasition duration-300 ease-out  hover:cursor-pointer'>
-              <div className='ml-4 mt-4 text-lg'>
-                <p className='text-[15px] absolute mt-1 ml-3 font-semibold'>View more..</p>
-              </div>
-            </div>
-        </td>
+        <button className="bg-gradient-to-b from-amber-500 to-amber-300  w-40 h-9 ml-4 mt-2 mb-2 rounded-lg shadow-md hover:shadow-lg transform hover:scale-[103%] trasition duration-300 ease-out  hover:cursor-pointer">View more...</button>
+      </td>
     </tr>
 
     <tr className=' bg-[#D9D9D9]  hover:cursor-pointer  hover:bg-[#eaeaea] drop-shadow-md'>
@@ -128,12 +120,8 @@ function VcoordinatorDashboardPg() {
       <td className='text-center'>SD-2934</td>
       <td className='text-center'>071-xxxxxxx</td>
       <td className='text-center'>
-            <div className='buttons bg-gradient-to-b from-amber-500 to-amber-300 w-40 h-9 ml-28 mb-2 rounded-lg shadow-md hover:shadow-lg transform hover:scale-[103%] trasition duration-300 ease-out  hover:cursor-pointer'>
-              <div className='ml-4 mt-4 text-lg'>
-                <p className='text-[15px] absolute mt-1 ml-3 font-semibold'>View more..</p>
-              </div>
-            </div>
-        </td>
+        <button className="bg-gradient-to-b from-amber-500 to-amber-300  w-40 h-9 ml-4 mt-2 mb-2 rounded-lg shadow-md hover:shadow-lg transform hover:scale-[103%] trasition duration-300 ease-out  hover:cursor-pointer">View more...</button>
+      </td>
     </tr>
 
     <tr className=' bg-[#D9D9D9]  hover:cursor-pointer  hover:bg-[#eaeaea] drop-shadow-md'>
@@ -142,12 +130,8 @@ function VcoordinatorDashboardPg() {
       <td className='text-center'>SD-2934</td>
       <td className='text-center'>071-xxxxxxx</td>
       <td className='text-center'>
-            <div className='buttons bg-gradient-to-b from-amber-500 to-amber-300 w-40 h-9 ml-28 mb-2 rounded-lg shadow-md hover:shadow-lg transform hover:scale-[103%] trasition duration-300 ease-out  hover:cursor-pointer'>
-              <div className='ml-4 mt-4 text-lg'>
-                <p className='text-[15px] absolute mt-1 ml-3 font-semibold'>View more..</p>
-              </div>
-            </div>
-        </td>
+        <button className="bg-gradient-to-b from-amber-500 to-amber-300  w-40 h-9 ml-4 mt-2 mb-2 rounded-lg shadow-md hover:shadow-lg transform hover:scale-[103%] trasition duration-300 ease-out  hover:cursor-pointer">View more...</button>
+      </td>
     </tr>
   </tbody>
 
