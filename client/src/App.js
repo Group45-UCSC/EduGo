@@ -18,6 +18,7 @@ import DriverFeedback from "./views/driver/Feedback";
 import DriverRide from "./views/driver/Ride";
 import DriverSupport from "./views/driver/Support";
 import PastRides from "./views/driver/PastRides";
+import Vehicle from "./views/driver/Vehicle";
 
 import ParentDashboardPg from "./views/parent/Parent"; //
 import ParentChildren from "./views/parent/Children";
@@ -158,6 +159,7 @@ function App() {
           <Route exact path="/driver/support" element={<DriverSupport />} />
           <Route exact path="/driver/feedback" element={<DriverFeedback />} />
           <Route exact path="/driver/rides/past" element={<PastRides />} />
+          <Route exact path="/driver/vehicle" element={<Vehicle/>} />
 
           <Route
             exact
