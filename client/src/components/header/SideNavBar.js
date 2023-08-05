@@ -88,7 +88,7 @@ import React, { useState } from "react";
 import ArrowImg from "../../images/arrow.png";
 import Logo from "../../images/logo.png";
 import { NavLink } from "react-router-dom";
-// import { CiLogout } from "react-icons/ci";
+import { CiLogout } from "react-icons/ci";
 
 function SideNavBar({ data, open, setOpen }) {
   const [activeLink, setActiveLink] = useState(null);
@@ -138,8 +138,9 @@ function SideNavBar({ data, open, setOpen }) {
           </NavLink>
         ))}
       </div>
-      {/* <CiLogout className="text-black scale-150 font-semibold ml-6 mt-3"/> */}
-    </div>
+      <div className=" flex justify-center pt-5">
+      <NavLink to="/login">
+      <CiLogout className="text-black text-[30px] scale-150 font-bold "/></NavLink></div></div>
   );
 }
 
