@@ -57,7 +57,7 @@ const tabeldata = [
   },
   {
     name: "R.B.S. Udayanga",
-    payment: 3500,
+    payment: 3600,
     date: "2023/7/12",
     period: 3
   },
