@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
+// import { useEffect, useState } from "react";
 // import axios from "axios";
 import MainLayout from "../../components/layout/MainLayout";
 import { FaEnvelope, FaRegCalendarMinus, FaChild } from "react-icons/fa";
@@ -11,7 +12,7 @@ import {
 import { AiFillDashboard } from "react-icons/ai";
 import parentMap from "../../images/parentMap.png";
 import parentLandingPage from "../../images/parentLandingPage.png";
-import { useNavigate } from "react-router-dom";
+// import { useNavigate } from "react-router-dom";
 
 function Parent() {
   const sideNavBarLinks = [
@@ -30,37 +31,37 @@ function Parent() {
     },
   ];
 
-  const navigate = useNavigate();
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const [username, setUsername] = useState("");
+  // const navigate = useNavigate();
+  // const [isAuthenticated, setIsAuthenticated] = useState(false);
+  // const [username, setUsername] = useState("");
 
-  useEffect(() => {
-    const checkAuth = async () => {
-      try {
-        const response = await fetch("http://localhost:5000/edugo/user/isAuth", {
-          method: "GET",
-          credentials: "include", // This sends cookies along with the request
-        });
+  // useEffect(() => {
+  //   const checkAuth = async () => {
+  //     try {
+  //       const response = await fetch("http://localhost:5000/edugo/user/isAuth", {
+  //         method: "GET",
+  //         credentials: "include", // This sends cookies along with the request
+  //       });
 
-        const data = await response.json();
-        // console.log(data);
-        if (response.status === 200) {  //&& data.valid
-          setIsAuthenticated(true);
-          setUsername(data.username);
-        } else {
-          // navigate("/login");
-        }
-      } catch (err) {
-        console.error(err.message);
-      }
-    };
+  //       const data = await response.json();
+  //       // console.log(data);
+  //       if (response.status === 200) {  //&& data.valid
+  //         setIsAuthenticated(true);
+  //         setUsername(data.username);
+  //       } else {
+  //         // navigate("/login");
+  //       }
+  //     } catch (err) {
+  //       console.error(err.message);
+  //     }
+  //   };
 
-    checkAuth();
-  }, [navigate]);
+  //   checkAuth();
+  // }, [navigate]);
 
-  if (!isAuthenticated) {
-    return <div>Loading...</div>;
-  }
+  // if (!isAuthenticated) {
+  //   return <div>Loading...</div>;
+  // }
 
   // const [name, setName] = useState("");
   // const navigate = useNavigate();
@@ -100,7 +101,7 @@ function Parent() {
       <MainLayout data={sideNavBarLinks}>
         <div className="pt-6 px-6">
           <h1 className="text-[#5a5c69] text-[28px] leading-8 font-normal cursor-pointer">
-            Dashboard {username}!
+            Dashboard
           </h1>
 
           <div className="grid grid-cols-2 gap-[150px] mt-[25px] pb-[15px]">
