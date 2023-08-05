@@ -5,6 +5,7 @@ import { FaBusAlt } from "react-icons/fa";
 import { FaChild } from "react-icons/fa";
 import { FaUserGroup } from "react-icons/fa6";
 import { FaShippingFast } from "react-icons/fa";
+import { BsFillExclamationOctagonFill } from "react-icons/bs";
 
 const sideNavBarLinks = [
   { title: "Dashboard", path: "/admin/dashboard", icon: <FaBeer /> },
@@ -16,6 +17,11 @@ const sideNavBarLinks = [
 ];
 
 function AdminDashboardPg() {
+
+    const emergency = () => {
+        window.location.href = `/admin/emergency`;
+      };
+
   return (
     <div>
       <MainLayout data={sideNavBarLinks}>
@@ -87,6 +93,9 @@ function AdminDashboardPg() {
               </div>
           </div>
           </div>
+
+          {/* emergencies */}
+          <div onClick={emergency} className="flex mt-8 ml-12 h-11 w-44 rounded-lg shadow-lg bg-orange font-semibold text-lg pt-2 pl-5 cursor-pointer hover:scale-[102%] hover:bg-amber-500 transition-transform ease-in-out">Emergencies<BsFillExclamationOctagonFill className="mt-1 ml-4"/></div>
       </MainLayout>
     </div>
   );
