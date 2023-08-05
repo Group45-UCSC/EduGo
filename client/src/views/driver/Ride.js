@@ -37,11 +37,11 @@ function Ride() {
   return (
     <div>
       <MainLayout data={sideNavBarLinks} >
-                  <h1 className="text-[#5a5c69] text-[28px] pt-6 px-6 leading-8 font-normal cursor-pointer">
-            School Ride
-          </h1>
+        <h1 className="text-[#5a5c69] text-[28px] pt-6 px-6 leading-8 font-normal cursor-pointer">
+          School Ride
+        </h1>
         <div className="flex flex-col relative my-50 mx-auto break-all p-20">
-          
+
           <div className="flex">
             <button
               className={toggleState === 1 ? "tabs active-tabs" : "tabs"}
