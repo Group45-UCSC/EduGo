@@ -54,7 +54,7 @@ function ParentRegister() {
           }
         );
 
-        if (response.status == 401) {
+        if (response.status === 401) {
           toast.error("User Already Exists!");
           // errors.email = "User Already Exists";
           // alert("already exists");
