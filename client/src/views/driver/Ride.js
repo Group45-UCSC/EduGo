@@ -134,6 +134,7 @@ function Ride() {
   ];
 
   return (
+
     // <div>
     //   <MainLayout data={sideNavBarLinks}>
     //     <h1 className="text-[#5a5c69] text-[28px] pt-6 px-6 leading-8 font-normal cursor-pointer">
@@ -154,6 +155,7 @@ function Ride() {
     //           Past Rides
     //         </button>
     //       </div>
+
 
     //       <div className="content-tabs">
     //         <div
