@@ -1,6 +1,6 @@
 import React from "react";
 import MainLayout from "../../components/layout/MainLayout";
-import { FaBeer } from "react-icons/fa";
+import { FaBeer, FaStar } from "react-icons/fa";
 
 const sideNavBarLinks = [
   { title: "Dashboard", path: "/driver/dashboard", icon: <FaBeer /> },
@@ -10,19 +10,12 @@ const sideNavBarLinks = [
   { title: "Feedback", path: "/driver/feedback", icon: <FaBeer /> },
 ];
 
-function Support() {
+function Vehicle() {
   return (
     <div>
-      <MainLayout data={sideNavBarLinks}>
-        <div className="pt-[25px] px-[25px] ">
-          <h1 className="text-[#5a5c69] text-[28px] leading-8 font-normal cursor-pointer">
-            Support
-          </h1>
-        </div>
-        This is Driver Support Page
-      </MainLayout>
+      <MainLayout data={sideNavBarLinks}>Vehicle details</MainLayout>
     </div>
   );
 }
 
-export default Support;
+export default Vehicle;

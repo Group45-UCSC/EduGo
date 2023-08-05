@@ -10,19 +10,16 @@ const sideNavBarLinks = [
   { title: "Feedback", path: "/driver/feedback", icon: <FaBeer /> },
 ];
 
-function Support() {
+function PastRides() {
   return (
     <div>
       <MainLayout data={sideNavBarLinks}>
-        <div className="pt-[25px] px-[25px] ">
-          <h1 className="text-[#5a5c69] text-[28px] leading-8 font-normal cursor-pointer">
-            Support
-          </h1>
-        </div>
-        This is Driver Support Page
+        <div><h1 className="text-[#5a5c69] text-[28px] mb-[550px] leading-8 font-normal cursor-pointer">
+            You have no any past ride details yet.
+          </h1></div>
       </MainLayout>
     </div>
   );
 }
 
-export default Support;
+export default PastRides;

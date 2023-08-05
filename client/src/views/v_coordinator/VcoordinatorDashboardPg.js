@@ -10,17 +10,26 @@ const sideNavBarLinks = [
 ];
 
 function VcoordinatorDashboardPg() {
+
+  const handleClick = () => {
+    window.location.href = `/vc/vrrequest`;
+  };
+
+  const handleClick2 = () => {
+    window.location.href = `/vc/ccrequest`;
+  };
+
   return (
     <div>
       <MainLayout data={sideNavBarLinks}>
 
  
       <div>
-          <h1 className='ml-14 mt-10 font-semibold text-[25px]'>Dashboard</h1>
+          <h1 className='ml-12 mt-10 font-semibold text-[25px]'>Dashboard</h1>
       </div>
 
       {/*cards */}
-      <div className='grid grid-cols-4 gap-[50px] mt-[35px] pb-[15px] ml-14 mr-20 w-[1050px] mb-10 shadow-md drop-shadow-md'>
+      <div className='grid grid-cols-4 gap-[50px] mt-[35px] pb-[15px] ml-12 mr-16 w-[1050px] mb-10 shadow-md drop-shadow-md'>
         <div className='h-[100px] rounded-[8px] bg-[#EEEEEE] border-l-8 border-red-500 pl-6 flex items-center justify-between px-[30px] cursor-pointer hover:shadow-lg transform hover:scale-[101%] trasition duration-300 ease-out shadow-md'>
           <div>
             <h2 className='text-[#fa3a3a] text-[18px] leading-[17px] font-bold'> Emergency</h2>
@@ -42,7 +51,8 @@ function VcoordinatorDashboardPg() {
 
         </div>
 
-        <div className='h-[100px] rounded-[8px] bg-[#EEEEEE] border-l-8 border-[#FF9900] pl-6 flex items-center justify-between px-[30px] cursor-pointer hover:shadow-lg transform hover:scale-[101%] trasition duration-300 ease-out shadow-md'>
+        <div onClick={handleClick} className='h-[100px] rounded-[8px] bg-[#EEEEEE] border-l-8 border-[#FF9900] pl-6 flex items-center justify-between px-[30px] cursor-pointer hover:shadow-lg transform hover:scale-[101%] trasition duration-300 ease-out shadow-md'>
+
           <div>
             <h2 className='text-[#000000] text-[18px] leading-[17px] font-bold'> Vehicle Register Requests</h2>
             <h1 className='text-[20px] leading-[24px] font-bold mt-[15px] ml-3'> 2 </h1>
@@ -54,7 +64,8 @@ function VcoordinatorDashboardPg() {
 
         </div>
 
-        <div className='h-[100px] rounded-[8px] bg-[#EEEEEE] border-l-8 border-[#FF9900] pl-6 flex items-center justify-between px-[30px] cursor-pointer hover:shadow-lg transform hover:scale-[101%] trasition duration-300 ease-out shadow-md'>
+        <div onClick={handleClick2}  className='h-[100px] rounded-[8px] bg-[#EEEEEE] border-l-8 border-[#FF9900] pl-6 flex items-center justify-between px-[30px] cursor-pointer hover:shadow-lg transform hover:scale-[101%] trasition duration-300 ease-out shadow-md'>
+
           <div>
             <h2 className='text-[#000000] text-[18px] leading-[17px] font-bold'> Condition Check</h2>
             <h1 className='text-[20px] leading-[24px] font-bold mt-[15px] ml-3'> 4 </h1>
@@ -69,15 +80,15 @@ function VcoordinatorDashboardPg() {
 
 
 {/* table of children */}
-<div className='ml-14 mt-3 mb-4 mr-24 shadow-md overflow-auto '>
-<table className=' border-separate border-spacing-y-2 border border-slate-50 '>
+<div className='ml-16 mt-3 mb-24 mr-16 shadow-md w-[1000px]'>
+<table className=' border-separate border-spacing-y-2 border border-slate-50 w-[1000px]'>
   <thead className='border-y-4 border-white drop-shadow '>
     <tr className=' bg-[#999999] text-white border-b-2 text-[18px] drop-shadow-md '>
       <th className='px-3.5 pt-2 pb-2 w-52 pl-16 '>Situation</th>
       <th className='px-3.5 w-44 pl-16'>Type</th>
       <th className='px-3.5 w-48 pl-16'>Registration</th>
       <th className='px-3.5 w-48 pl-12'>Contact</th> 
-      <th className=""></th>
+      <th className='px-3.5 w-52 pl-12'></th>
     
     </tr>
   </thead>
@@ -89,11 +100,7 @@ function VcoordinatorDashboardPg() {
         <td className='text-center'>QL-2234</td>
         <td className='text-center'>071-xxxxxxx</td>
         <td className='text-center'>
-            <div className='buttons bg-gradient-to-b from-amber-500 to-amber-300 w-40 h-9 ml-28 mb-2  rounded-lg shadow-md hover:shadow-lg transform hover:scale-[103%] trasition duration-300 ease-out  hover:cursor-pointer mr-4'>
-              <div className='ml-4 mt-4 text-lg'>
-                <p className='text-[15px] absolute mt-1 ml-3 font-semibold'>View more..</p>
-              </div>
-            </div>
+              <button className="bg-gradient-to-b from-amber-500 to-amber-300  w-40 h-9 ml-4 mt-2 mb-2 rounded-lg shadow-md hover:shadow-lg transform hover:scale-[103%] trasition duration-300 ease-out  hover:cursor-pointer">View more...</button>
         </td>
     </tr>
     
@@ -103,12 +110,8 @@ function VcoordinatorDashboardPg() {
       <td className='text-center'>RK-2889</td>
       <td className='text-center'>071-xxxxxxx</td>
       <td className='text-center'>
-            <div className='buttons bg-gradient-to-b from-amber-500 to-amber-300 w-40 h-9 ml-28 mb-2 rounded-lg shadow-md hover:shadow-lg transform hover:scale-[103%] trasition duration-300 ease-out  hover:cursor-pointer'>
-              <div className='ml-4 mt-4 text-lg'>
-                <p className='text-[15px] absolute mt-1 ml-3 font-semibold'>View more..</p>
-              </div>
-            </div>
-        </td>
+        <button className="bg-gradient-to-b from-amber-500 to-amber-300  w-40 h-9 ml-4 mt-2 mb-2 rounded-lg shadow-md hover:shadow-lg transform hover:scale-[103%] trasition duration-300 ease-out  hover:cursor-pointer">View more...</button>
+      </td>
     </tr>
 
     <tr className=' bg-[#D9D9D9]  hover:cursor-pointer  hover:bg-[#eaeaea] drop-shadow-md'>
@@ -117,12 +120,8 @@ function VcoordinatorDashboardPg() {
       <td className='text-center'>SD-2934</td>
       <td className='text-center'>071-xxxxxxx</td>
       <td className='text-center'>
-            <div className='buttons bg-gradient-to-b from-amber-500 to-amber-300 w-40 h-9 ml-28 mb-2 rounded-lg shadow-md hover:shadow-lg transform hover:scale-[103%] trasition duration-300 ease-out  hover:cursor-pointer'>
-              <div className='ml-4 mt-4 text-lg'>
-                <p className='text-[15px] absolute mt-1 ml-3 font-semibold'>View more..</p>
-              </div>
-            </div>
-        </td>
+        <button className="bg-gradient-to-b from-amber-500 to-amber-300  w-40 h-9 ml-4 mt-2 mb-2 rounded-lg shadow-md hover:shadow-lg transform hover:scale-[103%] trasition duration-300 ease-out  hover:cursor-pointer">View more...</button>
+      </td>
     </tr>
 
     <tr className=' bg-[#D9D9D9]  hover:cursor-pointer  hover:bg-[#eaeaea] drop-shadow-md'>
@@ -131,12 +130,8 @@ function VcoordinatorDashboardPg() {
       <td className='text-center'>SD-2934</td>
       <td className='text-center'>071-xxxxxxx</td>
       <td className='text-center'>
-            <div className='buttons bg-gradient-to-b from-amber-500 to-amber-300 w-40 h-9 ml-28 mb-2 rounded-lg shadow-md hover:shadow-lg transform hover:scale-[103%] trasition duration-300 ease-out  hover:cursor-pointer'>
-              <div className='ml-4 mt-4 text-lg'>
-                <p className='text-[15px] absolute mt-1 ml-3 font-semibold'>View more..</p>
-              </div>
-            </div>
-        </td>
+        <button className="bg-gradient-to-b from-amber-500 to-amber-300  w-40 h-9 ml-4 mt-2 mb-2 rounded-lg shadow-md hover:shadow-lg transform hover:scale-[103%] trasition duration-300 ease-out  hover:cursor-pointer">View more...</button>
+      </td>
     </tr>
   </tbody>
 
