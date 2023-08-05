@@ -56,14 +56,14 @@ const tabeldata = [
     period: 3
   },
   {
-    name: "R.B.S. Udayanga",
+    name: "L.L.A. Hansani",
     payment: 3600,
     date: "2023/7/12",
     period: 3
   },
   {
     name: "R.B.S. Udayanga",
-    payment: 3500,
+    payment: 3900,
     date: "2023/7/12",
     period: 3
   },
