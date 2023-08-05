@@ -3,7 +3,9 @@ import MainLayout from "../../components/layout/MainLayout";
 import { FaBeer, FaRegCalendarMinus, FaEllipsisV, FaEye } from "react-icons/fa";
 import schoolVan from "../../images/schoolVan.jpeg";
 import parentMap from "../../images/parentMap.png";
-
+import { AiFillDashboard } from "react-icons/ai"
+import { MdLocationOn, MdPersonAdd, MdPayments, MdSupportAgent, MdOutlineRateReview } from "react-icons/md";
+import { AiFillCar } from "react-icons/ai";
 // import { ToastContainer, toast } from 'react-toastify';
 
 import {
@@ -62,11 +64,11 @@ const data = [
   },
 ];
 const sideNavBarLinks = [
-  { title: "Dashboard", path: "/driver/dashboard", icon: <FaBeer /> },
-  { title: "School Ride", path: "/driver/ride", icon: <FaBeer /> },
-  { title: "Finance", path: "/driver/finance", icon: <FaBeer /> },
-  { title: "Support", path: "/driver/support", icon: <FaBeer /> },
-  { title: "Feedback", path: "/driver/feedback", icon: <FaBeer /> },
+  { title: "Dashboard", path: "/driver/dashboard", icon: <AiFillDashboard /> },
+  { title: "School Ride", path: "/driver/ride", icon: <AiFillCar /> },
+  { title: "Finance", path: "/driver/finance", icon: <MdPayments /> },
+  { title: "Support", path: "/driver/support", icon: <MdSupportAgent /> },
+  { title: "Feedback", path: "/driver/feedback", icon: <MdOutlineRateReview /> },
 ];
 
 function DriverDashboardPg() {
