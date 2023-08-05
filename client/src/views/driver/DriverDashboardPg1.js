@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import MainLayout from "../../components/layout/MainLayout";
 import { FaBeer, FaRegCalendarMinus, FaEllipsisV } from "react-icons/fa";
-import schoolVan from "../../images/schoolVan.jpeg";
-import parentMap from "../../images/parentMap.png";
+// import schoolVan from "../../images/schoolVan.jpeg";
+// import parentMap from "../../images/parentMap.png";
 import { Link, NavLink, useNavigate } from "react-router-dom";
 // import schoolBus from "../../images/schoolbus";
 import schoolbusImg from "../../images/schoolBus.jpg";
