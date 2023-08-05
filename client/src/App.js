@@ -52,7 +52,6 @@ import VcRidesDetails from "./views/v_coordinator/RidesDetails";
 import VcTrack from "./views/v_coordinator/Track";
 import VcEmergency from "./views/v_coordinator/Emergency";
 import VcEmergencyDetails from "./views/v_coordinator/EmergencyDetails";
-
 import VcConditionCheck from "./views/v_coordinator/ConditionCheck";
 import VcFeedback from "./views/v_coordinator/Feedback";
 import VRRequest from "./views/v_coordinator/VRRequest";
