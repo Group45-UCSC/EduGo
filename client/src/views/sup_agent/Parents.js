@@ -12,20 +12,21 @@ const sideNavBarLinks = [
 const initialParentData = [
   {
     id: 1,
-    name: "John Doe",
-    nicNumber: "910123456V",
-    contact: "0112345678",
-    address: "Rosmead Place, Colombo 7",
-    img: "https://tecdn.b-cdn.net/img/new/avatars/2.webp",
-  },
-  {
-    id: 2,
     name: "S.N.Ramanayake",
     nicNumber: "997542770V",
     contact: "0332250444",
     address: "192 Old Moor Street, Colombo",
     img: "https://image.shutterstock.com/image-photo/portrait-handsome-caucasian-man-formal-260nw-2142820441.jpg",
   },
+  {
+    id: 2,
+    name: "John Doe",
+    nicNumber: "910123456V",
+    contact: "0112345678",
+    address: "Rosmead Place, Colombo 7",
+    img: "https://tecdn.b-cdn.net/img/new/avatars/2.webp",
+  },
+  
   {
     id: 3,
     name: "Jagath Perera",
@@ -70,7 +71,7 @@ const initialChildrenData = [
     contact: "0705012458",
     vnum: "V98765",
     img: "https://www.miltonscene.com/wp-content/uploads/2020/05/outschool-kid-drawing-0520.jpg",
-    parentId: 2,
+    parentId: 1,
   },
   {
     id: 3,
@@ -90,7 +91,7 @@ const initialChildrenData = [
     contact: "0712345678",
     vnum: "V98765",
     img: "https://cdn.forumcomm.com/dims4/default/91338c5/2147483647/strip/true/crop/3456x2304+0+740/resize/840x560!/quality/90/?url=https%3A%2F%2Fforum-communications-production-web.s3.us-west-2.amazonaws.com%2Fbrightspot%2F49%2F82%2F74ae8fd64e72bd14630ee55e6287%2F090322.OP.PRE.JacksonBrann5776.JPG",
-    parentId: 2,
+    parentId: 1,
   },
 ];
 
@@ -328,7 +329,7 @@ function Parents() {
                   </div>
 
                   <div className="bg-[#EEEEEE] w-full h-[15rem] mt-5 rounded-xl p-3">
-                    <p className="text-xl font-semibold">Dependent's Details</p>
+                    <p className="text-xl font-semibold">Children Details</p>
                     <div className="flex flex-1 gap-20 p-2">
                       {selectedRow &&
                         parentWithChildren

@@ -223,8 +223,9 @@ function Drivers() {
                       <h2 className="font-bold text-xl ml mt-4">
                         {selectedRow.name}
                       </h2>
-                      <h2 className="font-bold text-xl ml mt-4">
-                        Ride Status : Ongoing
+                      <h2 className="text-xl ml mt-4 flex flex-row">
+                        <p className="font-bold">Ride Status :</p>
+                        <p className="text-[#16a34a]">On Ride</p>
                       </h2>
                       <button className="w-[8rem] py-2 px-5 rounded-full font-bold bg-orange flex items-center gap-1">
                         <MdLocationPin className="text-black text-3xl" />
