@@ -130,7 +130,7 @@ function Support() {
               </div>
               {/* --------------------------------------------- */}
               {/* ------------------chat view------------------ */}
-              <div className="col-span-2 bg-[#FDF6F6] rounded-md m-1 p-5 flex flex-col justify-between">
+              <div className="col-span-2 bg-gradient-to-r from-[#e2e8f0] to-[#cbd5e0] rounded-md m-1 p-5 flex flex-col justify-between">
                 {selectedChatId ? (
                   <div className="flex justify-center items-center border-b pb-2 mb-3">
                     <img
@@ -258,7 +258,7 @@ function Support() {
 
           {/* -------------------------complaint Tab------------------ */}
           {activeTab === "complaints" && (
-            <div className="w-fill h-[45rem] p-8 bg-[#FDF6F6]">
+            <div className="w-fill h-[45rem] p-8 bg-gradient-to-r from-[#e2e8f0] to-[#cbd5e0]">
               <div className="flex flex-col h-full border rounded-lg overflow-hidden">
                 <div className="bg-orange flex justify-center items-center border-b py-3 mb-3">
                   <h1 className="font-semibold text-2xl">Customer Support</h1>

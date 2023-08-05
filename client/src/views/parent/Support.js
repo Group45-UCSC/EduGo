@@ -1,17 +1,19 @@
 import React, { useState } from "react";
 import MainLayout from "../../components/layout/MainLayout";
-import { FaBeer, FaSearch, FaPhone } from "react-icons/fa";
-import { AiOutlinePaperClip, AiOutlineSend } from "react-icons/ai";
+import { FaChild,FaSearch,FaPhone } from "react-icons/fa";
+import { MdPayments, MdSupportAgent, MdOutlineRateReview } from "react-icons/md";
+import { AiFillDashboard,AiOutlinePaperClip, AiOutlineSend } from "react-icons/ai";
 
 
 function Support() {
   const sideNavBarLinks = [
-    { title: "Dashboard", path: "/parent/dashboard", icon: <FaBeer /> },
-    { title: "Children", path: "/parent/children", icon: <FaBeer /> },
-    { title: "Payment", path: "/parent/payment", icon: <FaBeer /> },
-    { title: "Support", path: "/parent/support", icon: <FaBeer /> },
-    { title: "Feedback", path: "/parent/feedback", icon: <FaBeer /> },
-  ];const [activeTab, setActiveTab] = useState("chat");
+    { title: "Dashboard", path: "/parent/dashboard", icon: <AiFillDashboard /> },
+    { title: "Children", path: "/parent/children", icon: <FaChild /> },
+    { title: "Payment", path: "/parent/payment", icon: <MdPayments /> },
+    { title: "Support", path: "/parent/support", icon: <MdSupportAgent /> },
+    { title: "Feedback", path: "/parent/feedback", icon: <MdOutlineRateReview /> },
+  ];
+  const [activeTab, setActiveTab] = useState("chat");
 
   const [inputValue, setInputValue] = useState("");
   const [sentMessages, setSentMessages] = useState([]);
@@ -131,7 +133,7 @@ function Support() {
               </div>
               {/* --------------------------------------------- */}
               {/* ------------------chat view------------------ */}
-              <div className="col-span-2 bg-[#FDF6F6] rounded-md m-1 p-5 flex flex-col justify-between">
+              <div className="col-span-2 bg-gradient-to-r from-[#e2e8f0] to-[#cbd5e0] rounded-md m-1 p-5 flex flex-col justify-between">
                 {selectedChatId ? (
                   <div className="flex justify-center items-center border-b pb-2 mb-3">
                     <img
@@ -259,7 +261,7 @@ function Support() {
 
           {/* -------------------------complaint Tab------------------ */}
           {activeTab === "complaints" && (
-            <div className="w-fill h-[45rem] p-8 bg-[#FDF6F6]">
+            <div className="w-fill h-[45rem] p-8 bg-gradient-to-r from-[#e2e8f0] to-[#cbd5e0]">
               <div className="flex flex-col h-full border rounded-lg overflow-hidden">
                 <div className="bg-orange flex justify-center items-center border-b py-3 mb-3">
                   <h1 className="font-semibold text-2xl">Customer Support</h1>

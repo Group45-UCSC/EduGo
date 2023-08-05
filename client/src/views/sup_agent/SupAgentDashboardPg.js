@@ -47,6 +47,7 @@ function SupAgentDashboardPg() {
       setInputValue("");
     }
   };
+  const [searchQuery, setSearchQuery] = useState("");
   const chatItems = [
     {
       id: 1,
@@ -92,6 +93,9 @@ function SupAgentDashboardPg() {
                   type="text"
                   className="w-full px-4 bg-transparent py-2 border rounded-full focus:outline-none focus:border-black focus:border-2 placeholder-black placeholder-opacity-75"
                   placeholder="Search Name..."
+                  name="search"
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
                 />
                 <FaSearch className="absolute right-4 top-3 h-5 w-5 text-gray-400" />
               </div>
@@ -101,8 +105,8 @@ function SupAgentDashboardPg() {
                     key={index}
                     className={`${
                       selectedChatId === item.id
-                        ? "bg-[#F6AD55]"
-                        : "bg-orange transform hover:scale-110"
+                        ? "bg-[#ed8936]"
+                        : "bg-orange transform hover:scale-[103%] transition duration-300 ease-out"
                     } w-full h-14 rounded-xl border-b border-black flex items-center px-4 hover:border-black `}
                     onClick={() => handleChatItemClick(item.id)}
                   >
@@ -118,7 +122,7 @@ function SupAgentDashboardPg() {
             </div>
             {/* --------------------------------------------- */}
             {/* ------------------chat view------------------ */}
-            <div className="col-span-2 bg-[#FDF6F6] rounded-md m-1 p-5 flex flex-col justify-between">
+            <div className="col-span-2 bg-gradient-to-r from-[#e2e8f0] to-[#cbd5e0] rounded-md m-1 p-5 flex flex-col justify-between">
               {selectedChatId ? (
                 <div className="flex justify-center items-center border-b pb-2 mb-3">
                   <img
