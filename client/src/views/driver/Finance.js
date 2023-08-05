@@ -3,6 +3,10 @@ import MainLayout from "../../components/layout/MainLayout";
 import { FaBeer } from "react-icons/fa";
 import { AiOutlineFileAdd } from "react-icons/ai";
 import { BarChart, Bar, Cell, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
+import { AiFillDashboard } from "react-icons/ai"
+import { MdLocationOn, MdPersonAdd, MdPayments, MdSupportAgent, MdOutlineRateReview } from "react-icons/md";
+import { AiFillCar } from "react-icons/ai";
+
 const data = [
   {
     name: 0,
@@ -50,44 +54,43 @@ const data = [
 
 const tabeldata = [
   {
-    name: "R.B.S. Udayanga",
-    payment: 3500,
-    date: "2023/7/12",
-    period: 3
+    name: "pId005",
+    payment: 35000,
+    date: "2023/1/12",
+    period: "2022 Nov/Dec"
   },
   {
-    name: "L.L.A. Hansani",
-    payment: 3600,
-    date: "2023/7/12",
-    period: 3
+    name: "pId018",
+    payment: 46000,
+    date: "2023/3/12",
+    period: "2023 Jan/Feb"
   },
   {
-    name: "R.B.S. Udayanga",
-    payment: 3900,
-    date: "2023/7/12",
-    period: 3
+    name: "pId025",
+    payment: 29500,
+    date: "2023/4/12",
+    period: "2023 March"
   },
   {
-    name: "R.B.S. Udayanga",
-    payment: 3500,
-    date: "2023/7/12",
-    period: 3
+    name: "pId032",
+    payment: 23500,
+    date: "2023/6/12",
+    period: "2023 April/May"
   },
   {
-    name: "R.B.S. Udayanga",
-    payment: 3500,
-    date: "2023/7/12",
-    period: 3
+    name: "pId041",
+    payment: 24100,
+    date: "2023/8/6",
+    period: "2023 June"
   },
 ];
 const sideNavBarLinks = [
-  { title: "Dashboard", path: "/driver/dashboard", icon: <FaBeer /> },
-  { title: "School Ride", path: "/driver/ride", icon: <FaBeer /> },
-  { title: "Finance", path: "/driver/finance", icon: <FaBeer /> },
-  { title: "Support", path: "/driver/support", icon: <FaBeer /> },
-  { title: "Feedback", path: "/driver/feedback", icon: <FaBeer /> },
+  { title: "Dashboard", path: "/driver/dashboard", icon: <AiFillDashboard /> },
+  { title: "School Ride", path: "/driver/ride", icon: <AiFillCar /> },
+  { title: "Finance", path: "/driver/finance", icon: <MdPayments /> },
+  { title: "Support", path: "/driver/support", icon: <MdSupportAgent /> },
+  { title: "Feedback", path: "/driver/feedback", icon: <MdOutlineRateReview /> },
 ];
-
 function Finance() {
   return (
     <div>
@@ -165,10 +168,10 @@ function Finance() {
                 <table className="w-full border-separate border-spacing-y-2 border border-slate-50">
                   <thead className="border-y-4 border-white drop-shadow">
                     <tr className="bg-[#999999] text-white text-[18px] border-b-2 drop-shadow-md">
-                      <th className="px-3.5 py-1 w-30">Child name</th>
-                      <th className="px-3.5 w-30">payment</th>
+                      <th className="px-3.5 py-1 w-30">Payment Id</th>
+                      <th className="px-3.5 w-30">Amount</th>
                       <th className="px-3.5 w-30">Date</th>
-                      <th className="px-3.5 w-30">For Period</th>
+                      <th className="px-3.5 w-30">period</th>
 
                     </tr>
                   </thead>

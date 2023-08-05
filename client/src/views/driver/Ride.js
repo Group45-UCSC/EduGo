@@ -8,15 +8,17 @@ import user from "../../images/user.png";
 import { MdLocationOn } from "react-icons/md";
 import { GoogleMap, LoadScript, Marker } from "@react-google-maps/api";
 import ReactModal from "react-modal";
+import { AiFillDashboard } from "react-icons/ai"
+import {  MdPersonAdd, MdPayments, MdSupportAgent, MdOutlineRateReview } from "react-icons/md";
+import { AiFillCar } from "react-icons/ai";
 
 const sideNavBarLinks = [
-  { title: "Dashboard", path: "/driver/dashboard", icon: <FaBeer /> },
-  { title: "School Ride", path: "/driver/ride", icon: <FaBeer /> },
-  { title: "Finance", path: "/driver/finance", icon: <FaBeer /> },
-  { title: "Support", path: "/driver/support", icon: <FaBeer /> },
-  { title: "Feedback", path: "/driver/feedback", icon: <FaBeer /> },
+  { title: "Dashboard", path: "/driver/dashboard", icon: <AiFillDashboard /> },
+  { title: "School Ride", path: "/driver/ride", icon: <AiFillCar /> },
+  { title: "Finance", path: "/driver/finance", icon: <MdPayments /> },
+  { title: "Support", path: "/driver/support", icon: <MdSupportAgent /> },
+  { title: "Feedback", path: "/driver/feedback", icon: <MdOutlineRateReview /> },
 ];
-
 function Ride() {
   const childDetails = [
     {
