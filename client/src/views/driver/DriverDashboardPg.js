@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import MainLayout from "../../components/layout/MainLayout";
-import { FaBeer, FaRegCalendarMinus, FaEllipsisV } from "react-icons/fa";
+import { FaBeer, FaRegCalendarMinus, FaEllipsisV, FaEye } from "react-icons/fa";
 import schoolVan from "../../images/schoolVan.jpeg";
 import parentMap from "../../images/parentMap.png";
 
@@ -103,39 +103,44 @@ function DriverDashboardPg() {
   // Add children model load
   function Modal({ setOpenModal }) {
     return (
-      <div className="fixed top-0 left-0 w-screen h-screen bg-stone-900/75 flex justify-center items-center">
-        <div className="w-80 h-80 rounded-lg bg-white shadow-md flex flex-col p-5 ">
-          <div className="flex justify-end">
-            <button
-              className="text-2xl cursor-pointer "
-              onClick={() => {
-                setOpenModal(false);
-              }}
-            >
-              X
-            </button>
+      <div>
+        <form className="bg-white p-0 px-60 rounded-lg "  >
+          <div className="fixed top-0 left-0 w-screen  bg-stone-900/75 flex justify-center items-center  h-screen bg-gradient-to-b from-opacity-70 to-opacity-30">
+
+            <div className="w-1/3  rounded-lg bg-white shadow-md flex flex-col p-5 ">
+              <div className="flex justify-end">
+                <button className="text-2xl cursor-pointer "
+                  onClick={() => {
+                    setOpenModal(false);
+                  }}
+                >
+                  X
+                </button>
+              </div>
+              <div className="" >
+
+                <p>Vehicle Id: V000101 <br></br>
+                  Last check vehicle condition on: 04.07.2023<br></br>
+                  <br></br>
+                  Condition Check expired!!!!
+                </p>
+              </div>
+
+              <div className="flex justify-center items-center mt-5">
+                <button className="w-36 h-12 mr-2 bg-orange rounded-lg text-xl cursor-pointer"
+                  onClick={() => {
+                    setOpenModal(false);
+                  }}
+                  id="cancelBtn"
+                >
+                  Ok
+                </button>
+                {/* <button className="w-36 h-12 bg-orange rounded-lg text-xl cursor-pointer">Submit</button> */}
+              </div>
+            </div>
+
           </div>
-          <div className="inline-block text-center mt-2">
-            <h1>Are You Sure You Want to Continue?</h1>
-          </div>
-          <div className="flex flex-col justify-center items-center text-2xl">
-            <p>The next page looks amazing. Hope you want to go there!</p>
-          </div>
-          <div className="flex justify-center items-center mt-5">
-            <button
-              className="w-36 h-12 mr-2 bg-orange rounded-lg text-xl cursor-pointer"
-              onClick={() => {
-                setOpenModal(false);
-              }}
-              id="cancelBtn"
-            >
-              Cancel
-            </button>
-            <button className="w-36 h-12 bg-orange rounded-lg text-xl cursor-pointer">
-              Continue
-            </button>
-          </div>
-        </div>
+        </form>
       </div>
     );
   }
@@ -328,28 +333,28 @@ function DriverDashboardPg() {
               {/* </div> */}
               <div className="">
                 {/* Content for the right column (2 parts) */}
-                <NavLink to= "/driver/vehicle">
-                <div className=" h-[180px] rounded-[8px] bg-slate-100 border-l-[4px] border-orange flex items-center justify-between px-[30px] cursor-pointer hover:shadow-lg transform hover:scale-[103%] transition duration-300 ease-out">
-                  <div>
-                    <h1 className="text-[20px] leading-[24px] font-bold text-[#5a5c69] mt-[5px] pb-1">
-                      Vehicle
-                    </h1>
-                    <div className="flex gap-x-20">
-                      <div className="w-40 ">
-                        <img
-                          src={schoolVan}
-                          alt="schoolVan"
-                          className="border-2 border-gray"
-                        ></img>
-                      </div>
-                      <div className="">
-                        <h2 className="font-medium">PJ-4893</h2>
-                        <h2>VID3001</h2>
+                <NavLink to="/driver/vehicle">
+                  <div className=" h-[180px] rounded-[8px] bg-slate-100 border-l-[4px] border-orange flex items-center justify-between px-[30px] cursor-pointer hover:shadow-lg transform hover:scale-[103%] transition duration-300 ease-out">
+                    <div>
+                      <h1 className="text-[20px] leading-[24px] font-bold text-[#5a5c69] mt-[5px] pb-1">
+                        Vehicle
+                      </h1>
+                      <div className="flex gap-x-20">
+                        <div className="w-40 ">
+                          <img
+                            src={schoolVan}
+                            alt="schoolVan"
+                            className="border-2 border-gray"
+                          ></img>
+                        </div>
+                        <div className="">
+                          <h2 className="font-medium">PJ-4893</h2>
+                          <h2>VID3001</h2>
+                        </div>
                       </div>
                     </div>
+                    <FaRegCalendarMinus fontSize={28} color="" />
                   </div>
-                  <FaRegCalendarMinus fontSize={28} color="" />
-                </div>
                 </NavLink>
               </div>
             </div>
@@ -399,14 +404,23 @@ function DriverDashboardPg() {
             </div>
             <div className="flex flex-col gap-4">
               {notifications.map((notifi) => (
-                <h1 className="h-20 w-[95%] rounded-[8px] bg-slate-200 border-l-[4px] border-orange flex items-center justify-between px-[30px] cursor-pointer hover:shadow-lg transform hover:scale-[103%] transition duration-300 ease-out">
-                  {notifi.Message}
-                </h1>
+                <div>
+                  <h1 className="h-20 w-[95%] rounded-[8px] bg-slate-200 border-l-[4px] border-orange flex items-center justify-between px-[30px] cursor-pointer hover:shadow-lg transform hover:scale-[103%] transition duration-300 ease-out">
+                    {notifi.Message} <button
+                      onClick={() => {
+                        setModalOpen(true);
+                      }}
+                    ><FaEye></FaEye></button>
+                  </h1>
+
+                </div>
               ))}
             </div>
           </div>
         </div>
+
       </MainLayout>
+      {modalOpen && <Modal setOpenModal={setModalOpen} />}
     </div>
   );
 }
