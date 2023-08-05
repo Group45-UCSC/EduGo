@@ -131,7 +131,7 @@
 // export default Login;
 
 import React, { useState } from "react";
-import { Link, useNavigate , NavLink} from "react-router-dom";
+import { Link, useNavigate, NavLink } from "react-router-dom";
 import img from "../../images/loginImage.jpg";
 import logo from "../../images/logo.png";
 import { FaUser, FaLock } from "react-icons/fa";
@@ -181,7 +181,7 @@ function Login() {
         } else {
           //if(res.data.Login)
           console.log(response);
-          navigate("/parent/dashboard");
+          navigate("/driver/dashboard");
         }
       } catch (err) {
         console.error(err.message);

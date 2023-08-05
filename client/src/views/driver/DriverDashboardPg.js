@@ -15,6 +15,7 @@ import {
   Tooltip,
   Legend,
 } from "recharts";
+import { NavLink } from "react-router-dom";
 
 const data = [
   {
@@ -327,6 +328,7 @@ function DriverDashboardPg() {
               {/* </div> */}
               <div className="">
                 {/* Content for the right column (2 parts) */}
+                <NavLink to= "/driver/vehicle">
                 <div className=" h-[180px] rounded-[8px] bg-slate-100 border-l-[4px] border-orange flex items-center justify-between px-[30px] cursor-pointer hover:shadow-lg transform hover:scale-[103%] transition duration-300 ease-out">
                   <div>
                     <h1 className="text-[20px] leading-[24px] font-bold text-[#5a5c69] mt-[5px] pb-1">
@@ -348,6 +350,7 @@ function DriverDashboardPg() {
                   </div>
                   <FaRegCalendarMinus fontSize={28} color="" />
                 </div>
+                </NavLink>
               </div>
             </div>
             {/* <div className=" h-[110px] rounded-[8px] bg-slate-200 border-l-[4px] border-orange flex items-center justify-between px-[30px] cursor-pointer hover:shadow-lg transform hover:scale-[103%] transition duration-300 ease-out"></div>

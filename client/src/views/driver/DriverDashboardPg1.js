@@ -96,7 +96,7 @@ function DriverDashboardPg1() {
                 className="w-full px-3 py-1 border-b bg-[#f0f0f0] border-orange focus:border-gray outline-none"
                 type="name"
                 name="name"
-                placeholder="Enter your Name"
+                placeholder="Enter your Vehicle number"
                 onChange={handleInput}
               />
               {errors.name && (
@@ -108,7 +108,7 @@ function DriverDashboardPg1() {
                 className="w-full px-3 py-1 border-b bg-[#f0f0f0] border-orange focus:border-gray outline-none"
                 type="email"
                 name="email"
-                placeholder="Enter your Email"
+                placeholder="Enter your Vehicle type"
                 onChange={handleInput}
               />
               {errors.email && (
@@ -120,7 +120,7 @@ function DriverDashboardPg1() {
                 className="w-full px-3 py-1 border-b bg-[#f0f0f0] border-orange focus:border-gray outline-none"
                 type="number"
                 name="tpNum"
-                placeholder="Enter your Contact Number"
+                placeholder="Enter your Vehicle model"
                 onChange={handleInput}
               />
               {errors.tpNum && (
@@ -132,7 +132,7 @@ function DriverDashboardPg1() {
                 className="w-full px-3 py-1 border-b bg-[#f0f0f0] border-orange focus:border-gray outline-none"
                 type="nic"
                 name="nic"
-                placeholder="Enter your Nic"
+                placeholder="Enter your ride registraation number"
                 onChange={handleInput}
               />
               {errors.nic && (
@@ -144,7 +144,7 @@ function DriverDashboardPg1() {
                 className="w-full px-3 py-1 border-b bg-[#f0f0f0] border-orange focus:border-gray outline-none"
                 type="password"
                 name="password"
-                placeholder="Enter your password"
+                placeholder="Add your Vehicle Registration Certificate"
                 onChange={handleInput}
               />
               {errors.password && (
@@ -156,7 +156,7 @@ function DriverDashboardPg1() {
                 className="w-full px-3 py-1 border-b bg-[#f0f0f0] border-orange focus:border-gray outline-none"
                 type="password"
                 name="re_password"
-                placeholder="Re-enter your password"
+                placeholder="Add your vehicle Images"
                 onChange={handleInput}
               />
               {errors.re_password && (
