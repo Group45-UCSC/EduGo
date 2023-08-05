@@ -25,9 +25,9 @@ function VRRequest() {
     <h1 className='text-[26px] font-bold ml-12 mt-8'> Vehicle Registration Requests </h1>
         
             {/* table of children */}
-            <div className='ml-12 mt-8 mr-20 mb-40 shadow-md overflow-auto '>
-            <table className='w-full border-separate border-spacing-y-2 border border-slate-50 '>
-              <thead className='border-y-4 border-white drop-shadow '>
+            <div className='ml-12 mt-8 mr-20 mb-64 w-[1000px] shadow-md '>
+            <table className='border-separate border-spacing-y-2 border border-slate-50 w-[1000px] '>
+              <thead className='border-y-4 border-white drop-shadow  '>
                 <tr className=' bg-[#999999] text-white border-b-2 text-[18px] drop-shadow-md '>
                     <th className='px-3.5 w-40'>Type</th>
                   <th className='px-3.5 pt-2 pb-2 w-52 '>Driver's Name</th>
