@@ -1,15 +1,21 @@
 import React from "react";
 import MainLayout from "../../components/layout/MainLayout";
-import { FaBeer } from "react-icons/fa";
 import Empimg  from "../../images/empimg.png";
 
+import { AiFillDashboard } from "react-icons/ai";
+import { BsCoin } from "react-icons/bs";
+import { FaChild } from "react-icons/fa";
+import { FaUserGroup } from "react-icons/fa6";
+import { BsFillCarFrontFill } from "react-icons/bs";
+import { FaShippingFast } from "react-icons/fa";
+
 const sideNavBarLinks = [
-  { title: "Dashboard", path: "/admin/dashboard", icon: <FaBeer /> },
-  { title: "Employees", path: "/admin/employees", icon: <FaBeer /> },
-  { title: "Drivers", path: "/admin/drivers", icon: <FaBeer /> },
-  { title: "School Rides", path: "/admin/rides", icon: <FaBeer /> },
-  { title: "Children", path: "/admin/childrenlist", icon: <FaBeer /> },
-  { title: "Finance", path: "/admin/finance", icon: <FaBeer /> },
+  { title: "Dashboard", path: "/admin/dashboard", icon: <AiFillDashboard /> },
+  { title: "Employees", path: "/admin/employees", icon: <FaUserGroup /> },
+  { title: "Drivers & Vehicles", path: "/admin/drivers", icon: <BsFillCarFrontFill /> },
+  { title: "School Rides", path: "/admin/rides", icon: <FaShippingFast /> },
+  { title: "Children & Parents", path: "/admin/childrenlist", icon: <FaChild /> },
+  { title: "Finance", path: "/admin/finance", icon: <BsCoin /> },
 ];
 
 function AdminAddEmployee() {
@@ -19,7 +25,7 @@ function AdminAddEmployee() {
             <h1 className="text-[#5a5c69] pt-[25px] px-[25px] text-[28px] leading-8 font-normal cursor-pointer">Employee Registration</h1>
 
             {/* form container */}
-            <div className="flex ml-24 mt-4 mb-4 h-[800px] w-[1000px] rounded-2xl shadow-lg text-white" style={{backgroundColor:'#999999'}}>
+            <div className="flex ml-24 mt-4 mb-4 h-[870px] w-[1000px] rounded-2xl shadow-lg text-white" style={{backgroundColor:'#999999'}}>
 
                 {/* image */}
                 <img src={Empimg} alt="employee" className="w-[500px] h-[500px] mt-24"></img>
@@ -59,6 +65,7 @@ function AdminAddEmployee() {
                         <option>Vehicle Coordinator</option>
                         
                     </select><br />
+                    <div className="flex mt-8 ml-72 h-11 w-28 rounded-lg shadow-lg bg-orange font-semibold text-lg pt-2 pl-5 cursor-pointer hover:scale-[102%] hover:bg-amber-500 transition-transform ease-in-out">Confirm</div>
                 </form>
             </div>
         </MainLayout>
