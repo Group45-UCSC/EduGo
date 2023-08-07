@@ -13,7 +13,7 @@ import ParentRegister from "./views/parent/ParentRegister"; //
 
 import UserProfile from "./views/user/UserProfile";
 
-import DriverDashboardPg1 from "./views/driver/DriverDashboardPg1";
+import DriverLanding from "./views/driver/DriverLanding";
 import DriverDashboardPg from "./views/driver/DriverDashboardPg";
 import DriverFinance from "./views/driver/Finance";
 import DriverFeedback from "./views/driver/Feedback";
@@ -150,7 +150,7 @@ function App() {
           <Route
             exact
             path="/driver/landing"
-            element={<DriverDashboardPg1 />}
+            element={<DriverLanding />}
           />
           <Route
             exact
