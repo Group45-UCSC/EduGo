@@ -2,6 +2,8 @@ import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 // import { useState, useEffect } from "react";
 
+
+
 //import route files
 
 import Home from "./views/user/Home";
@@ -66,6 +68,7 @@ import SupDrivers from "./views/sup_agent/Drivers";
 // import AddSchoolRide from "./views/parent/AddSchoolRide";
 
 //define routes
+
 
 function App() {
   // const [isAuthenticated, setIsAuthenticated] = useState(false);
