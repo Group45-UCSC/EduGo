@@ -145,7 +145,7 @@ function Feedback() {
     <div>
       <MainLayout data={sideNavBarLinks}>
 
-        <div className="pt-[25px] px-[25px]">
+        <div className="mb-5 pt-[25px] px-[25px]">
           <h1 className="text-[#5a5c69] text-[28px] leading-8 font-normal cursor-pointer">
             Feedback
           </h1>
@@ -198,9 +198,9 @@ function Feedback() {
                 </div>
               </div>
             </div>
-            <div className="bg-slate-200 rounded-md   h-[550px] ">
+            <div className="bg-slate-200 rounded-md h-[550px] ">
               <div className=" mt-8">
-                <div className=" h-8 mb-3 flex justify-center">
+                <div className="h-8 mb-3 flex justify-center">
                   <h1 className="text-xl font-bold ">Driver Reviews</h1>
                 </div>
                 <div className=" px-3 mx-2 rounded-md h-[460px] overflow-y-auto" >
