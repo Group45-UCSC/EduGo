@@ -147,14 +147,7 @@ function ParentRegister() {
     event.preventDefault();
     const err = Regvalidation(values);
     setErrors(err);
-    // if (
-    //   errors.name === "" &&
-    //   errors.email === "" &&
-    //   errors.nic === "" &&
-    //   errors.tpNum === "" &&
-    //   errors.password === "" &&
-    //   errors.re_password === ""
-    // )
+
     if (!Object.values(err).some((error) => error)) {
       try {
         const body = { name, email, tpNum, nic, password };
@@ -183,35 +176,8 @@ function ParentRegister() {
     }
   };
 
-  // const handleSubmit = (event) => {
-  //   event.preventDefault();
-  //   // setErrors(Regvalidation(values));
-  //   const err = Regvalidation(values);
-  //   setErrors(err);
-  //   if (
-  //     errors.name === "" &&
-  //     errors.email === "" &&
-  //     errors.nic === "" &&
-  //     errors.tpNum === "" &&
-  //     errors.password === "" &&
-  //     errors.re_password === ""
-  //   ) {
-  //     axios
-  //       .post("http://localhost:5000/edugo/user/register", values)
-  //       .then((res) => {
-  //         console.log(res);
-  //         navigate("/login");
-  //       })
-  //       .catch((err) => console.log(err));
-  //   }
-  // };
 
   return (
-    // <div>
-    //   Parent Register Page
-    //   <br></br>
-    //   <NavLink to="/parent/dashboard">click me to go Parent landing page</NavLink>
-    // </div>
 
     <div className="bg-[#f0f0f0] h-screen grid grid-cols-2">
       <div className="leftSide">
