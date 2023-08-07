@@ -2,6 +2,8 @@ import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 // import { useState, useEffect } from "react";
 
+
+
 //import route files
 
 import Home from "./views/user/Home";
@@ -11,7 +13,7 @@ import ParentRegister from "./views/parent/ParentRegister"; //
 
 import UserProfile from "./views/user/UserProfile";
 
-import DriverDashboardPg1 from "./views/driver/DriverDashboardPg1";
+import DriverLanding from "./views/driver/DriverLanding";
 import DriverDashboardPg from "./views/driver/DriverDashboardPg";
 import DriverFinance from "./views/driver/Finance";
 import DriverFeedback from "./views/driver/Feedback";
@@ -66,6 +68,7 @@ import SupDrivers from "./views/sup_agent/Drivers";
 // import AddSchoolRide from "./views/parent/AddSchoolRide";
 
 //define routes
+
 
 function App() {
   // const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -147,7 +150,7 @@ function App() {
           <Route
             exact
             path="/driver/landing"
-            element={<DriverDashboardPg1 />}
+            element={<DriverLanding />}
           />
           <Route
             exact

@@ -2,14 +2,12 @@ import React from "react";
 import { useState } from "react";
 import "../driver/Tabs.css";
 import MainLayout from "../../components/layout/MainLayout";
-import { FaBeer } from "react-icons/fa";
 import { NavLink } from "react-router-dom";
 import user from "../../images/user.png";
 import { MdLocationOn } from "react-icons/md";
 import { GoogleMap, LoadScript, Marker } from "@react-google-maps/api";
-import ReactModal from "react-modal";
 import { AiFillDashboard } from "react-icons/ai"
-import {  MdPersonAdd, MdPayments, MdSupportAgent, MdOutlineRateReview } from "react-icons/md";
+import {  MdPayments, MdSupportAgent, MdOutlineRateReview } from "react-icons/md";
 import { AiFillCar } from "react-icons/ai";
 
 const sideNavBarLinks = [
@@ -117,12 +115,6 @@ function Ride() {
       schoolName: "Royal Collage",
     },
   ];
-
-  const [toggleState, setToggleState] = useState(1);
-
-  const toggleTab = (index) => {
-    setToggleState(index);
-  };
 
   const rideDetails = [
     {

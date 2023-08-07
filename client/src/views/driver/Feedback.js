@@ -1,12 +1,11 @@
 import React from "react";
-import MainLayout from "../../components/layout/MainLayout";
-import { FaBeer, FaStar } from "react-icons/fa";
-import {BsSendFill} from "react-icons/bs"
 import { useState } from "react";
 import logo from "../../images/logo_old.png"
-import { AiFillDashboard } from "react-icons/ai"
-import { MdLocationOn, MdPersonAdd, MdPayments, MdSupportAgent, MdOutlineRateReview } from "react-icons/md";
-import { AiFillCar } from "react-icons/ai";
+import MainLayout from "../../components/layout/MainLayout";
+import { FaStar } from "react-icons/fa";
+import {BsSendFill} from "react-icons/bs"
+import { AiFillDashboard, AiFillCar } from "react-icons/ai"
+import { MdPayments, MdSupportAgent, MdOutlineRateReview } from "react-icons/md";
 
 const sideNavBarLinks = [
   { title: "Dashboard", path: "/driver/dashboard", icon: <AiFillDashboard /> },

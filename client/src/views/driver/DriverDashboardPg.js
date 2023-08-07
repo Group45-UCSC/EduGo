@@ -1,12 +1,9 @@
 import React, { useState } from "react";
 import MainLayout from "../../components/layout/MainLayout";
-import { FaBeer, FaRegCalendarMinus, FaEllipsisV, FaEye } from "react-icons/fa";
+import { AiFillDashboard, AiFillCar } from "react-icons/ai"
+import { FaRegCalendarMinus, FaEllipsisV, FaEye } from "react-icons/fa";
+import { MdPayments, MdSupportAgent, MdOutlineRateReview } from "react-icons/md";
 import schoolVan from "../../images/schoolVan.jpeg";
-import parentMap from "../../images/parentMap.png";
-import { AiFillDashboard } from "react-icons/ai"
-import { MdLocationOn, MdPersonAdd, MdPayments, MdSupportAgent, MdOutlineRateReview } from "react-icons/md";
-import { AiFillCar } from "react-icons/ai";
-// import { ToastContainer, toast } from 'react-toastify';
 
 import {
   LineChart,
@@ -72,37 +69,9 @@ const sideNavBarLinks = [
 ];
 
 function DriverDashboardPg() {
-  // const [name, setName] = useState("");
-
-  // async function getName() {
-  //   try {
-  //     const response = await fetch("http://localhost:5000/edugo/user/verify", {
-  //       method: "GET",
-  //       headers: { token: localStorage.token },
-  //     });
-
-  //     const parseRes = await response.json();
-  //     // console.log(parseRes);
-
-  //     setName(parseRes.user_name);
-  //   } catch (err) {
-  //     console.error(err.message);
-  //   }
-  // }
-
-  // useEffect(() => {
-  //   getName();
-  // },[]);
-
-  // const logout = (e) => {
-  //   e.preventDefault();
-  //   localStorage.removeItem("token");
-  //   setAuth(false);
-  //   // toast.success("Logged out successfully");
-  // };
 
   const [modalOpen, setModalOpen] = useState(false);
-  // Add children model load
+  // Add children popup modal
   function Modal({ setOpenModal }) {
     return (
       <div>
@@ -198,126 +167,17 @@ function DriverDashboardPg() {
     },
   ];
   return (
-    // <div>
-    //   <MainLayout data={sideNavBarLinks}>
-    //     <div className="pt-[25px] px-[25px] ">
-    //       <h1 className="text-[#5a5c69] text-[28px] leading-8 font-normal cursor-pointer">
-    //         Dashboard
-    //       </h1>
-    //       <div className="grid grid-cols-2 gap-[150px] mt-[25px] pb-[15px]">
-    // <div className=" h-[180px] rounded-[8px] bg-white border-l-[4px] border-orange flex items-center justify-between px-[30px] cursor-pointer hover:shadow-lg transform hover:scale-[103%] transition duration-300 ease-out">
-    //   <div>
-    //     <h1 className="text-[20px] leading-[24px] font-bold text-[#5a5c69] mt-[5px] pb-1">
-    //       Vehicle
-    //     </h1>
-    //     <div className="flex gap-x-20">
-    //       <div className="w-40 ">
-    //         <img
-    //           src={schoolVan}
-    //           alt="schoolVan"
-    //           className="border-2 border-gray"
-    //         ></img>
-    //       </div>
-    //       <div className="">
-    //         <h2 className="font-medium">PJ-4893</h2>
-    //         <h2>VID3001</h2>
-    //       </div>
-    //     </div>
-    //   </div>
-    //   <FaRegCalendarMinus fontSize={28} color="" />
-    //         </div>
-    //         {/* Alerts */}
-    //         <div className=" h-[180px] rounded-[8px] bg-white border-l-[4px] border-orange flex items-center justify-between px-[30px] cursor-pointer hover:shadow-lg transform hover:scale-[103%] transition duration-300 ease-out">
-    //           <div>
-    //             <h1 className="text-[20px] leading-[24px] font-bold text-[#5a5c69] mt-[5px] pb-1">
-    //               Alerts
-    //             </h1>
-    //             <div className="flex">
-    //               <h2 className="text-[#B589DF] text-[12px] leading-[17px] font-bold">
-    //                 Your vehicle verification
-    //               </h2>
-    //             </div>
-    //             <div className="flex">
-    //               <h2 className="text-[#c91c28] text-[12px] leading-[17px] font-bold">
-    //                 - Approved
-    //               </h2>
-    //             </div>
-    //           </div>
-    //           <FaRegCalendarMinus fontSize={28} color="" />
-    //         </div>
-    //       </div>
-    //       <div className="grid grid-cols-2 mt-[22px] w-full gap-[150px] ">
-    // <div className=" bg-white shadow-md cursor-pointer rounded-[4px]">
-    //   <div className="bg-[#F8F9FC]  flex items-center justify-between py-[15px] px-[20px] border-b-[1px] border-[#EDEDED] mb-[20px]">
-    //     <h2 className="text-[#4e73df] text-[16px] leading-[19px] font-bold">
-    //       Earnings Overview
-    //     </h2>
-    //     <FaEllipsisV color="gray" className="cursor-pointer" />
-    //   </div>
-    //   <div className="w-full">
-    //     <LineChart
-    //       width={500}
-    //       height={300}
-    //       data={data}
-    //       margin={{
-    //         top: 5,
-    //         right: 30,
-    //         left: 20,
-    //         bottom: 5,
-    //       }}
-    //     >
-    //       <CartesianGrid strokeDasharray="3 3" />
-    //       <XAxis dataKey="name" />
-    //       <YAxis />
-    //       <Tooltip />
-    //       <Legend />
-    //       <Line
-    //         type="monotone"
-    //         dataKey="pv"
-    //         stroke="#8884d8"
-    //         activeDot={{ r: 8 }}
-    //       />
-    //       <Line type="monotone" dataKey="uv" stroke="#82ca9d" />
-    //     </LineChart>
-    //   </div>
-    // </div>
-    //         <div className=" bg-white shadow-md cursor-pointer rounded-[4px]">
-    //           <div className="bg-[#F8F9FC]  flex items-center justify-between py-[15px] px-[20px] border-b-[1px] border-[#EDEDED] mb-[20px]">
-    //             <h2 className="text-[#4e73df] text-[16px] leading-[19px] font-bold">
-    //               Earnings Overview
-    //             </h2>
-    //             <FaEllipsisV color="gray" className="cursor-pointer" />
-    //           </div>
-    //           <diV className="">
-    //             <img src={parentMap} alt="parentMap"></img>
-    //           </diV>
-    //         </div>
-    //       </div>
-    //     </div>
-    //   </MainLayout>
-    //   <div className="w-full flex items-center flex-col font-nunito">
-    //     <h1>Add new school ride</h1>
-    //     <button
-    //       className="openModalBtn w-48 h-10 bg-orange rounded-md cursor-pointer"
-    //       onClick={() => {
-    //         setModalOpen(true);
-    //       }}
-    //     >
-    //       Add School Ride
-    //     </button>
-
-    //     {modalOpen && <Modal setOpenModal={setModalOpen} />}
-    //   </div>
-    // </div>
     <div>
       <MainLayout data={sideNavBarLinks}>
         <h1 className="text-[#5a5c69] text-[28px] mb-3 leading-8 font-normal cursor-pointer">
           Dashboard
         </h1>
         <div className="grid grid-cols-5 h-screen gap-4">
-          <div className="col-span-3">
+          {/* left side column */}
+          <div className="leftside col-span-3">
+            {/* upper row */}
             <div className="w-full h-2/6 grid grid-cols-2 gap-4">
-              {/* <div className=" bg-blue-500"> */}
+              {/* next ride box */}
               <div className=" h-[180px] rounded-[8px] bg-slate-100 border-l-[4px] border-orange flex items-center justify-between px-[30px] cursor-pointer hover:shadow-lg transform hover:scale-[103%] transition duration-300 ease-out">
                 <div>
                   <h1 className="text-[20px] leading-[24px] font-bold text-[#5a5c69] mt-[5px] pb-1">
@@ -332,9 +192,8 @@ function DriverDashboardPg() {
                 </div>
                 <FaRegCalendarMinus fontSize={28} color="" />
               </div>
-              {/* </div> */}
-              <div className="">
-                {/* Content for the right column (2 parts) */}
+              {/* end of next ride box */}
+              {/* vehicle box */}
                 <NavLink to="/driver/vehicle">
                   <div className=" h-[180px] rounded-[8px] bg-slate-100 border-l-[4px] border-orange flex items-center justify-between px-[30px] cursor-pointer hover:shadow-lg transform hover:scale-[103%] transition duration-300 ease-out">
                     <div>
@@ -358,10 +217,10 @@ function DriverDashboardPg() {
                     <FaRegCalendarMinus fontSize={28} color="" />
                   </div>
                 </NavLink>
-              </div>
+                {/* end of vehicle box */}
             </div>
-            {/* <div className=" h-[110px] rounded-[8px] bg-slate-200 border-l-[4px] border-orange flex items-center justify-between px-[30px] cursor-pointer hover:shadow-lg transform hover:scale-[103%] transition duration-300 ease-out"></div>
-            </div> */}
+            {/* end of upper row */}
+            {/* below row */}
             <div className="w-full h-4/6">
               {/* chart */}
               <div className=" bg-white shadow-md cursor-pointer rounded-[4px]">
@@ -398,27 +257,31 @@ function DriverDashboardPg() {
                   </LineChart>
                 </div>
               </div>
+              {/* end of chart */}
             </div>
+            {/* end of below row */}
           </div>
-          <div className="col-span-2 rounded-md text-center">
+          {/* end of left side column */}
+          {/* right column */}
+          <div className="col-span-2 mt-[-27px] rounded-md text-center">
             <div className="text-orange leading-4 text-lg font-bold mb-3">
               New Updates
             </div>
+            {/* notifi box */}
             <div className="flex flex-col gap-4">
               {notifications.map((notifi) => (
-                <div>
-                  <h1 className="h-20 w-[95%] rounded-[8px] bg-slate-200 border-l-[4px] border-orange flex items-center justify-between px-[30px] cursor-pointer hover:shadow-lg transform hover:scale-[103%] transition duration-300 ease-out">
+                  <div className="h-20 w-[95%] rounded-[8px] bg-slate-200 border-l-[4px] border-orange flex items-center justify-between px-[30px] cursor-pointer hover:shadow-lg transform hover:scale-[103%] transition duration-300 ease-out">
                     {notifi.Message} <button
                       onClick={() => {
                         setModalOpen(true);
                       }}
                     ><FaEye></FaEye></button>
-                  </h1>
-
-                </div>
+                  </div>
               ))}
             </div>
+            {/* end of notify box */}
           </div>
+          {/* end of right column */}
         </div>
 
       </MainLayout>
