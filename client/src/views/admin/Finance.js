@@ -24,7 +24,7 @@ const sideNavBarLinks = [
 
 function Finance() {
 
-  const [toggle, setToggle] = useState(1);
+  const [toggle, setToggle] = useState(2);
 
   function updateToggle(id) {
     setToggle(id);
@@ -100,94 +100,9 @@ function Finance() {
             <div className="flex text-center ml-32 mt-12">
 
               {/* buttons */}
-              <div onClick={()=>updateToggle(1)} className={toggle === 1 ? "h-11 w-44 shadow-lg bg-amber-600 scale-[102%] font-semibold text-lg pt-2 cursor-pointer" : "h-11 w-44 shadow-lg bg-orange font-semibold text-lg pt-2 cursor-pointer hover:scale-[102%] hover:bg-amber-600 transition-transform ease-in-out"}>All transactions</div>
-              <div onClick={()=>updateToggle(2)} className={toggle === 2 ? "ml-1 h-11 w-44 shadow-lg bg-amber-600 scale-[102%] font-semibold text-lg pt-2 cursor-pointer" : "h-11 w-44 ml-1 shadow-lg bg-orange font-semibold text-lg pt-2 cursor-pointer hover:scale-[102%] hover:bg-amber-600 transition-transform ease-in-out"}>Income</div>
-              <div onClick={()=>updateToggle(3)} className={toggle === 3 ? "ml-1 h-11 w-44 shadow-lg bg-amber-600 scale-[102%] font-semibold text-lg pt-2 cursor-pointer" : "h-11 w-44 ml-1 shadow-lg bg-orange font-semibold text-lg pt-2 cursor-pointer hover:scale-[102%] hover:bg-amber-600 transition-transform ease-in-out"}>Expense</div>
+              <div onClick={()=>updateToggle(2)} className={toggle === 2 ? "h-11 w-44 shadow-lg bg-amber-600 scale-[102%] font-semibold text-lg pt-2 cursor-pointer" : "h-11 w-44 shadow-lg bg-orange font-semibold text-lg pt-2 cursor-pointer hover:scale-[102%] hover:bg-amber-600 transition-transform ease-in-out"}>Payments recieved</div>
+              <div onClick={()=>updateToggle(3)} className={toggle === 3 ? "ml-1 h-11 w-44 shadow-lg bg-amber-600 scale-[102%] font-semibold text-lg pt-2 cursor-pointer" : "h-11 w-44 ml-1 shadow-lg bg-orange font-semibold text-lg pt-2 cursor-pointer hover:scale-[102%] hover:bg-amber-600 transition-transform ease-in-out"}>Expenses</div>
             </div>
-
-          {/* transactions table */}
-          <div className={toggle === 1 ? "details" : "details hidden"}>
-            <div className='ml-32 mr-32 shadow-md overflow-auto '>
-              <table className='w-full text-center border-separate border-spacing-y-2 border border-slate-50 '>
-              <thead className='border-y-4 border-white drop-shadow '>
-                <tr className=' bg-[#999999] text-white border-b-2 text-[18px] drop-shadow-md '>
-                  <th className='px-3.5 p-1 w-24 '>Transaction ID</th>
-                  <th className='px-3.5 w-30'>Date</th>
-                  <th className='px-3.5 w-30'>Time</th>
-                  <th className='px-3.5 w-30'>Amount</th>
-                  <th className='px-3.5 w-30'>Type</th>
-                </tr>
-              </thead>
-
-              <tbody className=''>
-                <tr onClick={handleClick} className=' bg-[#D9D9D9] bg-opacity-60 hover:cursor-pointer hover:bg-[#eaeaea] drop-shadow-md'>
-                    <td className='text-center  p-3'> 008</td>
-                    <td>2023-01-08</td>
-                    <td>13 : 00</td>
-                    <td>72000</td>
-                    <td>Expense</td>
-                </tr>
-                
-                <tr className=' bg-[#D9D9D9] bg-opacity-60 hover:cursor-pointer  hover:bg-[#eaeaea] drop-shadow-md' >
-                  <td className='text-center  p-3 ' >007</td>
-                  <td>2023-01-07</td>
-                  <td>08 : 00</td>
-                  <td>5000</td>
-                  <td>Income</td>
-                </tr>
-
-                <tr className=' bg-[#D9D9D9] bg-opacity-60 hover:cursor-pointer  hover:bg-[#eaeaea] drop-shadow-md'>
-                  <td className='text-center  p-3 ' >006</td>
-                  <td>2023-01-06</td>
-                  <td>05 : 00</td>
-                  <td>5000</td>
-                  <td>Income</td>
-                </tr>
-
-                <tr className=' bg-[#D9D9D9] bg-opacity-60 hover:cursor-pointer  hover:bg-[#eaeaea] drop-shadow-md'>
-                  <td className='text-center  p-3 ' >005</td>
-                  <td>2023-01-05</td>
-                  <td>10 : 00</td>
-                  <td>5000</td>
-                  <td>Income</td>
-                </tr>
-
-                <tr className=' bg-[#D9D9D9] bg-opacity-60 hover:cursor-pointer hover:bg-[#eaeaea] drop-shadow-md'>
-                  <td className='text-center  p-3 ' >004</td>
-                  <td>2023-01-04</td>
-                  <td>20 : 00</td>
-                  <td>5000</td>
-                  <td>Income</td>
-                </tr>
-
-                <tr className=' bg-[#D9D9D9] bg-opacity-60 hover:cursor-pointer  hover:bg-[#eaeaea] drop-shadow-md'>
-                  <td className='text-center  p-3 ' >003</td>
-                  <td>2023-01-03</td>
-                  <td>16 : 00</td>
-                  <td>10000</td>
-                  <td>Income</td>
-                </tr>
-
-                <tr className=' bg-[#D9D9D9] bg-opacity-60 hover:cursor-pointer  hover:bg-[#eaeaea] drop-shadow-md'>
-                  <td className='text-center  p-3 ' >002</td>
-                  <td>2023-01-02</td>
-                  <td>15 : 00</td>
-                  <td>72000</td>
-                  <td>Expense</td>
-                </tr>
-
-                <tr className=' bg-[#D9D9D9] bg-opacity-60 hover:cursor-pointer  hover:bg-[#eaeaea] drop-shadow-md'>
-                  <td className='text-center  p-3 ' >001</td>
-                  <td>2023-01-01</td>
-                  <td>12 : 00</td>
-                  <td>64000</td>
-                  <td>Expense</td>
-                </tr>
-              </tbody>
-
-            </table>
-        </div>
-        </div>
 
         {/* Incomes */}
         <div className={toggle === 2 ? "details" : "details hidden"}>
@@ -196,7 +111,7 @@ function Finance() {
               <thead className='border-y-4 border-white drop-shadow '>
                 <tr className=' bg-[#999999] text-white border-b-2 h-16 text-[18px] drop-shadow-md '>
                   <th className='px-3.5 w-24'></th>
-                  <th className='px-3.5 w-30'>Transaction ID</th>
+                  <th className='px-3.5 w-30'>Payment ID</th>
                   <th className='px-3.5 w-30'>Date</th>
                   <th className='px-3.5 w-30'>Time</th>
                   <th className='px-3.5 w-30'>Amount</th>
@@ -205,7 +120,7 @@ function Finance() {
 
               <tbody className=''>
                 
-                <tr className='h-12 bg-[#D9D9D9] bg-opacity-60 hover:cursor-pointer  hover:bg-[#eaeaea] drop-shadow-md' >
+                <tr onClick={handleClick} className='h-12 bg-[#D9D9D9] bg-opacity-60 hover:cursor-pointer  hover:bg-[#eaeaea] drop-shadow-md' >
                   <td className='text-center  p-3 ' ><BsFillArrowLeftSquareFill className="ml-8"/></td>
                   <td>007</td>
                   <td>2023-01-07</td>
@@ -258,7 +173,7 @@ function Finance() {
               <thead className='border-y-4 border-white drop-shadow '>
                 <tr className=' bg-[#999999] text-white border-b-2 h-16 text-[18px] drop-shadow-md '>
                   <th className='px-3.5 w-24'></th>
-                  <th className='px-3.5 w-30'>Transaction ID</th>
+                  <th className='px-3.5 w-30'>Payment ID</th>
                   <th className='px-3.5 w-30'>Date</th>
                   <th className='px-3.5 w-30'>Time</th>
                   <th className='px-3.5 w-30'>Amount</th>
