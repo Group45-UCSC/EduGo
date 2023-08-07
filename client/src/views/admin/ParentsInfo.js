@@ -1,17 +1,26 @@
 import React from "react";
 import MainLayout from "../../components/layout/MainLayout";
-import { FaBeer } from "react-icons/fa";
+import { AiFillDashboard } from "react-icons/ai";
+import { BsCoin } from "react-icons/bs";
+import { FaChild } from "react-icons/fa";
+import { FaUserGroup } from "react-icons/fa6";
+import { BsFillCarFrontFill } from "react-icons/bs";
+import { FaShippingFast } from "react-icons/fa";
 
 const sideNavBarLinks = [
-    { title: "Dashboard", path: "/admin/dashboard", icon: <FaBeer /> },
-    { title: "Employees", path: "/admin/employees", icon: <FaBeer /> },
-    { title: "Drivers", path: "/admin/drivers", icon: <FaBeer /> },
-    { title: "School Rides", path: "/admin/rides", icon: <FaBeer /> },
-    { title: "Children", path: "/admin/childrenlist", icon: <FaBeer /> },
-    { title: "Finance", path: "/admin/finance", icon: <FaBeer /> },
-  ];
+  { title: "Dashboard", path: "/admin/dashboard", icon: <AiFillDashboard /> },
+  { title: "Employees", path: "/admin/employees", icon: <FaUserGroup /> },
+  { title: "Drivers & Vehicles", path: "/admin/drivers", icon: <BsFillCarFrontFill /> },
+  { title: "School Rides", path: "/admin/rides", icon: <FaShippingFast /> },
+  { title: "Children & Parents", path: "/admin/childrenlist", icon: <FaChild /> },
+  { title: "Finance", path: "/admin/finance", icon: <BsCoin /> },
+];
 
 function AdminParentsInfo() {
+
+    const child = () => {
+        window.location.href = `/admin/Children`;
+      };
   return (
     <div>
         <MainLayout data={sideNavBarLinks}>
@@ -52,11 +61,11 @@ function AdminParentsInfo() {
 
                     {/* rest of details */}
                     <div className='mt-4 ml-3 overflow-auto'>
-                        <div className='mt-2 ml-4 p-2 w-64 h-16 font-serif cursor-pointer rounded-md bg-slate-50 shadow-md'>
+                        <div onClick={child} className='mt-2 ml-4 p-2 w-64 h-16 font-serif cursor-pointer rounded-md bg-slate-50 shadow-md'>
                             <p>Name: Pasindu Sanjeewa</p>
                             <p>Vehicle: NA - 1111</p>
                         </div>
-                        <div className='mt-2 ml-4 p-2 w-64 h-16 font-serif cursor-pointer rounded-md bg-slate-50 shadow-md'>
+                        <div onClick={child} className='mt-2 ml-4 p-2 w-64 h-16 font-serif cursor-pointer rounded-md bg-slate-50 shadow-md'>
                             <p>Name: Kavindu Sanjeewa</p>
                             <p>Vehicle: NA - 1111</p>
                         </div>

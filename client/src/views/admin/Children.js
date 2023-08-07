@@ -1,17 +1,31 @@
 import React from "react";
 import MainLayout from "../../components/layout/MainLayout";
-import { FaBeer } from "react-icons/fa";
+import { AiFillDashboard } from "react-icons/ai";
+import { BsCoin } from "react-icons/bs";
+import { FaChild } from "react-icons/fa";
+import { FaUserGroup } from "react-icons/fa6";
+import { BsFillCarFrontFill } from "react-icons/bs";
+import { FaShippingFast } from "react-icons/fa";
 
 const sideNavBarLinks = [
-  { title: "Dashboard", path: "/admin/dashboard", icon: <FaBeer /> },
-  { title: "Employees", path: "/admin/employees", icon: <FaBeer /> },
-  { title: "Drivers", path: "/admin/drivers", icon: <FaBeer /> },
-  { title: "School Rides", path: "/admin/rides", icon: <FaBeer /> },
-  { title: "Children", path: "/admin/childrenlist", icon: <FaBeer /> },
-  { title: "Finance", path: "/admin/finance", icon: <FaBeer /> },
+  { title: "Dashboard", path: "/admin/dashboard", icon: <AiFillDashboard /> },
+  { title: "Employees", path: "/admin/employees", icon: <FaUserGroup /> },
+  { title: "Drivers & Vehicles", path: "/admin/drivers", icon: <BsFillCarFrontFill /> },
+  { title: "School Rides", path: "/admin/rides", icon: <FaShippingFast /> },
+  { title: "Children & Parents", path: "/admin/childrenlist", icon: <FaChild /> },
+  { title: "Finance", path: "/admin/finance", icon: <BsCoin /> },
 ];
 
 function AdminChildren() {
+
+    const parent = () => {
+        window.location.href = `/admin/ParentsInfo`;
+      };
+    
+    const vehicle = () => {
+        window.location.href = `/admin/VehicleInfo`;
+      };
+
   return (
     <div>
       <MainLayout data={sideNavBarLinks}>
@@ -46,7 +60,7 @@ function AdminChildren() {
         <div className='flex'>
 
             {/* parent's details container */}
-            <div className='bg-slate-200 w-80 h-80 ml-12 mt-8 rounded-lg shadow-md'>
+            <div onClick={parent} className='bg-slate-200 w-80 cursor-pointer h-80 ml-12 mt-8 rounded-lg shadow-md'>
                 
                 {/* title holder */}
                 <div className='font-bold mt-4 ml-3'>
@@ -64,7 +78,7 @@ function AdminChildren() {
             </div>
 
             {/* Vehicle details container */}
-            <div className='bg-slate-200 w-80 h-80 ml-12 mt-8 rounded-lg shadow-md'>
+            <div onClick={vehicle} className='bg-slate-200 cursor-pointer w-80 h-80 ml-12 mt-8 rounded-lg shadow-md'>
                 
                 {/* title holder */}
                 <div className='font-bold mt-4 ml-3'>

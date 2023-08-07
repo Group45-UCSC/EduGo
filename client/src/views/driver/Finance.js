@@ -1,11 +1,10 @@
 import React from "react";
 import MainLayout from "../../components/layout/MainLayout";
-import { FaBeer } from "react-icons/fa";
-import { AiOutlineFileAdd } from "react-icons/ai";
-import { BarChart, Bar, Cell, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
+import { AiOutlineFileAdd, AiFillCar } from "react-icons/ai";
+import { BarChart, Bar, XAxis, YAxis, Tooltip, Legend, ResponsiveContainer } from 'recharts';
+// import { Cell, CartesianGrid } from 'recharts';
 import { AiFillDashboard } from "react-icons/ai"
-import { MdLocationOn, MdPersonAdd, MdPayments, MdSupportAgent, MdOutlineRateReview } from "react-icons/md";
-import { AiFillCar } from "react-icons/ai";
+import { MdPayments, MdSupportAgent, MdOutlineRateReview } from "react-icons/md";
 
 const data = [
   {

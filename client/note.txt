@@ -16,6 +16,8 @@ npm i react-responsive-carousel
 npm i axios
 npm install @react-google-maps/api
 npm install react-modal
+npm i dotenv
+npm i fs path
 
 --server--
 npm i express pg cors
