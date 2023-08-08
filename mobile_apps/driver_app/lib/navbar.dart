@@ -88,6 +88,25 @@ class Navbar extends StatelessWidget {
                     context, '/', (route) => false);
               },
             ),
+            Divider(), // Add a divider to separate ListTiles and contact numbers
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+              child: Text(
+                'Contact Numbers:',
+                style: TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16),
+              child: Text(
+                'Customer Support: 123-456-7890\nTechnical Support: 987-654-3210',
+                style: TextStyle(fontSize: 14),
+              ),
+            ),
+            
           ],
         ),
       ),
