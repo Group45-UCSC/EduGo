@@ -198,7 +198,7 @@ function Feedback() {
                 </div>
               </div>
             </div>
-            <div className="bg-slate-200 rounded-md h-[550px] ">
+            <div className="bg-slate-200 border rounded-md h-[550px] ">
               <div className=" mt-8">
                 <div className="h-8 mb-3 flex justify-center">
                   <h1 className="text-xl font-bold ">Driver Reviews</h1>
