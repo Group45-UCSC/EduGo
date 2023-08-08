@@ -1,10 +1,10 @@
-// ignore_for_file: use_key_in_widget_constructors, prefer_const_constructors
+// ignore_for_file: prefer_const_constructors, use_key_in_widget_constructors, prefer_const_literals_to_create_immutables
 
 import 'package:flutter/material.dart';
 import '../navbar.dart';
 
-class SupportPage extends StatelessWidget {
-  @override
+class StudentPage extends StatelessWidget {
+   @override
   Widget build(BuildContext context) {
     return Navbar(
       child: Center(
@@ -12,7 +12,7 @@ class SupportPage extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text(
-              'Support Page',
+              'Home Page',
               style: TextStyle(
                 fontSize: 24,
                 fontWeight: FontWeight.bold,
@@ -20,16 +20,13 @@ class SupportPage extends StatelessWidget {
             ),
             SizedBox(height: 20),
             Text(
-              'Contact us for any support or assistance.',
+              'Welcome to the Home Page.',
               style: TextStyle(
                 fontSize: 16,
               ),
             ),
             SizedBox(height: 20),
-            ElevatedButton(
-              onPressed: () {},
-              child: Text('Contact Support'),
-            ),
+            // Add your financial related content here
           ],
         ),
       ),

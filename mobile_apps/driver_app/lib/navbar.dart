@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 class Navbar extends StatelessWidget {
   final Widget child;
   Navbar({required this.child});
-  
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -13,8 +13,6 @@ class Navbar extends StatelessWidget {
         backgroundColor: Color(0xFF999999),
         actions: [
           Icon(Icons.notifications_none_outlined, color: Colors.black),
-          SizedBox(width: 12),
-          Icon(Icons.person_2_outlined, color: Colors.black),
           SizedBox(width: 12),
         ],
       ),
@@ -25,10 +23,27 @@ class Navbar extends StatelessWidget {
               decoration: BoxDecoration(
                 color: Color(0xFF999999),
               ),
-              child: Image.asset(
-                'assets/images/logo.png',
-                height: 10,
-                width: 20,
+              // profile picture
+              child: Column(
+                children: [
+                  CircleAvatar(
+                    radius: 40,
+                    backgroundImage: AssetImage('assets/images/profile.png'),
+                  ),
+                  Text(
+                    'Kawya Sandamini',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 18,
+                    ),
+                  ),
+                  SizedBox(height: 4),
+                  Text('Driver1@gmail.com',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 14,
+                      )),
+                ],
               ),
             ),
             ListTile(
@@ -48,7 +63,16 @@ class Navbar extends StatelessWidget {
               },
             ),
             ListTile(
-              leading: Icon(Icons.account_balance_wallet_outlined, color: Colors.black),
+              leading: Icon(Icons.phone_callback_outlined, color: Colors.black),
+              title: Text('Student details'),
+              onTap: () {
+                Navigator.pop(context);
+                Navigator.pushNamed(context, '/students');
+              },
+            ),
+            ListTile(
+              leading: Icon(Icons.account_balance_wallet_outlined,
+                  color: Colors.black),
               title: Text('Finance'),
               onTap: () {
                 Navigator.pop(context);
@@ -56,27 +80,12 @@ class Navbar extends StatelessWidget {
               },
             ),
             ListTile(
-              leading: Icon(Icons.phone_callback_outlined, color: Colors.black),
-              title: Text('Support'),
-              onTap: () {
-                Navigator.pop(context);
-                Navigator.pushNamed(context, '/support');
-              },
-            ),
-            ListTile(
-              leading: Icon(Icons.feedback_outlined, color: Colors.black),
-              title: Text('Feedback'),
-              onTap: () {
-                Navigator.pop(context);
-                Navigator.pushNamed(context, '/feedback');
-              },
-            ),
-            ListTile(
               leading: Icon(Icons.logout_outlined, color: Colors.black),
               title: Text('Logout'),
               onTap: () {
                 Navigator.pop(context);
-                Navigator.pushNamedAndRemoveUntil(context, '/', (route) => false);
+                Navigator.pushNamedAndRemoveUntil(
+                    context, '/', (route) => false);
               },
             ),
           ],
