@@ -2,21 +2,28 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import MainLayout from "../../components/layout/MainLayout";
 import schoolbusImg from "../../images/schoolBus.jpg";
-import { AiFillDashboard, AiFillCar } from "react-icons/ai"
-import { MdPayments, MdSupportAgent, MdOutlineRateReview } from "react-icons/md";
+import { AiFillDashboard, AiFillCar } from "react-icons/ai";
+import {
+  MdPayments,
+  MdSupportAgent,
+  MdOutlineRateReview,
+} from "react-icons/md";
 
 const sideNavBarLinks = [
   { title: "Dashboard", path: "/driver/dashboard", icon: <AiFillDashboard /> },
   { title: "School Ride", path: "/driver/ride", icon: <AiFillCar /> },
   { title: "Finance", path: "/driver/finance", icon: <MdPayments /> },
   { title: "Support", path: "/driver/support", icon: <MdSupportAgent /> },
-  { title: "Feedback", path: "/driver/feedback", icon: <MdOutlineRateReview /> },
+  {
+    title: "Feedback",
+    path: "/driver/feedback",
+    icon: <MdOutlineRateReview />,
+  },
 ];
 
 function DriverLanding() {
-
   const navigate = useNavigate();
-  
+
   const [values, setValues] = useState({
     name: "",
     email: "",
@@ -165,21 +172,28 @@ function DriverLanding() {
                 </span>
               )}
             </div>
+
+            <div className="flex justify-center items-center mt-5">
+              <button
+                className="w-36 h-12 mr-2 bg-orange rounded-lg text-xl cursor-pointer"
+                onClick={() => {
+                  setOpenModal(false);
+                }}
+                id="cancelBtn"
+              >
+                Cancel
+              </button>
+              <button type="submit"
+                onClick={() => {
+                  setOpenModal(false);
+                }}
+                id="cancelBtn"
+                className="w-36 h-12 bg-orange rounded-lg text-xl cursor-pointer"
+              >
+                Continue
+              </button>
+            </div>
           </form>
-          <div className="flex justify-center items-center mt-5">
-            <button
-              className="w-36 h-12 mr-2 bg-orange rounded-lg text-xl cursor-pointer"
-              onClick={() => {
-                setOpenModal(false);
-              }}
-              id="cancelBtn"
-            >
-              Cancel
-            </button>
-            <button className="w-36 h-12 bg-orange rounded-lg text-xl cursor-pointer">
-              Continue
-            </button>
-          </div>
         </div>
       </div>
     );
@@ -188,7 +202,7 @@ function DriverLanding() {
   return (
     <div>
       <MainLayout data={sideNavBarLinks}>
-        <div className=" grid grid-cols-2 mb-4">
+        <div className=" grid grid-cols-2 mb-5">
           {/* left column */}
           <div className="leftside bg-white">
             <img src={schoolbusImg} alt="img" className="ml-4 w-full" />
