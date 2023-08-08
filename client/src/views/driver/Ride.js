@@ -296,7 +296,7 @@ function Ride() {
                 {/* children list */}
                 <div className="flex flex-col gap-4">
                   {childDetails.map((child, index) => (
-                    <NavLink to="/parent/children/childlocation">
+                    <NavLink to={`/driver/ride/childDetails/${child.id}`}>
                       <div
                         key={index}
                         className="h-[60px] border w-[100%] rounded-[8px] bg-slate-200 border-l-[4px] border-orange flex items-center justify-between px-[30px] cursor-pointer hover:shadow-lg transform hover:scale-[103%] transition duration-300 ease-out"

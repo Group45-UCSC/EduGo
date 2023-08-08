@@ -188,7 +188,7 @@ function DriverLanding() {
   return (
     <div>
       <MainLayout data={sideNavBarLinks}>
-        <div className=" grid grid-cols-2 mb-4">
+        <div className=" grid grid-cols-2 mb-5">
           {/* left column */}
           <div className="leftside bg-white">
             <img src={schoolbusImg} alt="img" className="ml-4 w-full" />
