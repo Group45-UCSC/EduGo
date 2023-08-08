@@ -20,6 +20,7 @@ import PastRides from "./views/driver/PastRides";
 import Vehicle from "./views/driver/Vehicle";
 import ChildDetails from "./views/driver/ChildDetails"
 
+
 import ParentDashboardPg from "./views/parent/Parent"; //
 import ParentChildren from "./views/parent/Children";
 import ViewChildLocation from "./views/parent/ViewChildLocation";
