@@ -75,7 +75,7 @@ function DriverDashboardPg() {
   function Modal({ setOpenModal }) {
     return (
       <div>
-        <form className="bg-white p-0 px-60 rounded-lg "  >
+        <div className="bg-white p-0 px-60 rounded-lg "  >
           <div className="fixed top-0 left-0 w-screen  bg-stone-900/75 flex justify-center items-center  h-screen bg-gradient-to-b from-opacity-70 to-opacity-30">
 
             <div className="w-1/3  rounded-lg bg-white shadow-md flex flex-col p-5 ">
@@ -111,7 +111,7 @@ function DriverDashboardPg() {
             </div>
 
           </div>
-        </form>
+        </div>
       </div>
     );
   }

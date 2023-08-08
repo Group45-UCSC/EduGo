@@ -1,37 +1,59 @@
-import React from 'react'
+import React from "react";
 import MainLayout from "../../components/layout/MainLayout";
+import { NavLink, useLocation } from "react-router-dom";
 import user from "../../images/user.png";
 import parentMap from "../../images/parentMap.png";
-import { NavLink } from 'react-router-dom';
-import { AiFillDashboard } from "react-icons/ai"
-import { FaChild, FaEye } from "react-icons/fa"
-import { MdPayments, MdSupportAgent, MdOutlineRateReview } from "react-icons/md";
+import { AiFillDashboard, AiFillCar } from "react-icons/ai";
+import { FaEye } from "react-icons/fa";
+import {
+  MdPayments,
+  MdSupportAgent,
+  MdOutlineRateReview,
+} from "react-icons/md";
 
 function ChildDetails() {
+  const location = useLocation();
+
+  const dataParam = new URLSearchParams(location.search).get("data");
+  const childData = JSON.parse(decodeURIComponent(dataParam));
+
   const sideNavBarLinks = [
-    { title: "Dashboard", path: "/parent/dashboard", icon: <AiFillDashboard /> },
-    { title: "Children", path: "/parent/children", icon: <FaChild /> },
-    { title: "Payment", path: "/parent/payment", icon: <MdPayments /> },
-    { title: "Support", path: "/parent/support", icon: <MdSupportAgent /> },
-    { title: "Feedback", path: "/parent/feedback", icon: <MdOutlineRateReview /> },
+    {
+      title: "Dashboard",
+      path: "/driver/dashboard",
+      icon: <AiFillDashboard />,
+    },
+    { title: "School Ride", path: "/driver/ride", icon: <AiFillCar /> },
+    { title: "Finance", path: "/driver/finance", icon: <MdPayments /> },
+    { title: "Support", path: "/driver/support", icon: <MdSupportAgent /> },
+    {
+      title: "Feedback",
+      path: "/driver/feedback",
+      icon: <MdOutlineRateReview />,
+    },
   ];
 
-  
   const childDetails = [
     {
       name: "R.B.S.Udayanga",
       schoolName: "Royal Collage",
       schoolRide: "R103",
     },
-
   ];
   return (
     <div>
       <MainLayout data={sideNavBarLinks}>
-        <div className='pt-6 px-6'>
+        <div className="pt-6 px-6">
           <h1 className="text-[#5a5c69] text-[28px] leading-8 font-normal cursor-pointer">
             Children
           </h1>
+          <div>
+            <h2>Vehicle Details</h2>
+            <p>Id: {childData.id}</p>
+            <p>Name: {childData.name}</p>
+            <p>School: {childData.schoolName}</p>
+          </div>
+
           <div className="mt-[25px] pb-[15px]">
             <div className="flex justify-center">
               <div className="flex flex-col gap-4">
@@ -83,17 +105,20 @@ function ChildDetails() {
                     </div>
                     <div className=" flex gap-5">
                       {/*---------------------Buttons-----------------------------*/}
-  
-                      <div className=''>
+
+                      <div className="">
                         <NavLink to="/parent/children/viewride">
-                        <button
-                          className="flex justify-center  w-40 h-10 bg-orange hover:bg-[#b3913b] rounded-md cursor-pointer"
-                        // onClick={() => {
-                        //   setModalOpen(true);
-                        // }}
-                        >
-                          <div className='flex mt-2 gap-3 font-semibold'><FaEye fontSize={28} color="" />View Ride</div>
-                        </button>
+                          <button
+                            className="flex justify-center  w-40 h-10 bg-orange hover:bg-[#b3913b] rounded-md cursor-pointer"
+                            // onClick={() => {
+                            //   setModalOpen(true);
+                            // }}
+                          >
+                            <div className="flex mt-2 gap-3 font-semibold">
+                              <FaEye fontSize={28} color="" />
+                              View Ride
+                            </div>
+                          </button>
                         </NavLink>
                       </div>
                     </div>
@@ -103,7 +128,7 @@ function ChildDetails() {
             </div>
 
             {/* Location View */}
-            <div className='flex justify-center mt-5'>
+            <div className="flex justify-center mt-5">
               <div className=" w-1/2 border-l-4 border-orange shadow-lg cursor-pointer rounded-[4px]">
                 <div className="bg-white flex items-center justify-between py-[15px] px-[20px] border-b-[1px] border-[#EDEDED] mb-[20px] rounded-[4px]">
                   <h2 className="text-[#4e73df] text-[16px] leading-[19px] font-bold">
@@ -119,7 +144,7 @@ function ChildDetails() {
         </div>
       </MainLayout>
     </div>
-  )
+  );
 }
 
-export default ChildDetails
+export default ChildDetails;
