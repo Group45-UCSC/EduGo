@@ -1,14 +1,15 @@
 import React, { useState } from "react";
 import MainLayout from "../../components/layout/MainLayout";
 import { FaHome, FaBus, FaUsers, FaSearch } from "react-icons/fa";
+import {BsFillChatDotsFill} from "react-icons/bs";
 import ParentChildDetails from "./ParentChildDetails";
 
 const sideNavBarLinks = [
   { title: "Dashboard", path: "/sup_agent/dashboard", icon: <FaHome /> },
+  { title: "Chat", path:"/sup_agent/chat", icon:<BsFillChatDotsFill/>},
   { title: "Parents", path: "/sup_agent/parents", icon: <FaUsers /> },
   { title: "Drivers", path: "/sup_agent/drivers", icon: <FaBus /> },
 ];
-
 const initialParentData = [
   {
     id: 1,
