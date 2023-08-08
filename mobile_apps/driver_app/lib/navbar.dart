@@ -70,10 +70,10 @@ class Navbar extends StatelessWidget {
                 Navigator.pushNamed(context, '/students');
               },
             ),
+            // payments
             ListTile(
-              leading: Icon(Icons.account_balance_wallet_outlined,
-                  color: Colors.black),
-              title: Text('Finance'),
+              leading: Icon(Icons.attach_money_outlined, color: Colors.black),
+              title: Text('Financial'),
               onTap: () {
                 Navigator.pop(context);
                 Navigator.pushNamed(context, '/financial');
