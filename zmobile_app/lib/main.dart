@@ -4,7 +4,13 @@ import 'driver_pages/home.dart';
 import 'driver_pages/rides.dart';
 import 'driver_pages/students.dart';
 import 'driver_pages/financial.dart';
+import 'parent_pages/home.dart';
+import 'parent_pages/location_tracking.dart';
+import 'parent_pages/children.dart';
+import 'parent_pages/payment.dart';
+
 import 'login.dart';
+
 void main() {
   runApp(MyApp());
 }
@@ -17,10 +23,16 @@ class MyApp extends StatelessWidget {
       initialRoute: '/',
       routes: {
         '/': (context) => Login(),
-        '/home': (context) => HomePage(),
+        // Driver
+        '/home_d': (context) => DriverHomePage(),
         '/school_ride': (context) => RidePage(),
-        '/financial': (context) => FinancialPage(),
         '/students': (context) => StudentPage(),
+        '/financial': (context) => FinancialPage(),
+        // Parent
+        '/home_p': (context) => ParentHomePage(),
+        '/location': (context) => LocationPage(),
+        '/children': (context) => ChildrenPage(),
+        '/payment': (context) => PaymentPage(),
       },
     );
   }

@@ -38,7 +38,7 @@ class Navbar extends StatelessWidget {
                     ),
                   ),
                   SizedBox(height: 4),
-                  Text('driver1@gmail.com',
+                  Text('parent1@gmail.com',
                       style: TextStyle(
                         color: Colors.white,
                         fontSize: 14,
@@ -54,31 +54,33 @@ class Navbar extends StatelessWidget {
                 Navigator.pushNamed(context, '/home');
               },
             ),
+            // children location tracking
             ListTile(
-              leading: Icon(Icons.directions_bus_outlined, color: Colors.black),
-              title: Text('School Ride'),
+              leading: Icon(Icons.location_on_outlined, color: Colors.black),
+              title: Text('Children Location Tracking'),
               onTap: () {
                 Navigator.pop(context);
-                Navigator.pushNamed(context, '/school_ride');
+                Navigator.pushNamed(context, '/location');
               },
             ),
+            // Children list
             ListTile(
-              leading: Icon(Icons.phone_callback_outlined, color: Colors.black),
-              title: Text('Student details'),
+              leading: Icon(Icons.list_alt_outlined, color: Colors.black),
+              title: Text('Children List'),
               onTap: () {
                 Navigator.pop(context);
-                Navigator.pushNamed(context, '/students');
+                Navigator.pushNamed(context, '/children');
               },
             ),
             // payments
             ListTile(
               leading: Icon(Icons.attach_money_outlined, color: Colors.black),
-              title: Text('Financial'),
+              title: Text('Payment'),
               onTap: () {
                 Navigator.pop(context);
-                Navigator.pushNamed(context, '/financial');
+                Navigator.pushNamed(context, '/payment');
               },
-            ),
+            ),            
             ListTile(
               leading: Icon(Icons.logout_outlined, color: Colors.black),
               title: Text('Logout'),

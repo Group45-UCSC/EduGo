@@ -3,7 +3,7 @@
 import 'package:flutter/material.dart';
 import './navbar.dart';
 
-class DriverHomePage extends StatelessWidget {
+class ParentHomePage extends StatelessWidget {
    @override
   Widget build(BuildContext context) {
     return Navbar(

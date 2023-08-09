@@ -3,7 +3,7 @@
 import 'package:flutter/material.dart';
 import './navbar.dart';
 
-class DriverHomePage extends StatelessWidget {
+class LocationPage extends StatelessWidget {
    @override
   Widget build(BuildContext context) {
     return Navbar(
@@ -12,7 +12,7 @@ class DriverHomePage extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text(
-              'Home Page',
+              'Location Page',
               style: TextStyle(
                 fontSize: 24,
                 fontWeight: FontWeight.bold,
@@ -20,7 +20,7 @@ class DriverHomePage extends StatelessWidget {
             ),
             SizedBox(height: 20),
             Text(
-              'Welcome to the Home Page.',
+              'Welcome to the Location tracking Page.',
               style: TextStyle(
                 fontSize: 16,
               ),

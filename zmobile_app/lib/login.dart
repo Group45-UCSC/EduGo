@@ -67,7 +67,7 @@ class Login extends StatelessWidget {
               ),
               ElevatedButton(
                 onPressed: () {
-                  Navigator.of(context).pushReplacementNamed('/home');
+                  Navigator.of(context).pushReplacementNamed('/home_d');
                 },
                 style: ElevatedButton.styleFrom(
                   foregroundColor: Colors.black,
@@ -78,6 +78,20 @@ class Login extends StatelessWidget {
                   ),
                 ),
                 child: Text('Login'),
+              ),
+              ElevatedButton(
+                onPressed: () {
+                  Navigator.of(context).pushReplacementNamed('/home_p');
+                },
+                style: ElevatedButton.styleFrom(
+                  foregroundColor: Colors.black,
+                  backgroundColor: Colors.white,
+                  minimumSize: Size(150, 50),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                ),
+                child: Text('Parent Login'),
               ),
             ],
           ),
