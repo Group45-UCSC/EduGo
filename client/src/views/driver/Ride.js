@@ -2,89 +2,126 @@ import React from "react";
 import { useState } from "react";
 import "../driver/Tabs.css";
 import MainLayout from "../../components/layout/MainLayout";
-import { FaBeer } from "react-icons/fa";
 import { NavLink } from "react-router-dom";
+// import ChildDetails from "./ChildDetails";
+import user from "../../images/user.png";
+import { MdLocationOn } from "react-icons/md";
+import { GoogleMap, LoadScript, Marker } from "@react-google-maps/api";
+import { AiFillDashboard } from "react-icons/ai";
+import {
+  MdPayments,
+  MdSupportAgent,
+  MdOutlineRateReview,
+} from "react-icons/md";
+import { AiFillCar } from "react-icons/ai";
 
 const sideNavBarLinks = [
-  { title: "Dashboard", path: "/driver/dashboard", icon: <FaBeer /> },
-  { title: "School Ride", path: "/driver/ride", icon: <FaBeer /> },
-  { title: "Finance", path: "/driver/finance", icon: <FaBeer /> },
-  { title: "Support", path: "/driver/support", icon: <FaBeer /> },
-  { title: "Feedback", path: "/driver/feedback", icon: <FaBeer /> },
+  { title: "Dashboard", path: "/driver/dashboard", icon: <AiFillDashboard /> },
+  { title: "School Ride", path: "/driver/ride", icon: <AiFillCar /> },
+  { title: "Finance", path: "/driver/finance", icon: <MdPayments /> },
+  { title: "Support", path: "/driver/support", icon: <MdSupportAgent /> },
+  {
+    title: "Feedback",
+    path: "/driver/feedback",
+    icon: <MdOutlineRateReview />,
+  },
 ];
-
 function Ride() {
-  const [toggleState, setToggleState] = useState(1);
-
-  const toggleTab = (index) => {
-    setToggleState(index);
-  };
-  const data1 = [
+  const childDetails = [
     {
-      id: "001",
-      type: "Van",
-      make: "Nissan",
-      model: "Caravan",
-      contact: "0716548792",
-      departure: "Homagama",
+      id: "C10005",
+      name: "R.B.S.Udayanga",
+      schoolName: "Royal Collage",
     },
     {
-      id: "002",
-      type: "Van",
-      make: "Nissan",
-      model: "Hiace",
-      contact: "0716548792",
-      departure: "Colombo 07",
+      id: "C10009",
+      name: "L.L.A. Hansani",
+      schoolName: "Sujatha collage",
     },
     {
-      id: "003",
-      type: "Bus",
-      make: "Toyota",
-      model: "coster",
-      contact: "0716548792",
-      departure: "Kirulapone",
+      id: "C10011",
+      name: "K.S.T. Gunawardhana ",
+      schoolName: "Royal Collage",
     },
     {
-      id: "004",
-      type: "Bus",
-      make: "Mitshubishi",
-      model: "Rosa",
-      contact: "0716548792",
-      departure: "Gampaha",
+      id: "C10011",
+      name: "A.W.K.S. Jayasiri ",
+      schoolName: "Royal Collage",
+    },
+    {
+      id: "C10005",
+      name: "R.B.S.Udayanga",
+      schoolName: "Royal Collage",
+    },
+    {
+      id: "C10009",
+      name: "L.L.A. Hansani",
+      schoolName: "Sujatha collage",
+    },
+    {
+      id: "C10011",
+      name: "K.S.T. Gunawardhana ",
+      schoolName: "Royal Collage",
+    },
+    {
+      id: "C10011",
+      name: "A.W.K.S. Jayasiri ",
+      schoolName: "Royal Collage",
+    },
+    {
+      id: "C10005",
+      name: "R.B.S.Udayanga",
+      schoolName: "Royal Collage",
+    },
+    {
+      id: "C10009",
+      name: "L.L.A. Hansani",
+      schoolName: "Sujatha collage",
+    },
+    {
+      id: "C10011",
+      name: "K.S.T. Gunawardhana ",
+      schoolName: "Royal Collage",
+    },
+    {
+      id: "C10011",
+      name: "A.W.K.S. Jayasiri ",
+      schoolName: "Royal Collage",
     },
   ];
-  const data2 = [
+
+  const schools = [
     {
-      id: "001",
-      type: "Van",
-      make: "Mazda",
-      model: "Hiace",
-      contact: "0716548792",
-      departure: "Homagama",
+      id: "sch009",
+      schoolName: "Royal Collage",
     },
     {
-      id: "002",
-      type: "Van",
-      make: "Toyota",
-      model: "Hiace",
-      contact: "0716548792",
-      departure: "Colombo 07",
+      id: "sch004",
+      schoolName: "Sujatha collage",
     },
     {
-      id: "003",
-      type: "Van",
-      make: "Nissan",
-      model: "Hiace",
-      contact: "0716548792",
-      departure: "Kirulapone",
+      id: "sch108",
+      schoolName: "Royal Collage",
     },
     {
-      id: "004",
-      type: "Bus",
-      make: "Micro",
-      model: "Kinglong",
-      contact: "0716548792",
-      departure: "Gampaha",
+      id: "sch002",
+      schoolName: "Royal Collage",
+    },
+    {
+      id: "sch041",
+      schoolName: "Royal Collage",
+    },
+    {
+      id: "sch008",
+      schoolName: "Sujatha collage",
+    },
+    {
+      id: "sch010",
+      schoolName: "Royal Collage",
+    },
+    {
+      id: "sch082",
+      schoolName: "Royal Collage",
     },
   ];
 
@@ -101,125 +138,81 @@ function Ride() {
     },
   ];
 
+  // school location popup modal
+  const [modalOpen, setModalOpen] = useState(false);
+  function Modal({ setOpenModal }) {
+    return (
+      <div className="fixed top-0 left-0 w-screen h-screen bg-stone-900/75 flex justify-center items-center">
+        <div className="w-[55%] h-[75%] rounded-lg bg-white shadow-md flex flex-col p-5 ">
+          <div className="flex justify-between items-center p-4">
+            <div className="ml-auto">
+              <button
+                className="text-2xl cursor-pointer "
+                onClick={() => {
+                  setOpenModal(false);
+                }}
+              >
+                X
+              </button>
+            </div>
+          </div>
+          <div className="w-[80%] h-[80%]">
+            <LoadScript googleMapsApiKey="AIzaSyBSRpk2O7ZkVtqQknrlERKR-DwpiRi8Z_U">
+              <GoogleMap
+                mapContainerStyle={{
+                  width: "100%",
+                  height: "100%",
+                }}
+                center={{
+                  lat: 6.905088215515232,
+                  lng: 79.86112787997142,
+                }}
+                zoom={15}
+              >
+                <Marker
+                  position={{
+                    lat: 6.905088215515232,
+                    lng: 79.86112787997142,
+                  }}
+                />
+              </GoogleMap>
+            </LoadScript>
+          </div>
+          <div className="flex justify-center items-center mt-5">
+            {/* <button
+              className="w-36 h-12 mr-2 bg-orange rounded-lg text-xl cursor-pointer"
+              onClick={() => {
+                setOpenModal(false);
+              }}
+              id="cancelBtn"
+            >
+              Cancel
+            </button> */}
+          </div>
+        </div>
+      </div>
+    );
+  }
+
   return (
-
-    // <div>
-    //   <MainLayout data={sideNavBarLinks}>
-    //     <h1 className="text-[#5a5c69] text-[28px] pt-6 px-6 leading-8 font-normal cursor-pointer">
-    //       School Ride
-    //     </h1>
-    //     <div className="flex flex-col relative my-5 mx-auto break-all p-5">
-    //       <div className="flex">
-    //         <button
-    //           className={toggleState === 1 ? "tabs active-tabs" : "tabs"}
-    //           onClick={() => toggleTab(1)}
-    //         >
-    //           Current Rides
-    //         </button>
-    //         <button
-    //           className={toggleState === 2 ? "tabs active-tabs" : "tabs"}
-    //           onClick={() => toggleTab(2)}
-    //         >
-    //           Past Rides
-    //         </button>
-    //       </div>
-
-
-    //       <div className="content-tabs">
-    //         <div
-    //           className={
-    //             toggleState === 1 ? "content  active-content" : "content"
-    //           }
-    //         >
-    //           <h2>Current Rides</h2>
-    //           <hr />
-    //           <table className="w-full border-separate border-spacing-y-2 border border-slate-50">
-    //             <thead className="border-y-4 border-white drop-shadow">
-    //               <tr className="bg-[#999999] text-white text-[18px] border-b-2 drop-shadow-md">
-    //                 <th className="px-3.5 py-1 w-24">ID</th>
-    //                 <th className="px-3.5 w-30">Type</th>
-    //                 <th className="px-3.5 w-30">Make</th>
-    //                 <th className="px-3.5 w-30">Model</th>
-    //                 <th className="px-3.5 w-30">Contact</th>
-    //                 <th className="px-3.5 w-30">Departure</th>
-    //               </tr>
-    //             </thead>
-
-    //             <tbody>
-    //               {data1.map((item) => (
-    //                 <tr
-    //                   key={item.id}
-    //                   className="bg-[#D9D9D9] bg-opacity-60 hover:cursor-pointer hover:bg-[#eaeaea] drop-shadow-md"
-    //                 >
-    //                   <td className="text-center p-3">{item.id}</td>
-    //                   <td className="text-center">{item.type}</td>
-    //                   <td className="text-center">{item.make}</td>
-    //                   <td className="text-center">{item.model}</td>
-    //                   <td className="text-center">{item.contact}</td>
-    //                   <td className="text-center">{item.departure}</td>
-    //                 </tr>
-    //               ))}
-    //             </tbody>
-    //           </table>
-    //         </div>
-
-    //         <div
-    //           className={
-    //             toggleState === 2 ? "content  active-content" : "content"
-    //           }
-    //         >
-    //           <h2>Past Rides</h2>
-    //           <hr />
-    //           <table className="w-full border-separate border-spacing-y-2 border border-slate-50">
-    //             <thead className="border-y-4 border-white drop-shadow">
-    //               <tr className="bg-[#999999] text-white text-[18px] border-b-2 drop-shadow-md">
-    //                 <th className="px-3.5 py-1 w-24">ID</th>
-    //                 <th className="px-3.5 w-30">Type</th>
-    //                 <th className="px-3.5 w-30">Make</th>
-    //                 <th className="px-3.5 w-30">Model</th>
-    //                 <th className="px-3.5 w-30">Contact</th>
-    //                 <th className="px-3.5 w-30">Departure</th>
-    //               </tr>
-    //             </thead>
-
-    //             <tbody>
-    //               {data2.map((item) => (
-    //                 <tr
-    //                   key={item.id}
-    //                   className="bg-[#D9D9D9] bg-opacity-60 hover:cursor-pointer hover:bg-[#eaeaea] drop-shadow-md"
-    //                 >
-    //                   <td className="text-center p-3">{item.id}</td>
-    //                   <td className="text-center">{item.type}</td>
-    //                   <td className="text-center">{item.make}</td>
-    //                   <td className="text-center">{item.model}</td>
-    //                   <td className="text-center">{item.contact}</td>
-    //                   <td className="text-center">{item.departure}</td>
-    //                 </tr>
-    //               ))}
-    //             </tbody>
-    //           </table>
-    //         </div>
-    //       </div>
-    //     </div>
-    //   </MainLayout>
-    // </div>
-
     <div>
       <MainLayout data={sideNavBarLinks}>
-        <div className="pt-4 px-6 mb-2">
-          <h1 className="text-[#5a5c69] text-[28px] mb-3 leading-8 font-normal cursor-pointer">
-            Ride Details
-          </h1>
-          <div className="flex justify-end w-5/6 ml-24 mb-4">
-            <NavLink to="/parent/Children/addnewride">
-              <button className="flex justify-center w-56 h-10 bg-orange rounded-md cursor-pointer hover:shadow-lg transform hover:scale-[103%] transition duration-300 ease-out">
-                <div className="flex mt-2 gap-3 font-semibold">Past Rides</div>
-              </button>
-            </NavLink>
-          </div>
-          <div className="grid grid-rows-2 grid-cols-2 sm:grid-cols-1 md:grid-cols-2 gap-2  my-1">
-            {/* --------------------Driver Details------------------------ */}
-            <div className="h-[250px] bg-slate-200">
+        <h1 className="text-[#5a5c69] text-[28px] mb-3 leading-8 font-normal cursor-pointer">
+          Ride Details
+        </h1>
+        <div className="flex justify-end w-full mb-4">
+          <NavLink to="/driver/rides/past">
+            <button className="flex justify-center w-56 h-10 mr-12 bg-orange rounded-md cursor-pointer hover:shadow-lg transform hover:scale-[103%] transition duration-300 ease-out">
+              <div className="flex mt-2 gap-3 font-semibold">Past Rides</div>
+            </button>
+          </NavLink>
+        </div>
+        {/* full box */}
+        <div className="h-screen grid grid-cols-2 mb-10">
+          {/* left column */}
+          <div className=" grid grid-rows-6">
+            {/* upper row */}
+            <div className="row-span-2 mb-5 rounded-lg bg-slate-300">
               {rideDetails.map((rideDetails) => (
                 <div className="h-7 my-5 p-6 mx-10">
                   <h1 className="text-base text-black-600 font-bold">
@@ -237,9 +230,7 @@ function Ride() {
                     </span>
                     {rideDetails.startLocation2} at {rideDetails.startTime2}
                     <br></br>
-                    <span className=" pr-20 text-[#5a5c69]">
-                      PayRate:
-                    </span>{" "}
+                    <span className=" pr-20 text-[#5a5c69]">PayRate:</span>{" "}
                     {rideDetails.paymentRate}
                     <br></br>
                     <span className=" pr-20 text-[#5a5c69]">
@@ -250,43 +241,105 @@ function Ride() {
                 </div>
               ))}
             </div>
-            {/* -------------------------Children details------------------------- */}
-            <div className="bg-slate-200 rounded-md h-[500px] row-span-2">
-              <div className=" grid gap-4 p-4 ">
-                <div className=" bg-slate-300 h-8 flex justify-center">
+            {/* end of upper row */}
+            {/* below row */}
+            <div className="row-span-4 mt-5 overflow-y-auto p-5 ">
+              <div className=" bg-slate-300 h-8 flex mt-0 mb-4 justify-center">
+                <h1 className=" text-xl font-bold">Reaching Schools : 8</h1>
+              </div>
+              {/* school list */}
+              <div className="flex flex-col h-12 gap-4">
+                {schools.map((school, index) => (
+                  <div
+                    key={index}
+                    className="w-[100%] rounded-[8px] bg-slate-200 border-l-[4px] border-orange flex items-center justify-between px-[30px] cursor-pointer hover:shadow-lg transform hover:scale-[103%] transition duration-300 ease-out"
+                  >
+                    <div className=" px-5 flex gap-1 w-1/3 leading-4">
+                      <div className="text-[12px] font-semibold">
+                        {school.id}
+                      </div>
+                    </div>
+                    <div className="flex gap-1 w-1/3 leading-4">
+                      <div className="text-[12px] font-semibold">
+                        {school.schoolName}
+                      </div>
+                    </div>
+                    <div className="flex gap-1 w-1/3 leading-4">
+                      <button
+                        onClick={() => {
+                          setModalOpen(true);
+                        }}
+                        className="flex justify-center m-2  w-8 h-8  bg-orange hover:bg-[#b3913b] rounded-md cursor-pointer"
+                      >
+                        <div className="flex mt-2 gap-3 font-semibold">
+                          <MdLocationOn className=" text-[20px]" />
+                        </div>
+                      </button>
+                      {modalOpen && <Modal setOpenModal={setModalOpen} />}
+                    </div>
+                  </div>
+                ))}
+              </div>
+              {/* end of school list */}
+            </div>
+            {/* end of below row */}
+          </div>
+          {/* end of left column */}
+          {/* right column */}
+          <div className="px-5">
+            <div className="rounded-md row-span-2 h-screen overflow-y-auto">
+              <div className=" grid gap-4 px-4">
+                <div className=" bg-slate-300 h-8 flex mt-0 justify-center">
                   <h1 className=" text-xl font-bold">
                     Number of Childrens : 12
                   </h1>
                 </div>
-                
-                <div className="bg-slate-300 h-16">
-                  
+                {/* children list */}
+                <div className="flex flex-col gap-4">
+                  {childDetails.map((child, index) => (
+                    <NavLink
+                      to={`/driver/ride/childDetails/${child.id}?data=${encodeURIComponent(JSON.stringify(child))}`}
+                    >
+                      <div
+                        key={index}
+                        className="h-[60px] border w-[100%] rounded-[8px] bg-slate-200 border-l-[4px] border-orange flex items-center justify-between px-[30px] cursor-pointer hover:shadow-lg transform hover:scale-[103%] transition duration-300 ease-out"
+                      >
+                        <div className="">
+                          <img
+                            src={user}
+                            alt="user"
+                            className="bg-slate-300 w-10 cursor-pointer rounded-full p-1"
+                          />
+                        </div>
+                        <div className=" px-5 flex gap-1 w-1/3 leading-4">
+                          <div className="text-[12px] font-semibold">
+                            {child.id}
+                          </div>
+                        </div>
+                        <div className="flex gap-1 w-1/3 leading-4">
+                          <div className="text-[12px] font-semibold">
+                            {child.name}
+                          </div>
+                        </div>
+                        <div className="flex gap-1 w-1/3 leading-4">
+                          <div className="text-[12px] font-semibold">
+                            {child.schoolName}
+                          </div>
+                        </div>
+                      </div>
+                    </NavLink>
+                  ))}
                 </div>
-              </div>
-            </div>
-            <div className=" h-[240px] flex flex-col items-center justify-center">
-              <div className="w-full rounded-md bg-slate-200 h-[240px] flex">
-                <div className=" w-1/2 mt-10 mx-10  my-4">
-                  <div></div>
-                </div>
+                {/* end of children list */}
               </div>
             </div>
           </div>
+          {/* end of right column */}
         </div>
+        {/* end of full box */}
       </MainLayout>
     </div>
   );
 }
 
 export default Ride;
-<div className="bg-slate-300 h-40">
-                  <h1 className=" text-lg mt-4 font-semibold ml-4">
-                    Reachig Schools :
-                  </h1>
-                  <ul className=" ml-4">
-                    <li>Ananda College</li>
-                    <li>Mahamaya Balika College</li>
-                    <li>C.W.W. Kannangara College</li>
-                    <li>Ananda Balika College</li>
-                  </ul>
-                </div>

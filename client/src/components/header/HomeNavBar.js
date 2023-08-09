@@ -2,13 +2,14 @@ import React from "react";
 import { NavLink } from "react-router-dom";
 import { Link } from "react-scroll";
 // import { useState , useEffect} from "react";
-import Logo from "../../images/logo.png"
+import Logo from "../../images/logo.png";
+
 
 
 //reusable component for homeNavbar items(without REGISTER item)
 const HomeNavBarItem = ({ to, name }) => {
     return (
-      <p className="homeNavItem px-5 cursor-pointer hover:text-white transition-all ease-in-out">
+      <p className="homeNavItem px-5 cursor-pointer transition-all ease-in-out hover:text-orange">
         <Link to={to} smooth={true} duration={500}>
           {name}
         </Link>
@@ -62,7 +63,7 @@ const HomeNavBarItem = ({ to, name }) => {
 //main homeNavbar function
 function HomeNavBar() {
   return (
-    <div className="homeNavBar bg-orange p-6 sticky flex flex-row gap-3 justify-between items-center" 
+    <div className="homeNavBar w-full bg-transparent text-white p-6 fixed flex flex-row gap-3 justify-between items-center" 
     style={{
       top: "0",
       zIndex: "100",
@@ -73,13 +74,13 @@ function HomeNavBar() {
         
       </div>
 
-      <div className="homeNavItems flex flex-row">
+      <div className="homeNavItems flex flex-row float-right">
         <HomeNavBarItem to="section1" name="Home" />
         <HomeNavBarItem to="section2" name="Services" />
         <HomeNavBarItem to="section3" name="About" />
         <HomeNavBarItem to="section4" name="Contact" />
         <HomeNavBarItem to="section5" name="Register" />
-        <NavLink to="/login" className="homeNavItem px-5 cursor-pointer hover:text-white transition-all ease-in-out">
+        <NavLink to="/login" className="homeNavItem px-5 cursor-pointer hover:text-orange transition-all ease-in-out">
           Login
         </NavLink>
         {/* <div>

@@ -1,36 +1,37 @@
 const express = require("express");
 const cors = require("cors");
-var session = require("express-session");
+// var session = require("express-session");
 // const pgSession = require("connect-pg-simple")(session);
 
 const app = express();
-
-app.use(
-  cors({
-    origin: "http://localhost:3000",
-    methods: ["POST", "GET"],
-    credentials: true,
-  })
-);
-
-var cookieParser = require("cookie-parser");
-var bodyParser = require("body-parser");
-
-app.use(bodyParser.json());
-
-app.use(cookieParser());
-
-app.use(
-  session({
-    secret: "secret",
-    resave: false,
-    saveUninitialized: false,
-    cookie: { sameSite: "none", secure: true, maxAge: 1000 * 60 * 60 * 24 }, //1day
-  })
-);
+app.use(cors());
 
 //middleware
 app.use(express.json()); //req.body
+
+// app.use(
+//   cors({
+//     origin: "http://localhost:3000",
+//     methods: ["POST", "GET"],
+//     credentials: true,
+//   })
+// );
+
+// var cookieParser = require("cookie-parser");
+// var bodyParser = require("body-parser");
+
+// app.use(bodyParser.json());
+
+// app.use(cookieParser());
+
+// app.use(
+//   session({
+//     secret: "secret",
+//     resave: false,
+//     saveUninitialized: false,
+//     cookie: { sameSite: "none", secure: true, maxAge: 1000 * 60 * 60 * 24 }, //1day
+//   })
+// );
 
 // app.use(cors());
 // app.use(

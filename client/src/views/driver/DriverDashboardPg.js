@@ -1,10 +1,13 @@
 import React, { useState } from "react";
 import MainLayout from "../../components/layout/MainLayout";
-import { FaBeer, FaRegCalendarMinus, FaEllipsisV } from "react-icons/fa";
+import { AiFillDashboard, AiFillCar } from "react-icons/ai";
+import { FaRegCalendarMinus, FaEllipsisV } from "react-icons/fa";
+import {
+  MdPayments,
+  MdSupportAgent,
+  MdOutlineRateReview,
+} from "react-icons/md";
 import schoolVan from "../../images/schoolVan.jpeg";
-import parentMap from "../../images/parentMap.png";
-
-// import { ToastContainer, toast } from 'react-toastify';
 
 import {
   LineChart,
@@ -15,6 +18,7 @@ import {
   Tooltip,
   Legend,
 } from "recharts";
+import { NavLink } from "react-router-dom";
 
 const data = [
   {
@@ -61,78 +65,202 @@ const data = [
   },
 ];
 const sideNavBarLinks = [
-  { title: "Dashboard", path: "/driver/dashboard", icon: <FaBeer /> },
-  { title: "School Ride", path: "/driver/ride", icon: <FaBeer /> },
-  { title: "Finance", path: "/driver/finance", icon: <FaBeer /> },
-  { title: "Support", path: "/driver/support", icon: <FaBeer /> },
-  { title: "Feedback", path: "/driver/feedback", icon: <FaBeer /> },
+  { title: "Dashboard", path: "/driver/dashboard", icon: <AiFillDashboard /> },
+  { title: "School Ride", path: "/driver/ride", icon: <AiFillCar /> },
+  { title: "Finance", path: "/driver/finance", icon: <MdPayments /> },
+  { title: "Support", path: "/driver/support", icon: <MdSupportAgent /> },
+  {
+    title: "Feedback",
+    path: "/driver/feedback",
+    icon: <MdOutlineRateReview />,
+  },
 ];
 
 function DriverDashboardPg() {
-  // const [name, setName] = useState("");
-
-  // async function getName() {
-  //   try {
-  //     const response = await fetch("http://localhost:5000/edugo/user/verify", {
-  //       method: "GET",
-  //       headers: { token: localStorage.token },
-  //     });
-
-  //     const parseRes = await response.json();
-  //     // console.log(parseRes);
-
-  //     setName(parseRes.user_name);
-  //   } catch (err) {
-  //     console.error(err.message);
-  //   }
-  // }
-
-  // useEffect(() => {
-  //   getName();
-  // },[]);
-
-  // const logout = (e) => {
-  //   e.preventDefault();
-  //   localStorage.removeItem("token");
-  //   setAuth(false);
-  //   // toast.success("Logged out successfully");
-  // };
-
   const [modalOpen, setModalOpen] = useState(false);
-  // Add children model load
-  function Modal({ setOpenModal }) {
+  const [selectedNotification, setSelectedNotification] = useState(null);
+
+  //notification popup modals
+  function Modal({ setOpenModal, notification }) {
     return (
-      <div className="fixed top-0 left-0 w-screen h-screen bg-stone-900/75 flex justify-center items-center">
-        <div className="w-80 h-80 rounded-lg bg-white shadow-md flex flex-col p-5 ">
-          <div className="flex justify-end">
-            <button
-              className="text-2xl cursor-pointer "
-              onClick={() => {
-                setOpenModal(false);
-              }}
-            >
-              X
-            </button>
-          </div>
-          <div className="inline-block text-center mt-2">
-            <h1>Are You Sure You Want to Continue?</h1>
-          </div>
-          <div className="flex flex-col justify-center items-center text-2xl">
-            <p>The next page looks amazing. Hope you want to go there!</p>
-          </div>
-          <div className="flex justify-center items-center mt-5">
-            <button
-              className="w-36 h-12 mr-2 bg-orange rounded-lg text-xl cursor-pointer"
-              onClick={() => {
-                setOpenModal(false);
-              }}
-              id="cancelBtn"
-            >
-              Cancel
-            </button>
-            <button className="w-36 h-12 bg-orange rounded-lg text-xl cursor-pointer">
-              Continue
-            </button>
+      <div>
+        <div className="bg-white p-0 px-60 rounded-lg ">
+          <div className="fixed top-0 left-0 w-screen  bg-stone-900/75 flex justify-center items-center  h-screen bg-gradient-to-b from-opacity-70 to-opacity-30">
+            <div className="w-1/3  rounded-lg bg-white shadow-md flex flex-col p-5 ">
+              <div className="flex justify-end">
+                <button
+                  className="text-2xl cursor-pointer "
+                  onClick={() => {
+                    setOpenModal(false);
+                  }}
+                >
+                  X
+                </button>
+              </div>
+              {/* content */}
+              <div className="">
+                <p>
+                  {notification.Message}
+                  <br />
+                  <br />
+                  <div className="text-slate-500 text-sm">
+                    {" "}
+                    Received on {notification.Date} at {"  "}
+                    {notification.Time}
+                  </div>
+                </p>
+
+                {/* end of content */}
+
+                <div className="flex justify-center items-center mt-5">
+                  {(() => {
+                    switch (notification.type) {
+                      case "vehicle":
+                        return (
+                          <div
+                            className="w-36 h-9 bg-orange rounded-lg text-xl cursor-pointer"
+                            onClick={() => {
+                              setOpenModal(false);
+                            }}
+                            id="cancelBtn"
+                          >
+                            Okay
+                          </div>
+                        );
+
+                      case "profile":
+                        return (
+                          <div className="flex justify-between gap-6">
+                            <NavLink to="/user/profile">
+                              <button
+                                className="w-36 h-9 bg-orange rounded-lg text-xl cursor-pointer"
+                                onClick={() => {
+                                  setOpenModal(false);
+                                }}
+                              >
+                                Update
+                              </button>
+                            </NavLink>
+
+                            <button
+                              className="w-36 h-9 bg-orange rounded-lg text-xl cursor-pointer"
+                              onClick={() => {
+                                setOpenModal(false);
+                              }}
+                              id="cancelBtn"
+                            >
+                              Okay
+                            </button>
+                          </div>
+                        );
+
+                      case "studentAbsent":
+                        return (
+                          <NavLink to="/user/profile">
+                            <div
+                              className="w-36 h-9 bg-orange rounded-lg text-xl cursor-pointer"
+                              onClick={() => {
+                                setOpenModal(false);
+                              }}
+                            >
+                              Got It
+                            </div>
+                          </NavLink>
+                        );
+                      case "rideRequest":
+                        return (
+                          <div className="flex justify-between gap-6">
+                            <NavLink to="/user/profile">
+                              <button
+                                className="w-36 h-9 bg-orange rounded-lg text-xl cursor-pointer"
+                                onClick={() => {
+                                  setOpenModal(false);
+                                }}
+                              >
+                                View
+                              </button>
+                            </NavLink>
+
+                            <button
+                              className="w-36 h-9 bg-orange rounded-lg text-xl cursor-pointer"
+                              onClick={() => {
+                                setOpenModal(false);
+                              }}
+                              id="cancelBtn"
+                            >
+                              Reject
+                            </button>
+                          </div>
+                        );
+                      case "missedRequest":
+                        return (
+                          <div className="flex justify-between gap-6">
+                            <NavLink to="/user/profile">
+                              <button
+                                className="w-36 h-9 bg-orange rounded-lg text-xl cursor-pointer"
+                                onClick={() => {
+                                  setOpenModal(false);
+                                }}
+                              >
+                                View
+                              </button>
+                            </NavLink>
+
+                            <button
+                              className="w-36 h-9 bg-orange rounded-lg text-xl cursor-pointer"
+                              onClick={() => {
+                                setOpenModal(false);
+                              }}
+                              id="cancelBtn"
+                            >
+                              Reject
+                            </button>
+                          </div>
+                        );
+                      case "chat":
+                        return (
+                          <div className="flex justify-between gap-6">
+                            <NavLink to="/user/profile">
+                              <button
+                                className="w-36 h-9 bg-orange rounded-lg text-xl cursor-pointer"
+                                onClick={() => {
+                                  setOpenModal(false);
+                                }}
+                              >
+                                View
+                              </button>
+                            </NavLink>
+
+                            <button
+                              className="w-36 h-9 bg-orange rounded-lg text-xl cursor-pointer"
+                              onClick={() => {
+                                setOpenModal(false);
+                              }}
+                              id="cancelBtn"
+                            >
+                              Okay
+                            </button>
+                          </div>
+                        );
+                      default:
+                        <button
+                          className="w-36 h-12 bg-orange rounded-lg text-xl cursor-pointer"
+                          onClick={() => {
+                            setOpenModal(false);
+                          }}
+                          id="cancelBtn"
+                        >
+                          Ok
+                        </button>;
+                        break;
+                    }
+                  })()}
+                </div>
+                {/* <button className="w-36 h-12 bg-orange rounded-lg text-xl cursor-pointer">
+                  Submit
+                </button> */}
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -144,172 +272,65 @@ function DriverDashboardPg() {
       id: 1,
       type: "vehicle",
       Date: "2023/07/30",
-      Time: "8.50",
+      Time: "8.50 a.m.",
       From: "Vehicle coordinator",
-      Message: "Your vehicle Condition check is reach to out of date.",
+      Message:
+        "Your vehicle Condition verification is reach to out of date! Please check it for the continous riding.",
     },
     {
-      id: 1,
+      id: 2,
       type: "rideRequest",
       Date: "2023/07/25",
-      Time: "4.45",
+      Time: "4.45 p.m.",
       From: "ParentId",
       Message: "New Student ride request",
     },
     {
-      id: 1,
+      id: 3,
       type: "studentAbsent",
       Date: "2023/08/05",
-      Time: "6.05",
+      Time: "6.05 a.m.",
       From: "ParentId:p002",
       Message: "ChildId:c005 is not attending today",
     },
     {
-      id: 1,
+      id: 4,
       type: "chat",
       Date: "2023/08/03",
-      Time: "2.35",
+      Time: "2.35 p.m.",
       From: "support agent",
       Message: "New message received",
     },
     {
-      id: 1,
-      type: "vehicle",
+      id: 5,
+      type: "profile",
       Date: "2023/07/03",
-      Time: "9.35",
+      Time: "9.35 p.m.",
       From: "vehicle coordinator",
       Message: "Your driving License expires soon",
     },
     {
-      id: 1,
+      id: 6,
       type: "missedRequest",
       Date: "2023/08/05",
-      Time: "6.24",
+      Time: "6.24 a.m.",
       From: "parentId:p007",
       Message: "Request to pickup missed child: C004",
     },
   ];
-  return (
-    // <div>
-    //   <MainLayout data={sideNavBarLinks}>
-    //     <div className="pt-[25px] px-[25px] ">
-    //       <h1 className="text-[#5a5c69] text-[28px] leading-8 font-normal cursor-pointer">
-    //         Dashboard
-    //       </h1>
-    //       <div className="grid grid-cols-2 gap-[150px] mt-[25px] pb-[15px]">
-    // <div className=" h-[180px] rounded-[8px] bg-white border-l-[4px] border-orange flex items-center justify-between px-[30px] cursor-pointer hover:shadow-lg transform hover:scale-[103%] transition duration-300 ease-out">
-    //   <div>
-    //     <h1 className="text-[20px] leading-[24px] font-bold text-[#5a5c69] mt-[5px] pb-1">
-    //       Vehicle
-    //     </h1>
-    //     <div className="flex gap-x-20">
-    //       <div className="w-40 ">
-    //         <img
-    //           src={schoolVan}
-    //           alt="schoolVan"
-    //           className="border-2 border-gray"
-    //         ></img>
-    //       </div>
-    //       <div className="">
-    //         <h2 className="font-medium">PJ-4893</h2>
-    //         <h2>VID3001</h2>
-    //       </div>
-    //     </div>
-    //   </div>
-    //   <FaRegCalendarMinus fontSize={28} color="" />
-    //         </div>
-    //         {/* Alerts */}
-    //         <div className=" h-[180px] rounded-[8px] bg-white border-l-[4px] border-orange flex items-center justify-between px-[30px] cursor-pointer hover:shadow-lg transform hover:scale-[103%] transition duration-300 ease-out">
-    //           <div>
-    //             <h1 className="text-[20px] leading-[24px] font-bold text-[#5a5c69] mt-[5px] pb-1">
-    //               Alerts
-    //             </h1>
-    //             <div className="flex">
-    //               <h2 className="text-[#B589DF] text-[12px] leading-[17px] font-bold">
-    //                 Your vehicle verification
-    //               </h2>
-    //             </div>
-    //             <div className="flex">
-    //               <h2 className="text-[#c91c28] text-[12px] leading-[17px] font-bold">
-    //                 - Approved
-    //               </h2>
-    //             </div>
-    //           </div>
-    //           <FaRegCalendarMinus fontSize={28} color="" />
-    //         </div>
-    //       </div>
-    //       <div className="grid grid-cols-2 mt-[22px] w-full gap-[150px] ">
-    // <div className=" bg-white shadow-md cursor-pointer rounded-[4px]">
-    //   <div className="bg-[#F8F9FC]  flex items-center justify-between py-[15px] px-[20px] border-b-[1px] border-[#EDEDED] mb-[20px]">
-    //     <h2 className="text-[#4e73df] text-[16px] leading-[19px] font-bold">
-    //       Earnings Overview
-    //     </h2>
-    //     <FaEllipsisV color="gray" className="cursor-pointer" />
-    //   </div>
-    //   <div className="w-full">
-    //     <LineChart
-    //       width={500}
-    //       height={300}
-    //       data={data}
-    //       margin={{
-    //         top: 5,
-    //         right: 30,
-    //         left: 20,
-    //         bottom: 5,
-    //       }}
-    //     >
-    //       <CartesianGrid strokeDasharray="3 3" />
-    //       <XAxis dataKey="name" />
-    //       <YAxis />
-    //       <Tooltip />
-    //       <Legend />
-    //       <Line
-    //         type="monotone"
-    //         dataKey="pv"
-    //         stroke="#8884d8"
-    //         activeDot={{ r: 8 }}
-    //       />
-    //       <Line type="monotone" dataKey="uv" stroke="#82ca9d" />
-    //     </LineChart>
-    //   </div>
-    // </div>
-    //         <div className=" bg-white shadow-md cursor-pointer rounded-[4px]">
-    //           <div className="bg-[#F8F9FC]  flex items-center justify-between py-[15px] px-[20px] border-b-[1px] border-[#EDEDED] mb-[20px]">
-    //             <h2 className="text-[#4e73df] text-[16px] leading-[19px] font-bold">
-    //               Earnings Overview
-    //             </h2>
-    //             <FaEllipsisV color="gray" className="cursor-pointer" />
-    //           </div>
-    //           <diV className="">
-    //             <img src={parentMap} alt="parentMap"></img>
-    //           </diV>
-    //         </div>
-    //       </div>
-    //     </div>
-    //   </MainLayout>
-    //   <div className="w-full flex items-center flex-col font-nunito">
-    //     <h1>Add new school ride</h1>
-    //     <button
-    //       className="openModalBtn w-48 h-10 bg-orange rounded-md cursor-pointer"
-    //       onClick={() => {
-    //         setModalOpen(true);
-    //       }}
-    //     >
-    //       Add School Ride
-    //     </button>
 
-    //     {modalOpen && <Modal setOpenModal={setModalOpen} />}
-    //   </div>
-    // </div>
+  return (
     <div>
       <MainLayout data={sideNavBarLinks}>
         <h1 className="text-[#5a5c69] text-[28px] mb-3 leading-8 font-normal cursor-pointer">
           Dashboard
         </h1>
         <div className="grid grid-cols-5 h-screen gap-4">
-          <div className="col-span-3">
+          {/* left side column */}
+          <div className="leftside col-span-3">
+            {/* upper row */}
             <div className="w-full h-2/6 grid grid-cols-2 gap-4">
-              {/* <div className=" bg-blue-500"> */}
+              {/* next ride box */}
               <div className=" h-[180px] rounded-[8px] bg-slate-100 border-l-[4px] border-orange flex items-center justify-between px-[30px] cursor-pointer hover:shadow-lg transform hover:scale-[103%] transition duration-300 ease-out">
                 <div>
                   <h1 className="text-[20px] leading-[24px] font-bold text-[#5a5c69] mt-[5px] pb-1">
@@ -324,9 +345,9 @@ function DriverDashboardPg() {
                 </div>
                 <FaRegCalendarMinus fontSize={28} color="" />
               </div>
-              {/* </div> */}
-              <div className="">
-                {/* Content for the right column (2 parts) */}
+              {/* end of next ride box */}
+              {/* vehicle box */}
+              <NavLink to="/driver/vehicle">
                 <div className=" h-[180px] rounded-[8px] bg-slate-100 border-l-[4px] border-orange flex items-center justify-between px-[30px] cursor-pointer hover:shadow-lg transform hover:scale-[103%] transition duration-300 ease-out">
                   <div>
                     <h1 className="text-[20px] leading-[24px] font-bold text-[#5a5c69] mt-[5px] pb-1">
@@ -348,10 +369,11 @@ function DriverDashboardPg() {
                   </div>
                   <FaRegCalendarMinus fontSize={28} color="" />
                 </div>
-              </div>
+              </NavLink>
+              {/* end of vehicle box */}
             </div>
-            {/* <div className=" h-[110px] rounded-[8px] bg-slate-200 border-l-[4px] border-orange flex items-center justify-between px-[30px] cursor-pointer hover:shadow-lg transform hover:scale-[103%] transition duration-300 ease-out"></div>
-            </div> */}
+            {/* end of upper row */}
+            {/* below row */}
             <div className="w-full h-4/6">
               {/* chart */}
               <div className=" bg-white shadow-md cursor-pointer rounded-[4px]">
@@ -388,22 +410,53 @@ function DriverDashboardPg() {
                   </LineChart>
                 </div>
               </div>
+              {/* end of chart */}
             </div>
+            {/* end of below row */}
           </div>
-          <div className="col-span-2 rounded-md text-center">
+          {/* end of left side column */}
+          {/* right column */}
+          <div className="col-span-2 mt-[-27px] rounded-md text-center">
             <div className="text-orange leading-4 text-lg font-bold mb-3">
               New Updates
             </div>
+            {/* notifi box */}
             <div className="flex flex-col gap-4">
               {notifications.map((notifi) => (
-                <h1 className="h-20 w-[95%] rounded-[8px] bg-slate-200 border-l-[4px] border-orange flex items-center justify-between px-[30px] cursor-pointer hover:shadow-lg transform hover:scale-[103%] transition duration-300 ease-out">
-                  {notifi.Message}
-                </h1>
+                <div
+                  key={notifi.id}
+                  className="h-20 w-[95%] rounded-[8px] bg-slate-200 border-l-[4px] border-orange flex items-center justify-between px-[30px] cursor-pointer hover:shadow-lg transform hover:scale-[103%] transition duration-300 ease-out"
+                  onClick={() => {
+                    setSelectedNotification(notifi);
+                    setModalOpen(true);
+                  }}
+                >
+                  <div className="w-full">
+                    <div className=" text-left">{notifi.Message}</div>
+                    <div className=" flex justify-between mt-4">
+                      <div className="text-blue-800 text-xs">{notifi.Date}</div>
+                      <div className="justify-end text-xs text-slate-600">
+                        {notifi.Time}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                // </div>
               ))}
+              {modalOpen && selectedNotification && (
+                <Modal
+                  setOpenModal={setModalOpen}
+                  notification={selectedNotification}
+                />
+              )}
+              {/* </button> */}
             </div>
+            {/* end of notify box */}
           </div>
+          {/* end of right column */}
         </div>
       </MainLayout>
+      {/* {modalOpen && <Modal setOpenModal={setModalOpen} />} */}
     </div>
   );
 }

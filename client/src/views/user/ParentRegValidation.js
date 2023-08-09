@@ -28,18 +28,19 @@ function LoginValidation(values) {
   }
 
   if (values.nic === "") {
-    error.nic = "* NIC Number should not be empty";
-  } else if (!nicPattern.test(values.nic)) {
-    //pattern correct
-    if (
-      values.nic.toString().length === 12 ||
-      values.nic.toString().length === 10
-    ) {
-      error.nic = " * Nic should be valid";
-    }
+    error.nic = "* License Number should not be empty";
+  }
+  //else if (!nicPattern.test(values.nic)) {
+  //   //pattern correct
+  //   if (
+  //     values.nic.toString().length === 12
+  //   ) {
+  //     error.nic = " * License should be valid";
+  //   }
+  //   error.nic = "";
+  // }
+  else {
     error.nic = "";
-  } else {
-    error.nic = " * Nic should be valid";
   }
 
   if (values.password === "") {
