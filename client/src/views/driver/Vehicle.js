@@ -1,9 +1,7 @@
 import React from "react";
 import MainLayout from "../../components/layout/MainLayout";
-import { FaBeer, FaStar } from "react-icons/fa";
-import { AiFillDashboard } from "react-icons/ai"
-import { MdLocationOn, MdPersonAdd, MdPayments, MdSupportAgent, MdOutlineRateReview } from "react-icons/md";
-import { AiFillCar } from "react-icons/ai";
+import { AiFillDashboard, AiFillCar } from "react-icons/ai"
+import { MdPayments, MdSupportAgent, MdOutlineRateReview } from "react-icons/md";
 
 const sideNavBarLinks = [
   { title: "Dashboard", path: "/driver/dashboard", icon: <AiFillDashboard /> },

@@ -3,7 +3,7 @@ import { FaChild } from "react-icons/fa"
 import { MdPayments, MdSupportAgent, MdOutlineRateReview } from "react-icons/md";
 import "./style/main.css";
 import { BsStar, BsStarFill, } from "react-icons/bs";
-
+import { NavLink } from 'react-router-dom';
 import MainLayout from '../../components/layout/MainLayout';
 
 function AddSchoolRide() {
@@ -146,18 +146,11 @@ function AddSchoolRide() {
                       <p>Model: {vehicleData.model}</p>
                       <p>Start: {vehicleData.start}</p>
                     </div>
-                    <div className="buttons">
-                      <button
-                        className="btn"
-                      // onClick={() =>
-                      //   addProductToCart(
-                      //     product
-                      //   )
-                      // }
-                      >
-                        Add Ride
-                      </button>
-                    </div>
+                    <NavLink to={`/parent/children/addnewride/viewvehicle/${vehicleData.id}`}>
+                      <div className="buttons ">
+                        <button className="btn" >View Ride</button>
+                      </div>
+                    </NavLink>
                   </div>
                 ))}
               </div>
@@ -165,6 +158,7 @@ function AddSchoolRide() {
           </div>
 
         </div>
+
       </MainLayout>
     </div>
   )
