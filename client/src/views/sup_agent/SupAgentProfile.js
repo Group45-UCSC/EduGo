@@ -145,7 +145,7 @@ function SupAgentProfile() {
           {/* --------------------------------------- */}
 
           {/* -----------profile details-------------- */}
-          <div className="bg-[#D9D9D9] w-3/4 mt-10 p-5">
+          <div className="bg-[#D9D9D9] w-3/4 mt-10 mb-[7.5rem] p-5">
             <div className="bg-[#EEEEEE]  w-full h-full p-5">
               <div className="flex flex-col gap-5">
                 <div>

@@ -1,7 +1,7 @@
 import { FaRegBell } from "react-icons/fa";
 import user from "../../images/user.png";
 // import { useNavigate } from 'react-router-dom';
-import { NavLink } from "react-router-dom";
+import { NavLink, useLocation } from "react-router-dom";
 
 // const NavbarItem = ({ path, name }) => {
 //     return (
@@ -12,6 +12,20 @@ import { NavLink } from "react-router-dom";
 // }
 
 function TopNavBar() {
+  const location = useLocation();
+  let profileLink = "user/profile";
+  if (location.pathname.includes("/driver/")) {
+    profileLink = "/driver/profile";
+  } else if (location.pathname.includes("/parent/")) {
+    profileLink = "/parent/profile";
+  } else if (location.pathname.includes("/vc/")) {
+    profileLink = "/v_coordinator/profile";
+  } else if (location.pathname.includes("/sup_agent/")) {
+    profileLink = "/sup_agent/profile";
+  } else if (location.pathname.includes("/admin/")) {
+    profileLink = "/admin/profile";
+  }
+
   return (
     <div className="w-full p-4 text-black bg-white sticky flex flex-row gap-3 justify-between items-center shadow-md">
       <div></div>
@@ -20,7 +34,7 @@ function TopNavBar() {
         <FaRegBell className="mt-[6px]"></FaRegBell>
         <p>User Name</p>
         <div>
-          <NavLink to="/user/profile">
+          <NavLink to={profileLink}>
             <img
               src={user}
               alt="user"
