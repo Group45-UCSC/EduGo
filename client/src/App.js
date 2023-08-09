@@ -131,7 +131,6 @@ function App() {
           <Route exact path="/vc/track" element={<VcTrack />} />
           <Route exact path="/vc/emergency" element={<VcEmergency />} />
           <Route exact path="/vc/emergencydetails" element={<VcEmergencyDetails />} />
-
           <Route exact path="/vc/conditioncheck" element={<VcConditionCheck />} />
           <Route exact path="/vc/feedback" element={<VcFeedback />} />
           <Route exact path="/vc/vrrequest" element={<VRRequest />} />
