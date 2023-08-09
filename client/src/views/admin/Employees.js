@@ -36,6 +36,8 @@ function Employees() {
   const handleClickVC = () => {
     window.location.href = `/admin/VCoordinator`;
   };
+
+
   return (
     <div>
       <MainLayout data={sideNavBarLinks}>
