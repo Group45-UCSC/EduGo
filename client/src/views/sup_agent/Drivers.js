@@ -1,26 +1,28 @@
 import React, { useState } from "react";
 import MainLayout from "../../components/layout/MainLayout";
-import { FaBeer, FaSearch } from "react-icons/fa";
-import DriverVehicleDetails from "../../components/popups/DriverVehicleDetails";
+import { FaHome, FaBus, FaUsers, FaSearch } from "react-icons/fa";
+import {BsFillChatDotsFill} from "react-icons/bs";
+import { MdLocationPin } from "react-icons/md";
+import DriverVehicleDetails from "./DriverVehicleDetails";
 
 const sideNavBarLinks = [
-  { title: "Dashboard", path: "/sup_agent/dashboard", icon: <FaBeer /> },
-  { title: "Parents", path: "/sup_agent/parents", icon: <FaBeer /> },
-  { title: "Drivers", path: "/sup_agent/drivers", icon: <FaBeer /> },
+  { title: "Dashboard", path: "/sup_agent/dashboard", icon: <FaHome /> },
+  { title: "Chat", path:"/sup_agent/chat", icon:<BsFillChatDotsFill/>},
+  { title: "Parents", path: "/sup_agent/parents", icon: <FaUsers /> },
+  { title: "Drivers", path: "/sup_agent/drivers", icon: <FaBus /> },
 ];
-
 const initialVehicleData = [
   {
     id: 1,
-    vnum: "John Doe",
-    drivername: "910123456V",
+    vnum: "V12345",
+    drivername: "H.A.Priyantha Perera",
     contact: "0112345678",
     sLocation: "Rosmead Place, Colombo 7",
   },
   {
     id: 2,
-    vnum: "S.N.Ramanayake",
-    drivername: "997542770V",
+    vnum: "V98765",
+    drivername: "Saman Hettiarachchi",
     contact: "0332250444",
     sLocation: "Main St, Colombo 7",
   },
@@ -201,7 +203,8 @@ function Drivers() {
           )}
           {/* -------------------------end vehicle data----------------------------- */}
         </div>
-        
+        {/* -------------------------- driver details popup----------------------- */}
+
         {activeTab === "drivers" && selectedRow && (
           <DriverVehicleDetails
             isOpen={selectedRow !== null}
@@ -211,47 +214,69 @@ function Drivers() {
               <div>
                 <div className="">
                   <div className="grid grid-cols-2 p-2">
-                    <div className="flex flex-col gap-2">
-                      <img
-                        src={selectedRow.img}
-                        className="w-[8rem] rounded-full"
-                        alt="Avatar"
-                      />
+                    <div className="col-span-1 flex flex-col gap-2">
+                      <div className="w-[8rem] h-[8rem] rounded-full overflow-hidden">
+                        <img
+                          src={selectedRow.img}
+                          className="w-full h-full object-cover"
+                          alt="Avatar"
+                        />
+                      </div>
                       <h2 className="font-bold text-xl ml mt-4">
                         {selectedRow.name}
                       </h2>
+                      <h2 className="text-xl ml mt-4 flex flex-row">
+                        <p className="font-bold">Ride Status :</p>
+                        <p className="text-[#16a34a]">On Ride</p>
+                      </h2>
+                      <button className="w-[8rem] py-2 px-5 rounded-full font-bold bg-orange flex items-center gap-1">
+                        <MdLocationPin className="text-black text-3xl" />
+                        <span>Track</span>
+                      </button>
                     </div>
-                    <div className="bg-gradient-to-tl from-[#f6ad55] to-[#fbd38d] w-full h-auto p-5 rounded-xl">
-                      <p>
-                        <strong className="mr-2">ID:</strong> {selectedRow.id}
-                      </p>
-                      <p>
-                        <strong className="mr-2">NIC Number:</strong>{" "}
-                        {selectedRow.nicNumber}
-                      </p>
-                      <p>
-                        <strong className="mr-2">Contact No:</strong>{" "}
-                        {selectedRow.contact}
-                      </p>
-                      <p>
-                        <strong className="mr-2">Address:</strong>{" "}
-                        {selectedRow.address}
-                      </p>
+                    <div className="col-span-1 flex-col">
+                      <div className=" bg-[#EEEE] border-orange border-2 w-full h-auto p-5 rounded-xl">
+                        <h className="text-xl font-semibold">
+                          <u>Driver's Details</u>
+                        </h>
+                        <p>
+                          <strong className="mr-2">ID:</strong> {selectedRow.id}
+                        </p>
+                        <p>
+                          <strong className="mr-2">NIC Number:</strong>{" "}
+                          {selectedRow.nicNumber}
+                        </p>
+                        <p>
+                          <strong className="mr-2">Contact No:</strong>{" "}
+                          {selectedRow.contact}
+                        </p>
+                        <p>
+                          <strong className="mr-2">Address:</strong>{" "}
+                          {selectedRow.address}
+                        </p>
+                      </div>
+                      <div className=" bg-[#EEEE] border-orange border-2 w-full h-auto p-5 rounded-xl mt-5">
+                      <h className="text-xl font-semibold">
+                          <u>Vehicle Details</u>
+                        </h>
+                      </div>
                     </div>
                   </div>
 
-                  <div className="bg-[#EEEEEE] w-full h-[15rem] mt-5 rounded-xl p-3">
+                  {/* <div className="bg-[#EEEEEE] w-full h-[15rem] mt-5 rounded-xl p-3">
                     <p className="text-xl font-semibold">Dependent's Details</p>
                     <div className="flex flex-1 gap-20 p-2">
                       <div className="bg-[#F9F9F9] w-2/5 h-5"></div>
                       <div className="bg-[#F9F9F9] w-2/5 h-5"> </div>
                     </div>
-                  </div>
+                  </div> */}
                 </div>
               </div>
             }
           />
         )}
+        {/*------------------------------------------------------------------------------  */}
+        {/* ----------------------------vehicle details popup----------------------------- */}
 
         {activeTab === "vehicles" && selectedRow && (
           <DriverVehicleDetails
@@ -259,10 +284,23 @@ function Drivers() {
             onClose={handleClosePopup}
             activeTab={activeTab}
             content={
-              <div className="grid grid-cols-3 flex-row gap-15">
-                <div className="bg-black w-[100px] h-2"></div>
-                <div className="bg-orange w-[100px] h-2"></div>
-                <div className="bg-gray w-[100px] h-2"></div>
+              
+              <div className="grid grid-cols-3  gap-5">
+                <div className="bg-[#EEEE] border-orange border-2 w-full h-auto p-5 rounded-xl">
+                <h className="text-xl font-semibold">
+                          <u>Vehicle Details</u>
+                        </h>
+                </div>
+                <div className="bg-[#EEEE] border-orange border-2 w-full h-auto p-5 rounded-xl">
+                <h className="text-xl font-semibold">
+                          <u>Owner Details</u>
+                        </h>
+                </div>
+                <div className="bg-[#EEEE] border-orange border-2 w-full h-auto p-5 rounded-xl">
+                <h className="text-xl font-semibold">
+                          <u>Driver Details</u>
+                        </h>
+                </div>
               </div>
             }
           />

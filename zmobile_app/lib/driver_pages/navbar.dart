@@ -12,7 +12,13 @@ class Navbar extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: Color(0xFF999999),
         actions: [
-          Icon(Icons.notifications_none_outlined, color: Colors.black),
+          SizedBox(width: 40),
+          Image.asset(
+            'assets/images/logo.png',
+            height: 10,
+          ),
+          Spacer(),
+          Icon(Icons.notifications_none_outlined, color: Colors.white),
           SizedBox(width: 12),
         ],
       ),
@@ -48,10 +54,10 @@ class Navbar extends StatelessWidget {
             ),
             ListTile(
               leading: Icon(Icons.home_outlined, color: Colors.black),
-              title: Text('Home'),
+              title: Text('Dashboard'),
               onTap: () {
                 Navigator.pop(context);
-                Navigator.pushNamed(context, '/home');
+                Navigator.pushNamed(context, '/home_d');
               },
             ),
             ListTile(

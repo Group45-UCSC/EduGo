@@ -81,7 +81,7 @@ function DriverDashboardPg() {
   const [selectedNotification, setSelectedNotification] = useState(null);
 
   //notification popup modals
-  function Modal({ setOpenModal, notification }) {
+  function Modal({ setModalOpen, notification }) {
     return (
       <div>
         <div className="bg-white p-0 px-60 rounded-lg ">
@@ -91,7 +91,7 @@ function DriverDashboardPg() {
                 <button
                   className="text-2xl cursor-pointer "
                   onClick={() => {
-                    setOpenModal(false);
+                    setModalOpen(false);
                   }}
                 >
                   X
@@ -120,7 +120,7 @@ function DriverDashboardPg() {
                           <div
                             className="w-36 h-9 bg-orange rounded-lg text-xl cursor-pointer"
                             onClick={() => {
-                              setOpenModal(false);
+                              setModalOpen(false);
                             }}
                             id="cancelBtn"
                           >
@@ -135,7 +135,7 @@ function DriverDashboardPg() {
                               <button
                                 className="w-36 h-9 bg-orange rounded-lg text-xl cursor-pointer"
                                 onClick={() => {
-                                  setOpenModal(false);
+                                  setModalOpen(false);
                                 }}
                               >
                                 Update
@@ -145,7 +145,7 @@ function DriverDashboardPg() {
                             <button
                               className="w-36 h-9 bg-orange rounded-lg text-xl cursor-pointer"
                               onClick={() => {
-                                setOpenModal(false);
+                                setModalOpen(false);
                               }}
                               id="cancelBtn"
                             >
@@ -156,11 +156,11 @@ function DriverDashboardPg() {
 
                       case "studentAbsent":
                         return (
-                          <NavLink to="/user/profile">
+                          <NavLink to="/driver/nextride">
                             <div
                               className="w-36 h-9 bg-orange rounded-lg text-xl cursor-pointer"
                               onClick={() => {
-                                setOpenModal(false);
+                                setModalOpen(false);
                               }}
                             >
                               Got It
@@ -170,11 +170,11 @@ function DriverDashboardPg() {
                       case "rideRequest":
                         return (
                           <div className="flex justify-between gap-6">
-                            <NavLink to="/user/profile">
+                            <NavLink to="/driver/ride/riderequests">
                               <button
                                 className="w-36 h-9 bg-orange rounded-lg text-xl cursor-pointer"
                                 onClick={() => {
-                                  setOpenModal(false);
+                                  setModalOpen(false);
                                 }}
                               >
                                 View
@@ -184,7 +184,7 @@ function DriverDashboardPg() {
                             <button
                               className="w-36 h-9 bg-orange rounded-lg text-xl cursor-pointer"
                               onClick={() => {
-                                setOpenModal(false);
+                                setModalOpen(false);
                               }}
                               id="cancelBtn"
                             >
@@ -195,11 +195,11 @@ function DriverDashboardPg() {
                       case "missedRequest":
                         return (
                           <div className="flex justify-between gap-6">
-                            <NavLink to="/user/profile">
+                            <NavLink to="/driver/ride/riderequests">
                               <button
                                 className="w-36 h-9 bg-orange rounded-lg text-xl cursor-pointer"
                                 onClick={() => {
-                                  setOpenModal(false);
+                                  setModalOpen(false);
                                 }}
                               >
                                 View
@@ -209,7 +209,7 @@ function DriverDashboardPg() {
                             <button
                               className="w-36 h-9 bg-orange rounded-lg text-xl cursor-pointer"
                               onClick={() => {
-                                setOpenModal(false);
+                                setModalOpen(false);
                               }}
                               id="cancelBtn"
                             >
@@ -220,11 +220,11 @@ function DriverDashboardPg() {
                       case "chat":
                         return (
                           <div className="flex justify-between gap-6">
-                            <NavLink to="/user/profile">
+                            <NavLink to="/driver/support">
                               <button
                                 className="w-36 h-9 bg-orange rounded-lg text-xl cursor-pointer"
                                 onClick={() => {
-                                  setOpenModal(false);
+                                  setModalOpen(false);
                                 }}
                               >
                                 View
@@ -234,7 +234,7 @@ function DriverDashboardPg() {
                             <button
                               className="w-36 h-9 bg-orange rounded-lg text-xl cursor-pointer"
                               onClick={() => {
-                                setOpenModal(false);
+                                setModalOpen(false);
                               }}
                               id="cancelBtn"
                             >
@@ -246,7 +246,7 @@ function DriverDashboardPg() {
                         <button
                           className="w-36 h-12 bg-orange rounded-lg text-xl cursor-pointer"
                           onClick={() => {
-                            setOpenModal(false);
+                            setModalOpen(false);
                           }}
                           id="cancelBtn"
                         >
@@ -331,20 +331,22 @@ function DriverDashboardPg() {
             {/* upper row */}
             <div className="w-full h-2/6 grid grid-cols-2 gap-4">
               {/* next ride box */}
-              <div className=" h-[180px] rounded-[8px] bg-slate-100 border-l-[4px] border-orange flex items-center justify-between px-[30px] cursor-pointer hover:shadow-lg transform hover:scale-[103%] transition duration-300 ease-out">
-                <div>
-                  <h1 className="text-[20px] leading-[24px] font-bold text-[#5a5c69] mt-[5px] pb-1">
-                    Your Next Ride is on
-                  </h1>
-                  <h2 className="text-[#B589DF] text-[12px] leading-[17px] font-bold">
-                    Tomorrow at 5.45 a.m
-                  </h2>
-                  <h2 className="text-[#B589DF] text-[12px] leading-[17px] font-bold">
-                    From Homagama
-                  </h2>
+              <NavLink to="/driver/nextride">
+                <div className=" h-[180px] rounded-[8px] bg-slate-100 border-l-[4px] border-orange flex items-center justify-between px-[30px] cursor-pointer hover:shadow-lg transform hover:scale-[103%] transition duration-300 ease-out">
+                  <div>
+                    <h1 className="text-[20px] leading-[24px] font-bold text-[#5a5c69] mt-[5px] pb-1">
+                      Your Next Ride is on
+                    </h1>
+                    <h2 className="text-[#B589DF] text-[12px] leading-[17px] font-bold">
+                      Tomorrow at 5.45 a.m
+                    </h2>
+                    <h2 className="text-[#B589DF] text-[12px] leading-[17px] font-bold">
+                      From Homagama
+                    </h2>
+                  </div>
+                  <FaRegCalendarMinus fontSize={28} color="" />
                 </div>
-                <FaRegCalendarMinus fontSize={28} color="" />
-              </div>
+              </NavLink>
               {/* end of next ride box */}
               {/* vehicle box */}
               <NavLink to="/driver/vehicle">
@@ -445,7 +447,7 @@ function DriverDashboardPg() {
               ))}
               {modalOpen && selectedNotification && (
                 <Modal
-                  setOpenModal={setModalOpen}
+                  setModalOpen={setModalOpen}
                   notification={selectedNotification}
                 />
               )}

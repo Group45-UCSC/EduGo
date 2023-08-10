@@ -1,16 +1,21 @@
 import React, { useState } from "react";
 import MainLayout from "../../components/layout/MainLayout";
-import { FaHome, FaBus, FaUsers, FaRegEdit, FaTrash } from "react-icons/fa";
-import { BsFillChatDotsFill } from "react-icons/bs";
+import { FaShippingFast,FaChild, FaRegEdit, FaTrash } from "react-icons/fa";
+import { FaUserGroup } from "react-icons/fa6";
+import {AiFillDashboard} from "react-icons/ai";
+import { BsFillCarFrontFill } from "react-icons/bs";
+import { BsCoin } from "react-icons/bs";
 import userDefault from "../../images/userDefault.png";
-const sideNavBarLinks = [
-  { title: "Dashboard", path: "/sup_agent/dashboard", icon: <FaHome /> },
-  { title: "Chat", path: "/sup_agent/chat", icon: <BsFillChatDotsFill /> },
-  { title: "Parents", path: "/sup_agent/parents", icon: <FaUsers /> },
-  { title: "Drivers", path: "/sup_agent/drivers", icon: <FaBus /> },
-];
 
-function SupAgentProfile() {
+const sideNavBarLinks = [
+  { title: "Dashboard", path: "/admin/dashboard", icon: <AiFillDashboard /> },
+  { title: "Employees", path: "/admin/employees", icon: <FaUserGroup /> },
+  { title: "Drivers & Vehicles", path: "/admin/drivers", icon: <BsFillCarFrontFill /> },
+  { title: "School Rides", path: "/admin/rides", icon: <FaShippingFast /> },
+  { title: "Children & Parents", path: "/admin/childrenlist", icon: <FaChild /> },
+  { title: "Finance", path: "/admin/finance", icon: <BsCoin /> },
+];
+function AdminProfile() {
   const [name, setName] = useState("John Doe");
   const [address, setAddress] = useState("123 Main Street");
   const [email, setEmail] = useState("johndoe@example.com");
@@ -131,12 +136,11 @@ function SupAgentProfile() {
     setAddressEditing(false);
     setAddress(originalAddress); // Reset to the original address
   };
-
   return (
     <div>
       <MainLayout data={sideNavBarLinks}>
-       {/* -----------VC profile tab------- */}
-       <div className="grid grid-cols-2">
+        {/* -----------Admin profile tab------- */}
+        <div className="grid grid-cols-2">
           {/* ---------profile picture----------- */}
           <div className="bg-[#D9D9D9] mx-5 my-8 md:mx-[10rem] md:my-[8rem] lg:w-[256px] lg:h-[256px] rounded-2xl border-black border-2 md:m-3 justify-center items-center">
             <div className="flex flex-col gap-2 ">
@@ -358,4 +362,4 @@ function SupAgentProfile() {
   );
 }
 
-export default SupAgentProfile;
+export default AdminProfile;

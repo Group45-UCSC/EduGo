@@ -49,32 +49,32 @@ class FinancialPage extends StatelessWidget {
   }
 
   Widget _buildNotPayTabContent(BuildContext context) {
-  return SingleChildScrollView(
-    child: DataTable(
-      columns: const <DataColumn>[
-        DataColumn(label: Text('Student')),
-        DataColumn(label: Text('Month')),
-        DataColumn(label: Text('Payment')),
-      ],
-      rows: List.generate(5, (index) {
-        return DataRow(
-          onSelectChanged: (selected) {
-            if (selected == true) {
-              if (index != -1) {
-                _showConfirmationDialog(context);
+    return SingleChildScrollView(
+      child: DataTable(
+        columns: const <DataColumn>[
+          DataColumn(label: Text('Student')),
+          DataColumn(label: Text('Month')),
+          DataColumn(label: Text('Payment')),
+        ],
+        rows: List.generate(10, (index) {
+          return DataRow(
+            onSelectChanged: (selected) {
+              if (selected == true) {
+                if (index != -1) {
+                  _showConfirmationDialog(context);
+                }
               }
-            }
-          },
-          cells: <DataCell>[
-            DataCell(Text('Student $index')),
-            DataCell(Text('Month $index')),
-            DataCell(Text('Payment $index')),
-          ],
-        );
-      }),
-    ),
-  );
-}
+            },
+            cells: <DataCell>[
+              DataCell(Text('Student ${index + 1}')),
+              DataCell(Text('August')),
+              DataCell(Text('2500')),
+            ],
+          );
+        }),
+      ),
+    );
+  }
 
   Widget _buildPayTabContent() {
     return Center(
@@ -86,44 +86,66 @@ class FinancialPage extends StatelessWidget {
             DataColumn(label: Text('Month')),
             DataColumn(label: Text('Payment')),
           ],
-          rows: List.generate(5, (index) {
-            return DataRow(
-              cells: <DataCell>[
-                DataCell(Text('Student $index')),
-                DataCell(Text('Month $index')),
-                DataCell(Text('Payment $index')),
-              ],
-            );
-          }),
+          rows: [
+          _buildDataRow('Student 1', 'August', '2500'),
+          _buildDataRow('Student 2', 'August', '3000'),
+          _buildDataRow('Student 3', 'August', '2000'),
+          _buildDataRow('Student 4', 'August', '2500'),
+          _buildDataRow('Student 5', 'August', '3000'),
+          _buildDataRow('Student 1', 'July', '2500'),
+          _buildDataRow('Student 2', 'July', '3000'),
+          _buildDataRow('Student 3', 'July', '2000'),
+          _buildDataRow('Student 1', 'June', '2500'),
+          _buildDataRow('Student 2', 'June', '3000'),
+          _buildDataRow('Student 3', 'June', '2000'),
+          _buildDataRow('Student 4', 'June', '2000'),
+          _buildDataRow('Student 5', 'June', '3000'),
+          _buildDataRow('Student 6', 'June', '2000'),
+          _buildDataRow('Student 1', 'May', '2500'),
+          _buildDataRow('Student 2', 'May', '3000'),
+          _buildDataRow('Student 3', 'May', '2000'),
+          _buildDataRow('Student 4', 'May', '2000'),
+          _buildDataRow('Student 5', 'May', '3000'),
+          _buildDataRow('Student 6', 'May', '2000'),
+        ],
         ),
       ),
     );
   }
 
-  void _showConfirmationDialog(BuildContext context) {
-  showDialog(
-    context: context,
-    builder: (BuildContext context) {
-      return AlertDialog(
-        title: Text('Confirm Payment'),
-        content: Text('Is the monthly payment paid?'),
-        actions: [
-          TextButton(
-            onPressed: () {
-              Navigator.pop(context); // Close the dialog
-            },
-            child: Text('No'),
-          ),
-          TextButton(
-            onPressed: () {
-              Navigator.pop(context); // Close the dialog
-            },
-            child: Text('Yes'),
-          ),
-        ],
-      );
-    },
+DataRow _buildDataRow(String student, String month, String payment) {
+  return DataRow(
+    cells: <DataCell>[
+      DataCell(Text(student)),
+      DataCell(Text(month)),
+      DataCell(Text(payment)),
+    ],
   );
 }
 
+  void _showConfirmationDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text('Confirm Payment'),
+          content: Text('Is the monthly payment paid?'),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.pop(context); // Close the dialog
+              },
+              child: Text('No'),
+            ),
+            TextButton(
+              onPressed: () {
+                Navigator.pop(context); // Close the dialog
+              },
+              child: Text('Yes'),
+            ),
+          ],
+        );
+      },
+    );
+  }
 }
