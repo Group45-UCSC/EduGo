@@ -199,7 +199,7 @@ function Finance() {
           My Income
         </h1>
         <div className="flex justify-end w-full mb-4">
-          <NavLink to="/driver/ride/riderequests">
+          <NavLink to="/driver/finance/deposits">
             <button className="flex justify-center w-56 h-10 mr-12 bg-orange rounded-md cursor-pointer hover:shadow-lg transform hover:scale-[103%] transition duration-300 ease-out">
               <div className="flex mt-2 gap-3 font-semibold">Collected Ride Payments</div>
             </button>
