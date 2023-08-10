@@ -1,193 +1,149 @@
 import React, { useState } from "react";
 import MainLayout from "../../components/layout/MainLayout";
-import { FaHome, FaBus, FaUsers, FaSearch } from "react-icons/fa";
-import { AiOutlineSend } from "react-icons/ai";
-import sup_agent from "../../images/sup_agent.png";
+import { FaHome, FaBus, FaUsers } from "react-icons/fa";
+import { BsFillChatDotsFill } from "react-icons/bs";
+import { HiOutlineChat } from "react-icons/hi";
+import {
+  LineChart,
+  Line,
+  // CartesianGrid,
+  XAxis,
+  YAxis,
+  Tooltip,
+  Legend,
+} from "recharts";
+import { PieChart, Pie, Cell } from "recharts";
 // import Chat from "../../components/chat/chat";
 const sideNavBarLinks = [
   { title: "Dashboard", path: "/sup_agent/dashboard", icon: <FaHome /> },
-  { title: "Parents", path: "/sup_agent/parents", icon: <FaBus /> },
-  { title: "Drivers", path: "/sup_agent/drivers", icon: <FaUsers /> },
+  { title: "Chat", path: "/sup_agent/chat", icon: <BsFillChatDotsFill /> },
+  { title: "Parents", path: "/sup_agent/parents", icon: <FaUsers /> },
+  { title: "Drivers", path: "/sup_agent/drivers", icon: <FaBus /> },
 ];
+const data = [
+  { day: "S", chats: 50 },
+  { day: "M", chats: 95 },
+  { day: "T", chats: 145 },
+  { day: "W", chats: 110 },
+  { day: "T", chats: 210 },
+  { day: "F", chats: 190 },
+  { day: "S", chats: 210 },
+];
+const CustomTooltip = ({ active, payload }) => {
+  if (active && payload && payload.length) {
+    const data = payload[0].payload;
+    return (
+      <div className="bg-[#10b981] rounded-lg w-[3rem] p-[5px] flex justify-center items-center">
+        <p className="text-white text-xl font-semibold ">{data.chats}</p>
+      </div>
+    );
+  }
+  return null;
+};
+const data1 = [
+  { name: "Category A", value: Math.random() * 100 },
+  { name: "Category B", value: Math.random() * 100 },
+  { name: "Category C", value: Math.random() * 100 },
+  { name: "Category D", value: Math.random() * 100 },
+];
+const COLORS = ["#8884d8", "#82ca9d", "#ffc658", "#ff8042"];
 
 function SupAgentDashboardPg() {
-  const [isClicked, setIsClicked] = useState(false);
-  const [inputValue, setInputValue] = useState("");
-  const [sentMessages, setSentMessages] = useState([]);
+  const [selectedPeriod, setSelectedPeriod] = useState("This Week");
 
-  const handleClick = () => {
-    setIsClicked(!isClicked);
+  const handlePeriodChange = (period) => {
+    setSelectedPeriod(period);
+    // Perform any additional actions based on the selected period
   };
-  // function to handle sendinga a message
-  const handleSendMessage = () => {
-    if (inputValue.trim() !== "") {
-      //create a new message object with the input value
-      const newMessage = {
-        sender: "You",
-        content: inputValue.trim(),
-      };
-
-      //update the sentMessage  state with the new message
-      setSentMessages((prevMessages) => [...prevMessages, newMessage]);
-
-      //clear the input value after sending the message
-      setInputValue("");
-    }
-  };
-
   return (
     <div>
       <MainLayout data={sideNavBarLinks}>
-        <div className="grid grid-cols-5 ">
-          <div className="col-span-2  m-2 mt-[8rem] h-[45rem]  ">
-            <img
-              className="w-full object-cover"
-              src={sup_agent}
-              alt="supAgent"
-            ></img>
-          </div>
-          <div className="col-span-3  bg-orange m-2 p-3 h-[45rem]  grid grid-cols-3">
-            {/* -------------------chat list----------------- */}
-            <div className="col-span-1  m-1 py-5  flex flex-col gap-8">
-              {/* Search Bar */}
-              <div className="relative">
-                <input
-                  type="text"
-                  className="w-full px-4 bg-transparent py-2 border rounded-full focus:outline-none focus:border-black focus:border-2 placeholder-black placeholder-opacity-75"
-                  placeholder="Search Name..."
-                />
-                <FaSearch className="absolute right-4 top-3 h-5 w-5 text-gray-400" />
+        <div className="grid grid-cols-5 gap-2">
+          <div className="col-span-3 flex flex-col gap-[5rem]">
+            <div className="grid-cols-3  flex flex-row gap-5">
+              <div className="h-[100px] w-full rounded-[8px] bg-[#EEEEEE] border-l-8 border-gray pl-4 flex items-center justify-between px-[30px] cursor-pointer hover:shadow-lg transform hover:scale-[101%] trasition duration-300 ease-out shadow-md">
+                <HiOutlineChat className="text-5xl text-orange" />
+                <div className="text-xl flex-col">
+                  <strong>Chat Queue</strong>{" "}
+                  <p className="ml-[2rem] mt-3 text-2xl font-semibold">6</p>
+                </div>
               </div>
-              <div className=" w-full h-full flex flex-col  gap-3">
-                <div
-                  className={`${
-                    isClicked
-                      ? "bg-[#F6AD55]"
-                      : "bg-orange transform hover:scale-110"
-                  } w-full h-14 rounded-xl border-b border-black flex items-center px-4 hover:border-black `}
-                  onClick={handleClick}
-                >
-                  <img
-                    src="https://tecdn.b-cdn.net/img/new/avatars/5.webp"
-                    alt="Profile"
-                    className="w-10 h-10 rounded-full mr-3"
-                  />
-                  <p className="text-gray-800 font-semibold">
-                    Nethmini Abeykoon
+              <div className="h-[100px] w-full rounded-[8px] bg-[#EEEEEE] border-l-8 border-gray pl-6 flex items-center justify-between px-[30px] cursor-pointer hover:shadow-lg transform hover:scale-[101%] trasition duration-300 ease-out shadow-md">
+                <HiOutlineChat className="text-5xl text-gray" />
+                <div className="text-xl flex-col">
+                  <strong>Missed Chats</strong>{" "}
+                  <p className="ml-[2rem] mt-3 text-2xl font-semibold">12</p>
+                </div>
+              </div>
+              <div className="h-[100px] w-full rounded-[8px] bg-[#EEEEEE] border-l-8 border-orange pl-6 flex items-center justify-between px-[30px] cursor-pointer hover:shadow-lg transform hover:scale-[101%] trasition duration-300 ease-out shadow-md">
+                <HiOutlineChat className="text-5xl text-orange" />
+                <div className="text-xl flex-col">
+                  <strong>Chat Queue</strong>{" "}
+                  <p className="ml-[2rem] mt-3 text-2xl font-semibold">6</p>
+                </div>
+              </div>
+            </div>
+            <div className="col-span-2 bg-[#1d1a49] pt-5 rounded-xl mb-8">
+              <div className="flex flex-row">
+                <div className="pl-8 pb-5">
+                  <p className="text-white text-xl font-semibold  pt-3">
+                    {selectedPeriod}
                   </p>
+                  <p className="text-[#94a3b8] text-sm ">Chat Volume</p>
                 </div>
-                <div
-                  className={`${
-                    isClicked
-                      ? "bg-[#F6AD55]"
-                      : "bg-orange transform hover:scale-110"
-                  } w-full h-14 rounded-xl border-b border-black flex items-center px-4 hover:border-black `}
-                  onClick={handleClick}
-                >
-                  <img
-                    src="https://tecdn.b-cdn.net/img/new/avatars/2.webp"
-                    alt="Profile"
-                    className="w-10 h-10 rounded-full mr-3"
-                  />
-                  <p className="text-gray-800 font-semibold">John Doe</p>
-                </div>
-                <div
-                  className={`${
-                    isClicked
-                      ? "bg-[#F6AD55]"
-                      : "bg-orange transform hover:scale-110"
-                  } w-full h-14 rounded-xl border-b border-black flex items-center px-4 hover:border-black `}
-                  onClick={handleClick}
-                >
-                  <img
-                    src="https://tecdn.b-cdn.net/img/new/avatars/12.webp"
-                    alt="Profile"
-                    className="w-10 h-10 rounded-full mr-3"
-                  />
-                  <p className="text-gray-800 font-semibold">S.N.Ramanayake</p>
+                <div className="ml-auto flex justify-end pr-5">
+                  <select
+                    className="text-white bg-[#1d1a49] border-none outline-none cursor-pointer"
+                    value={selectedPeriod}
+                    onChange={(e) => handlePeriodChange(e.target.value)}
+                  >
+                    <option value="This Week">This Week</option>
+                    <option value="Last Week">Last Week</option>
+                    <option value="Last Month">Last Month</option>
+                  </select>
                 </div>
               </div>
+              <LineChart
+                width={600}
+                height={275}
+                data={data}
+                margin={{ top: 5, right: 40, left: 0, bottom: 5 }}
+              >
+                {/* <CartesianGrid strokeDasharray="3 3" /> */}
+                <XAxis dataKey="day" stroke="white" />
+                <YAxis stroke="white" />
+                <Tooltip content={<CustomTooltip />} />
+                <Legend />
+                <Line
+                  type="natural"
+                  dataKey="chats"
+                  stroke="#82ca9d"
+                  strokeWidth={2}
+                />
+              </LineChart>
             </div>
-            {/* --------------------------------------------- */}
-            {/* ------------------chat view------------------ */}
-            <div className="col-span-2 bg-[#FDF6F6] rounded-xl m-1 p-5 flex flex-col justify-between">
-              {/* {isClicked && (
-                <div></div>
-              )} */}
-              {isClicked ? (
-                <div className="">
-                  {/* Display the chat view for the selected chat */}
-                  {/* Dummy chat messages */}
-                  <div className="flex flex-col gap-3 ml-1 mt-8">
-                    <div className="flex gap-4 items-center p-2">
-                      <img
-                        src="https://tecdn.b-cdn.net/img/new/avatars/5.webp"
-                        alt="Profile"
-                        className="w-8 h-8 rounded-full bg-o"
-                      />
-                      <div className="bg-gray px-5 py-2 rounded-xl flex justify-start">
-                        <p>Hi there!</p>
-                      </div>
-                    </div>
-                    <div className="flex gap-4 items-center p-2">
-                      <img
-                        src="https://tecdn.b-cdn.net/img/new/avatars/5.webp"
-                        alt="Profile"
-                        className="w-8 h-8 rounded-full bg-o"
-                      />
-                      <div className="bg-gray px-5 py-2 rounded-xl flex justify-start">
-                        <p>I need a help</p>
-                      </div>
-                    </div>
-                    <div className="flex gap-4 items-center p-2">
-                      <img
-                        src="https://tecdn.b-cdn.net/img/new/avatars/5.webp"
-                        alt="Profile"
-                        className="w-8 h-8 rounded-full bg-o"
-                      />
-                      <div className="bg-gray px-5 py-2 rounded-xl flex justify-start">
-                        <p>
-                          A parent named John Doe has not paid the monthly fee
-                          yet.
-                        </p>
-                      </div>
-                    </div>
-                    {/* Add more chat messages here */}
-                  </div>
-                  {sentMessages.map((message, index) => (
-                    <div
-                      key={index}
-                      className="flex gap-3 items-center p-2 justify-end"
-                    >
-                      <div className="bg-orange px-5 py-2 rounded-xl flex">
-                        <p>{message.content}</p>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              ) : (
-                <p>Click a name to open a chat</p>
-              )}
-
-              {isClicked && (
-                <div className="flex items-center gap-4 mt-5">
-                  <input
-                    type="text"
-                    className="flex-grow px-4 py-3 border border-gray rounded-xl focus:outline-none focus:border-orange focus:border-2 placeholder-black placeholder-opacity-75"
-                    placeholder="Type your message..."
-                    value={inputValue} // Set the input value from state
-                    onChange={(e) => setInputValue(e.target.value)} // Update the input value in state
+          </div>
+          <div className="col-span-2 bg-[#fb923c] w-full h-1/2 rounded-xl flex justify-center items-center">
+         
+            <PieChart width={400} height={400}>
+              <Pie
+                data={data1}
+                dataKey="value"
+                nameKey="name"
+                cx="50%"
+                cy="50%"
+                outerRadius={80}
+                fill="#8884d8"
+                label={(entry) => entry.name}
+              >
+                {data1.map((entry, index) => (
+                  <Cell
+                    key={`cell-${index}`}
+                    fill={COLORS[index % COLORS.length]}
                   />
-                  <AiOutlineSend
-                    className={`h-6 w-6 text-${
-                      inputValue.trim() !== "" ? "orange" : "black"
-                    } cursor-pointer `}
-                    onClick={handleSendMessage} //calll the function t send the message
-                  />
-                </div>
-              )}
-            </div>
-            {/* --------------------------------------------- */}
+                ))}
+              </Pie>
+            </PieChart>
           </div>
         </div>
       </MainLayout>
