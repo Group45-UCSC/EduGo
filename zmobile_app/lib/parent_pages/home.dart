@@ -113,7 +113,7 @@ class ParentHomePage extends StatelessWidget {
   }
 
   Widget _buildPaymentsCard(BuildContext context) {
-    double totalPayments = 8000.0;
+    double totalPayments = 7500.0;
     return Card(
       elevation: 4,
       child: Container(
