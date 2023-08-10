@@ -1,6 +1,6 @@
 import React from "react";
 import { FaTimes } from "react-icons/fa";
-import CarouselLayout from "../carousel/CarouselLayout";
+import CarouselLayout from "../../components/carousel/CarouselLayout";
 
 const CAROUSEL_DATA = [
   {

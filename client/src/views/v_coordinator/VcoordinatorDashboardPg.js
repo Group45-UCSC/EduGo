@@ -19,6 +19,14 @@ function VcoordinatorDashboardPg() {
     window.location.href = `/vc/ccrequest`;
   };
 
+  const handleClick3 = () => {
+    window.location.href = `/vc/emergencydetails`;
+  };
+
+  const handleClick4 = () => {
+    window.location.href = `/vc/rides`;
+  };
+
   return (
     <div>
       <MainLayout data={sideNavBarLinks}>
@@ -40,7 +48,7 @@ function VcoordinatorDashboardPg() {
           </svg>
         </div>
 
-        <div className='h-[100px] rounded-[8px] bg-[#EEEEEE] border-l-8 border-[#FF9900] pl-6 flex items-center justify-between px-[30px] cursor-pointer hover:shadow-lg transform hover:scale-[101%] trasition duration-300 ease-out shadow-md'>
+        <div onClick={handleClick4} className='h-[100px] rounded-[8px] bg-[#EEEEEE] border-l-8 border-[#FF9900] pl-6 flex items-center justify-between px-[30px] cursor-pointer hover:shadow-lg transform hover:scale-[101%] trasition duration-300 ease-out shadow-md'>
           <div>
             <h2 className='text-[#000000] text-[18px] leading-[17px] font-bold'> Ongoing transports</h2>
             <h1 className='text-[20px] leading-[24px] font-bold mt-[15px] ml-3'> 10 </h1>
@@ -100,7 +108,7 @@ function VcoordinatorDashboardPg() {
         <td className='text-center'>QL-2234</td>
         <td className='text-center'>071-xxxxxxx</td>
         <td className='text-center'>
-              <button className="bg-gradient-to-b from-amber-500 to-amber-300  w-40 h-9 ml-4 mt-2 mb-2 rounded-lg shadow-md hover:shadow-lg transform hover:scale-[103%] trasition duration-300 ease-out  hover:cursor-pointer">View more...</button>
+              <button  onClick={handleClick3}  className="bg-gradient-to-b from-amber-500 to-amber-300  w-40 h-9 ml-4 mt-2 mb-2 rounded-lg shadow-md hover:shadow-lg transform hover:scale-[103%] trasition duration-300 ease-out  hover:cursor-pointer">View more...</button>
         </td>
     </tr>
     
@@ -110,7 +118,7 @@ function VcoordinatorDashboardPg() {
       <td className='text-center'>RK-2889</td>
       <td className='text-center'>071-xxxxxxx</td>
       <td className='text-center'>
-        <button className="bg-gradient-to-b from-amber-500 to-amber-300  w-40 h-9 ml-4 mt-2 mb-2 rounded-lg shadow-md hover:shadow-lg transform hover:scale-[103%] trasition duration-300 ease-out  hover:cursor-pointer">View more...</button>
+        <button  onClick={handleClick3}   className="bg-gradient-to-b from-amber-500 to-amber-300  w-40 h-9 ml-4 mt-2 mb-2 rounded-lg shadow-md hover:shadow-lg transform hover:scale-[103%] trasition duration-300 ease-out  hover:cursor-pointer">View more...</button>
       </td>
     </tr>
 
@@ -120,7 +128,7 @@ function VcoordinatorDashboardPg() {
       <td className='text-center'>SD-2934</td>
       <td className='text-center'>071-xxxxxxx</td>
       <td className='text-center'>
-        <button className="bg-gradient-to-b from-amber-500 to-amber-300  w-40 h-9 ml-4 mt-2 mb-2 rounded-lg shadow-md hover:shadow-lg transform hover:scale-[103%] trasition duration-300 ease-out  hover:cursor-pointer">View more...</button>
+        <button  onClick={handleClick3}  className="bg-gradient-to-b from-amber-500 to-amber-300  w-40 h-9 ml-4 mt-2 mb-2 rounded-lg shadow-md hover:shadow-lg transform hover:scale-[103%] trasition duration-300 ease-out  hover:cursor-pointer">View more...</button>
       </td>
     </tr>
 
@@ -130,7 +138,7 @@ function VcoordinatorDashboardPg() {
       <td className='text-center'>SD-2934</td>
       <td className='text-center'>071-xxxxxxx</td>
       <td className='text-center'>
-        <button className="bg-gradient-to-b from-amber-500 to-amber-300  w-40 h-9 ml-4 mt-2 mb-2 rounded-lg shadow-md hover:shadow-lg transform hover:scale-[103%] trasition duration-300 ease-out  hover:cursor-pointer">View more...</button>
+        <button  onClick={handleClick3}  className="bg-gradient-to-b from-amber-500 to-amber-300  w-40 h-9 ml-4 mt-2 mb-2 rounded-lg shadow-md hover:shadow-lg transform hover:scale-[103%] trasition duration-300 ease-out  hover:cursor-pointer">View more...</button>
       </td>
     </tr>
   </tbody>

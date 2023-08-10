@@ -1,16 +1,15 @@
 import React, { useState } from "react";
 import MainLayout from "../../components/layout/MainLayout";
-import { FaHome, FaBus, FaUsers, FaRegEdit, FaTrash } from "react-icons/fa";
-import { BsFillChatDotsFill } from "react-icons/bs";
+import { FaBeer, FaRegEdit, FaTrash } from "react-icons/fa";
 import userDefault from "../../images/userDefault.png";
 const sideNavBarLinks = [
-  { title: "Dashboard", path: "/sup_agent/dashboard", icon: <FaHome /> },
-  { title: "Chat", path: "/sup_agent/chat", icon: <BsFillChatDotsFill /> },
-  { title: "Parents", path: "/sup_agent/parents", icon: <FaUsers /> },
-  { title: "Drivers", path: "/sup_agent/drivers", icon: <FaBus /> },
+  { title: "Dashboard", path: "/vc/dashboard", icon: <FaBeer /> },
+  { title: "Vehicles", path: "/vc/vehicles", icon: <FaBeer /> },
+  { title: "School Rides", path: "/vc/rides", icon: <FaBeer /> },
+  { title: "Emergency", path: "/vc/emergency", icon: <FaBeer /> },
 ];
 
-function SupAgentProfile() {
+function VcProfile() {
   const [name, setName] = useState("John Doe");
   const [address, setAddress] = useState("123 Main Street");
   const [email, setEmail] = useState("johndoe@example.com");
@@ -131,12 +130,11 @@ function SupAgentProfile() {
     setAddressEditing(false);
     setAddress(originalAddress); // Reset to the original address
   };
-
   return (
     <div>
       <MainLayout data={sideNavBarLinks}>
-       {/* -----------VC profile tab------- */}
-       <div className="grid grid-cols-2">
+        {/* -----------VC profile tab------- */}
+        <div className="grid grid-cols-2">
           {/* ---------profile picture----------- */}
           <div className="bg-[#D9D9D9] mx-5 my-8 md:mx-[10rem] md:my-[8rem] lg:w-[256px] lg:h-[256px] rounded-2xl border-black border-2 md:m-3 justify-center items-center">
             <div className="flex flex-col gap-2 ">
@@ -358,4 +356,4 @@ function SupAgentProfile() {
   );
 }
 
-export default SupAgentProfile;
+export default VcProfile;

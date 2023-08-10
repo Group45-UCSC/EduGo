@@ -78,8 +78,8 @@ function DriverLanding() {
   };
 
   //popup modal for school ride registration
-  const [modalOpen, setModalOpen] = useState(false);
-  function Modal({ setOpenModal }) {
+  const [modalOpen1, setModalOpen1] = useState(false);
+  function Modal1({ setModalOpen1 }) {
     return (
       <div className="fixed top-0 left-0 w-screen h-screen bg-stone-900/75 flex justify-center items-center">
         <div className="w-[55%] h-[75%] rounded-lg bg-white shadow-md flex flex-col p-5 ">
@@ -89,7 +89,7 @@ function DriverLanding() {
               <button
                 className="text-2xl cursor-pointer "
                 onClick={() => {
-                  setOpenModal(false);
+                  setModalOpen1(false);
                 }}
               >
                 X
@@ -177,7 +177,7 @@ function DriverLanding() {
               <button
                 className="w-36 h-12 mr-2 bg-orange rounded-lg text-xl cursor-pointer"
                 onClick={() => {
-                  setOpenModal(false);
+                  setModalOpen1(false);
                 }}
                 id="cancelBtn"
               >
@@ -185,7 +185,7 @@ function DriverLanding() {
               </button>
               <button type="submit"
                 onClick={() => {
-                  setOpenModal(false);
+                  setModalOpen1(false);
                 }}
                 id="cancelBtn"
                 className="w-36 h-12 bg-orange rounded-lg text-xl cursor-pointer"
@@ -230,7 +230,7 @@ function DriverLanding() {
             <div className="w-full h-2/5 flex justify-center">
               <button
                 onClick={() => {
-                  setModalOpen(true);
+                  setModalOpen1(true);
                 }}
                 className="flex justify-center w-80 h-12 mt-12 bg-orange rounded-md cursor-pointer hover:shadow-lg transform hover:scale-[103%] transition duration-300 ease-out"
               >
@@ -238,7 +238,7 @@ function DriverLanding() {
                   Add School Ride
                 </div>
               </button>
-              {modalOpen && <Modal setOpenModal={setModalOpen} />}
+              {modalOpen1 && <Modal1 setModalOpen1={setModalOpen1} />}
             </div>
             {/* end of button section */}
           </div>
