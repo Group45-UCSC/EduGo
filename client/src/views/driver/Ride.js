@@ -7,7 +7,7 @@ import { NavLink } from "react-router-dom";
 import user from "../../images/user.png";
 import { MdLocationOn } from "react-icons/md";
 import { GoogleMap, LoadScript, Marker } from "@react-google-maps/api";
-import { AiFillDashboard } from "react-icons/ai";
+import { AiFillDashboard, AiOutlinePlus } from "react-icons/ai";
 import {
   MdPayments,
   MdSupportAgent,
@@ -138,9 +138,53 @@ function Ride() {
     },
   ];
 
+  //add new school modal
+  const [modalOpen1, setModalOpen1] = useState(false);
+  function Modal1({ setModalOpen1 }) {
+    return (
+      <div className="fixed top-0 left-0 w-screen h-screen bg-stone-900/75 flex justify-center items-center">
+        <div className="w-[55%] h-[75%] z-20 rounded-lg bg-white shadow-md flex flex-col p-5 ">
+          <div className="flex justify-between items-center p-4">
+            <div className="ml-auto">
+              <button
+                className="text-2xl cursor-pointer "
+                onClick={() => {
+                  setModalOpen1(false);
+                }}
+              >
+                X
+              </button>
+            </div>
+          </div>
+          <div>content</div>
+          <div className="flex justify-center items-center mt-5">
+            <button
+              className="w-36 h-12 mr-2 bg-orange rounded-lg text-xl cursor-pointer"
+              onClick={() => {
+                setModalOpen1(false);
+              }}
+              id="addBtn"
+            >
+              Add
+            </button>
+            <button
+              className="w-36 h-12 mr-2 bg-orange rounded-lg text-xl cursor-pointer"
+              onClick={() => {
+                setModalOpen1(false);
+              }}
+              id="cancelBtn"
+            >
+              Cancel
+            </button>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
   // school location popup modal
-  const [modalOpen, setModalOpen] = useState(false);
-  function Modal({ setOpenModal }) {
+  const [modalOpen2, setModalOpen2] = useState(false);
+  function Modal2({ setModalOpen2 }) {
     return (
       <div className="fixed top-0 left-0 w-screen h-screen bg-stone-900/75 flex justify-center items-center">
         <div className="w-[55%] h-[75%] rounded-lg bg-white shadow-md flex flex-col p-5 ">
@@ -149,7 +193,7 @@ function Ride() {
               <button
                 className="text-2xl cursor-pointer "
                 onClick={() => {
-                  setOpenModal(false);
+                  setModalOpen2(false);
                 }}
               >
                 X
@@ -201,9 +245,9 @@ function Ride() {
           Ride Details
         </h1>
         <div className="flex justify-end w-full mb-4">
-          <NavLink to="/driver/rides/past">
+          <NavLink to="/driver/ride/riderequests">
             <button className="flex justify-center w-56 h-10 mr-12 bg-orange rounded-md cursor-pointer hover:shadow-lg transform hover:scale-[103%] transition duration-300 ease-out">
-              <div className="flex mt-2 gap-3 font-semibold">Past Rides</div>
+              <div className="flex mt-2 gap-3 font-semibold">Ride Requests</div>
             </button>
           </NavLink>
         </div>
@@ -244,15 +288,29 @@ function Ride() {
             {/* end of upper row */}
             {/* below row */}
             <div className="row-span-4 mt-5 overflow-y-auto p-5 ">
-              <div className=" bg-slate-300 h-8 flex mt-0 mb-4 justify-center">
-                <h1 className=" text-xl font-bold">Reaching Schools : 8</h1>
+              {/* <div className=" bg-slate-300 h-8 flex mt-0 mb-4 justify-center">
+                <h1 className=" text-xl border font-bold">Reaching Schools : 8</h1>
+                <AiOutlinePlus/>
+              </div> */}
+              <div className="bg-slate-300 h-8 flex mt-0 mb-4 items-center justify-between">
+                <h1 className="text-xl font-bold text-center flex-1">
+                  Reaching Schools : 8
+                </h1>
+                <button
+                  onClick={() => {
+                    setModalOpen1(true);
+                  }}
+                >
+                  <AiOutlinePlus className="text-2xl ml-0 mr-1 text-orange font-extrabold hover:text-black hover:cursor-pointer" />
+                </button>
+                {modalOpen1 && <Modal1 setModalOpen1={setModalOpen1} />}
               </div>
               {/* school list */}
               <div className="flex flex-col h-12 gap-4">
                 {schools.map((school, index) => (
                   <div
                     key={index}
-                    className="w-[100%] rounded-[8px] bg-slate-200 border-l-[4px] border-orange flex items-center justify-between px-[30px] cursor-pointer hover:shadow-lg transform hover:scale-[103%] transition duration-300 ease-out"
+                    className="z-0 w-[100%] rounded-[8px] bg-slate-200 border-l-[4px] border-orange flex items-center justify-between px-[30px] cursor-pointer hover:shadow-lg transform hover:scale-[103%] transition duration-300 ease-out"
                   >
                     <div className=" px-5 flex gap-1 w-1/3 leading-4">
                       <div className="text-[12px] font-semibold">
@@ -267,7 +325,7 @@ function Ride() {
                     <div className="flex gap-1 w-1/3 leading-4">
                       <button
                         onClick={() => {
-                          setModalOpen(true);
+                          setModalOpen2(true);
                         }}
                         className="flex justify-center m-2  w-8 h-8  bg-orange hover:bg-[#b3913b] rounded-md cursor-pointer"
                       >
@@ -275,7 +333,7 @@ function Ride() {
                           <MdLocationOn className=" text-[20px]" />
                         </div>
                       </button>
-                      {modalOpen && <Modal setOpenModal={setModalOpen} />}
+                      {modalOpen2 && <Modal2 setModalOpen2={setModalOpen2} />}
                     </div>
                   </div>
                 ))}
@@ -298,7 +356,9 @@ function Ride() {
                 <div className="flex flex-col gap-4">
                   {childDetails.map((child, index) => (
                     <NavLink
-                      to={`/driver/ride/childDetails/${child.id}?data=${encodeURIComponent(JSON.stringify(child))}`}
+                      to={`/driver/ride/childDetails/${
+                        child.id
+                      }?data=${encodeURIComponent(JSON.stringify(child))}`}
                     >
                       <div
                         key={index}
@@ -338,6 +398,11 @@ function Ride() {
         </div>
         {/* end of full box */}
       </MainLayout>
+      {/* <NavLink to="/driver/rides/past">
+        <button className="flex justify-center w-56 h-10 mr-12 bg-orange rounded-md cursor-pointer hover:shadow-lg transform hover:scale-[103%] transition duration-300 ease-out">
+          <div className="flex mt-2 gap-3 font-semibold">Past Rides</div>
+        </button>
+      </NavLink> */}
     </div>
   );
 }
