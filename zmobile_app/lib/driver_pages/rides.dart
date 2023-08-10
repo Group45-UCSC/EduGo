@@ -8,7 +8,6 @@ class RidePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Navbar(
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Padding(
             padding: const EdgeInsets.all(20.0),
@@ -62,6 +61,18 @@ class RidePage extends StatelessWidget {
                   ]),
                   DataRow(cells: <DataCell>[
                     DataCell(Text('Kawya Sandamini')),
+                    DataCell(Text('No. 12, Highway Road, Colombo 05')),
+                  ]),
+                  DataRow(cells: <DataCell>[
+                    DataCell(Text('Kavindu Tharaka')),
+                    DataCell(Text('No. 12, Highway Road, Colombo 05')),
+                  ]),
+                  DataRow(cells: <DataCell>[
+                    DataCell(Text('Kavindu Tharaka')),
+                    DataCell(Text('No. 12, Highway Road, Colombo 05')),
+                  ]),
+                  DataRow(cells: <DataCell>[
+                    DataCell(Text('Kavindu Tharaka')),
                     DataCell(Text('No. 12, Highway Road, Colombo 05')),
                   ]),
                   DataRow(cells: <DataCell>[
