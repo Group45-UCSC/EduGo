@@ -18,6 +18,7 @@ npm install @react-google-maps/api
 npm install react-modal
 npm i dotenv
 npm i fs path
+npm install react-datepicker react-dropzone
 
 --server--
 npm i express pg cors
