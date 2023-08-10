@@ -1,16 +1,22 @@
 import React, { useState } from "react";
 import MainLayout from "../../components/layout/MainLayout";
-import { FaHome, FaBus, FaUsers, FaRegEdit, FaTrash } from "react-icons/fa";
-import { BsFillChatDotsFill } from "react-icons/bs";
+import {FaRegEdit, FaTrash } from "react-icons/fa";
+import { AiFillDashboard,AiFillCar } from "react-icons/ai";
+import { MdPayments,MdSupportAgent,MdOutlineRateReview } from "react-icons/md";
 import userDefault from "../../images/userDefault.png";
+import { Link } from "react-router-dom";
 const sideNavBarLinks = [
-  { title: "Dashboard", path: "/sup_agent/dashboard", icon: <FaHome /> },
-  { title: "Chat", path: "/sup_agent/chat", icon: <BsFillChatDotsFill /> },
-  { title: "Parents", path: "/sup_agent/parents", icon: <FaUsers /> },
-  { title: "Drivers", path: "/sup_agent/drivers", icon: <FaBus /> },
+  { title: "Dashboard", path: "/driver/dashboard", icon: <AiFillDashboard /> },
+  { title: "School Ride", path: "/driver/ride", icon: <AiFillCar /> },
+  { title: "Finance", path: "/driver/finance", icon: <MdPayments /> },
+  { title: "Support", path: "/driver/support", icon: <MdSupportAgent /> },
+  {
+    title: "Feedback",
+    path: "/driver/feedback",
+    icon: <MdOutlineRateReview />,
+  },
 ];
-
-function SupAgentProfile() {
+function DriverProfile() {
   const [name, setName] = useState("John Doe");
   const [address, setAddress] = useState("123 Main Street");
   const [email, setEmail] = useState("johndoe@example.com");
@@ -135,8 +141,9 @@ function SupAgentProfile() {
   return (
     <div>
       <MainLayout data={sideNavBarLinks}>
-       {/* -----------VC profile tab------- */}
-       <div className="grid grid-cols-2">
+        {/* -----------driver profile tab------- */}
+
+        <div className="grid grid-cols-2">
           {/* ---------profile picture----------- */}
           <div className="bg-[#D9D9D9] mx-5 my-8 md:mx-[10rem] md:my-[8rem] lg:w-[256px] lg:h-[256px] rounded-2xl border-black border-2 md:m-3 justify-center items-center">
             <div className="flex flex-col gap-2 ">
@@ -351,6 +358,12 @@ function SupAgentProfile() {
                 </div>
               </div>
             </div>
+            <Link to="/driver/vehicle" className="vehicle">
+              <div className="bg-orange w-[12rem] py-2 border-black border-2 flex flex-col justify-center items-center rounded-xl text-xl font-semibold cursor-pointer hover:shadow-lg transform hover:scale-[103%] transition duration-300 ease-out">
+                <span className="text-center">View</span>
+                <span className="text-center">Vehicle Details</span>
+              </div>
+            </Link>
           </div>
         </div>
       </MainLayout>
@@ -358,4 +371,4 @@ function SupAgentProfile() {
   );
 }
 
-export default SupAgentProfile;
+export default DriverProfile;

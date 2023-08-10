@@ -18,6 +18,7 @@ import DriverRide from "./views/driver/Ride";
 import DriverSupport from "./views/driver/Support";
 import PastRides from "./views/driver/PastRides";
 import Vehicle from "./views/driver/Vehicle";
+import DriverProfile from "./views/driver/DriverProfile";
 import ChildDetails from "./views/driver/ChildDetails"
 import NextRide from "./views/driver/NextRide";
 import RideRequests from "./views/driver/RideRequests";
@@ -32,6 +33,7 @@ import ViewRide from "./views/parent/ViewRide";
 import ParentPayment from "./views/parent/Payment";
 import ParentSupport from "./views/parent/Support";
 import ParentFeedback from "./views/parent/Feedback";
+import ParentProfile from "./views/parent/ParentProfile"
 
 import AdminDashboardPg from "./views/admin/AdminDashboardPg";
 import AdminEmployees from "./views/admin/Employees";
@@ -49,6 +51,7 @@ import AdminParentsInfo from "./views/admin/ParentsInfo";
 import AdminAddEmployee from "./views/admin/AddEmployee";
 import AdminEmergency from "./views/admin/Emergency";
 import AdminAnalysis from "./views/admin/Analysis";
+import AdminProfile from "./views/admin/AdminProfile"
 
 import VcoordinatorDashboardPg from "./views/v_coordinator/VcoordinatorDashboardPg";
 import VcVehicles from "./views/v_coordinator/Vehicles";
@@ -62,11 +65,18 @@ import VcConditionCheck from "./views/v_coordinator/ConditionCheck";
 import VcFeedback from "./views/v_coordinator/Feedback";
 import VRRequest from "./views/v_coordinator/VRRequest";
 import CCRequest from "./views/v_coordinator/CCRequest";
+import VcProfile from "./views/v_coordinator/VcProfile";
 
 import SupAgentDashboardPg from "./views/sup_agent/SupAgentDashboardPg";
+import Chat from "./views/sup_agent/Chat";
 import SupParents from "./views/sup_agent/Parents";
 import SupDrivers from "./views/sup_agent/Drivers";
+import SupAgentProfile from "./views/sup_agent/SupAgentProfile";
+// import DriverVehicleDetails from "./views/sup_agent/DriverVehicleDetails";
+// import ParentChildDetails from "./views/sup_agent/ParentChildDetails";
+
 // import AddSchoolRide from "./views/parent/AddSchoolRide";
+
 
 //define routes
 
@@ -144,6 +154,13 @@ function App() {
           <Route exact path="/sup_agent/dashboard" element={<SupAgentDashboardPg />} />
           <Route exact path="/sup_agent/parents" element={<SupParents />} />
           <Route exact path="/sup_agent/drivers" element={<SupDrivers />} />
+          <Route exact path="/sup_agent/chat" element={<Chat/>} />
+
+          <Route exact path="/driver/profile" element={<DriverProfile />} />
+          <Route exact path="/parent/profile" element={<ParentProfile/>}/>
+          <Route exact path="/admin/profile" element={<AdminProfile/>}/>
+          <Route exact path="/sup_agent/profile" element={<SupAgentProfile />} />
+          <Route exact path="/v_coordinator/profile" element={<VcProfile/>} />
 
         </Routes>
       </Router>

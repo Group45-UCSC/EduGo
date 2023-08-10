@@ -1,16 +1,34 @@
 import React, { useState } from "react";
-import MainLayout from "../../components/layout/MainLayout";
-import { FaHome, FaBus, FaUsers, FaRegEdit, FaTrash } from "react-icons/fa";
-import { BsFillChatDotsFill } from "react-icons/bs";
+import { Link } from "react-router-dom";
+// import { useEffect, useState } from "react";
+// import axios from "axios";
 import userDefault from "../../images/userDefault.png";
+import MainLayout from "../../components/layout/MainLayout";
+import { FaChild, FaRegEdit, FaTrash } from "react-icons/fa";
+import {
+  MdPayments,
+  MdSupportAgent,
+  MdOutlineRateReview,
+} from "react-icons/md";
+import { AiFillDashboard } from "react-icons/ai";
+
 const sideNavBarLinks = [
-  { title: "Dashboard", path: "/sup_agent/dashboard", icon: <FaHome /> },
-  { title: "Chat", path: "/sup_agent/chat", icon: <BsFillChatDotsFill /> },
-  { title: "Parents", path: "/sup_agent/parents", icon: <FaUsers /> },
-  { title: "Drivers", path: "/sup_agent/drivers", icon: <FaBus /> },
+  {
+    title: "Dashboard",
+    path: "/parent/dashboard",
+    icon: <AiFillDashboard />,
+  },
+  { title: "Children", path: "/parent/children", icon: <FaChild /> },
+  { title: "Payment", path: "/parent/payment", icon: <MdPayments /> },
+  { title: "Support", path: "/parent/support", icon: <MdSupportAgent /> },
+  {
+    title: "Feedback",
+    path: "/parent/feedback",
+    icon: <MdOutlineRateReview />,
+  },
 ];
 
-function SupAgentProfile() {
+function ParentProfile() {
   const [name, setName] = useState("John Doe");
   const [address, setAddress] = useState("123 Main Street");
   const [email, setEmail] = useState("johndoe@example.com");
@@ -135,8 +153,9 @@ function SupAgentProfile() {
   return (
     <div>
       <MainLayout data={sideNavBarLinks}>
-       {/* -----------VC profile tab------- */}
-       <div className="grid grid-cols-2">
+        {/* -----------Parent profile tab------- */}
+
+        <div className="grid grid-cols-2">
           {/* ---------profile picture----------- */}
           <div className="bg-[#D9D9D9] mx-5 my-8 md:mx-[10rem] md:my-[8rem] lg:w-[256px] lg:h-[256px] rounded-2xl border-black border-2 md:m-3 justify-center items-center">
             <div className="flex flex-col gap-2 ">
@@ -351,6 +370,12 @@ function SupAgentProfile() {
                 </div>
               </div>
             </div>
+            <Link to="/parent/children" className="vehicle">
+              <div className="bg-orange w-[12rem] py-2 border-black border-2 flex flex-col justify-center items-center rounded-xl text-xl font-semibold cursor-pointer hover:shadow-lg transform hover:scale-[103%] transition duration-300 ease-out">
+                <span className="text-center">View</span>
+                <span className="text-center">Children Details</span>
+              </div>
+            </Link>
           </div>
         </div>
       </MainLayout>
@@ -358,4 +383,4 @@ function SupAgentProfile() {
   );
 }
 
-export default SupAgentProfile;
+export default ParentProfile;
