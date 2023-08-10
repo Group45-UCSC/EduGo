@@ -1,19 +1,30 @@
-import { AiFillDashboard } from "react-icons/ai"
-import { FaChild } from "react-icons/fa"
-import { MdPayments, MdSupportAgent, MdOutlineRateReview } from "react-icons/md";
+import { AiFillDashboard } from "react-icons/ai";
+import { FaChild } from "react-icons/fa";
+import {
+  MdPayments,
+  MdSupportAgent,
+  MdOutlineRateReview,
+} from "react-icons/md";
 import "./style/main.css";
-import { BsStar, BsStarFill, } from "react-icons/bs";
-import { NavLink } from 'react-router-dom';
-import MainLayout from '../../components/layout/MainLayout';
+import { BsStar, BsStarFill } from "react-icons/bs";
+import { NavLink } from "react-router-dom";
+import MainLayout from "../../components/layout/MainLayout";
 
 function AddSchoolRide() {
-
   const sideNavBarLinks = [
-    { title: "Dashboard", path: "/parent/dashboard", icon: <AiFillDashboard /> },
+    {
+      title: "Dashboard",
+      path: "/parent/dashboard",
+      icon: <AiFillDashboard />,
+    },
     { title: "Children", path: "/parent/children", icon: <FaChild /> },
     { title: "Payment", path: "/parent/payment", icon: <MdPayments /> },
     { title: "Support", path: "/parent/support", icon: <MdSupportAgent /> },
-    { title: "Feedback", path: "/parent/feedback", icon: <MdOutlineRateReview /> },
+    {
+      title: "Feedback",
+      path: "/parent/feedback",
+      icon: <MdOutlineRateReview />,
+    },
   ];
 
   const vehicleData = [
@@ -24,7 +35,16 @@ function AddSchoolRide() {
       type: "Van",
       model: "Hiace",
       start: "Pannipitiya",
-      image: require("../../images/schoolVan.jpeg")
+      dname: "L.A. Sarath kumara",
+      image: require("../../images/schoolVan.jpeg"),
+      school: [
+        "Alexandra College",
+        "Bishop's College",
+        "C.W.W Kannangara College",
+        "Isipathana College",
+      ],
+      children: 12,
+      sheets:15,
     },
     {
       id: 2,
@@ -33,7 +53,16 @@ function AddSchoolRide() {
       type: "Van",
       model: "Hiace",
       start: "Maharagama",
+      dname: "S.A Samantha",
       image: require("../../images/schoolVan.jpeg"),
+      school: [
+        "Nalanda College",
+        "Devi Balika Vidyalaya",
+        "D.S. Senanayake College",
+        "Gothami Balika Vidyalaya",
+      ],
+      children: 8,
+      sheets:12,
     },
     {
       id: 3,
@@ -42,7 +71,15 @@ function AddSchoolRide() {
       type: "Van",
       model: "Hiace",
       start: "Homagama",
+      dname: "R.K. Rakitha Sampath",
       image: require("../../images/schoolVan.jpeg"),
+      school: [
+        "D.S. Senanayake College",
+        "Devi Balika Vidyalaya",
+        "D.S. Senanayake College",
+      ],
+      children: 13,
+      sheets:15,
     },
     {
       id: 4,
@@ -51,7 +88,16 @@ function AddSchoolRide() {
       type: "Van",
       model: "Hiace",
       start: "Padukka",
+      danem: "H.H. Sujeewa Kumara",
       image: require("../../images/schoolVan.jpeg"),
+      school: [
+        "Nalanda College",
+        "Devi Balika Vidyalaya",
+        "D.S. Senanayake College",
+        "Gothami Balika Vidyalaya",
+      ],
+      children: 6,
+      sheets:10,
     },
     {
       id: 5,
@@ -60,7 +106,16 @@ function AddSchoolRide() {
       type: "Van",
       model: "Hiace",
       start: "Boralasgamuwa",
+      danem: "M.N. Shashika ",
       image: require("../../images/schoolVan.jpeg"),
+      school: [
+        "Nalanda College",
+        "Devi Balika Vidyalaya",
+        "D.S. Senanayake College",
+        "Gothami Balika Vidyalaya",
+      ],
+      children:7,
+      sheets:12,
     },
     {
       id: 6,
@@ -69,8 +124,17 @@ function AddSchoolRide() {
       type: "Van",
       model: "Hiace",
       start: "Horana",
+      danem: "G.B. Dinusha",
       image: require("../../images/schoolVan.jpeg"),
-    }
+      school: [
+        "Nalanda College",
+        "Devi Balika Vidyalaya",
+        "D.S. Senanayake College",
+        "Gothami Balika Vidyalaya",
+      ],
+      children: 10,
+      sheets:15,
+    },
   ];
   function RatingStars({ rating }) {
     const filledStars = Math.floor(rating);
@@ -79,35 +143,26 @@ function AddSchoolRide() {
     const starFilledWidth = (starIndex) => {
       if (starIndex + 1 <= filledStars) {
         return "100%";
-      } else if (
-        starIndex + 1 ===
-        partFilledStar
-      ) {
+      } else if (starIndex + 1 === partFilledStar) {
         console.log();
-        return `${Math.floor(
-          (rating - filledStars) * 100
-        )}%`;
+        return `${Math.floor((rating - filledStars) * 100)}%`;
       } else {
         return "0%";
       }
     };
-
 
     return (
       <div className="rating">
         {Array(5)
           .fill(0)
           .map((star, index) => (
-            <div
-              className="star"
-              key={index}>
+            <div className="star" key={index}>
               <div
                 className="starFull"
                 style={{
-                  width: starFilledWidth(
-                    index
-                  ),
-                }}>
+                  width: starFilledWidth(index),
+                }}
+              >
                 <BsStarFill />
               </div>
               <div className="starEmpty">
@@ -123,32 +178,36 @@ function AddSchoolRide() {
     <div>
       <MainLayout data={sideNavBarLinks}>
         <div className="pt-6 px-6">
-
           <h1 className="text-[#5a5c69] text-[28px] leading-8 font-normal cursor-pointer">
             School Van
           </h1>
           <div className="App">
-
-
             <main>
-
               <div className="products">
                 {vehicleData.map((vehicleData) => (
                   <div className="product mx-3 my-3" key={vehicleData.id}>
-                    <img className="product-image" src={vehicleData.image} alt={vehicleData.image} /><RatingStars rating={vehicleData.rating} />
+                    <img
+                      className="product-image"
+                      src={vehicleData.image}
+                      alt={vehicleData.image}
+                    />
+                    <RatingStars rating={vehicleData.rating} />
                     <div className=" justify-center p-2">
                       <span className="product-price font-mono">
                         {vehicleData.price}
                       </span>
-                      <h4 className="product-name">
-                        Type: {vehicleData.type}
-                      </h4>
+                      <h4 className="product-name">Type: {vehicleData.type}</h4>
                       <p>Model: {vehicleData.model}</p>
                       <p>Start: {vehicleData.start}</p>
                     </div>
-                    <NavLink to={`/parent/children/addnewride/viewvehicle/${vehicleData.id}`}>
-                      <div className="buttons ">
-                        <button className="btn" >View Ride</button>
+                    <NavLink
+                      to={`/parent/children/addnewride/viewvehicle/${vehicleData.id
+                        }?data=${encodeURIComponent(
+                          JSON.stringify(vehicleData)
+                        )}`}
+                    >
+                      <div className="buttons">
+                        <button className="btn">View Ride</button>
                       </div>
                     </NavLink>
                   </div>
@@ -156,12 +215,10 @@ function AddSchoolRide() {
               </div>
             </main>
           </div>
-
         </div>
-
       </MainLayout>
     </div>
-  )
+  );
 }
 
-export default AddSchoolRide
+export default AddSchoolRide;
