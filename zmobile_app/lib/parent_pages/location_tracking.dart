@@ -82,9 +82,7 @@ class MapPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(title: Text('Map: $locationName'), backgroundColor: Color(0xFF999999)),
       body: GoogleMap(
-        // Implement Google Maps here
-        // You need to provide your Google Maps API key and configure the map
-        // with markers, camera position, etc.
+        // Implement Google Maps
       ),
     );
   }

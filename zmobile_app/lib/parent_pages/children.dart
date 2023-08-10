@@ -10,12 +10,11 @@ class ChildrenPage extends StatelessWidget {
       child: SingleChildScrollView (
         child: Center(
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Padding(
                 padding: const EdgeInsets.all(20.0),
                 child: Text(
-                  'Children Page',
+                  'Children Details',
                   style: TextStyle(
                     fontSize: 24,
                     fontWeight: FontWeight.bold,
