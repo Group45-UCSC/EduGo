@@ -51,7 +51,8 @@ import AdminParentsInfo from "./views/admin/ParentsInfo";
 import AdminAddEmployee from "./views/admin/AddEmployee";
 import AdminEmergency from "./views/admin/Emergency";
 import AdminAnalysis from "./views/admin/Analysis";
-import AdminProfile from "./views/admin/AdminProfile"
+import AdminProfile from "./views/admin/AdminProfile";
+import AdminEmergencyList from "./views/admin/EmergencyList";
 
 import VcoordinatorDashboardPg from "./views/v_coordinator/VcoordinatorDashboardPg";
 import VcVehicles from "./views/v_coordinator/Vehicles";
@@ -138,6 +139,7 @@ function App() {
           <Route exact path="/admin/AddEmployee" element={<AdminAddEmployee />} />
           <Route exact path="/admin/Emergency" element={<AdminEmergency />} />
           <Route exact path="/admin/Analysis" element={<AdminAnalysis />} />
+          <Route exact path="/admin/EmergencyList" element={<AdminEmergencyList />} />
 
           <Route exact path="/vc/dashboard" element={<VcoordinatorDashboardPg />} />
           <Route exact path="/vc/vehicles" element={<VcVehicles />} />

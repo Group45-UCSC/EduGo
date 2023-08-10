@@ -38,7 +38,7 @@ function AdminDashboardPg() {
     ];
 
     const emergency = () => {
-        window.location.href = `/admin/emergency`;
+        window.location.href = `/admin/emergencylist`;
       };
     
     const ride = () => {
