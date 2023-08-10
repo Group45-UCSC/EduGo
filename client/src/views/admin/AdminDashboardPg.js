@@ -20,6 +20,23 @@ const sideNavBarLinks = [
 
 function AdminDashboardPg() {
 
+    const rev = [
+        {
+            id : "001",
+            v_no : "QX-1111",
+            p_id : "001",
+            date : "2023/08/09",
+            rate : "4.5"
+        },
+        {
+            id : "002",
+            v_no : "QX-2222",
+            p_id : "002",
+            date : "2023/08/09",
+            rate : "3.5"
+        },
+    ];
+
     const emergency = () => {
         window.location.href = `/admin/emergency`;
       };
@@ -101,7 +118,36 @@ function AdminDashboardPg() {
           </div>
 
           {/* emergencies */}
-          <div onClick={emergency} className="flex mt-8 ml-12 mb-80 h-11 w-44 rounded-lg shadow-lg bg-orange font-semibold text-lg pt-2 pl-5 cursor-pointer hover:scale-[102%] hover:bg-amber-500 transition-transform ease-in-out">Emergencies<BsFillExclamationOctagonFill className="mt-1 ml-4"/></div>
+          <div onClick={emergency} className="flex mt-8 ml-12 h-11 w-44 rounded-lg shadow-lg bg-orange font-semibold text-lg pt-2 pl-5 cursor-pointer hover:scale-[102%] hover:bg-amber-500 transition-transform ease-in-out">Emergencies<BsFillExclamationOctagonFill className="mt-1 ml-4"/></div>
+
+          {/* reviews */}
+          <h3 className="text-[#5a5c69] pt-[25px] px-[25px] text-[24px] leading-8 font-normal cursor-pointer">Reviews</h3>
+
+          <div className='ml-32 mr-32 shadow-md overflow-auto '>
+        <table className='w-full text-center border-separate border-spacing-y-2 border border-slate-50 '>
+          <thead className='border-y-4 border-white drop-shadow '>
+            <tr className=' bg-[#999999] text-white border-b-2 text-[18px] drop-shadow-md '>
+              <th className='px-3.5 p-1 w-24 '>Review ID</th>
+              <th className='px-3.5 w-30'>Vehicle No:</th>
+              <th className='px-3.5 w-30'>Parent ID:</th>
+              <th className='px-3.5 w-30'>Date</th>
+              <th className='px-3.5 w-30'>Rating</th> 
+            </tr>
+          </thead>
+
+          <tbody className=''>
+          {rev.map((item) => (
+          <tr className=' bg-[#D9D9D9] bg-opacity-60 hover:cursor-pointer  hover:bg-[#eaeaea] drop-shadow-md'>
+              <td className='text-center  p-3 ' >{item.id}</td>
+              <td>{item.v_no}</td>
+              <td>{item.p_id}</td>
+              <td>{item.date}</td>
+              <td>{item.rate}</td>
+            </tr>
+            ))}
+          </tbody>
+          </table>
+          </div>
       </MainLayout>
     </div>
   );

@@ -57,7 +57,6 @@ import VcRidesDetails from "./views/v_coordinator/RidesDetails";
 import VcTrack from "./views/v_coordinator/Track";
 import VcEmergency from "./views/v_coordinator/Emergency";
 import VcEmergencyDetails from "./views/v_coordinator/EmergencyDetails";
-
 import VcConditionCheck from "./views/v_coordinator/ConditionCheck";
 import VcFeedback from "./views/v_coordinator/Feedback";
 import VRRequest from "./views/v_coordinator/VRRequest";
@@ -135,7 +134,6 @@ function App() {
           <Route exact path="/vc/track" element={<VcTrack />} />
           <Route exact path="/vc/emergency" element={<VcEmergency />} />
           <Route exact path="/vc/emergencydetails" element={<VcEmergencyDetails />} />
-
           <Route exact path="/vc/conditioncheck" element={<VcConditionCheck />} />
           <Route exact path="/vc/feedback" element={<VcFeedback />} />
           <Route exact path="/vc/vrrequest" element={<VRRequest />} />

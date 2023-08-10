@@ -151,11 +151,11 @@ function Feedback() {
   return (
     <div>
       <MainLayout data={sideNavBarLinks}>
-        <div className="pt-[25px] px-[25px] ">
+        <div className=" px-[25px] ">
           <h1 className="text-[#5a5c69] text-[28px] leading-8 font-normal cursor-pointer">
             Feedback
           </h1>
-          <div className="grid grid-cols-2 grid-rows-2 gap-6 mt-3  ">
+          <div className="grid grid-cols-2 grid-rows-1 gap-6 mt-3  ">
             {/* -----------Rate Driver--------------- */}
             <div className=" bg-slate-200 rounded-md  h-[550px] ">
               <div className="grid gap-4 p-4  mt-3">
@@ -237,7 +237,7 @@ function Feedback() {
                 </div>
               </div>
             </div>
-            <div className="gid col-span-2 bg-slate-200 rounded-md h-[200px] px-3 py-3  ">
+            <div className="gid col-span-2 bg-slate-200 rounded-md h-[200px] px-3 py-3 mb-3 ">
               <div className=" h-16 ">
                 <h3 className="">“Edugo” How supports for you ?</h3>
                 <h3 className="">
