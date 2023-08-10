@@ -1,12 +1,15 @@
 import React from "react";
 import MainLayout from "../../components/layout/MainLayout";
-import { FaBeer } from "react-icons/fa";
+import { AiFillDashboard } from "react-icons/ai";
+import { BsFillCarFrontFill } from "react-icons/bs";
+import { FaShippingFast } from "react-icons/fa";
+import { FaUserGroup } from "react-icons/fa6";
 
 const sideNavBarLinks = [
-  { title: "Dashboard", path: "/vc/dashboard", icon: <FaBeer /> },
-  { title: "Vehicles", path: "/vc/vehicles", icon: <FaBeer /> },
-  { title: "School Rides", path: "/vc/rides", icon: <FaBeer /> },
-  { title: "Emergency", path: "/vc/emergency", icon: <FaBeer /> },
+  { title: "Dashboard", path: "/vc/dashboard", icon: <AiFillDashboard /> },
+  { title: "Vehicles", path: "/vc/vehicles", icon: <BsFillCarFrontFill /> },
+  { title: "School Rides", path: "/vc/rides", icon: <FaShippingFast /> },
+  { title: "Emergency", path: "/vc/emergency", icon: <FaUserGroup /> },
 ];
 
 function VcoordinatorDashboardPg() {
