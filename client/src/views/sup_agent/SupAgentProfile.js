@@ -1,11 +1,13 @@
 import React, { useState } from "react";
 import MainLayout from "../../components/layout/MainLayout";
 import { FaHome, FaBus, FaUsers, FaRegEdit, FaTrash } from "react-icons/fa";
+import { BsFillChatDotsFill } from "react-icons/bs";
 import userDefault from "../../images/userDefault.png";
 const sideNavBarLinks = [
   { title: "Dashboard", path: "/sup_agent/dashboard", icon: <FaHome /> },
-  { title: "Parents", path: "/sup_agent/parents", icon: <FaBus /> },
-  { title: "Drivers", path: "/sup_agent/drivers", icon: <FaUsers /> },
+  { title: "Chat", path: "/sup_agent/chat", icon: <BsFillChatDotsFill /> },
+  { title: "Parents", path: "/sup_agent/parents", icon: <FaUsers /> },
+  { title: "Drivers", path: "/sup_agent/drivers", icon: <FaBus /> },
 ];
 
 function SupAgentProfile() {
@@ -13,6 +15,12 @@ function SupAgentProfile() {
   const [address, setAddress] = useState("123 Main Street");
   const [email, setEmail] = useState("johndoe@example.com");
   const [contact, setContact] = useState("0782577381");
+
+  // Original values before editing
+  const [originalName, setOriginalName] = useState(name);
+  const [originalAddress, setOriginalAddress] = useState(address);
+  const [originalEmail, setOriginalEmail] = useState(email);
+  const [originalContact, setOriginalContact] = useState(contact);
 
   // Separate isEditing states for each field
   const [nameEditing, setNameEditing] = useState(false);
@@ -52,15 +60,13 @@ function SupAgentProfile() {
       }
     }
   };
-
+  // ------------edit------------//
   const handleEditName = () => {
     setNameEditing(true);
   };
-
   const handleEditAddress = () => {
     setAddressEditing(true);
   };
-
   const handleEditEmail = () => {
     setEmailEditing(true);
   };
@@ -68,36 +74,69 @@ function SupAgentProfile() {
     setContactEditing(true);
   };
 
+  // ----------------save----------//
   const handleNameSave = () => {
-    setNameEditing(false);
-  };
-  const handleEmailSave = () => {
-    setEmailEditing(false);
-  };
-  const handleContactSave = () => {
-    setContactEditing(false);
-  };
-  const handleAddressSave = () => {
-    setAddressEditing(false);
+    if (name.trim() === "") {
+      setName(name);
+    } else {
+      setNameEditing(false);
+      setOriginalName(name);
+    }
   };
 
+  const handleEmailSave = () => {
+    if (email.trim() === "") {
+      setEmail(email);
+    } else {
+      setEmailEditing(false);
+      setOriginalEmail(email);
+    }
+  };
+
+  const handleContactSave = () => {
+    if (contact.trim() === "") {
+      setContact(contact);
+    } else {
+      setContactEditing(false);
+      setOriginalContact(contact);
+    }
+  };
+
+  const handleAddressSave = () => {
+    if (address.trim() === "") {
+      setAddress(address);
+    } else {
+      setAddressEditing(false);
+      setOriginalAddress(address);
+    }
+  };
+
+  // ----------------cancel-----------//
   const handleNameCancel = () => {
     setNameEditing(false);
+    setName(originalName); // Reset to the original name
   };
+
   const handleEmailCancel = () => {
     setEmailEditing(false);
+    setEmail(originalEmail); // Reset to the original email
   };
+
   const handleContactCancel = () => {
     setContactEditing(false);
+    setContact(originalContact); // Reset to the original contact
   };
+
   const handleAddressCancel = () => {
     setAddressEditing(false);
+    setAddress(originalAddress); // Reset to the original address
   };
 
   return (
     <div>
       <MainLayout data={sideNavBarLinks}>
-        <div className="grid grid-cols-2">
+       {/* -----------VC profile tab------- */}
+       <div className="grid grid-cols-2">
           {/* ---------profile picture----------- */}
           <div className="bg-[#D9D9D9] mx-5 my-8 md:mx-[10rem] md:my-[8rem] lg:w-[256px] lg:h-[256px] rounded-2xl border-black border-2 md:m-3 justify-center items-center">
             <div className="flex flex-col gap-2 ">
@@ -145,167 +184,169 @@ function SupAgentProfile() {
           {/* --------------------------------------- */}
 
           {/* -----------profile details-------------- */}
-          <div className="bg-[#D9D9D9] w-3/4 mt-10 mb-[7.5rem] p-5">
-            <div className="bg-[#EEEEEE]  w-full h-full p-5">
-              <div className="flex flex-col gap-5">
-                <div>
-                  <h1 className="mx-5">Name</h1>
-                  <div className="bg-[#D9D9D9] w-full h-16  flex items-center justify-between">
-                    {nameEditing ? (
-                      <input
-                        type="text"
-                        className="px-5 w-full h-full bg-[#D9D9D9] border rounded "
-                        value={name}
-                        onChange={handleNameChange}
-                      />
-                    ) : (
-                      <div className="font-semibold px-5">{name}</div>
-                    )}
-                    {nameEditing ? (
-                      <div className="flex flex-row mx-1 gap-2">
-                        <button
-                          onClick={handleNameCancel}
-                          className="bg-[#EEEEEE] text-black rounded p-2 w-20 hover:bg-[#CCCCCC] transition-colors"
-                        >
-                          Cancel
-                        </button>
-                        <button
-                          onClick={handleNameSave}
-                          className="bg-orange text-white rounded p-2 w-20 hover:bg-[#ff7f00] transition-colors mr-2"
-                        >
-                          Save
-                        </button>
-                      </div>
-                    ) : (
-                      <div>
-                        <button
-                          onClick={handleEditName}
-                          className="bg-[#EEEEEE] text-black rounded p-2 mr-5 hover:bg-[#CCCCCC]  transition-colors"
-                        >
-                          Edit
-                        </button>
-                      </div>
-                    )}
+          <div className="flex flex-col w-full h-[41rem] gap-5">
+            <div className="bg-[#D9D9D9] w-3/4 mt-10  p-5">
+              <div className="bg-[#EEEEEE]  w-full h-full p-5">
+                <div className="flex flex-col gap-5">
+                  <div>
+                    <h1 className="mx-5">Name</h1>
+                    <div className="bg-[#D9D9D9] w-full h-16  flex items-center justify-between">
+                      {nameEditing ? (
+                        <input
+                          type="text"
+                          className="px-5 w-full h-full bg-[#D9D9D9] border rounded "
+                          value={name}
+                          onChange={handleNameChange}
+                        />
+                      ) : (
+                        <div className="font-semibold px-5">{name}</div>
+                      )}
+                      {nameEditing ? (
+                        <div className="flex flex-row mx-1 gap-2">
+                          <button
+                            onClick={handleNameCancel}
+                            className="bg-[#EEEEEE] text-black rounded p-2 w-20 hover:bg-[#CCCCCC] transition-colors"
+                          >
+                            Cancel
+                          </button>
+                          <button
+                            onClick={handleNameSave}
+                            className="bg-orange text-white rounded p-2 w-20 hover:bg-[#ff7f00] transition-colors mr-2"
+                          >
+                            Save
+                          </button>
+                        </div>
+                      ) : (
+                        <div>
+                          <button
+                            onClick={handleEditName}
+                            className="bg-[#EEEEEE] text-black rounded p-2 mr-5 hover:bg-[#CCCCCC]  transition-colors"
+                          >
+                            Edit
+                          </button>
+                        </div>
+                      )}
+                    </div>
                   </div>
-                </div>
-                <div>
-                  <h1 className="mx-5">Email</h1>
-                  <div className="bg-[#D9D9D9] w-full h-16  flex items-center justify-between">
-                    {emailEditing ? (
-                      <input
-                        type="text"
-                        className="px-5 w-full h-full bg-[#D9D9D9] border rounded"
-                        value={email}
-                        onChange={handleEmailChange}
-                      />
-                    ) : (
-                      <div className="font-semibold px-5">{email}</div>
-                    )}
-                    {emailEditing ? (
-                      <div className="flex flex-row mx-1 gap-2">
-                        <button
-                          onClick={handleEmailCancel}
-                          className="bg-[#EEEEEE] text-black rounded p-2 w-20 hover:bg-[#CCCCCC] transition-colors"
-                        >
-                          Cancel
-                        </button>
-                        <button
-                          onClick={handleEmailSave}
-                          className="bg-orange text-white rounded p-2 w-20 hover:bg-[#ff7f00] transition-colors mr-2"
-                        >
-                          Save
-                        </button>
-                      </div>
-                    ) : (
-                      <div>
-                        <button
-                          onClick={handleEditEmail}
-                          className="bg-[#EEEEEE] text-black rounded p-2 mr-5 hover:bg-[#CCCCCC]  transition-colors"
-                        >
-                          Edit
-                        </button>
-                      </div>
-                    )}
+                  <div>
+                    <h1 className="mx-5">Email</h1>
+                    <div className="bg-[#D9D9D9] w-full h-16  flex items-center justify-between">
+                      {emailEditing ? (
+                        <input
+                          type="text"
+                          className="px-5 w-full h-full bg-[#D9D9D9] border rounded"
+                          value={email}
+                          onChange={handleEmailChange}
+                        />
+                      ) : (
+                        <div className="font-semibold px-5">{email}</div>
+                      )}
+                      {emailEditing ? (
+                        <div className="flex flex-row mx-1 gap-2">
+                          <button
+                            onClick={handleEmailCancel}
+                            className="bg-[#EEEEEE] text-black rounded p-2 w-20 hover:bg-[#CCCCCC] transition-colors"
+                          >
+                            Cancel
+                          </button>
+                          <button
+                            onClick={handleEmailSave}
+                            className="bg-orange text-white rounded p-2 w-20 hover:bg-[#ff7f00] transition-colors mr-2"
+                          >
+                            Save
+                          </button>
+                        </div>
+                      ) : (
+                        <div>
+                          <button
+                            onClick={handleEditEmail}
+                            className="bg-[#EEEEEE] text-black rounded p-2 mr-5 hover:bg-[#CCCCCC]  transition-colors"
+                          >
+                            Edit
+                          </button>
+                        </div>
+                      )}
+                    </div>
                   </div>
-                </div>
-                <div>
-                  <h1 className="mx-5">Contact Number</h1>
-                  <div className="bg-[#D9D9D9] w-full h-16  flex items-center justify-between">
-                    {contactEditing ? (
-                      <input
-                        type="text"
-                        className="px-5 w-full h-full bg-[#D9D9D9] border rounded"
-                        value={contact}
-                        onChange={handleContactChange}
-                      />
-                    ) : (
-                      <div className="font-semibold px-5">{contact}</div>
-                    )}
-                    {contactEditing ? (
-                      <div className="flex flex-row mx-1 gap-2">
-                        <button
-                          onClick={handleContactCancel}
-                          className="bg-[#EEEEEE] text-black rounded p-2 w-20 hover:bg-[#CCCCCC] transition-colors"
-                        >
-                          Cancel
-                        </button>
-                        <button
-                          onClick={handleContactSave}
-                          className="bg-orange text-white rounded p-2 w-20 hover:bg-[#ff7f00] transition-colors mr-2"
-                        >
-                          Save
-                        </button>
-                      </div>
-                    ) : (
-                      <div>
-                        <button
-                          onClick={handleEditContact}
-                          className="bg-[#EEEEEE] text-black rounded p-2 mr-5 hover:bg-[#CCCCCC]  transition-colors"
-                        >
-                          Edit
-                        </button>
-                      </div>
-                    )}
+                  <div>
+                    <h1 className="mx-5">Contact Number</h1>
+                    <div className="bg-[#D9D9D9] w-full h-16  flex items-center justify-between">
+                      {contactEditing ? (
+                        <input
+                          type="text"
+                          className="px-5 w-full h-full bg-[#D9D9D9] border rounded"
+                          value={contact}
+                          onChange={handleContactChange}
+                        />
+                      ) : (
+                        <div className="font-semibold px-5">{contact}</div>
+                      )}
+                      {contactEditing ? (
+                        <div className="flex flex-row mx-1 gap-2">
+                          <button
+                            onClick={handleContactCancel}
+                            className="bg-[#EEEEEE] text-black rounded p-2 w-20 hover:bg-[#CCCCCC] transition-colors"
+                          >
+                            Cancel
+                          </button>
+                          <button
+                            onClick={handleContactSave}
+                            className="bg-orange text-white rounded p-2 w-20 hover:bg-[#ff7f00] transition-colors mr-2"
+                          >
+                            Save
+                          </button>
+                        </div>
+                      ) : (
+                        <div>
+                          <button
+                            onClick={handleEditContact}
+                            className="bg-[#EEEEEE] text-black rounded p-2 mr-5 hover:bg-[#CCCCCC]  transition-colors"
+                          >
+                            Edit
+                          </button>
+                        </div>
+                      )}
+                    </div>
                   </div>
-                </div>
-                <div>
-                  <h1 className="mx-5">Address</h1>
-                  <div className="bg-[#D9D9D9] w-full h-16  flex items-center justify-between">
-                    {addressEditing ? (
-                      <input
-                        type="text"
-                        className="px-5 w-full h-full bg-[#D9D9D9] border rounded"
-                        value={address}
-                        onChange={handleAddressChange}
-                      />
-                    ) : (
-                      <div className="font-semibold px-5">{address}</div>
-                    )}
-                    {addressEditing ? (
-                      <div className="flex flex-row mx-1 gap-2">
-                        <button
-                          onClick={handleAddressCancel}
-                          className="bg-[#EEEEEE] text-black rounded p-2 w-20 hover:bg-[#CCCCCC] transition-colors"
-                        >
-                          Cancel
-                        </button>
-                        <button
-                          onClick={handleAddressSave}
-                          className="bg-orange text-white rounded p-2 w-20 hover:bg-[#ff7f00] transition-colors mr-2"
-                        >
-                          Save
-                        </button>
-                      </div>
-                    ) : (
-                      <div>
-                        <button
-                          onClick={handleEditAddress}
-                          className="bg-[#EEEEEE] text-black rounded p-2 mr-5 hover:bg-[#CCCCCC]  transition-colors"
-                        >
-                          Edit
-                        </button>
-                      </div>
-                    )}
+                  <div>
+                    <h1 className="mx-5">Address</h1>
+                    <div className="bg-[#D9D9D9] w-full h-16  flex items-center justify-between">
+                      {addressEditing ? (
+                        <input
+                          type="text"
+                          className="px-5 w-full h-full bg-[#D9D9D9] border rounded"
+                          value={address}
+                          onChange={handleAddressChange}
+                        />
+                      ) : (
+                        <div className="font-semibold px-5">{address}</div>
+                      )}
+                      {addressEditing ? (
+                        <div className="flex flex-row mx-1 gap-2">
+                          <button
+                            onClick={handleAddressCancel}
+                            className="bg-[#EEEEEE] text-black rounded p-2 w-20 hover:bg-[#CCCCCC] transition-colors"
+                          >
+                            Cancel
+                          </button>
+                          <button
+                            onClick={handleAddressSave}
+                            className="bg-orange text-white rounded p-2 w-20 hover:bg-[#ff7f00] transition-colors mr-2"
+                          >
+                            Save
+                          </button>
+                        </div>
+                      ) : (
+                        <div>
+                          <button
+                            onClick={handleEditAddress}
+                            className="bg-[#EEEEEE] text-black rounded p-2 mr-5 hover:bg-[#CCCCCC]  transition-colors"
+                          >
+                            Edit
+                          </button>
+                        </div>
+                      )}
+                    </div>
                   </div>
                 </div>
               </div>

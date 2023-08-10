@@ -31,7 +31,7 @@ const initialParentData = [
   {
     id: 3,
     name: "Jagath Perera",
-    nicNumber: "997542770V",
+    nicNumber: "657542770V",
     contact: "0332250444",
     address: "92/1 Main Street, Colombo",
     img: "https://tecdn.b-cdn.net/img/new/avatars/7.webp",
@@ -39,7 +39,7 @@ const initialParentData = [
   {
     id: 4,
     name: "Deepika Samarawickrama",
-    nicNumber: "997542770V",
+    nicNumber: "797542770V",
     contact: "0332250444",
     address: "264/1 B Messenger Street, Maharagama",
     img: "https://tecdn.b-cdn.net/img/new/avatars/20.webp",
@@ -47,7 +47,7 @@ const initialParentData = [
   {
     id: 5,
     name: "Kasun Abeykoon",
-    nicNumber: "997542770V",
+    nicNumber: "897542770V",
     contact: "0332250444",
     address: "1st Flr 74 Union Place, Colombo",
     img: "https://tecdn.b-cdn.net/img/new/avatars/1.webp",
@@ -185,9 +185,8 @@ function Parents() {
                 <tbody className="">
                   {parentData
                     .filter((parent) =>
-                      parent.name
-                        .toLowerCase()
-                        .includes(searchQuery.toLowerCase())
+                    parent.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+                    parent.nicNumber.toLowerCase().includes(searchQuery.toLowerCase())
                     )
                     .map((parent) => (
                       <tr

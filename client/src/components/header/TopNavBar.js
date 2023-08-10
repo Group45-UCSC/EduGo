@@ -13,7 +13,7 @@ import { NavLink, useLocation } from "react-router-dom";
 
 function TopNavBar() {
   const location = useLocation();
-  let profileLink = "user/profile";
+  let profileLink;
   if (location.pathname.includes("/driver/")) {
     profileLink = "/driver/profile";
   } else if (location.pathname.includes("/parent/")) {
