@@ -8,8 +8,8 @@ import 'parent_pages/home.dart';
 import 'parent_pages/location_tracking.dart';
 import 'parent_pages/children.dart';
 import 'parent_pages/payment.dart';
-
 import 'login.dart';
+import 'change_password.dart';
 
 void main() {
   runApp(MyApp());
@@ -23,6 +23,7 @@ class MyApp extends StatelessWidget {
       initialRoute: '/',
       routes: {
         '/': (context) => Login(),
+        '/change_password': (context) => ChangePassword(),
         // Driver
         '/home_d': (context) => DriverHomePage(),
         '/school_ride': (context) => RidePage(),
