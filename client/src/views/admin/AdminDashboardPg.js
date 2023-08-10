@@ -153,6 +153,7 @@ function AdminDashboardPg() {
           </tbody>
           </table>
           </div>
+          
       </MainLayout>
     </div>
   );
