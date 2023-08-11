@@ -1,6 +1,7 @@
 import React from "react";
 import MainLayout from "../../components/layout/MainLayout";
 import schoolVan from"../../images/schoolVan.jpeg";
+import dlcard from "../../images/dlcard.jpg";
 import { BsChevronLeft } from "react-icons/bs";
 import { BsChevronRight } from "react-icons/bs";
 import { AiFillDashboard } from "react-icons/ai";
@@ -94,7 +95,7 @@ function VehiclesDetails() {
         <p className='mb-1'>Address: No:10, Queens Road, Colombo 03</p>
         <p className='mb-1'>Birthday: 1998-01-01</p>
         <p className='mb-1'>License Photo:</p>
-        <img src={schoolVan} alt="school van" className="ml-[25%] h-[100px]"></img>
+        <img src={dlcard} alt="dl card" className="ml-[25%] h-[100px]"></img>
         
         </div>
     </div>
