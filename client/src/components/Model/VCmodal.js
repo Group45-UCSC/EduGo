@@ -1,13 +1,20 @@
 import schoolVan from"../../images/schoolVan.jpeg"
 import { BsChevronLeft } from "react-icons/bs";
 import { BsChevronRight } from "react-icons/bs";
+import PrReports from "./PrReports";
+import React,{useState} from "react";
 
 function VCmodal({visible, onClose}) {
+
+    const [showPrReports, setshowPrReports] = useState (false);
+
+    const handleOnClose =() => setshowPrReports(false)
+
     if (!visible) return null;
   return (
    
-    <div className="fixed inset-0 bg-black bg-opacity-70 backdrop-blur-sm overflow-y-scroll ">
-        <div className="ml-[380px] mt-8 mb-6 pt-4 bg-[#F4F4F4] w-[970px] h-[880px] rounded-lg shadow-lg drop-shadow-lg">
+    <div className="fixed inset-0 bg-black bg-opacity-9 backdrop-blur-sm overflow-y-scroll ">
+        <div className="ml-[380px] mt-8 mb-6 pt-4 bg-[#F4F4F4] w-[970px] h-[940px] rounded-lg shadow-lg drop-shadow-lg">
         {/* topic */}
         <div className='font-bold ml-12 mt-4 text-2xl'>Condition Check</div>
 
@@ -40,7 +47,7 @@ function VCmodal({visible, onClose}) {
                 <p className="p-1"> Contact : 071-xxxxxxx</p>
             </div>
             <div className="">
-                <button className=" p-2 mb-3 font-semibold bg-gradient-to-b from-amber-500 to-amber-300 w-40  rounded-lg shadow-md hover:shadow-lg transform hover:scale-[102%] trasition duration-300 ease-out  hover:cursor-pointer" >Previous Reports</button>
+                <button onClick={() =>setshowPrReports(true)} className=" p-2 mb-3 font-semibold bg-gradient-to-b from-amber-500 to-amber-300 w-40  rounded-lg shadow-md hover:shadow-lg transform hover:scale-[102%] trasition duration-300 ease-out  hover:cursor-pointer" >Previous Reports</button>
                 <p  className="p-1" > License Plate : 50 - 0591</p> 
                 <p  className="p-1"> License Plate : 50 - 0591</p> 
                 <p  className="p-1">Engine Number : LH 1989</p>
@@ -50,15 +57,17 @@ function VCmodal({visible, onClose}) {
             </div>
         </div>
 
+        <button className="ml-[400px] p-2 mb-2 mt-3 font-semibold bg-gradient-to-b from-amber-500 to-amber-300 w-52  rounded-lg shadow-md hover:shadow-lg transform hover:scale-[102%] trasition duration-300 ease-out  hover:cursor-pointer" >Next date 2023/09/25</button>
+
         {/* secondsqure */}
-        <div className="mt-4 ml-10 pl-8 pt-4 pb-3 mb-8 bg-[#F4F4F4] w-[900px]  rounded-lg shadow-md drop-shadow-md">
+        <div className="mt-4 ml-10 pl-8 pt-4 pb-3 mb-8 bg-[rgb(244,244,244)] w-[900px]  rounded-lg shadow-md drop-shadow-md">
             <h1 className="font-bold p-1 text-[19px]">Feedback Report</h1>
             <form className="">
                 <input type="text" placeholder="Comment on the vehicle condition here..." className="w-[850px] h-[100px] pl-6 pt-1 pb-2 mb-3 rounded-lg shadow-md drop-shadow-md"></input>
                 <button onClick={onClose}  className="ml-[710px] p-2 mb-2 font-semibold bg-gradient-to-b from-amber-500 to-amber-300 w-32  rounded-lg shadow-md hover:shadow-lg transform hover:scale-[102%] trasition duration-300 ease-out  hover:cursor-pointer" >Submit</button>
             </form>
         </div>
-
+        <PrReports onClose={handleOnClose} visible={showPrReports}/>
     </div>
     </div>
   )
