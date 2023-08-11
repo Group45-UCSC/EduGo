@@ -1,6 +1,7 @@
 import React from "react";
 import MainLayout from "../../components/layout/MainLayout";
 import { FaBusAlt } from "react-icons/fa";
+import { FaWrench } from "react-icons/fa";
 import { BsFillExclamationOctagonFill } from "react-icons/bs";
 import { AiFillDashboard } from "react-icons/ai";
 import { BsCoin } from "react-icons/bs";
@@ -38,11 +39,15 @@ function AdminDashboardPg() {
     ];
 
     const emergency = () => {
-        window.location.href = `/admin/emergency`;
+        window.location.href = `/admin/emergencylist`;
+      };
+
+      const condition = () => {
+        window.location.href = `/admin/condition`;
       };
     
     const ride = () => {
-        window.location.href = `/admin/RideDetails`;
+        window.location.href = `/admin/rides`;
       };
 
   return (
@@ -91,12 +96,12 @@ function AdminDashboardPg() {
               <div className='flex w-2 rounded-s-lg' style={{backgroundColor:'#FF9900'}}></div>
               
               {/* title and icon container */}
-              <div className='flex flex-col'>
+              <div onClick={condition} className='flex flex-col'>
                   <div className='flex'>
-                      <div className='w-24 ml-4 mt-2 h-16 font-bold'>Registered Users</div>
-                      <div className='ml-16 mt-4 w-8 h-8'><FaUserGroup className='h-6 w-6' /></div>
+                      <div className='w-24 ml-4 mt-2 h-16 font-bold'>Condition Checks</div>
+                      <div className='ml-16 mt-4 w-8 h-8'><FaWrench className='h-6 w-6' /></div>
                   </div>
-                  <span className='font-bold ml-24 text-xl'>356</span>
+                  <span className='font-bold ml-24 text-xl'>4</span>
               </div>
           </div>
 
@@ -148,6 +153,7 @@ function AdminDashboardPg() {
           </tbody>
           </table>
           </div>
+          
       </MainLayout>
     </div>
   );

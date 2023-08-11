@@ -18,13 +18,13 @@ function Footer() {
   return (
     <div className="px-[20px] bg-gray text-xs font-semibold text-gray-600">
       <div className="flex flex-row py-2">
-        Contact our agent. <FooterStandrdLink to="/" name="+074 6076544" /> or{"  "}
+        Contact our Support agent. <FooterStandrdLink to="/" name="+074 6076544" /> or{"  "}
         <FooterStandrdLink to="/" name=" +074 5076564" />
         {" "}
         hear you.
       </div>
       <div className="flex flex-row justify-between py-2 border-t-2 border-t-gray-400" >
-        <div>Copyright Apple Inc. All Right Recieved</div>
+        <div>Copyright Edugo Inc. All Right Recieved</div>
         <div className="flex flex-row gap-6">
           <FooterlowerLink to="/" name="Privacy policy" />
           <FooterlowerLink to="/" name="Terms of Use" />
