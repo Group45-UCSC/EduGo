@@ -21,7 +21,7 @@ const sideNavBarLinks = [
 
 function AdminVehicleInfo() {
     const driver = () => {
-        window.location.href = `/admin/driver`;
+        window.location.href = `/admin/driverinfo`;
       };
   return (
     <div>
@@ -92,6 +92,43 @@ function AdminVehicleInfo() {
                 </div>
 
             </div>
+
+            {/* vehicle condition reports */}
+
+            <h3 className="text-[#5a5c69] pt-[25px] px-[25px] text-[24px] leading-8 font-normal cursor-pointer">Condition checks</h3>
+
+            <button className="h-12 w-60 ml-[20%] mt-8 font-semibold bg-gradient-to-b from-amber-500 to-amber-300  rounded-lg shadow-md">
+                    Last Checked - 2023/08/26
+                </button>
+                <button className="h-12 w-60 ml-[20%]  mt-8 font-semibold bg-gradient-to-b from-amber-500 to-amber-300  rounded-lg shadow-md">
+                    Next date - 2023/09/26
+                </button>
+
+            <div className="mt-4 ml-[20%] pl-8 pt-4 pb-3 mb-8 bg-[rgb(244,244,244)] w-[750px]  rounded-lg shadow-md drop-shadow-md">
+            <div className='grid grid-cols-2 gap-[0px]'>
+            <h1 className="font-bold p-1 text-[16px]">Checked Date:: 2023/06/26</h1>
+            <h1 className="font-bold p-1 text-[16px]">Coordinator:: Mr.Manjula Prabath</h1>
+            <h1 className="font-bold p-1 text-[16px]">Date for Completion:: 2023/09/26</h1>
+            <h1 className="font-bold p-1 text-[16px]">Status:: Failed</h1>  
+          </div>
+          <form className="">
+                <div className=" mb-3">
+                    <h1 className="font-bold p-1 mt-4 text-[16px] text-slate-800">Evaluation report</h1>
+                    <div className="ml-4">
+                        <p className=' text-green-700'><b> Exterior Condition</b> </p>
+                        <p className=' text-red-700'> <b>Interior Condition</b></p>
+                        <p className=' text-green-700'><b> Mechanical Condition</b></p>
+                        <p className=' text-green-700'><b> Undercarriage and Suspension </b> </p>
+                        <p className=' text-red-700'> <b> Documentation and Maintenance History</b></p>
+                        <p className=' text-green-700'> <b> Brakes and Steeringn</b></p>
+                        <p className=' text-red-700'> <b>Transmission and Drivetrain </b></p>
+                        <p className=' text-green-700'> <b> Electrical and Electronics </b></p>
+                    </div>
+                </div>
+                    <input type="text" placeholder="Comment on the vehicle condition here..." className="w-[620px] h-[100px] pl-6 pt-1 pb-2 mb-3 rounded-lg shadow-md drop-shadow-md"></input> 
+            </form>
+          </div>
+            
         </MainLayout>
     </div>
   )
