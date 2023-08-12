@@ -15,7 +15,7 @@ function Home() {
         <div className="bg">
           <div id="section1" className="section h-screen text-white" style={{background: `linear-gradient(to top, rgba(0, 0, 0, 0.6) 50%, rgba(0, 0, 0, 0.6) 50%), url(${imgOne})`,
           backgroundSize: 'cover',}}>
-            <h1 className="text-[45px] pt-[18%] ml-16 pb-6"><b> Welcome to Our Platform! </b></h1>
+            <h1 className="text-[45px] pt-[18%] ml-16 pb-6"><b> Welcome to Edugo! </b></h1>
             <p className="text-lg ml-16">Discover a safe and reliable school transportation service for your children's daily commute. <br /> Our platform connects parents with responsible drivers to ensure a stress-free and secure journey to school.</p>
           </div>
           

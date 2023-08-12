@@ -2,7 +2,7 @@ import React, { useState } from "react";
 // import { useEffect, useState } from "react";
 // import axios from "axios";
 import MainLayout from "../../components/layout/MainLayout";
-import { FaRegCalendarMinus, FaChild } from "react-icons/fa";
+import { FaRegCalendarMinus, FaChild, FaEye } from "react-icons/fa";
 import {
   MdPayments,
   MdSupportAgent,
@@ -32,12 +32,11 @@ function Parent() {
   const notifications = [
     {
       id: 1,
-      type: "vehicle",
+      type: "payment",
       Date: "2023/07/30",
       Time: "8.50 a.m.",
       From: "Vehicle coordinator",
-      Message:
-        "Your vehicle Condition verification is reach to out of date! Please check it for the continous riding.",
+      Message: "Your payment is verified.",
     },
     {
       id: 2,
@@ -45,15 +44,15 @@ function Parent() {
       Date: "2023/07/25",
       Time: "4.45 p.m.",
       From: "ParentId",
-      Message: "New Student ride request",
+      Message: "You missed ride",
     },
     {
       id: 3,
-      type: "studentAbsent",
+      type: "paymentReminder",
       Date: "2023/08/05",
       Time: "6.05 a.m.",
       From: "ParentId:p002",
-      Message: "ChildId:c005 is not attending today",
+      Message: "You have to pay before 8/30",
     },
     {
       id: 4,
@@ -69,7 +68,7 @@ function Parent() {
       Date: "2023/07/03",
       Time: "9.35 p.m.",
       From: "vehicle coordinator",
-      Message: "Your driving License expires soon",
+      Message: "Emergency occured",
     },
     {
       id: 6,
@@ -77,7 +76,7 @@ function Parent() {
       Date: "2023/08/05",
       Time: "6.24 a.m.",
       From: "parentId:p007",
-      Message: "Request to pickup missed child: C004",
+      Message: "Driver accepted your Ride Request",
     },
   ];
 
@@ -91,10 +90,17 @@ function Parent() {
     },
     {
       id: 2,
-      name: "R.B.S. Udayanga",
+      name: "L.L.A Hansani",
       image: require("../../images/user.png"),
       status: "Not Ride",
       pickupTime: " 7.20 AM",
+    },
+    {
+      id: 2,
+      name: "R.B.K. Maduranga",
+      image: require("../../images/user.png"),
+      status: "Not Ride",
+      pickupTime: " 6.50 AM",
     },
   ];
 
@@ -200,16 +206,17 @@ function Parent() {
                 <div className="flex justify-center items-center mt-5">
                   {(() => {
                     switch (notification.type) {
-                      case "vehicle":
+                      case "payment":
                         return (
-                          <div
-                            className="w-36 h-9 bg-orange rounded-lg text-xl cursor-pointer"
-                            onClick={() => {
-                              setOpenModal(false);
-                            }}
-                            id="cancelBtn"
-                          >
-                            Okay
+                          <div >
+                            <button className="w-36 h-9 bg-orange hover:bg-black hover:text-white rounded-lg text-xl cursor-pointer" 
+                              onClick={() => {
+                                setOpenModal(false);
+                              }}
+                              id="cancelBtn"
+                            >
+                              Okay
+                            </button>
                           </div>
                         );
 
@@ -239,25 +246,27 @@ function Parent() {
                           </div>
                         );
 
-                      case "studentAbsent":
+                      case "paymentReminder":
                         return (
-                          <NavLink to="/user/profile">
-                            <div
-                              className="w-36 h-9 bg-orange rounded-lg text-xl cursor-pointer"
+                          <NavLink to="/parent/payment">
+                          <div >
+                            <button className="w-36 h-9 bg-orange hover:bg-black hover:text-white rounded-lg text-xl cursor-pointer" 
                               onClick={() => {
                                 setOpenModal(false);
                               }}
+                              id="cancelBtn"
                             >
-                              Got It
-                            </div>
+                              Pay
+                            </button>
+                          </div>
                           </NavLink>
                         );
                       case "rideRequest":
                         return (
                           <div className="flex justify-between gap-6">
-                            <NavLink to="/user/profile">
+                            <NavLink to="/parent/children/childlocation">
                               <button
-                                className="w-36 h-9 bg-orange rounded-lg text-xl cursor-pointer"
+                                className="w-36 h-9 bg-orange hover:bg-black hover:text-white rounded-lg text-xl cursor-pointer"
                                 onClick={() => {
                                   setOpenModal(false);
                                 }}
@@ -267,7 +276,7 @@ function Parent() {
                             </NavLink>
 
                             <button
-                              className="w-36 h-9 bg-orange rounded-lg text-xl cursor-pointer"
+                              className="w-36 h-9 bg-orange hover:bg-black hover:text-white rounded-lg text-xl cursor-pointer"
                               onClick={() => {
                                 setOpenModal(false);
                               }}
@@ -280,9 +289,9 @@ function Parent() {
                       case "missedRequest":
                         return (
                           <div className="flex justify-between gap-6">
-                            <NavLink to="/user/profile">
+                            <NavLink to="/parent/children/viewride">
                               <button
-                                className="w-36 h-9 bg-orange rounded-lg text-xl cursor-pointer"
+                                className="w-36 h-9 bg-orange hover:bg-black hover:text-white rounded-lg text-xl cursor-pointer"
                                 onClick={() => {
                                   setOpenModal(false);
                                 }}
@@ -292,7 +301,7 @@ function Parent() {
                             </NavLink>
 
                             <button
-                              className="w-36 h-9 bg-orange rounded-lg text-xl cursor-pointer"
+                              className="w-36 h-9 bg-orange hover:bg-black hover:text-white rounded-lg text-xl cursor-pointer"
                               onClick={() => {
                                 setOpenModal(false);
                               }}
@@ -305,9 +314,9 @@ function Parent() {
                       case "chat":
                         return (
                           <div className="flex justify-between gap-6">
-                            <NavLink to="/user/profile">
+                            <NavLink to="/parent/support">
                               <button
-                                className="w-36 h-9 bg-orange rounded-lg text-xl cursor-pointer"
+                                className="w-36 h-9 bg-orange hover:bg-black hover:text-white rounded-lg text-xl cursor-pointer"
                                 onClick={() => {
                                   setOpenModal(false);
                                 }}
@@ -317,7 +326,7 @@ function Parent() {
                             </NavLink>
 
                             <button
-                              className="w-36 h-9 bg-orange rounded-lg text-xl cursor-pointer"
+                              className="w-36 h-9 bg-orange hover:bg-black hover:text-white rounded-lg text-xl cursor-pointer"
                               onClick={() => {
                                 setOpenModal(false);
                               }}
@@ -360,11 +369,11 @@ function Parent() {
             Dashboard
           </h1>
 
-          <div className="grid grid-cols-2 grid-rows-3 gap-[80px] mt-[25px] pb-[15px]">
+          <div className="grid grid-cols-2 grid-rows-3 gap-3 mt-[20px] pb-[12px]">
             {/* Registered Children */}
-            <div className=" h-[110px] rounded-[8px] bg-slate-200 border-l-[4px] border-orange flex items-center justify-between px-[30px] cursor-pointer hover:shadow-lg transform hover:scale-[103%] transition duration-300 ease-out">
+            <div className=" h-[160px] rounded-[8px] bg-slate-200 border-l-[4px] border-orange flex items-center justify-between px-[30px] cursor-pointer hover:shadow-lg transform hover:scale-[103%] transition duration-300 ease-out">
               <div>
-                <h1 className="text-[20px] leading-[24px] font-bold text-[#5a5c69] mt-[5px] pb-1">
+                <h1 className="text-[20px] leading-[24px] font-bold text-[#5a5c69]  pb-5">
                   Registered Children (3)
                 </h1>
                 <div className="text-[#B589DF] text-[12px] leading-[17px] font-bold">
@@ -418,29 +427,47 @@ function Parent() {
                 </div>
               </div>
             </div>
-            <div className="grid row-span-2 rounded-[8px] bg-slate-200">
+            <div className="grid row-span-2 rounded-[8px] bg-slate-200 px-3">
               <div className=" mb-1 p-3 flex justify-center">
                 <div className="text-[20px] leading-[24px] font-bold text-[#5a5c69]">
                   {" "}
-                  New Updates{" "}
+                  Ongoing Ride{" "}
                 </div>
               </div>
               {child.map((child) => (
-                <div key={child.id} className="border flex h-[80px]">
-                  <div>
+                <div
+                  key={child.id}
+                  className="border border-orange rounded-[8px] flex h-[80px] px-3 py-3 gap-3"
+                >
+                  <div className="">
                     <img
                       src={child.image}
                       alt="child_image"
-                      className="w-14 border rounded-full p-[3px]"
+                      className="w-14 border border-slate-400 rounded-full p-[3px]"
                     />
                   </div>
-                  <div>
+                  <div className="pt-3 w-[300px] text-slate-800 ">
                     {child.status === "On ride" ? (
-                      child.status
+                      <span className="font-bold text-green-600">
+                        {child.status}
+                      </span>
                     ) : (
-                      <span>Next pickedup time  {child.pickupTime}</span>
+                      <span className=" flex">
+                        Next picked up time :{" "}
+                        <div className=" font-semibold text-lg">
+                          {" "}
+                          {child.pickupTime}
+                        </div>{" "}
+                      </span>
                     )}
                   </div>
+                  {child.status === "On ride" && (
+                    <NavLink to="/parent/children/childlocation">
+                    <div className="border-2 border-white cursor-pointer rounded-md w-8 h-8 mt-3 pt-2 pl-[6px] ml-24">
+                      <FaEye className="text-blue-700 hover:text-black"></FaEye>
+                    </div>
+                    </NavLink>
+                  )}
                 </div>
               ))}
             </div>

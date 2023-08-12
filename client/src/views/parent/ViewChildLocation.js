@@ -6,8 +6,13 @@ import { NavLink } from 'react-router-dom';
 import { AiFillDashboard } from "react-icons/ai"
 import { FaChild, FaEye } from "react-icons/fa"
 import { MdPayments, MdSupportAgent, MdOutlineRateReview } from "react-icons/md";
-
+import { useLocation } from "react-router-dom";
 function ViewChildLocation() {
+
+  const location = useLocation();
+  const dataParam = new URLSearchParams(location.search).get("data");
+  const child = JSON.parse(decodeURIComponent(dataParam));
+
   const sideNavBarLinks = [
     { title: "Dashboard", path: "/parent/dashboard", icon: <AiFillDashboard /> },
     { title: "Children", path: "/parent/children", icon: <FaChild /> },
@@ -17,14 +22,14 @@ function ViewChildLocation() {
   ];
 
   
-  const childDetails = [
-    {
-      name: "R.B.S.Udayanga",
-      schoolName: "Royal Collage",
-      schoolRide: "R103",
-    },
+  // const childDetails = [
+  //   {
+  //     name: "R.B.S.Udayanga",
+  //     schoolName: "Royal Collage",
+  //     schoolRide: "R103",
+  //   },
 
-  ];
+  // ];
   return (
     <div>
       <MainLayout data={sideNavBarLinks}>
@@ -35,9 +40,8 @@ function ViewChildLocation() {
           <div className="mt-[25px] pb-[15px]">
             <div className="flex justify-center">
               <div className="flex flex-col gap-4">
-                {childDetails.map((child, index) => (
+                {/* {childDetails.map((child, index) => ( */}
                   <div
-                    key={index}
                     className="h-[150px] w-[1000px] rounded-[8px] bg-slate-200 border-l-[4px] border-orange flex items-center justify-between px-[30px] cursor-pointer hover:shadow-lg transform hover:scale-[103%] transition duration-300 ease-out"
                   >
                     <div className="">
@@ -98,7 +102,7 @@ function ViewChildLocation() {
                       </div>
                     </div>
                   </div>
-                ))}
+                {/* ))} */}
               </div>
             </div>
 
