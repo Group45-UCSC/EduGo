@@ -9,7 +9,6 @@ import {
   MdOutlineRateReview,
 } from "react-icons/md";
 import { AiFillDashboard } from "react-icons/ai";
-import user from "../../images/user.png";
 import FormInput from "../../components/layout/FormInput";
 import { NavLink } from "react-router-dom";
 
@@ -162,6 +161,10 @@ function Children() {
       schoolRide: "R103",
       startTime: "6.50",
       type: "ride",
+      address: "No 79, Daramapala road, Pannipitya",
+      schoolAddress: "Maradana Rd, Colombo 01000",
+      contactnum: "0776438543",
+      image: require("../../images/child1.png")
     },
     {
       id:2,
@@ -170,6 +173,10 @@ function Children() {
       schoolRide: "R104",
       startTime: "7.00",
       type: "notride",
+      address: "No 79, Daramapala road, Pannipitya",
+      schoolAddress: "Maradana Rd, Colombo 01000",
+      contactnum: "0776438543",
+      image: require("../../images/child2.png"),
     },
     {
       id:3,
@@ -178,6 +185,10 @@ function Children() {
       schoolRide: "R106",
       startTime: "7.10",
       type: "notreg",
+      address: "No 79, Daramapala road, Pannipitya",
+      schoolAddress: "Maradana Rd, Colombo 01000",
+      contactnum: "0776438543",
+      image: require("../../images/child3.png"),
     },
   ];
 
@@ -211,16 +222,16 @@ function Children() {
                     className="  h-[150px] w-full rounded-[8px] bg-slate-200 border-l-[4px] border-orange  px-5 py-5 cursor-pointer hover:shadow-lg transform hover:scale-[103%] transition duration-300 ease-out"
                   >
                     <div className="flex  w-[950px] gap-3 ">
-                      <div className="w-[110px]">
+                      <div className="w-[110px] ">
                         <NavLink
                           to={`/parent/children/childrendetails/${
                             child.id
                           }?data=${encodeURIComponent(JSON.stringify(child))}`}
                         >
                           <img
-                            src={user}
+                            src={child.image}
                             alt="user"
-                            className="bg-slate-300 w-32 cursor-pointer rounded-full p-1"
+                            className="bg-slate-300 w-32 h-[110px] cursor-pointer rounded-full p-1"
                           />
                         </NavLink>
                       </div>
