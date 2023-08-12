@@ -1,18 +1,19 @@
 import React from "react";
 import MainLayout from "../../components/layout/MainLayout";
 import schoolVan from"../../images/schoolVan.jpeg";
+import dlcard from "../../images/dlcard.jpg";
 import { BsChevronLeft } from "react-icons/bs";
 import { BsChevronRight } from "react-icons/bs";
 import { AiFillDashboard } from "react-icons/ai";
 import { BsFillCarFrontFill } from "react-icons/bs";
 import { FaShippingFast } from "react-icons/fa";
-import { FaUserGroup } from "react-icons/fa6";
+import { FaCarCrash } from "react-icons/fa";
 
 const sideNavBarLinks = [
   { title: "Dashboard", path: "/vc/dashboard", icon: <AiFillDashboard /> },
   { title: "Vehicles", path: "/vc/vehicles", icon: <BsFillCarFrontFill /> },
   { title: "School Rides", path: "/vc/rides", icon: <FaShippingFast /> },
-  { title: "Emergency", path: "/vc/emergency", icon: <FaUserGroup /> },
+  { title: "Emergency", path: "/vc/emergency", icon: <FaCarCrash /> },
 ];
 
 
@@ -94,7 +95,7 @@ function VehiclesDetails() {
         <p className='mb-1'>Address: No:10, Queens Road, Colombo 03</p>
         <p className='mb-1'>Birthday: 1998-01-01</p>
         <p className='mb-1'>License Photo:</p>
-        <img src={schoolVan} alt="school van" className="ml-[25%] h-[100px]"></img>
+        <img src={dlcard} alt="dl card" className="ml-[25%] h-[100px]"></img>
         
         </div>
     </div>

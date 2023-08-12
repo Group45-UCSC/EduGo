@@ -34,6 +34,7 @@ import ParentPayment from "./views/parent/Payment";
 import ParentSupport from "./views/parent/Support";
 import ParentFeedback from "./views/parent/Feedback";
 import ParentProfile from "./views/parent/ParentProfile"
+import ChildrenDetails from "./views/parent/ChildrenDetails";
 
 import AdminDashboardPg from "./views/admin/AdminDashboardPg";
 import AdminEmployees from "./views/admin/Employees";
@@ -113,13 +114,11 @@ function App() {
 
           <Route exact path="/parent/dashboard" element={<ParentDashboardPg />} />
           <Route exact path="/parent/children" element={<ParentChildren />} />
-
+          <Route exact path="/parent/children/childrendetails/:id" element={<ChildrenDetails />} />
           <Route exact path="parent/children/addnewride/viewvehicle/:id" element={<ViewVehicle />} />
-
-          <Route exact path="/parent/children/childlocation" element={<ViewChildLocation />} />
+          <Route exact path="/parent/children/childlocation/:id" element={<ViewChildLocation />} />
           <Route exact path="/parent/Children/addnewride" element={<AddSchoolRide />} />
           <Route exact path="/parent/children/viewride" element={<ViewRide />} />
-
           <Route exact path="/parent/payment" element={<ParentPayment />} />
           <Route exact path="/parent/support" element={<ParentSupport />} />
           <Route exact path="/parent/feedback" element={<ParentFeedback />} />

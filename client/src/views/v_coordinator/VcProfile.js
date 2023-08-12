@@ -5,13 +5,13 @@ import userDefault from "../../images/userDefault.png";
 import { AiFillDashboard } from "react-icons/ai";
 import { BsFillCarFrontFill } from "react-icons/bs";
 import { FaShippingFast } from "react-icons/fa";
-import { FaUserGroup } from "react-icons/fa6";
+import { FaCarCrash } from "react-icons/fa";
 
 const sideNavBarLinks = [
   { title: "Dashboard", path: "/vc/dashboard", icon: <AiFillDashboard /> },
   { title: "Vehicles", path: "/vc/vehicles", icon: <BsFillCarFrontFill /> },
   { title: "School Rides", path: "/vc/rides", icon: <FaShippingFast /> },
-  { title: "Emergency", path: "/vc/emergency", icon: <FaUserGroup /> },
+  { title: "Emergency", path: "/vc/emergency", icon: <FaCarCrash /> },
 ];
 
 function VcProfile() {
