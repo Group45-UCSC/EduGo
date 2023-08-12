@@ -8,7 +8,13 @@ function VCmodal({visible, onClose}) {
 
     const [showPrReports, setshowPrReports] = useState (false);
 
-    const handleOnClose =() => setshowPrReports(false)
+    const handleOnClose =() => setshowPrReports(false);
+
+    const [isCalendarVisible, setCalendarVisibility] = useState(false); // Calendar initially invisible
+
+    const handleToggle = () => {
+    setCalendarVisibility(!isCalendarVisible); // Toggle calendar visibility
+    }
 
     if (!visible) return null;
   return (
@@ -87,15 +93,17 @@ function VCmodal({visible, onClose}) {
                 </div>
                     <input type="text" placeholder="Comment on the vehicle condition here..." className="w-[850px] h-[100px] pl-6 pt-1 pb-2 mb-3 rounded-lg shadow-md drop-shadow-md"></input>
                 
-                <div className="grid grid-cols-2 gap-[150px] mt-4">
+                <div className="grid grid-cols-2 gap-[50px] mt-4">
                     {/* switchone */}
                     <div className="grid grid-cols-3 gap-[10px] ml-3">
-                        <h1> <b>Fail</b></h1>
+                        <h1> <b>Pass</b></h1>
                         <label for="check" class="-ml-20 w-20 h-10 rounded-full relative bg-gradient-to-b from-amber-500 to-amber-300  shadow-md hover:shadow-lg cursor-pointer">
-                            <input type="checkbox" id="check" class="sr-only peer"></input>
-                            <span className="w-2/5 h-4/5 bg-red-600 absolute rounded-full m-1 peer-checked:bg-green-800 peer-checked:left-10 transition-all duration-200"></span>
+                            <input type="checkbox" id="check" class="sr-only peer"  checked={isCalendarVisible} onChange={handleToggle}></input>
+                            <span className="w-2/5 h-4/5 bg-green-800 absolute rounded-full m-1 peer-checked:bg-red-700 peer-checked:left-10 transition-all duration-200"></span>
                         </label>
-                        <h1 className="-ml-24"><b>Pass</b></h1>
+                        <h1 className="-ml-28"><b>Fail</b></h1>
+                         {/* Render the calendar field only if isCalendarVisible is true */}
+                         {isCalendarVisible && <input type="date" className="ml-2"/>}
                     </div>
 
                     {/* switchtwo */}
