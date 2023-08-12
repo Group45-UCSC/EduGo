@@ -1,7 +1,13 @@
-import React from 'react';
 import { FaMarker } from "react-icons/fa";
+import AorR from "./AorR";
+import React,{useState} from "react";
+
 
 function PrReports({visible, onClose}) {
+
+  const [showAorR, setshowAorR] = useState (false);
+  const handleOnClose =() => setshowAorR(false);
+
     if (!visible) return null;
     return (
      
@@ -28,13 +34,18 @@ function PrReports({visible, onClose}) {
                         <p className=' text-red-700'> <b> Documentation and Maintenance History</b></p>
                         <p className=' text-green-700'> <b> Brakes and Steeringn</b></p>
                         <p className=' text-red-700'> <b>Transmission and Drivetrain </b></p>
-                        <p className=' text-green-700'> <b> Electrical and Electronics </b></p>
+                        <p className=' text-red-700'> <b> Electrical and Electronics </b></p>
                     </div>
                 </div>
-                    <input type="text" placeholder="Comment on the vehicle condition here..." className="w-[620px] h-[100px] pl-6 pt-1 pb-2 mb-3 rounded-lg shadow-md drop-shadow-md"></input> 
+                    <input type="text" placeholder="Comment on the vehicle condition here..." className="w-[620px] h-[100px] pl-6 pt-1 pb-2 mb-3 mt-2 rounded-lg shadow-md drop-shadow-md"></input> 
             </form> 
-            <button onClick={onClose}  className="ml-[490px] p-2 mb-2 font-semibold bg-gradient-to-b from-amber-500 to-amber-300 w-32  rounded-lg shadow-md hover:shadow-lg transform hover:scale-[103%] trasition duration-300 ease-out  hover:cursor-pointer" >Go back</button>   
+            <div className='grid grid-cols-2 gap-[10px]'>
+              <button onClick={onClose}  className="ml-[4px] p-2 mb-2 font-semibold bg-gradient-to-b from-amber-600 to-amber-400 w-32  rounded-lg shadow-md hover:shadow-lg transform hover:scale-[103%] trasition duration-300 ease-out  hover:cursor-pointer" >Go back</button>
+              <button onClick={() =>setshowAorR(true)} className="ml-[160px] p-2 mb-2 font-semibold bg-gradient-to-b from-green-600 to-green-400 w-32  rounded-lg shadow-md hover:shadow-lg transform hover:scale-[103%] trasition duration-300 ease-out  hover:cursor-pointer" >Next</button>    
+            </div>
+            
     </div>
+    <AorR onClose={handleOnClose} visible={showAorR}/>
     </div>
     </div>
   )
