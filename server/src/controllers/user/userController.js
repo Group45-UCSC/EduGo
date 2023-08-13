@@ -278,11 +278,13 @@ const login = async (req, res) => {
     }
 
     //4. login success
+    const userRole = userdata.rows[0].user_role;
+    const userName = userdata.rows[0].user_name; 
+    return res.json({ Login: true, role: userRole, userName: userName });
+
     // req.session.username = user.rows[0].name;
     // req.session.useremail = user.rows[0].email;
     // console.log(req.session.username);
-
-    return res.json({ Login: true });
   } catch (err) {
     console.error(err.message);
     res.status(500).send("Server Error");
