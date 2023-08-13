@@ -1,23 +1,40 @@
 import React, { useState } from "react";
 import MainLayout from "../../components/layout/MainLayout";
-import { FaChild,FaSearch,FaPhone } from "react-icons/fa";
-import { MdPayments, MdSupportAgent, MdOutlineRateReview } from "react-icons/md";
-import { AiFillDashboard,AiOutlinePaperClip, AiOutlineSend } from "react-icons/ai";
-
-
+import { FaChild, FaSearch, FaPhone } from "react-icons/fa";
+import {
+  MdPayments,
+  MdSupportAgent,
+  MdOutlineRateReview,
+} from "react-icons/md";
+import {
+  AiFillDashboard,
+  AiOutlinePaperClip,
+  AiOutlineSend,
+} from "react-icons/ai";
+import chatIcon from "../../images/chatIcon.png";
+import Complaint from "./Complaint";
 function Support() {
   const sideNavBarLinks = [
-    { title: "Dashboard", path: "/parent/dashboard", icon: <AiFillDashboard /> },
+    {
+      title: "Dashboard",
+      path: "/parent/dashboard",
+      icon: <AiFillDashboard />,
+    },
     { title: "Children", path: "/parent/children", icon: <FaChild /> },
     { title: "Payment", path: "/parent/payment", icon: <MdPayments /> },
     { title: "Support", path: "/parent/support", icon: <MdSupportAgent /> },
-    { title: "Feedback", path: "/parent/feedback", icon: <MdOutlineRateReview /> },
+    {
+      title: "Feedback",
+      path: "/parent/feedback",
+      icon: <MdOutlineRateReview />,
+    },
   ];
   const [activeTab, setActiveTab] = useState("chat");
 
   const [inputValue, setInputValue] = useState("");
   const [sentMessages, setSentMessages] = useState([]);
   const [selectedChatId, setSelectedChatId] = useState(null);
+  const [searchQuery, setSearchQuery] = useState("");
 
   const handleChatItemClick = (chatId) => {
     setSelectedChatId(chatId);
@@ -67,11 +84,10 @@ function Support() {
     },
   ];
 
-
   return (
     <div>
       <MainLayout data={sideNavBarLinks}>
-        <div className="flex flex-col gap-10 mt-[4rem] ml-[5rem]">
+        <div className="flex flex-col gap-10 h-[41rem]">
           <div class="inline-flex">
             <button
               className={`${
@@ -98,7 +114,7 @@ function Support() {
           {/* ------------------------------------------------------- */}
           {/* -------------------------chat Tab---------------------- */}
           {activeTab === "chat" && (
-            <div className="col-span-3  bg-orange m-2 p-3 h-[45rem]  grid grid-cols-3">
+            <div className="col-span-3  bg-orange w-3/4 m-2 p-3 h-[45rem]  grid grid-cols-3">
               {/* -------------------chat list----------------- */}
               <div className="col-span-1  m-1 py-5  flex flex-col gap-8">
                 {/* Search Bar */}
@@ -107,6 +123,9 @@ function Support() {
                     type="text"
                     className="w-full px-4 bg-transparent py-2 border rounded-full focus:outline-none focus:border-black focus:border-2 placeholder-black placeholder-opacity-75"
                     placeholder="Search Name..."
+                    name="search"
+                    value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value)}
                   />
                   <FaSearch className="absolute right-4 top-3 h-5 w-5 text-gray-400" />
                 </div>
@@ -116,8 +135,8 @@ function Support() {
                       key={index}
                       className={`${
                         selectedChatId === item.id
-                          ? "bg-[#F6AD55]"
-                          : "bg-orange transform hover:scale-[103%] transition duration-300 ease-out"
+                          ? "bg-[#4b5563] shadow-inner text-white"
+                          : "bg-orange transform border-b border-transparent hover:scale-[103%] transition duration-300 ease-out"
                       } w-full h-14 rounded-xl border-b border-black flex items-center px-4 hover:border-black `}
                       onClick={() => handleChatItemClick(item.id)}
                     >
@@ -159,7 +178,17 @@ function Support() {
                     </button>
                   </div>
                 ) : (
-                  <p>Click a name to open a chat</p>
+                  <div className="flex flex-col items-center justify-center mt-8">
+                    <img
+                      src={chatIcon}
+                      alt="Chat"
+                      className="w-[9rem] h-[9rem] mb-2"
+                    />
+                    <div className="flex flex-col justify-center items-center text-2xl font-semibold">
+                      <span className="text-center">Click a name</span>
+                      <span className="text-center">to open a chat</span>
+                    </div>
+                  </div>
                 )}
                 {selectedChatId ? (
                   <div className="">
@@ -261,59 +290,64 @@ function Support() {
 
           {/* -------------------------complaint Tab------------------ */}
           {activeTab === "complaints" && (
-            <div className="w-fill h-[45rem] p-8 bg-gradient-to-r from-[#e2e8f0] to-[#cbd5e0]">
-              <div className="flex flex-col h-full border rounded-lg overflow-hidden">
-                <div className="bg-orange flex justify-center items-center border-b py-3 mb-3">
-                  <h1 className="font-semibold text-2xl">Customer Support</h1>
-                </div>
-                <div className="flex-grow p-4 overflow-y-auto">
-                  {/* Chat messages */}
-                  <div className="mb-4">
-                    <div className="flex items-start justify-start mb-2">
-                      <div className="bg-gray px-5 py-2 rounded-xl flex justify-start">
-                        Hi there! How can I help you today?
-                      </div>
-                    </div>
-                    <div className="flex items-end justify-end"></div>
-                    {/* ... Add more messages here */}
+            <div className="grid grid-cols-5">
+              <div className="col-span-3 bg-orange w-3/4 h-[35rem] p-5 ml-5  ">
+                <Complaint />
+              </div>
+              <div className="col-span-2 w-fill  p-8 bg-gradient-to-r from-[#e2e8f0] to-[#cbd5e0]">
+                <div className="flex flex-col h-full border rounded-lg overflow-hidden">
+                  <div className="bg-orange flex justify-center items-center border-b py-3 mb-3">
+                    <h1 className="font-semibold text-2xl">Customer Support</h1>
                   </div>
-                </div>
-                <div className="flex-shrink-0 bg-gray-200 p-2">
-                  {/* Message input */}
-                  <div className="flex items-center gap-4 mt-5">
-                    <div className="flex items-center gap-2">
-                      <label htmlFor="file-input">
-                        <AiOutlinePaperClip
-                          className={`h-6 w-6 text-${
-                            inputValue.trim() !== "" ? "orange" : "black"
-                          } cursor-pointer hover:text-orange`}
+                  <div className="flex-grow p-4 overflow-y-auto">
+                    {/* Chat messages */}
+                    <div className="mb-4">
+                      <div className="flex items-start justify-start mb-2">
+                        <div className="bg-gray px-5 py-2 rounded-xl flex justify-start">
+                          Hi there! How can I help you today?
+                        </div>
+                      </div>
+                      <div className="flex items-end justify-end"></div>
+                      {/* ... Add more messages here */}
+                    </div>
+                  </div>
+                  <div className="flex-shrink-0 bg-gray-200 p-2">
+                    {/* Message input */}
+                    <div className="flex items-center gap-4 mt-5">
+                      <div className="flex items-center gap-2">
+                        <label htmlFor="file-input">
+                          <AiOutlinePaperClip
+                            className={`h-6 w-6 text-${
+                              inputValue.trim() !== "" ? "orange" : "black"
+                            } cursor-pointer hover:text-orange`}
+                          />
+                        </label>
+                        <input
+                          id="file-input"
+                          type="file"
+                          style={{ display: "none" }}
+                          onChange={handleFileChange} // Add a function to handle the file attachment
                         />
-                      </label>
+                      </div>
                       <input
-                        id="file-input"
-                        type="file"
-                        style={{ display: "none" }}
-                        onChange={handleFileChange} // Add a function to handle the file attachment
+                        type="text"
+                        className="flex-grow px-4 py-3 border border-black rounded-xl focus:outline-none focus:border-orange focus:border-2 placeholder-black placeholder-opacity-75"
+                        placeholder="Type your message..."
+                        value={inputValue} // Set the input value from state
+                        onChange={(e) => setInputValue(e.target.value)} // Update the input value in state
+                        onKeyPress={(e) => {
+                          if (e.key === "Enter") {
+                            handleSendMessage();
+                          }
+                        }}
+                      />
+                      <AiOutlineSend
+                        className={`h-6 w-6 text-${
+                          inputValue.trim() !== "" ? "orange" : "black"
+                        } cursor-pointer hover:text-orange `}
+                        onClick={handleSendMessage} //calll the function t send the message
                       />
                     </div>
-                    <input
-                      type="text"
-                      className="flex-grow px-4 py-3 border border-black rounded-xl focus:outline-none focus:border-orange focus:border-2 placeholder-black placeholder-opacity-75"
-                      placeholder="Type your message..."
-                      value={inputValue} // Set the input value from state
-                      onChange={(e) => setInputValue(e.target.value)} // Update the input value in state
-                      onKeyPress={(e) => {
-                        if (e.key === "Enter") {
-                          handleSendMessage();
-                        }
-                      }}
-                    />
-                    <AiOutlineSend
-                      className={`h-6 w-6 text-${
-                        inputValue.trim() !== "" ? "orange" : "black"
-                      } cursor-pointer hover:text-orange `}
-                      onClick={handleSendMessage} //calll the function t send the message
-                    />
                   </div>
                 </div>
               </div>
@@ -323,7 +357,7 @@ function Support() {
         </div>
       </MainLayout>
     </div>
-  )
+  );
 }
 
-export default Support
+export default Support;

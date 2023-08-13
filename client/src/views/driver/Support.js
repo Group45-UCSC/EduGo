@@ -4,6 +4,8 @@ import { FaSearch,FaPhone } from "react-icons/fa";
 import { AiFillDashboard,AiOutlinePaperClip,AiOutlineSend } from "react-icons/ai"
 import { MdPayments, MdSupportAgent, MdOutlineRateReview } from "react-icons/md";
 import { AiFillCar } from "react-icons/ai";
+import chatIcon from "../../images/chatIcon.png";
+import Complaint from "./Complaint";
 
 const sideNavBarLinks = [
   { title: "Dashboard", path: "/driver/dashboard", icon: <AiFillDashboard /> },
@@ -19,6 +21,8 @@ function Support() {
   const [inputValue, setInputValue] = useState("");
   const [sentMessages, setSentMessages] = useState([]);
   const [selectedChatId, setSelectedChatId] = useState(null);
+  const [searchQuery, setSearchQuery] = useState("");
+  
 
   const handleChatItemClick = (chatId) => {
     setSelectedChatId(chatId);
@@ -70,7 +74,7 @@ function Support() {
   return (
     <div>
       <MainLayout data={sideNavBarLinks}>
-        <div className="flex flex-col gap-10 mt-[4rem] ml-[5rem]">
+        <div className="flex flex-col gap-10 h-[41rem]">
           <div class="inline-flex">
             <button
               className={`${
@@ -97,7 +101,7 @@ function Support() {
           {/* ------------------------------------------------------- */}
           {/* -------------------------chat Tab---------------------- */}
           {activeTab === "chat" && (
-            <div className="col-span-3  bg-orange m-2 p-3 h-[45rem]  grid grid-cols-3">
+            <div className="col-span-3  bg-orange w-3/4 m-2 p-3 h-[45rem]  grid grid-cols-3">
               {/* -------------------chat list----------------- */}
               <div className="col-span-1  m-1 py-5  flex flex-col gap-8">
                 {/* Search Bar */}
@@ -106,6 +110,9 @@ function Support() {
                     type="text"
                     className="w-full px-4 bg-transparent py-2 border rounded-full focus:outline-none focus:border-black focus:border-2 placeholder-black placeholder-opacity-75"
                     placeholder="Search Name..."
+                    name="search"
+                    value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value)}
                   />
                   <FaSearch className="absolute right-4 top-3 h-5 w-5 text-gray-400" />
                 </div>
@@ -115,8 +122,8 @@ function Support() {
                       key={index}
                       className={`${
                         selectedChatId === item.id
-                          ? "bg-[#F6AD55]"
-                          : "bg-orange transform hover:scale-[103%] transition duration-300 ease-out"
+                          ? "bg-[#4b5563] shadow-inner text-white"
+                          : "bg-orange transform border-b border-transparent hover:scale-[103%] transition duration-300 ease-out"
                       } w-full h-14 rounded-xl border-b border-black flex items-center px-4 hover:border-black `}
                       onClick={() => handleChatItemClick(item.id)}
                     >
@@ -158,7 +165,17 @@ function Support() {
                     </button>
                   </div>
                 ) : (
-                  <p>Click a name to open a chat</p>
+                  <div className="flex flex-col items-center justify-center mt-8">
+                  <img
+                    src={chatIcon}
+                    alt="Chat"
+                    className="w-[9rem] h-[9rem] mb-2"
+                  />
+                  <div className="flex flex-col justify-center items-center text-2xl font-semibold">
+                    <span className="text-center">Click a name</span>
+                    <span className="text-center">to open a chat</span>
+                  </div>
+                </div>
                 )}
                 {selectedChatId ? (
                   <div className="">
@@ -260,7 +277,11 @@ function Support() {
 
           {/* -------------------------complaint Tab------------------ */}
           {activeTab === "complaints" && (
-            <div className="w-fill h-[45rem] p-8 bg-gradient-to-r from-[#e2e8f0] to-[#cbd5e0]">
+            <div className="grid grid-cols-5">
+            <div className="col-span-3 bg-orange w-3/4 h-[35rem] p-5 ml-5  ">
+              <Complaint />
+            </div>
+            <div className="col-span-2 w-fill  p-8 bg-gradient-to-r from-[#e2e8f0] to-[#cbd5e0]">
               <div className="flex flex-col h-full border rounded-lg overflow-hidden">
                 <div className="bg-orange flex justify-center items-center border-b py-3 mb-3">
                   <h1 className="font-semibold text-2xl">Customer Support</h1>
@@ -317,6 +338,7 @@ function Support() {
                 </div>
               </div>
             </div>
+          </div>
           )}
           {/* -------------------------------------------------------- */}
         </div>
