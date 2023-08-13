@@ -1,5 +1,7 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 import MainLayout from "../../components/layout/MainLayout";
+import { AiOutlineSearch } from "react-icons/ai";
+import { BiFilterAlt } from "react-icons/bi";
 import { AiFillDashboard } from "react-icons/ai";
 import { BsCoin } from "react-icons/bs";
 import { FaChild } from "react-icons/fa";
@@ -18,6 +20,116 @@ const sideNavBarLinks = [
 
 function Drivers() {
 
+  const dr = [
+    {
+      id: "001",
+      name: "Ashan Dhanushka",
+      address: "No.87 main street, Piliyandala",
+      v_no: "PI - 1111"
+    },
+    {
+      id: "002",
+      name: "Sachintha Muthuhetti",
+      address: "No.34/5 Mutuwal, Modara",
+      v_no: "PX - 2222"
+    },
+    {
+      id: "003",
+      name: "ifas Rizwan",
+      address: "No.23/5, maley street, colombo",
+      v_no: "PI - 3333"
+    },
+    {
+      id: "004",
+      name: "Ridma Priyanjan",
+      address: "No.7 School lane, Wijerama",
+      v_no: "PX - 4444"
+    },
+    {
+      id: "005",
+      name: "Hiran Jayashanka",
+      address: "No.2 Akbar street, Malabe",
+      v_no: "PI - 5555"
+    },
+    {
+      id: "006",
+      name: "Nishantha Gamlath",
+      address: "No.7 School Road, Raththanapitiya",
+      v_no: "PI - 6666"
+    },
+    {
+      id: "007",
+      name: "Pasindu Gayashan",
+      address: "No.22 Good shed road, Kohuwala",
+      v_no: "PX - 7777"
+    },
+    {
+      id: "008",
+      name: "Gayan Anushka",
+      address: "No.22 main street, Meepe",
+      v_no: "PI - 8888"
+    }
+  ];
+
+  const vh = [
+    {
+      id: "001",
+      v_no: "PI - 9999",
+      name: "Ashan Dhanushka",
+      contact: "0711234567",
+      address: "No.87 main street, Piliyandala" 
+    },
+    {
+      id: "002",
+      v_no: "PI - 1010",
+      name: "Sachintha Muthuhetti",
+      contact: "0757676763",
+      address: "No.34/5 Mutuwal, Modara" 
+    },
+    {
+      id: "003",
+      v_no: "PX - 1111",
+      name: "Nifas Rizwan",
+      contact: "0710912873",
+      address: "No.23/5, maley street, colombo" 
+    },
+    {
+      id: "004",
+      v_no: "PX - 1212",
+      name: "Ridma Priyanjan",
+      contact: "0778765432",
+      address: "No.7 School lane, Wijerama" 
+    },
+    {
+      id: "005",
+      v_no: "PI - 1313",
+      name: "Hiran Jayashanka",
+      contact: "0712342345",
+      address: "No.2 Akbar street, Malabe" 
+    },
+    {
+      id: "006",
+      v_no: "PI - 1414",
+      name: "Nishantha Gamlath",
+      contact: "0729874567",
+      address: "No.7 School Road, Raththanapitiya" 
+    },
+    {
+      id: "007",
+      v_no: "PX - 1515",
+      name: "Pasindu Gayashan",
+      contact: "0708765421",
+      address: "No.22 Good shed road, Kohuwala" 
+    },
+    {
+      id: "008",
+      v_no: "PI - 1616",
+      name: "Gayan Anushka",
+      contact: "0770987654",
+      address: "No.22 main street, Meepe" 
+    }
+  ];
+
   const [toggle, setToggle] = useState(1);
 
   function updateToggle(id) {
@@ -34,19 +146,38 @@ function Drivers() {
   return (
     <div>
       <MainLayout data={sideNavBarLinks}>
-      <h1 className="text-[#5a5c69] pt-[25px] px-[25px] text-[28px] leading-8 font-normal cursor-pointer">Drivers and Vehicles</h1>
+        <h1 className="text-[#5a5c69] pt-[25px] px-[25px] text-[28px] leading-8 font-normal cursor-pointer">Drivers and Vehicles</h1>
 
-            {/*employees button container */}
-            <div className="flex text-center ml-32 mt-12">
 
-              {/* buttons */}
-              <div onClick={()=>updateToggle(1)} className={toggle === 1 ? "h-11 w-44 shadow-lg bg-amber-600 scale-[102%] font-semibold text-lg pt-2 cursor-pointer" : "h-11 w-44 shadow-lg bg-orange font-semibold text-lg pt-2 cursor-pointer hover:scale-[102%] hover:bg-amber-600 transition-transform ease-in-out"}>Drivers</div>
-              <div onClick={()=>updateToggle(2)} className={toggle === 2 ? "ml-1 h-11 w-44 shadow-lg bg-amber-600 scale-[102%] font-semibold text-lg pt-2 cursor-pointer" : "h-11 w-44 ml-1 shadow-lg bg-orange font-semibold text-lg pt-2 cursor-pointer hover:scale-[102%] hover:bg-amber-600 transition-transform ease-in-out"}>Vehicles</div>
-            </div>
+        {/* filter and search button */}
+        <div className="flex mt-8 ml-[57%]">
+          <div className="flex border border-slate-400 w-40 rounded-md h-8">
+            <form action=''>
+              <input type="text" placeholder='Filter here' className='overflow-auto pl-2 pt-1 w-32 bg-transparent float-left border-collapse'></input>
+              < BiFilterAlt className="text-slate-400 float-right h-5 w-5 mt-1 ml-1 hover:cursor-pointer" />
+            </form>
+          </div>
 
-            {/* support agent table */}
+          <div className="flex border border-slate-400 ml-8 w-52 rounded-md h-8">
+            <form action=''>
+              <input type="text" placeholder='Search..' className='overflow-auto pl-2 pt-1 w-44 bg-transparent float-left border-collapse'></input>
+              < AiOutlineSearch className="text-slate-400 float-right h-5 w-5 mt-1 ml-1 hover:cursor-pointer" />
+            </form>
+          </div>
+        </div>
 
-          <div className={toggle === 1 ? "details" : "details hidden"}>
+        {/*employees button container */}
+        <div className="flex text-center ml-32 mt-4">
+
+          {/* buttons */}
+          <div onClick={() => updateToggle(1)} className={toggle === 1 ? "h-11 w-44 shadow-lg bg-amber-600 scale-[102%] font-semibold text-lg pt-2 cursor-pointer" : "h-11 w-44 shadow-lg bg-orange font-semibold text-lg pt-2 cursor-pointer hover:scale-[102%] hover:bg-amber-600 transition-transform ease-in-out"}>Drivers</div>
+          <div onClick={() => updateToggle(2)} className={toggle === 2 ? "ml-1 h-11 w-44 shadow-lg bg-amber-600 scale-[102%] font-semibold text-lg pt-2 cursor-pointer" : "h-11 w-44 ml-1 shadow-lg bg-orange font-semibold text-lg pt-2 cursor-pointer hover:scale-[102%] hover:bg-amber-600 transition-transform ease-in-out"}>Vehicles</div>
+        </div>
+
+
+        {/* drivers table */}
+
+        <div className={toggle === 1 ? "details" : "details hidden"}>
 
           <div className='ml-32 mr-32 shadow-md overflow-auto '>
             <table className='w-full text-center border-separate border-spacing-y-2 border border-slate-50 '>
@@ -60,70 +191,23 @@ function Drivers() {
               </thead>
 
               <tbody className=''>
+                {dr.map((item) => (
                 <tr onClick={handleClickD} className=' bg-[#D9D9D9] bg-opacity-60 hover:cursor-pointer hover:bg-[#eaeaea] drop-shadow-md'>
-                    <td className='text-center  p-3'> 001</td>
-                    <td>Ashan Dhanushka</td>
-                    <td>No.87 main street, Piliyandala</td>
-                    <td>PI - 1111</td>
+                  <td className='text-center  p-3'>{item.id}</td>
+                  <td>{item.name}</td>
+                  <td>{item.address}</td>
+                  <td>{item.v_no}</td>
                 </tr>
-                
-                <tr onClick={handleClickD} className=' bg-[#D9D9D9] bg-opacity-60 hover:cursor-pointer hover:bg-[#eaeaea] drop-shadow-md'>
-                    <td className='text-center  p-3'> 002</td>
-                    <td>Sachintha Muthuhetti</td>
-                    <td>No.34/5 Mutuwal, Modara</td>
-                    <td>PX - 2222</td>
-                </tr>
-
-                <tr onClick={handleClickD} className=' bg-[#D9D9D9] bg-opacity-60 hover:cursor-pointer hover:bg-[#eaeaea] drop-shadow-md'>
-                    <td className='text-center  p-3'> 003</td>
-                    <td>Nifas Rizwan</td>
-                    <td>No.23/5, maley street, colombo</td>
-                    <td>PI - 3333</td>
-                </tr>
-
-                <tr onClick={handleClickD} className=' bg-[#D9D9D9] bg-opacity-60 hover:cursor-pointer hover:bg-[#eaeaea] drop-shadow-md'>
-                    <td className='text-center  p-3'> 004</td>
-                    <td>Ridma Priyanjan</td>
-                    <td>No.7 School lane, Wijerama</td>
-                    <td>PX - 4444</td>
-                </tr>
-
-                <tr onClick={handleClickD} className=' bg-[#D9D9D9] bg-opacity-60 hover:cursor-pointer hover:bg-[#eaeaea] drop-shadow-md'>
-                    <td className='text-center  p-3'> 005</td>
-                    <td>Hiran Jayashanka</td>
-                    <td>No.2 Akbar street, Malabe</td>
-                    <td>PI - 5555</td>
-                </tr>
-
-                <tr onClick={handleClickD} className=' bg-[#D9D9D9] bg-opacity-60 hover:cursor-pointer hover:bg-[#eaeaea] drop-shadow-md'>
-                    <td className='text-center  p-3'> 006</td>
-                    <td>Nishantha Gamlath</td>
-                    <td>No.7 School Road, Raththanapitiya</td>
-                    <td>PI - 6666</td>
-                </tr>
-
-                <tr onClick={handleClickD} className=' bg-[#D9D9D9] bg-opacity-60 hover:cursor-pointer hover:bg-[#eaeaea] drop-shadow-md'>
-                    <td className='text-center  p-3'> 007</td>
-                    <td>Pasindu Gayashan</td>
-                    <td>No.22 Good shed road, Kohuwala</td>
-                    <td>PX - 7777</td>
-                </tr>
-
-                <tr onClick={handleClickD} className=' bg-[#D9D9D9] bg-opacity-60 hover:cursor-pointer hover:bg-[#eaeaea] drop-shadow-md'>
-                    <td className='text-center  p-3'> 008</td>
-                    <td>Gayan Anushka</td>
-                    <td>No.22 main street, Meepe</td>
-                    <td>PI - 8888</td>
-                </tr>
+                ))}
               </tbody>
 
             </table>
           </div>
-          </div>
+        </div>
 
-          {/* vehicle coordiator table */}
+        {/* vehicle coordiator table */}
 
-          <div className={toggle === 2 ? "details" : "details hidden"}>
+        <div className={toggle === 2 ? "details" : "details hidden"}>
 
           <div className='details ml-32 mr-32 shadow-md overflow-auto '>
             <table className='w-full text-center border-separate border-spacing-y-2 border border-slate-50 '>
@@ -133,79 +217,25 @@ function Drivers() {
                   <th className='px-3.5 w-30'>License Plate</th>
                   <th className='px-3.5 w-30'>Driver's Name</th>
                   <th className='px-3.5 w-30'>Contact</th>
-                  <th className='px-3.5 w-30'>Start Location</th>  
+                  <th className='px-3.5 w-30'>Start Location</th>
                 </tr>
               </thead>
 
               <tbody className=''>
+                {vh.map((item) => (
                 <tr onClick={handleClickV} className=' bg-[#D9D9D9] bg-opacity-60 hover:cursor-pointer hover:bg-[#eaeaea] drop-shadow-md'>
-                    <td className='text-center  p-3'> 009</td>
-                    <td>PX - 9999</td>
-                    <td>Ashan Dhanushka</td>
-                    <td>0711234567</td>
-                    <td>No.87 main street, Piliyandala</td>
+                  <td className='text-center  p-3'>{item.id}</td>
+                  <td>{item.v_no}</td>
+                  <td>{item.name}</td>
+                  <td>{item.contact}</td>
+                  <td>{item.address}</td>
                 </tr>
-                
-                <tr onClick={handleClickV} className=' bg-[#D9D9D9] bg-opacity-60 hover:cursor-pointer hover:bg-[#eaeaea] drop-shadow-md'>
-                    <td className='text-center  p-3'> 010</td>
-                    <td>PI - 1010</td>
-                    <td>Sachintha Muthuhetti</td>
-                    <td>0757676763</td>
-                    <td>No.34/5 Mutuwal, Modara</td>
-                </tr>
-
-                <tr onClick={handleClickV} className=' bg-[#D9D9D9] bg-opacity-60 hover:cursor-pointer hover:bg-[#eaeaea] drop-shadow-md'>
-                    <td className='text-center  p-3'> 011</td>
-                    <td>PX - 1111</td>
-                    <td>Nifas Rizwan</td>
-                    <td>0710912873</td>
-                    <td>No.23/5, maley street, colombo</td>
-                </tr>
-
-                <tr onClick={handleClickV} className=' bg-[#D9D9D9] bg-opacity-60 hover:cursor-pointer hover:bg-[#eaeaea] drop-shadow-md'>
-                    <td className='text-center  p-3'> 012</td>
-                    <td>PX - 1212</td>
-                    <td>Ridma Priyanjan</td>
-                    <td>0778765432</td>
-                    <td>No.7 School lane, Wijerama</td>
-                </tr>
-
-                <tr onClick={handleClickV} className=' bg-[#D9D9D9] bg-opacity-60 hover:cursor-pointer hover:bg-[#eaeaea] drop-shadow-md'>
-                    <td className='text-center  p-3'> 013</td>
-                    <td>PI - 1313</td>
-                    <td>Hiran Jayashanka</td>
-                    <td>0712342345</td>
-                    <td>No.2 Akbar street, Malabe</td>
-                </tr>
-
-                <tr onClick={handleClickV} className=' bg-[#D9D9D9] bg-opacity-60 hover:cursor-pointer hover:bg-[#eaeaea] drop-shadow-md'>
-                    <td className='text-center  p-3'> 014</td>
-                    <td>PI - 1414</td>
-                    <td>Nishantha Gamlath</td>
-                    <td>0729874567</td>
-                    <td>No.7 School Road, Raththanapitiya</td>
-                </tr>
-
-                <tr onClick={handleClickV} className=' bg-[#D9D9D9] bg-opacity-60 hover:cursor-pointer hover:bg-[#eaeaea] drop-shadow-md'>
-                    <td className='text-center  p-3'> 015</td>
-                    <td>PX - 1515</td>
-                    <td>Pasindu Gayashan</td>
-                    <td>0708765421</td>
-                    <td>No.22 Good shed road, Kohuwala</td>
-                </tr>
-
-                <tr onClick={handleClickV} className=' bg-[#D9D9D9] bg-opacity-60 hover:cursor-pointer hover:bg-[#eaeaea] drop-shadow-md'>
-                    <td className='text-center  p-3'> 016</td>
-                    <td>PI - 1616</td>
-                    <td>Gayan Anushka</td>
-                    <td>0770987654</td>
-                    <td>No.22 main street, Meepe</td>
-                </tr>
+                ))}
               </tbody>
 
             </table>
           </div>
-          </div>
+        </div>
       </MainLayout>
     </div>
   );
