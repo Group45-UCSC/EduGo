@@ -9,8 +9,8 @@ function FormInput(props) {
   };
 
   const inputStyle = {
-    padding: "15px",
-    margin: "10px 0",
+    padding: "8px",
+    margin: "8px 0",
     borderRadius: "5px",
     border: "1px solid gray",
     borderColor: focused && inputProps.value === "" ? "red" : "gray", // Apply red border if input is invalid and focused
@@ -25,7 +25,7 @@ function FormInput(props) {
 
   return (
     <div>
-      <div className="flex flex-col w-280">
+      <div className="flex flex-col w-[550px] h-[100px]">
         <label className="text-gray-500 text-xs">{label}</label>
         <input 
           style={inputStyle}

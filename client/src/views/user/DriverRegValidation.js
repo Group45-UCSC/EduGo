@@ -28,9 +28,7 @@ function LoginValidation(values) {
   }
 
   if (values.nic === "") {
-    error.nic = "* NIC Number should not be empty";
-  } else if (!nicPattern.test(values.nic)) {
-    error.nic = " * Nic should be valid";
+    error.nic = "* License Number should not be empty";
   }
   //else if (!nicPattern.test(values.nic)) {
   //   //pattern correct

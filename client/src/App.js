@@ -26,6 +26,7 @@ import Deposits from "./views/driver/Deposits";
 
 import ParentDashboardPg from "./views/parent/Parent"; //
 import ParentChildren from "./views/parent/Children";
+import AddChild from "./views/parent/AddChild";
 import ViewChildLocation from "./views/parent/ViewChildLocation";
 import AddSchoolRide from "./views/parent/AddSchoolRide";
 import ViewVehicle from "./views/parent/ViewVehicle";
@@ -114,6 +115,7 @@ function App() {
 
           <Route exact path="/parent/dashboard" element={<ParentDashboardPg />} />
           <Route exact path="/parent/children" element={<ParentChildren />} />
+          <Route exact path="/parent/children/addchild" element={<AddChild />} />
           <Route exact path="/parent/children/childrendetails/:id" element={<ChildrenDetails />} />
           <Route exact path="parent/children/addnewride/viewvehicle/:id" element={<ViewVehicle />} />
           <Route exact path="/parent/children/childlocation/:id" element={<ViewChildLocation />} />
