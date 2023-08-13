@@ -7,6 +7,7 @@ function ApproveOrRemove({visible, onClose}) {
         window.location.href = `/vc/ccrequest`;
       };
 
+      // to show the window
     if (!visible) return null;
      return (
     <div className="fixed inset-0 bg-black bg-opacity-90 backdrop-blur-sm">
