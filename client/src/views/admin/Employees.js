@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import MainLayout from "../../components/layout/MainLayout";
 import { BsPlusCircleFill } from "react-icons/bs";
+import { AiOutlineSearch } from "react-icons/ai";
+import { BiFilterAlt } from "react-icons/bi";
 import { BsPencilFill } from "react-icons/bs";
 import { BsTrashFill } from "react-icons/bs";
 import { AiFillDashboard } from "react-icons/ai";
@@ -37,6 +39,123 @@ function Employees() {
     window.location.href = `/admin/VCoordinator`;
   };
 
+  const support = [
+    {
+      id: "001",
+      name: "Ashan Dhanushka",
+      email: "ashan@gmail.com",
+      address: "No.87 main street, Piliyandala",
+      contact: "0711234567"
+    },
+    {
+      id: "002",
+      name: "Sachintha Muthuhetti",
+      email: "sachintha@gmail.com",
+      address: "No.34/5 Mutuwal, Modara",
+      contact: "0757676763"
+    },
+    {
+      id: "003",
+      name: "Nifas Rizwan",
+      email: "nifas@gmail.com",
+      address: "No.23/5, maley street, colombo",
+      contact: "0710912873"
+    },
+    {
+      id: "004",
+      name: "Ridma Priyanjan",
+      email: "ridma@gmail.com",
+      address: "No.7 School lane, Wijerama",
+      contact: "0778765432"
+    },
+    {
+      id: "005",
+      name: "Hiran Jayashanka",
+      email: "hiran@gmail.com",
+      address: "No.2 Akbar street, Malabe",
+      contact: "0712342345"
+    },
+    {
+      id: "006",
+      name: "Nishantha Gamlath",
+      email: "nishantha@gmail.com",
+      address: "No.7 School Road, Raththanapitiya",
+      contact: "0729874567"
+    },
+    {
+      id: "007",
+      name: "Pasindu Gayashan",
+      email: "pasindu@gmail.com",
+      address: "No.22 Good shed road, Kohuwala",
+      contact: "0708765421"
+    },
+    {
+      id: "008",
+      name: "Gayan Anushka",
+      email: "gayan@gmail.com",
+      address: "No.22 main street, Meepe",
+      contact: "0770987654"
+    }
+  ];
+
+  const coordinator = [
+    {
+      id: "009",
+      name: "Ashan Dhanushka",
+      email: "ashan@gmail.com",
+      address: "No.87 main street, Piliyandala",
+      contact: "0711234567"
+    },
+    {
+      id: "010",
+      name: "Sachintha Muthuhetti",
+      email: "sachintha@gmail.com",
+      address: "No.34/5 Mutuwal, Modara",
+      contact: "0757676763"
+    },
+    {
+      id: "011",
+      name: "Nifas Rizwan",
+      email: "nifas@gmail.com",
+      address: "No.23/5, maley street, colombo",
+      contact: "0710912873"
+    },
+    {
+      id: "012",
+      name: "Ridma Priyanjan",
+      email: "ridma@gmail.com",
+      address: "No.7 School lane, Wijerama",
+      contact: "0778765432"
+    },
+    {
+      id: "013",
+      name: "Hiran Jayashanka",
+      email: "hiran@gmail.com",
+      address: "No.2 Akbar street, Malabe",
+      contact: "0712342345"
+    },
+    {
+      id: "014",
+      name: "Nishantha Gamlath",
+      email: "nishantha@gmail.com",
+      address: "No.7 School Road, Raththanapitiya",
+      contact: "0729874567"
+    },
+    {
+      id: "015",
+      name: "Pasindu Gayashan",
+      email: "pasindu@gmail.com",
+      address: "No.22 Good shed road, Kohuwala",
+      contact: "0708765421"
+    },
+    {
+      id: "016",
+      name: "Gayan Anushka",
+      email: "gayan@gmail.com",
+      address: "No.22 main street, Meepe",
+      contact: "0770987654"
+    }
+  ];
 
   return (
     <div>
@@ -56,8 +175,25 @@ function Employees() {
           </div>
         </div>
 
+        {/* filter and search button */}
+        <div className="flex mt-16 ml-[40%]">
+          <div className="flex border border-slate-400 w-40 rounded-md h-8">
+            <form action=''>
+              <input type="text" placeholder='Filter here' className='overflow-auto pl-2 pt-1 w-32 bg-transparent float-left border-collapse'></input>
+              < BiFilterAlt className="text-slate-400 float-right h-5 w-5 mt-1 ml-1 hover:cursor-pointer" />
+            </form>
+          </div>
+
+          <div className="flex border border-slate-400 ml-8 w-52 rounded-md h-8">
+            <form action=''>
+              <input type="text" placeholder='Search..' className='overflow-auto pl-2 pt-1 w-44 bg-transparent float-left border-collapse'></input>
+              < AiOutlineSearch className="text-slate-400 float-right h-5 w-5 mt-1 ml-1 hover:cursor-pointer" />
+            </form>
+          </div>
+        </div>
+
         {/*employees button container */}
-        <div className="flex text-center ml-32 mt-24">
+        <div className="flex text-center ml-32 mt-4">
           {/* buttons */}
           <div
             onClick={() => updateToggle(1)}
@@ -98,15 +234,16 @@ function Employees() {
               </thead>
 
               <tbody className="">
+              {support.map((item) => (
                 <tr
                   onClick={handleClick}
                   className=" bg-[#D9D9D9] bg-opacity-60 hover:cursor-pointer hover:bg-[#eaeaea] drop-shadow-md"
                 >
-                  <td className="text-center  p-3"> 001</td>
-                  <td>Ashan Dhanushka</td>
-                  <td>ashan@gmail.com</td>
-                  <td>No.87 main street, Piliyandala</td>
-                  <td>0711234567</td>
+                  <td className="text-center  p-3">{item.id}</td>
+                  <td>{item.name}</td>
+                  <td>{item.email}</td>
+                  <td>{item.address}</td>
+                  <td>{item.contact}</td>
                   <td>
                     <div className="flex ml-2 h-8 w-20 bg-orange rounded-md shadow-md">
                       <BsPencilFill className="mt-2 ml-4 hover:scale-[110%] transition-transform ease-in-out" />
@@ -114,125 +251,7 @@ function Employees() {
                     </div>
                   </td>
                 </tr>
-
-                <tr
-                  onClick={handleClick}
-                  className=" bg-[#D9D9D9] bg-opacity-60 hover:cursor-pointer hover:bg-[#eaeaea] drop-shadow-md"
-                >
-                  <td className="text-center  p-3"> 002</td>
-                  <td>Sachintha Muthuhetti</td>
-                  <td>sachintha@gmail.com</td>
-                  <td>No.34/5 Mutuwal, Modara</td>
-                  <td>0757676763</td>
-                  <td>
-                    <div className="flex ml-2 h-8 w-20 bg-orange rounded-md shadow-md">
-                      <BsPencilFill className="mt-2 ml-4 hover:scale-[110%] transition-transform ease-in-out" />
-                      <BsTrashFill className="mt-2 ml-4 hover:scale-[110%] transition-transform ease-in-out" />
-                    </div>
-                  </td>
-                </tr>
-
-                <tr
-                  onClick={handleClick}
-                  className=" bg-[#D9D9D9] bg-opacity-60 hover:cursor-pointer hover:bg-[#eaeaea] drop-shadow-md"
-                >
-                  <td className="text-center  p-3"> 003</td>
-                  <td>Nifas Rizwan</td>
-                  <td>nifas@gmail.com</td>
-                  <td>No.23/5, maley street, colombo</td>
-                  <td>0710912873</td>
-                  <td>
-                    <div className="flex ml-2 h-8 w-20 bg-orange rounded-md shadow-md">
-                      <BsPencilFill className="mt-2 ml-4 hover:scale-[110%] transition-transform ease-in-out" />
-                      <BsTrashFill className="mt-2 ml-4 hover:scale-[110%] transition-transform ease-in-out" />
-                    </div>
-                  </td>
-                </tr>
-
-                <tr
-                  onClick={handleClick}
-                  className=" bg-[#D9D9D9] bg-opacity-60 hover:cursor-pointer hover:bg-[#eaeaea] drop-shadow-md"
-                >
-                  <td className="text-center  p-3"> 004</td>
-                  <td>Ridma Priyanjan</td>
-                  <td>ridma@gmail.com</td>
-                  <td>No.7 School lane, Wijerama</td>
-                  <td>0778765432</td>
-                  <td>
-                    <div className="flex ml-2 h-8 w-20 bg-orange rounded-md shadow-md">
-                      <BsPencilFill className="mt-2 ml-4 hover:scale-[110%] transition-transform ease-in-out" />
-                      <BsTrashFill className="mt-2 ml-4 hover:scale-[110%] transition-transform ease-in-out" />
-                    </div>
-                  </td>
-                </tr>
-
-                <tr
-                  onClick={handleClick}
-                  className=" bg-[#D9D9D9] bg-opacity-60 hover:cursor-pointer hover:bg-[#eaeaea] drop-shadow-md"
-                >
-                  <td className="text-center  p-3"> 005</td>
-                  <td>Hiran Jayashanka</td>
-                  <td>hiran@gmail.com</td>
-                  <td>No.2 Akbar street, Malabe</td>
-                  <td>0712342345</td>
-                  <td>
-                    <div className="flex ml-2 h-8 w-20 bg-orange rounded-md shadow-md">
-                      <BsPencilFill className="mt-2 ml-4 hover:scale-[110%] transition-transform ease-in-out" />
-                      <BsTrashFill className="mt-2 ml-4 hover:scale-[110%] transition-transform ease-in-out" />
-                    </div>
-                  </td>
-                </tr>
-
-                <tr
-                  onClick={handleClick}
-                  className=" bg-[#D9D9D9] bg-opacity-60 hover:cursor-pointer hover:bg-[#eaeaea] drop-shadow-md"
-                >
-                  <td className="text-center  p-3"> 006</td>
-                  <td>Nishantha Gamlath</td>
-                  <td>nishantha@gmail.com</td>
-                  <td>No.7 School Road, Raththanapitiya</td>
-                  <td>0729874567</td>
-                  <td>
-                    <div className="flex ml-2 h-8 w-20 bg-orange rounded-md shadow-md">
-                      <BsPencilFill className="mt-2 ml-4 hover:scale-[110%] transition-transform ease-in-out" />
-                      <BsTrashFill className="mt-2 ml-4 hover:scale-[110%] transition-transform ease-in-out" />
-                    </div>
-                  </td>
-                </tr>
-
-                <tr
-                  onClick={handleClick}
-                  className=" bg-[#D9D9D9] bg-opacity-60 hover:cursor-pointer hover:bg-[#eaeaea] drop-shadow-md"
-                >
-                  <td className="text-center  p-3"> 007</td>
-                  <td>Pasindu Gayashan</td>
-                  <td>pasindu@gmail.com</td>
-                  <td>No.22 Good shed road, Kohuwala</td>
-                  <td>0708765421</td>
-                  <td>
-                    <div className="flex ml-2 h-8 w-20 bg-orange rounded-md shadow-md">
-                      <BsPencilFill className="mt-2 ml-4 hover:scale-[110%] transition-transform ease-in-out" />
-                      <BsTrashFill className="mt-2 ml-4 hover:scale-[110%] transition-transform ease-in-out" />
-                    </div>
-                  </td>
-                </tr>
-
-                <tr
-                  onClick={handleClick}
-                  className=" bg-[#D9D9D9] bg-opacity-60 hover:cursor-pointer hover:bg-[#eaeaea] drop-shadow-md"
-                >
-                  <td className="text-center  p-3"> 008</td>
-                  <td>Gayan Anushka</td>
-                  <td>gayan@gmail.com</td>
-                  <td>No.22 main street, Meepe</td>
-                  <td>0770987654</td>
-                  <td>
-                    <div className="flex ml-2 h-8 w-20 bg-orange rounded-md shadow-md">
-                      <BsPencilFill className="mt-2 ml-4 hover:scale-[110%] transition-transform ease-in-out" />
-                      <BsTrashFill className="mt-2 ml-4 hover:scale-[110%] transition-transform ease-in-out" />
-                    </div>
-                  </td>
-                </tr>
+                ))}
               </tbody>
             </table>
           </div>
@@ -255,15 +274,16 @@ function Employees() {
               </thead>
 
               <tbody className="">
+              {coordinator.map((item) => (
                 <tr
                   onClick={handleClickVC}
                   className=" bg-[#D9D9D9] bg-opacity-60 hover:cursor-pointer hover:bg-[#eaeaea] drop-shadow-md"
                 >
-                  <td className="text-center  p-3"> 009</td>
-                  <td>Ashan Dhanushka</td>
-                  <td>ashan@gmail.com</td>
-                  <td>No.87 main street, Piliyandala</td>
-                  <td>0711234567</td>
+                  <td className="text-center  p-3">{item.id}</td>
+                  <td>{item.name}</td>
+                  <td>{item.email}</td>
+                  <td>{item.address}</td>
+                  <td>{item.contact}</td>
                   <td>
                     <div className="flex ml-2 h-8 w-20 bg-orange rounded-md shadow-md">
                       <BsPencilFill className="mt-2 ml-4 hover:scale-[110%] transition-transform ease-in-out" />
@@ -271,125 +291,7 @@ function Employees() {
                     </div>
                   </td>
                 </tr>
-
-                <tr
-                  onClick={handleClickVC}
-                  className=" bg-[#D9D9D9] bg-opacity-60 hover:cursor-pointer hover:bg-[#eaeaea] drop-shadow-md"
-                >
-                  <td className="text-center  p-3"> 010</td>
-                  <td>Sachintha Muthuhetti</td>
-                  <td>sachintha@gmail.com</td>
-                  <td>No.34/5 Mutuwal, Modara</td>
-                  <td>0757676763</td>
-                  <td>
-                    <div className="flex ml-2 h-8 w-20 bg-orange rounded-md shadow-md">
-                      <BsPencilFill className="mt-2 ml-4 hover:scale-[110%] transition-transform ease-in-out" />
-                      <BsTrashFill className="mt-2 ml-4 hover:scale-[110%] transition-transform ease-in-out" />
-                    </div>
-                  </td>
-                </tr>
-
-                <tr
-                  onClick={handleClickVC}
-                  className=" bg-[#D9D9D9] bg-opacity-60 hover:cursor-pointer hover:bg-[#eaeaea] drop-shadow-md"
-                >
-                  <td className="text-center  p-3"> 011</td>
-                  <td>Nifas Rizwan</td>
-                  <td>nifas@gmail.com</td>
-                  <td>No.23/5, maley street, colombo</td>
-                  <td>0710912873</td>
-                  <td>
-                    <div className="flex ml-2 h-8 w-20 bg-orange rounded-md shadow-md">
-                      <BsPencilFill className="mt-2 ml-4 hover:scale-[110%] transition-transform ease-in-out" />
-                      <BsTrashFill className="mt-2 ml-4 hover:scale-[110%] transition-transform ease-in-out" />
-                    </div>
-                  </td>
-                </tr>
-
-                <tr
-                  onClick={handleClickVC}
-                  className=" bg-[#D9D9D9] bg-opacity-60 hover:cursor-pointer hover:bg-[#eaeaea] drop-shadow-md"
-                >
-                  <td className="text-center  p-3"> 012</td>
-                  <td>Ridma Priyanjan</td>
-                  <td>ridma@gmail.com</td>
-                  <td>No.7 School lane, Wijerama</td>
-                  <td>0778765432</td>
-                  <td>
-                    <div className="flex ml-2 h-8 w-20 bg-orange rounded-md shadow-md">
-                      <BsPencilFill className="mt-2 ml-4 hover:scale-[110%] transition-transform ease-in-out" />
-                      <BsTrashFill className="mt-2 ml-4 hover:scale-[110%] transition-transform ease-in-out" />
-                    </div>
-                  </td>
-                </tr>
-
-                <tr
-                  onClick={handleClickVC}
-                  className=" bg-[#D9D9D9] bg-opacity-60 hover:cursor-pointer hover:bg-[#eaeaea] drop-shadow-md"
-                >
-                  <td className="text-center  p-3"> 013</td>
-                  <td>Hiran Jayashanka</td>
-                  <td>hiran@gmail.com</td>
-                  <td>No.2 Akbar street, Malabe</td>
-                  <td>0712342345</td>
-                  <td>
-                    <div className="flex ml-2 h-8 w-20 bg-orange rounded-md shadow-md">
-                      <BsPencilFill className="mt-2 ml-4 hover:scale-[110%] transition-transform ease-in-out" />
-                      <BsTrashFill className="mt-2 ml-4 hover:scale-[110%] transition-transform ease-in-out" />
-                    </div>
-                  </td>
-                </tr>
-
-                <tr
-                  onClick={handleClickVC}
-                  className=" bg-[#D9D9D9] bg-opacity-60 hover:cursor-pointer hover:bg-[#eaeaea] drop-shadow-md"
-                >
-                  <td className="text-center  p-3"> 014</td>
-                  <td>Nishantha Gamlath</td>
-                  <td>nishantha@gmail.com</td>
-                  <td>No.7 School Road, Raththanapitiya</td>
-                  <td>0729874567</td>
-                  <td>
-                    <div className="flex ml-2 h-8 w-20 bg-orange rounded-md shadow-md">
-                      <BsPencilFill className="mt-2 ml-4 hover:scale-[110%] transition-transform ease-in-out" />
-                      <BsTrashFill className="mt-2 ml-4 hover:scale-[110%] transition-transform ease-in-out" />
-                    </div>
-                  </td>
-                </tr>
-
-                <tr
-                  onClick={handleClickVC}
-                  className=" bg-[#D9D9D9] bg-opacity-60 hover:cursor-pointer hover:bg-[#eaeaea] drop-shadow-md"
-                >
-                  <td className="text-center  p-3"> 015</td>
-                  <td>Pasindu Gayashan</td>
-                  <td>pasindu@gmail.com</td>
-                  <td>No.22 Good shed road, Kohuwala</td>
-                  <td>0708765421</td>
-                  <td>
-                    <div className="flex ml-2 h-8 w-20 bg-orange rounded-md shadow-md">
-                      <BsPencilFill className="mt-2 ml-4 hover:scale-[110%] transition-transform ease-in-out" />
-                      <BsTrashFill className="mt-2 ml-4 hover:scale-[110%] transition-transform ease-in-out" />
-                    </div>
-                  </td>
-                </tr>
-
-                <tr
-                  onClick={handleClickVC}
-                  className=" bg-[#D9D9D9] bg-opacity-60 hover:cursor-pointer hover:bg-[#eaeaea] drop-shadow-md"
-                >
-                  <td className="text-center  p-3"> 016</td>
-                  <td>Gayan Anushka</td>
-                  <td>gayan@gmail.com</td>
-                  <td>No.22 main street, Meepe</td>
-                  <td>0770987654</td>
-                  <td>
-                    <div className="flex ml-2 h-8 w-20 bg-orange rounded-md shadow-md">
-                      <BsPencilFill className="mt-2 ml-4 hover:scale-[110%] transition-transform ease-in-out" />
-                      <BsTrashFill className="mt-2 ml-4 hover:scale-[110%] transition-transform ease-in-out" />
-                    </div>
-                  </td>
-                </tr>
+                ))}
               </tbody>
             </table>
           </div>
