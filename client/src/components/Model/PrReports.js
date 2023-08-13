@@ -2,7 +2,6 @@ import { FaMarker } from "react-icons/fa";
 import AorR from "./AorR";
 import React,{useState} from "react";
 
-
 function PrReports({visible, onClose}) {
 
   const [showAorR, setshowAorR] = useState (false);
@@ -34,6 +33,7 @@ function PrReports({visible, onClose}) {
                         <p className=' text-red-700'> <b> Documentation and Maintenance History</b></p>
                         <p className=' text-green-700'> <b> Brakes and Steeringn</b></p>
                         <p className=' text-red-700'> <b>Transmission and Drivetrain </b></p>
+
                         <p className=' text-red-700'> <b> Electrical and Electronics </b></p>
                     </div>
                 </div>
@@ -46,6 +46,7 @@ function PrReports({visible, onClose}) {
             
     </div>
     <AorR onClose={handleOnClose} visible={showAorR}/>
+
     </div>
     </div>
   )

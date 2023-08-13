@@ -13,6 +13,7 @@ function VCmodal({visible, onClose}) {
     // calender
     const [isCalendarVisible, setCalendarVisibility] = useState(false); // Calendar initially invisible
 
+
     const handleToggle = () => {
     setCalendarVisibility(!isCalendarVisible); // Toggle calendar visibility
     }
@@ -98,6 +99,7 @@ function VCmodal({visible, onClose}) {
                     {/* switchone */}
                     <div className="grid grid-cols-3 gap-[10px] ml-3">
                         <h1> <b>Pass</b></h1>
+
                         <label for="check" class="-ml-20 w-20 h-10 rounded-full relative bg-gradient-to-b from-amber-500 to-amber-300  shadow-md hover:shadow-lg cursor-pointer ">
                             <input type="checkbox" id="check" class="sr-only peer"  checked={isCalendarVisible} onChange={handleToggle}></input>
                             <span className="w-2/5 h-4/5 bg-green-800 absolute rounded-full transform transition-transform duration-700 ease-in-out m-1 peer-checked:bg-red-700 peer-checked:left-10 "></span>
@@ -105,6 +107,7 @@ function VCmodal({visible, onClose}) {
                         <h1 className="-ml-28"><b>Fail</b></h1>
                          {/* Render the calendar field only if isCalendarVisible is true */}
                          {isCalendarVisible &&  <input type="date" className="ml-2"/>}
+
                     </div>
 
                     {/* switchtwo */}
