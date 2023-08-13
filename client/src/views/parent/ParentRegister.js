@@ -50,19 +50,18 @@ function ParentRegister() {
         if (response.status === 401) {
           toast.error("User Already Exists!");
         } else if (response.status === 200) {
-          // swal("Registration Successfull!", "", "success").then(() => {
-          //   navigate("/login");
-          // });
           swal({
             title: "Successfully Registered!",
             text: "You can now log in with your new account.",
             icon: "success",
             buttons: {
               confirm: {
-                className: "bg-orange text-white px-10 py-2 rounded-lg items-center hover:bg-gray ",
+                className:
+                  "bg-orange text-white px-10 py-2 rounded-lg items-center hover:bg-gray ",
               },
             },
           }).then(() => {
+            console.log(response);
             navigate("/login");
           });
         } else {
