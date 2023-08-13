@@ -197,23 +197,39 @@ function AdminCondition() {
                 </div>
               </div>
               <button className="h-12 w-60 ml-[40%] mt-8 font-semibold bg-gradient-to-b from-amber-500 to-amber-300  rounded-lg shadow-md hover:shadow-lg transform hover:scale-[102%] trasition duration-300 ease-out  hover:cursor-pointer">
-                    Next date - 2023/08/26
+                    Next date - 2023/04/26
                 </button>
 
                 {/* feedbacks */}
                 <div className="mt-4 ml-[10%] pl-8 pt-4 pb-3 mb-8 bg-[#F4F4F4] w-[900px]  rounded-lg shadow-md drop-shadow-md">
-            <h1 className="font-bold pt-1 text-[19px]">Previous feedbacks</h1>
+            <h1 className="font-bold pt-1 text-[19px]">Previous Reports</h1>
 
-            <div className="mt-4">
-            <p>Date : 2023/03/26</p>
-            <p>Coordinator : Hasantha Gallage</p>
-                <input type="text" placeholder="Comment on the vehicle condition here..." className="w-[850px] h-[100px] pl-6 pt-1 pb-2 mb-3 rounded-lg shadow-md drop-shadow-md"></input>
-            </div>
-            <div className="mt-4">
-            <p>Date : 2022/09/26</p>
-            <p>Coordinator : Hasantha Gallage</p>
-                <input type="text" placeholder="Comment on the vehicle condition here..." className="w-[850px] h-[100px] pl-6 pt-1 pb-2 mb-3 rounded-lg shadow-md drop-shadow-md"></input>
-            </div>
+            <div className="mt-4 ml-8 pl-8 pt-4 pb-3 mb-8 bg-[rgb(244,244,244)] w-[750px]  rounded-lg shadow-md drop-shadow-md">
+            <div className='grid grid-cols-2 gap-[0px]'>
+            <h1 className="font-bold p-1 text-[16px]">Checked Date:: 2023/03/26</h1>
+            <h1 className="font-bold p-1 text-[16px]">Coordinator:: Mr.Manjula Prabath</h1>
+            <h1 className="font-bold p-1 text-[16px]">Date for Completion:: 2023/04/26</h1>
+            <h1 className="font-bold p-1 text-[16px]">Status:: Failed</h1>  
+          </div>
+          <form className="">
+                <div className=" mb-3">
+                    <h1 className="font-bold p-1 mt-4 text-[16px] text-slate-800">Evaluation report</h1>
+                    <div className="ml-4">
+                        <p className=' text-green-700'><b> Exterior Condition</b> </p>
+                        <p className=' text-red-700'> <b>Interior Condition</b></p>
+                        <p className=' text-green-700'><b> Mechanical Condition</b></p>
+                        <p className=' text-green-700'><b> Undercarriage and Suspension </b> </p>
+                        <p className=' text-red-700'> <b> Documentation and Maintenance History</b></p>
+                        <p className=' text-green-700'> <b> Brakes and Steeringn</b></p>
+                        <p className=' text-red-700'> <b>Transmission and Drivetrain </b></p>
+                        <p className=' text-green-700'> <b> Electrical and Electronics </b></p>
+                    </div>
+                </div>
+                    <input type="text" placeholder="Comment on the vehicle condition here..." className="w-[620px] h-[100px] pl-6 pt-1 pb-2 mb-3 rounded-lg shadow-md drop-shadow-md"></input> 
+            </form>
+          </div>
+
+          
             </div>
             </div>
           </div>
