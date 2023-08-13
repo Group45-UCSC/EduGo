@@ -11,7 +11,7 @@ const router = express.Router();
 //import functions
 // const { register, login, verify, is_verify } = require("../controllers/user/userController");
 
-const { register, login, isAuth } = require("../controllers/user/userController");
+const { parentRegister, driverRegister, login, isAuth } = require("../controllers/user/userController");
 
 //create routes
 // router.route("/register").post(authenticate, register);
@@ -19,7 +19,8 @@ const { register, login, isAuth } = require("../controllers/user/userController"
 // router.route("/verify").get(Authorize, verify);
 // router.route("/is_verify").get(Authorize, is_verify);
 
-router.route("/register").post(register);
+router.route("/parent/register").post(parentRegister);
+router.route("/driver/register").post(driverRegister);
 router.route("/login").post(login);
 router.route("/isAuth").get(isAuth);
 
