@@ -45,10 +45,28 @@ function Login() {
           toast.error("User Not Found!");
         } else if (response.status === 402) {
           toast.error("Incorrect Password!");
+        } else if (response.ok) {
+          const responseBody = await response.json();
+          const userRole = responseBody.role;
+          const userName = responseBody.userName;
+
+          localStorage.setItem('userName', userName);
+
+          if (userRole === "driver") {
+            navigate("/driver/landing");
+          } else if (userRole === "parent") {
+            navigate("/parent/dashboard");
+          } else if (userRole === "admin") {
+            navigate("/admin/dashboard");
+          } else if (userRole === "vc") {
+            navigate("/vc/dashboard");
+          } else if (userRole === "supAgent") {
+            navigate("/sup_agent/dashboard");
+          }
         } else {
           //if(res.data.Login)
           console.log(response);
-          navigate("/driver/landing");
+          navigate("/driver/login");
         }
       } catch (err) {
         console.error(err.message);
@@ -127,27 +145,29 @@ function Login() {
           </form>
         </div>
       </div>
-      <br></br>
-      <NavLink to="/">Register</NavLink> <br></br>
-      <NavLink to="/driver/dashboard">
-        click me to go Driver landing page
-      </NavLink>
-      <br />
-      <NavLink to="/parent/dashboard">
-        click me to go Parent landing page
-      </NavLink>
-      <br />
-      <NavLink to="/admin/dashboard">click me to go Admin landing page</NavLink>
-      <br />
-      <NavLink to="/sup_agent/dashboard">
-        click me to go Support Agent landing page
-      </NavLink>
-      <br />
-      <NavLink to="/vc/dashboard">
-        click me to go Vehicle Coordinator landing page
-      </NavLink>
     </div>
   );
 }
 
 export default Login;
+{
+  /* <br></br>
+<NavLink to="/">Register</NavLink> <br></br>
+<NavLink to="/driver/dashboard">
+  click me to go Driver landing page
+</NavLink>
+<br />
+<NavLink to="/parent/dashboard">
+  click me to go Parent landing page
+</NavLink>
+<br />
+<NavLink to="/admin/dashboard">click me to go Admin landing page</NavLink>
+<br />
+<NavLink to="/sup_agent/dashboard">
+  click me to go Support Agent landing page
+</NavLink>
+<br />
+<NavLink to="/vc/dashboard">
+  click me to go Vehicle Coordinator landing page
+</NavLink> */
+}

@@ -23,6 +23,7 @@ const sideNavBarLinks = [
 
 function DriverLanding() {
   const navigate = useNavigate();
+  const userName = localStorage.getItem("userName");
 
   const [values, setValues] = useState({
     name: "",
@@ -183,7 +184,8 @@ function DriverLanding() {
               >
                 Cancel
               </button>
-              <button type="submit"
+              <button
+                type="submit"
                 onClick={() => {
                   setModalOpen1(false);
                 }}
@@ -213,7 +215,7 @@ function DriverLanding() {
             {/* text section */}
             <div className="w-full h-3/5 p-10 text-center">
               <h1 className="text-orange text-4xl mb-3 leading-15 ">
-                Welcome to the Edugo!{" "}
+                Hello {userName} , Welcome to the Edugo!{" "}
               </h1>
               <br></br>
               <div className="text-[#5a5c69] text-2xl mt-4">
