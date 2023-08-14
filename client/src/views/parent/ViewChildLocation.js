@@ -1,7 +1,6 @@
 import React from "react";
 import MainLayout from "../../components/layout/MainLayout";
 import user from "../../images/user.png";
-import parentMap from "../../images/parentMap.png";
 import { NavLink } from "react-router-dom";
 import { AiFillDashboard } from "react-icons/ai";
 import { FaChild, FaEye } from "react-icons/fa";
@@ -11,7 +10,11 @@ import {
   MdOutlineRateReview,
 } from "react-icons/md";
 import { useLocation } from "react-router-dom";
-function ViewChildLocation() {
+import { Map, GoogleApiWrapper, Marker } from 'google-maps-react'; // Import the Google Maps components
+
+
+
+function ViewChildLocation(props) {
   const location = useLocation();
   const dataParam = new URLSearchParams(location.search).get("data");
   const child = JSON.parse(decodeURIComponent(dataParam));
@@ -125,12 +128,18 @@ function ViewChildLocation() {
                     Ongoing Location
                   </h2>
                 </div>
-                <div className="w-full">
-                  <img
-                    src={parentMap}
-                    alt="map"
-                    className=" h-[350px] w-full px-3"
-                  ></img>
+                <div className="w-full" style={{ position: 'relative', left: '40px' }}>
+                  <Map
+                    google={props.google}
+                    zoom={14}
+                    style={{ height: '350px', width: '650px' }}
+                    initialCenter={{
+                      lat: 6.90549305919495, 
+                      lng: 79.8609119508812,
+                    }}
+                  >
+                    <Marker position={{ lat: 37.7749, lng: -122.4194 }} />
+                  </Map>
                 </div>
               </div>
               <div className="w-1/3 px-3 bg-slate-200 rounded-md">
@@ -175,4 +184,6 @@ function ViewChildLocation() {
   );
 }
 
-export default ViewChildLocation;
+export default GoogleApiWrapper({
+  apiKey: 'AIzaSyBSRpk2O7ZkVtqQknrlERKR-DwpiRi8Z_U',
+})(ViewChildLocation);
