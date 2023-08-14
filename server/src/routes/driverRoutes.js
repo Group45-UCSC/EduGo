@@ -3,9 +3,9 @@ const express = require("express");
 const router = express.Router();
 
 //import functions
-const { viewRide } = require("../controllers/driver/rideController");
+const { hasRide } = require("../controllers/driver/driverController");
 
 //create routes
-router.route("/rideDetails/:id").get(viewRide);
+router.route("/dashboard/hasride/:userId").get(hasRide);
 
 module.exports = router;
