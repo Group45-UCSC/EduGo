@@ -118,7 +118,7 @@ function ViewChildLocation() {
             </div>
 
             {/* Location View */}
-            <div className="flex justify-center mt-5 border gap-3">
+            <div className="flex justify-center mt-5  gap-3">
               <div className=" w-2/3 h-[434px] border border-orange shadow-lg cursor-pointer rounded-[4px]">
                 <div className="bg-white flex items-center justify-between py-[15px] px-[20px] border-b-[1px] border-[#EDEDED] mb-[20px] rounded-[4px]">
                   <h2 className="text-[#4e73df] text-[16px] leading-[19px] font-bold">
@@ -133,12 +133,12 @@ function ViewChildLocation() {
                   ></img>
                 </div>
               </div>
-              <div className="border w-1/3">
-                <div className="">
-                  <div className="flex p-2">Pickup Status : <div className="p-2">{child.pickupStatus}</div></div>
-                  <div>
+              <div className="w-1/3 px-3 bg-slate-200 rounded-md">
+                <div className=" mt-5">
+                  <div className="flex"><div className="pt-2 text-lg text-slate-600">Pickup Status :</div> <div className="p-2 text-lg font-semibold text-blue-600">{child.pickupStatus}</div></div>
+                  <div className=" mt-5 flex justify-center">
                     {child.pickupStatus === "Picked up" && (
-                      <div>Picked Time : 6.50 AM</div>
+                      <div className="text-slate-600">Picked Time : 6.50 AM</div>
                     )}
                     {child.pickupStatus === "Not Yet" && (
                       <div>Estimate Pick Time : 7.00 AM</div>
@@ -149,6 +149,20 @@ function ViewChildLocation() {
                           <div className="flex mt-2 gap-3 font-semibold">Pickup Request</div>
                         </button>
                       </div>
+                    )}
+                  </div>
+                </div>
+                <div className=" mt-5">
+                  <div className="flex"><div className="pt-2 text-lg text-slate-600">Droped Status :</div> <div className="p-2 text-lg font-semibold text-blue-600">{child.pickupStatus}</div></div>
+                  <div className=" mt-5 flex justify-center">
+                    {child.pickupStatus === "Picked up" && (
+                      <div className="text-slate-600">Droped Time : 1.50 AM</div>
+                    )}
+                    {child.pickupStatus === "Not Yet" && (
+                      <div className="text-slate-600">Estimate Time : 2.10 AM</div>
+                    )}
+                    {child.pickupStatus === "Missed" && (
+                      <div className="text-slate-600">Estimate Time : 2.10 AM</div>
                     )}
                   </div>
                 </div>
