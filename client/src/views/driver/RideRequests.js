@@ -6,7 +6,17 @@ import {
   MdSupportAgent,
   MdOutlineRateReview,
 } from "react-icons/md";
-import { Map, GoogleApiWrapper, Marker } from 'google-maps-react'; // Import the Google Maps components
+import { GoogleMap, useJsApiLoader } from "@react-google-maps/api"; // Import the Google Maps components
+
+const containerStyle = {
+  width: "400px",
+  height: "400px",
+};
+
+const center = {
+  lat: -3.745,
+  lng: -38.523,
+};
 
 const sideNavBarLinks = [
   { title: "Dashboard", path: "/driver/dashboard", icon: <AiFillDashboard /> },
@@ -26,9 +36,8 @@ const rideRequest = [
     location: "No 45, Darmapala road, Maharagama",
     image: require("../../images/child1.png"),
     school: "Royal Collage",
-    lat:6.851556,
-    lng:  79.919038,
-
+    lat: 6.851556,
+    lng: 79.919038,
   },
   {
     id: 2,
@@ -36,11 +45,30 @@ const rideRequest = [
     location: "No 25/1, Darmapala road, Pannipitya",
     image: require("../../images/child2.png"),
     school: "Anula Collage",
-    lat:6.847198496442547,
-    lng:  79.94801407997109,
+    lat: 6.847198496442547,
+    lng: 79.94801407997109,
   },
 ];
 function RideRequests(props) {
+  const { isLoaded } = useJsApiLoader({
+    id: "google-map-script",
+    googleMapsApiKey: "AIzaSyBSRpk2O7ZkVtqQknrlERKR-DwpiRi8Z_U",
+  });
+
+  const [map, setMap] = React.useState(null);
+
+  const onLoad = React.useCallback(function callback(map) {
+    // This is just an example of getting and using the map instance!!! don't just blindly copy!
+    const bounds = new window.google.maps.LatLngBounds(center);
+    map.fitBounds(bounds);
+
+    setMap(map);
+  }, []);
+
+  const onUnmount = React.useCallback(function callback(map) {
+    setMap(null);
+  }, []);
+
   return (
     <div>
       <MainLayout data={sideNavBarLinks}>
@@ -51,34 +79,42 @@ function RideRequests(props) {
           <div className="mt-3">
             <div className=" w-full gap-3">
               {rideRequest.map((request, id) => (
-                <div key={id} className=" h-[300px]  flex bg-slate-200 mb-3 rounded-md">
+                <div
+                  key={id}
+                  className=" h-[300px]  flex bg-slate-200 mb-3 rounded-md"
+                >
                   <div className="flex-col items-center justify-center">
                     <div className="flex justify-center py-3">
-                    <img
-                      src={request.image}
-                      alt={request.id}
-                      className="bg-slate-300 w-32 h-[120px] cursor-pointer rounded-full p-1"
-                    ></img></div>
+                      <img
+                        src={request.image}
+                        alt={request.id}
+                        className="bg-slate-300 w-32 h-[120px] cursor-pointer rounded-full p-1"
+                      ></img>
+                    </div>
                     <div className="mt-3 ml-3 px-2 text-slate-600">
                       <div className="">{request.parentName}</div>
                       <div className="">{request.location}</div>
                       <div className="">{request.school}</div>
                     </div>
                   </div>
-                  
-                  <div className="" style={{ position: 'relative', left: '120px', top:'10px' }}>
-                  <Map
-                    google={props.google}
-                    zoom={14}
-                    style={{ height: '280px', width: '600px'}}
-                    initialCenter={{
-                      lat:request.lat, 
-                      lng: request.lng,
-                    }}
+
+                  <div
+                    className=""
+                    style={{ position: "relative", left: "120px", top: "10px" }}
                   >
-                    <Marker position={{ lat:request.lat, lng:request.lng }} />
-                  </Map>
-                </div>
+                    { isLoaded && (
+                    <GoogleMap
+                      mapContainerStyle={containerStyle}
+                      center={center}
+                      zoom={10}
+                      onLoad={onLoad}
+                      onUnmount={onUnmount}
+                    >
+                      {/* Child components, such as markers, info windows, etc. */}
+                      <></>
+                    </GoogleMap>
+                    )}
+                  </div>
                 </div>
               ))}
             </div>
@@ -89,6 +125,5 @@ function RideRequests(props) {
   );
 }
 
-export default GoogleApiWrapper({
-  apiKey: 'AIzaSyBSRpk2O7ZkVtqQknrlERKR-DwpiRi8Z_U',
-})(RideRequests);
+
+export default React.memo(RideRequests)
