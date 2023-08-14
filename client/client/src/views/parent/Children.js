@@ -12,6 +12,7 @@ import { AiFillDashboard } from "react-icons/ai";
 import FormInput from "../../components/layout/FormInput";
 import { NavLink } from "react-router-dom";
 
+
 function Children() {
   const sideNavBarLinks = [
     {
@@ -28,7 +29,7 @@ function Children() {
       icon: <MdOutlineRateReview />,
     },
   ];
-
+  
   const [modalOpen, setModalOpen] = useState(false);
   // Add children model load
 
@@ -155,7 +156,7 @@ function Children() {
   }
   const childDetails = [
     {
-      id: 1,
+      id:1,
       name: "R.B.S.Udayanga ",
       schoolName: "Royal Collage",
       schoolRide: "R103",
@@ -165,10 +166,10 @@ function Children() {
       address: "No 79, Daramapala road, Pannipitya",
       schoolAddress: "Maradana Rd, Colombo 01000",
       contactnum: "0776438543",
-      image: require("../../images/child1.png"),
+      image: require("../../images/child1.png")
     },
     {
-      id: 1,
+      id:1,
       name: "R.B.S.Udayanga ",
       schoolName: "Royal Collage",
       schoolRide: "R103",
@@ -178,10 +179,10 @@ function Children() {
       address: "No 79, Daramapala road, Pannipitya",
       schoolAddress: "Maradana Rd, Colombo 01000",
       contactnum: "0776438543",
-      image: require("../../images/child1.png"),
+      image: require("../../images/child1.png")
     },
     {
-      id: 1,
+      id:1,
       name: "R.B.S.Udayanga ",
       schoolName: "Royal Collage",
       schoolRide: "R103",
@@ -191,10 +192,10 @@ function Children() {
       address: "No 79, Daramapala road, Pannipitya",
       schoolAddress: "Maradana Rd, Colombo 01000",
       contactnum: "0776438543",
-      image: require("../../images/child1.png"),
+      image: require("../../images/child1.png")
     },
     {
-      id: 2,
+      id:2,
       name: "L.L.A. Hansani",
       schoolName: "Sujatha collage",
       schoolRide: "R104",
@@ -206,7 +207,7 @@ function Children() {
       image: require("../../images/child2.png"),
     },
     {
-      id: 3,
+      id:3,
       name: "K.S.T. Gunawardhana ",
       schoolName: "Royal Collage",
       schoolRide: "R106",
@@ -218,10 +219,12 @@ function Children() {
       image: require("../../images/child3.png"),
     },
   ];
+  
 
   return (
     <div>
       <MainLayout data={sideNavBarLinks}>
+        
         <div className=" px-6">
           <h1 className="text-[#5a5c69] text-[28px] leading-8 font-normal cursor-pointer">
             Children
@@ -229,17 +232,17 @@ function Children() {
           <div className="mt-[0px] pb-[15px]">
             <div className="flex justify-end w-5/6 ml-24 mb-4">
               <NavLink to="/parent/children/addchild">
-                <button
-                  className="flex justify-center w-56 h-10 bg-orange rounded-md cursor-pointer hover:shadow-lg transform hover:scale-[103%] transition duration-300 ease-out"
-                  // onClick={() => {
-                  //   setModalOpen(true);
-                  // }}
-                >
-                  <div className="flex mt-2 gap-3 font-semibold">
-                    <MdPersonAdd className="text-[25px]" />
-                    Add New Children
-                  </div>
-                </button>
+              <button
+                className="flex justify-center w-56 h-10 bg-orange rounded-md cursor-pointer hover:shadow-lg transform hover:scale-[103%] transition duration-300 ease-out"
+                // onClick={() => {
+                //   setModalOpen(true);
+                // }}
+              >
+                <div className="flex mt-2 gap-3 font-semibold">
+                  <MdPersonAdd className="text-[25px]" />
+                  Add New Children
+                </div>
+              </button>
               </NavLink>
             </div>
             {/*-----------------------------------Child detail boxes---------------------------------*/}
@@ -356,7 +359,23 @@ function Children() {
           </div>
         </div>
 
-        {modalOpen && <Modal setOpenModal={setModalOpen} />}
+        
+        
+        <div className="">
+                <h1 className="text-[#5a5c69] text-[28px] leading-8 font-normal cursor-pointer text-center">
+                  Register
+                </h1>
+                {inputs.map((input) => (
+                  <FormInput
+                    key={input.id}
+                    {...input}
+                    value={values[input.name]}
+                    onChange={onChange}
+                  />
+                ))}
+                <FormInput></FormInput>
+              </div>
+              {modalOpen && <Modal setOpenModal={setModalOpen} />}
       </MainLayout>
     </div>
   );

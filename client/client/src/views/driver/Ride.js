@@ -27,80 +27,66 @@ const sideNavBarLinks = [
   },
 ];
 function Ride() {
-  const [activeTab, setActiveTab] = useState("shift1"); // Default active tab is "Shift 1"
-
   const childDetails = [
     {
       id: "C10005",
       name: "R.B.S.Udayanga",
       schoolName: "Royal Collage",
-      tab: 1,
     },
     {
       id: "C10009",
       name: "L.L.A. Hansani",
       schoolName: "Sujatha collage",
-      tab: 2,
     },
     {
       id: "C10011",
       name: "K.S.T. Gunawardhana ",
       schoolName: "Royal Collage",
-      tab: 1,
     },
     {
       id: "C10011",
       name: "A.W.K.S. Jayasiri ",
       schoolName: "Royal Collage",
-      tab: 2,
     },
     {
       id: "C10005",
       name: "R.B.S.Udayanga",
       schoolName: "Royal Collage",
-      tab: 1,
     },
     {
       id: "C10009",
       name: "L.L.A. Hansani",
       schoolName: "Sujatha collage",
-      tab: 2,
     },
     {
       id: "C10011",
       name: "K.S.T. Gunawardhana ",
       schoolName: "Royal Collage",
-      tab: 1,
     },
     {
       id: "C10011",
       name: "A.W.K.S. Jayasiri ",
       schoolName: "Royal Collage",
-      tab: 2,
     },
     {
       id: "C10005",
       name: "R.B.S.Udayanga",
       schoolName: "Royal Collage",
-      tab: 1,
     },
     {
       id: "C10009",
       name: "L.L.A. Hansani",
       schoolName: "Sujatha collage",
-      tab: 2,
     },
     {
       id: "C10011",
       name: "K.S.T. Gunawardhana ",
       schoolName: "Royal Collage",
-      tab: 1,
     },
     {
       id: "C10011",
       name: "A.W.K.S. Jayasiri ",
       schoolName: "Royal Collage",
-      tab: 1,
     },
   ];
 
@@ -145,7 +131,7 @@ function Ride() {
       type: "double-shifts",
       startTime1: "5.45 a.m.",
       startLocation1: "Pannipitiya",
-      startTime2: "12.45 p.m.",
+      startTime2: "12.45 9.m.",
       startLocation2: "Kirulapone",
       paymentRate: "RS. 380/KM",
       distance: "35Km",
@@ -258,24 +244,6 @@ function Ride() {
         <h1 className="text-[#5a5c69] text-[28px] mb-3 leading-8 font-normal cursor-pointer">
           Ride Details
         </h1>
-        <div>
-          <button
-            className={`mr-2 ${
-              activeTab === "shift1" ? "text-orange font-extrabold" : ""
-            }`}
-            onClick={() => setActiveTab("shift1")}
-          >
-            Shift 1
-          </button>
-          <button
-            className={`mr-2 ${
-              activeTab === "shift2" ? "text-orange font-extrabold" : ""
-            }`}
-            onClick={() => setActiveTab("shift2")}
-          >
-            Shift 2
-          </button>
-        </div>
         <div className="flex justify-end w-full mb-4">
           <NavLink to="/driver/ride/riderequests">
             <button className="flex justify-center w-56 h-10 mr-12 bg-orange rounded-md cursor-pointer hover:shadow-lg transform hover:scale-[103%] transition duration-300 ease-out">
@@ -296,21 +264,16 @@ function Ride() {
                     {rideDetails.id} <br></br>
                     <span className=" pr-24 text-[#5a5c69]">Type : </span>
                     {rideDetails.type} <br></br>
-                    {activeTab === "shift1" ? (
-                      <div>
-                        <span className="pr-8 text-[#5a5c69]">
-                          Shift 1 Starts :
-                        </span>
-                        {rideDetails.startLocation1} at {rideDetails.startTime1}
-                      </div>
-                    ) : (
-                      <div>
-                        <span className="pr-8 text-[#5a5c69]">
-                          Shift 2 Starts :
-                        </span>
-                        {rideDetails.startLocation2} at {rideDetails.startTime2}
-                      </div>
-                    )}
+                    <span className="  pr-8 text-[#5a5c69]">
+                      Shift 01 Starts :
+                    </span>
+                    {rideDetails.startLocation1} at {rideDetails.startTime1}{" "}
+                    <br></br>
+                    <span className=" pr-8 text-[#5a5c69]">
+                      Shift 02 Starts :
+                    </span>
+                    {rideDetails.startLocation2} at {rideDetails.startTime2}
+                    <br></br>
                     <span className=" pr-20 text-[#5a5c69]">PayRate:</span>{" "}
                     {rideDetails.paymentRate}
                     <br></br>
@@ -386,53 +349,46 @@ function Ride() {
               <div className=" grid gap-4 px-4">
                 <div className=" bg-slate-300 h-8 flex mt-0 justify-center">
                   <h1 className=" text-xl font-bold">
-                    Number of Childrens :{" "}
-                    {activeTab === "shift1"
-                      ? childDetails.filter((child) => child.tab === 1).length
-                      : childDetails.filter((child) => child.tab === 2).length}
+                    Number of Childrens : 12
                   </h1>
                 </div>
                 {/* children list */}
                 <div className="flex flex-col gap-4">
-                  {childDetails
-                    .filter((child) =>
-                      activeTab === "shift1" ? child.tab === 1 : child.tab === 2
-                    )
-                    .map((child, index) => (
-                      <NavLink
-                        to={`/driver/ride/childDetails/${
-                          child.id
-                        }?data=${encodeURIComponent(JSON.stringify(child))}`}
+                  {childDetails.map((child, index) => (
+                    <NavLink
+                      to={`/driver/ride/childDetails/${
+                        child.id
+                      }?data=${encodeURIComponent(JSON.stringify(child))}`}
+                    >
+                      <div
+                        key={index}
+                        className="h-[60px] border w-[100%] rounded-[8px] bg-slate-200 border-l-[4px] border-orange flex items-center justify-between px-[30px] cursor-pointer hover:shadow-lg transform hover:scale-[103%] transition duration-300 ease-out"
                       >
-                        <div
-                          key={index}
-                          className="h-[60px] border w-[100%] rounded-[8px] bg-slate-200 border-l-[4px] border-orange flex items-center justify-between px-[30px] cursor-pointer hover:shadow-lg transform hover:scale-[103%] transition duration-300 ease-out"
-                        >
-                          <div className="">
-                            <img
-                              src={user}
-                              alt="user"
-                              className="bg-slate-300 w-10 cursor-pointer rounded-full p-1"
-                            />
-                          </div>
-                          <div className=" px-5 flex gap-1 w-1/3 leading-4">
-                            <div className="text-[12px] font-semibold">
-                              {child.id}
-                            </div>
-                          </div>
-                          <div className="flex gap-1 w-1/3 leading-4">
-                            <div className="text-[12px] font-semibold">
-                              {child.name}
-                            </div>
-                          </div>
-                          <div className="flex gap-1 w-1/3 leading-4">
-                            <div className="text-[12px] font-semibold">
-                              {child.schoolName}
-                            </div>
+                        <div className="">
+                          <img
+                            src={user}
+                            alt="user"
+                            className="bg-slate-300 w-10 cursor-pointer rounded-full p-1"
+                          />
+                        </div>
+                        <div className=" px-5 flex gap-1 w-1/3 leading-4">
+                          <div className="text-[12px] font-semibold">
+                            {child.id}
                           </div>
                         </div>
-                      </NavLink>
-                    ))}
+                        <div className="flex gap-1 w-1/3 leading-4">
+                          <div className="text-[12px] font-semibold">
+                            {child.name}
+                          </div>
+                        </div>
+                        <div className="flex gap-1 w-1/3 leading-4">
+                          <div className="text-[12px] font-semibold">
+                            {child.schoolName}
+                          </div>
+                        </div>
+                      </div>
+                    </NavLink>
+                  ))}
                 </div>
                 {/* end of children list */}
               </div>

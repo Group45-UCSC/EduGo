@@ -1,6 +1,7 @@
 import React from "react";
 import MainLayout from "../../components/layout/MainLayout";
 import user from "../../images/user.png";
+import parentMap from "../../images/parentMap.png";
 import { NavLink } from "react-router-dom";
 import { AiFillDashboard } from "react-icons/ai";
 import { FaChild, FaEye } from "react-icons/fa";
@@ -10,11 +11,7 @@ import {
   MdOutlineRateReview,
 } from "react-icons/md";
 import { useLocation } from "react-router-dom";
-import { Map, GoogleApiWrapper, Marker } from 'google-maps-react'; // Import the Google Maps components
-
-
-
-function ViewChildLocation(props) {
+function ViewChildLocation() {
   const location = useLocation();
   const dataParam = new URLSearchParams(location.search).get("data");
   const child = JSON.parse(decodeURIComponent(dataParam));
@@ -121,33 +118,27 @@ function ViewChildLocation(props) {
             </div>
 
             {/* Location View */}
-            <div className="flex justify-center mt-5  gap-3">
+            <div className="flex justify-center mt-5 border gap-3">
               <div className=" w-2/3 h-[434px] border border-orange shadow-lg cursor-pointer rounded-[4px]">
                 <div className="bg-white flex items-center justify-between py-[15px] px-[20px] border-b-[1px] border-[#EDEDED] mb-[20px] rounded-[4px]">
                   <h2 className="text-[#4e73df] text-[16px] leading-[19px] font-bold">
                     Ongoing Location
                   </h2>
                 </div>
-                <div className="w-full" style={{ position: 'relative', left: '40px' }}>
-                  <Map
-                    google={props.google}
-                    zoom={14}
-                    style={{ height: '350px', width: '650px' }}
-                    initialCenter={{
-                      lat: 6.90549305919495, 
-                      lng: 79.8609119508812,
-                    }}
-                  >
-                    <Marker position={{ lat: 37.7749, lng: -122.4194 }} />
-                  </Map>
+                <div className="w-full">
+                  <img
+                    src={parentMap}
+                    alt="map"
+                    className=" h-[350px] w-full px-3"
+                  ></img>
                 </div>
               </div>
-              <div className="w-1/3 px-3 bg-slate-200 rounded-md">
-                <div className=" mt-5">
-                  <div className="flex"><div className="pt-2 text-lg text-slate-600">Pickup Status :</div> <div className="p-2 text-lg font-semibold text-blue-600">{child.pickupStatus}</div></div>
-                  <div className=" mt-5 flex justify-center">
+              <div className="border w-1/3">
+                <div className="">
+                  <div className="flex p-2">Pickup Status : <div className="p-2">{child.pickupStatus}</div></div>
+                  <div>
                     {child.pickupStatus === "Picked up" && (
-                      <div className="text-slate-600">Picked Time : 6.50 AM</div>
+                      <div>Picked Time : 6.50 AM</div>
                     )}
                     {child.pickupStatus === "Not Yet" && (
                       <div>Estimate Pick Time : 7.00 AM</div>
@@ -161,20 +152,6 @@ function ViewChildLocation(props) {
                     )}
                   </div>
                 </div>
-                <div className=" mt-5">
-                  <div className="flex"><div className="pt-2 text-lg text-slate-600">Droped Status :</div> <div className="p-2 text-lg font-semibold text-blue-600">{child.pickupStatus}</div></div>
-                  <div className=" mt-5 flex justify-center">
-                    {child.pickupStatus === "Picked up" && (
-                      <div className="text-slate-600">Droped Time : 1.50 AM</div>
-                    )}
-                    {child.pickupStatus === "Not Yet" && (
-                      <div className="text-slate-600">Estimate Time : 2.10 AM</div>
-                    )}
-                    {child.pickupStatus === "Missed" && (
-                      <div className="text-slate-600">Estimate Time : 2.10 AM</div>
-                    )}
-                  </div>
-                </div>
               </div>
             </div>
           </div>
@@ -184,6 +161,4 @@ function ViewChildLocation(props) {
   );
 }
 
-export default GoogleApiWrapper({
-  apiKey: 'AIzaSyBSRpk2O7ZkVtqQknrlERKR-DwpiRi8Z_U',
-})(ViewChildLocation);
+export default ViewChildLocation;

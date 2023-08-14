@@ -23,8 +23,6 @@ import ChildDetails from "./views/driver/ChildDetails"
 import NextRide from "./views/driver/NextRide";
 import RideRequests from "./views/driver/RideRequests";
 import Deposits from "./views/driver/Deposits";
-import AddRide from "./views/driver/AddRide";
-import AddVehicle from "./views/driver/AddVehicle";
 
 import ParentDashboardPg from "./views/parent/Parent"; //
 import ParentChildren from "./views/parent/Children";
@@ -114,8 +112,6 @@ function App() {
           <Route exact path="/driver/nextride" element={<NextRide/>} />
           <Route exact path="/driver/ride/riderequests" element={<RideRequests/>} />
           <Route exact path="/driver/finance/deposits" element={<Deposits/>} />
-          <Route exact path="/driver/vehicle/add" element={<AddVehicle/>} />
-          <Route exact path="/driver/ride/add" element={<AddRide/>} />
 
           <Route exact path="/parent/dashboard" element={<ParentDashboardPg />} />
           <Route exact path="/parent/children" element={<ParentChildren />} />

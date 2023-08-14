@@ -49,13 +49,11 @@ function Login() {
           const responseBody = await response.json();
           const userRole = responseBody.role;
           const userName = responseBody.userName;
-          const userId = responseBody.userId;
 
           localStorage.setItem("userName", userName);
-          localStorage.setItem("userId", userId);
 
           if (userRole === "driver") {
-            navigate("/driver/dashboard");
+            navigate("/driver/landing");
           } else if (userRole === "parent") {
             navigate("/parent/dashboard");
           } else if (userRole === "admin") {
