@@ -37,6 +37,7 @@ function VcProfile() {
   const handleNameChange = (event) => {
     setName(event.target.value);
   };
+  
   const handleAddressChange = (event) => {
     setAddress(event.target.value);
   };
