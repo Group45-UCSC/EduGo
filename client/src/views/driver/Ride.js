@@ -145,7 +145,7 @@ function Ride() {
       type: "double-shifts",
       startTime1: "5.45 a.m.",
       startLocation1: "Pannipitiya",
-      startTime2: "12.45 9.m.",
+      startTime2: "12.45 p.m.",
       startLocation2: "Kirulapone",
       paymentRate: "RS. 380/KM",
       distance: "35Km",
@@ -296,16 +296,21 @@ function Ride() {
                     {rideDetails.id} <br></br>
                     <span className=" pr-24 text-[#5a5c69]">Type : </span>
                     {rideDetails.type} <br></br>
-                    <span className="  pr-8 text-[#5a5c69]">
-                      Shift 01 Starts :
-                    </span>
-                    {rideDetails.startLocation1} at {rideDetails.startTime1}{" "}
-                    <br></br>
-                    <span className=" pr-8 text-[#5a5c69]">
-                      Shift 02 Starts :
-                    </span>
-                    {rideDetails.startLocation2} at {rideDetails.startTime2}
-                    <br></br>
+                    {activeTab === "shift1" ? (
+                      <div>
+                        <span className="pr-8 text-[#5a5c69]">
+                          Shift 1 Starts :
+                        </span>
+                        {rideDetails.startLocation1} at {rideDetails.startTime1}
+                      </div>
+                    ) : (
+                      <div>
+                        <span className="pr-8 text-[#5a5c69]">
+                          Shift 2 Starts :
+                        </span>
+                        {rideDetails.startLocation2} at {rideDetails.startTime2}
+                      </div>
+                    )}
                     <span className=" pr-20 text-[#5a5c69]">PayRate:</span>{" "}
                     {rideDetails.paymentRate}
                     <br></br>
