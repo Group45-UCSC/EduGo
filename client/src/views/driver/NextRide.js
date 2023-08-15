@@ -28,13 +28,18 @@ function NextRide() {
     },
     {
       id: 2,
-      name: "A.D.K. Pasindu",
+      name: "A.D.K. Sethmi",
       image: require("../../images/child2.png"),
     },
     {
       id: 3,
       name: "K.S.S. Sampath",
       image: require("../../images/child3.png"),
+    },
+    {
+      id: 4,
+      name: "S.D.P. Nimasha",
+      image: require("../../images/user.png"),
     },
   ];
 
@@ -74,7 +79,7 @@ function NextRide() {
             
               <div className=" w-1/2 h-[495px] bg-slate-200 rounded-md px-3 ">
                 <div className=" my-3 text-xl flex justify-center mt-5 mb-5 ">
-                  <h1 className=" font-semibold text-slate-600">Today availabel Children</h1>
+                  <h1 className=" font-semibold text-slate-600">Today available Children</h1>
                 </div>
                 {childName.map((child, id) => (
                 <div className="border border-orange bg-slate-100 rounded-md p-2 mb-3">
