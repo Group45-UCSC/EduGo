@@ -8,7 +8,7 @@ class PaymentPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Navbar(
       child: DefaultTabController(
-        length: 2,
+        length: 3,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
@@ -25,8 +25,9 @@ class PaymentPage extends StatelessWidget {
             SizedBox(height: 20),
             TabBar(
               tabs: [
-                Tab(text: 'Ongoing Payment'),
-                Tab(text: 'Paid Payment'),
+                Tab(text: 'Not Pay'),
+                Tab(text: 'Ongoing'),
+                Tab(text: 'Paid'),
               ],
               labelColor: Colors.black,
               unselectedLabelColor: Colors.black,
@@ -34,10 +35,38 @@ class PaymentPage extends StatelessWidget {
                 color: Colors.orange,
               ),
             ),
+            SizedBox(height: 10),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  Expanded(
+                    child: Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(30),
+                        color: Colors.grey[200],
+                      ),
+                      child: TextField(
+                        decoration: InputDecoration(
+                          hintText: 'Search',
+                          prefixIcon: Icon(Icons.search),
+                          border: InputBorder.none,
+                          contentPadding: EdgeInsets.all(16),
+                        ),
+                      ),
+                    ),
+                  ),
+                  SizedBox(width: 8),
+                  
+                ],
+              ),
+            ),
             Expanded(
               child: TabBarView(
                 children: [
-                  _buildOngoingPayTabContent(context),
+                  _buildNotPayTabContent(context),
+                  _buildOngoingPayTabContent(),
                   _buildPaidPayTabContent(),
                 ],
               ),
@@ -48,7 +77,7 @@ class PaymentPage extends StatelessWidget {
     );
   }
 
-  Widget _buildOngoingPayTabContent(BuildContext context) {
+  Widget _buildNotPayTabContent(BuildContext context) {
   return SingleChildScrollView(
     child: Container(
       width: MediaQuery.of(context).size.width,
@@ -61,16 +90,29 @@ class PaymentPage extends StatelessWidget {
           DataColumn(label: Text('Action')),
         ],
         rows: [
-            _buildDataRow(context, 'Student 1', 'September', '2500'),
-            _buildDataRow(context, 'Student 2', 'September', '3000'),
-            _buildDataRow(context, 'Student 3', 'September', '2000'),
-            _buildDataRow(context, 'Student 4', 'September', '2500'),
-            _buildDataRow(context, 'Student 5', 'September', '3000'),
+            _buildDataRow(context, 'Child 3', 'September', '2500'),
           ],
       ),
     ),
   );
 }
+
+Widget _buildOngoingPayTabContent() {
+  return SingleChildScrollView(
+      child: DataTable(
+        columns: const <DataColumn>[
+          DataColumn(label: Text('Children')),
+          DataColumn(label: Text('Month')),
+          DataColumn(label: Text('Payment')),
+        ],
+        rows: [
+          _buildDataRowForPaid('Child 1', 'September', '2500'),
+          _buildDataRowForPaid('Child 2', 'September', '3000'),
+        ],
+      ),
+  );
+}
+
 
 Widget _buildPaidPayTabContent() {
   return Center(
