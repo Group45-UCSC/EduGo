@@ -6,16 +6,16 @@ import {
   MdSupportAgent,
   MdOutlineRateReview,
 } from "react-icons/md";
-import { GoogleMap, useJsApiLoader } from "@react-google-maps/api"; // Import the Google Maps components
+import { GoogleMap, useJsApiLoader, Marker } from "@react-google-maps/api"; // Import the Google Maps components
 
 const containerStyle = {
-  width: "400px",
-  height: "400px",
+  width: "600px",
+  height: "280px",
 };
 
 const center = {
-  lat: -3.745,
-  lng: -38.523,
+  lat: 6.872718728491422,
+  lng:  79.88336081994609,
 };
 
 const sideNavBarLinks = [
@@ -100,17 +100,18 @@ function RideRequests(props) {
 
                   <div
                     className=""
-                    style={{ position: "relative", left: "120px", top: "10px" }}
+                    style={{ position: "relative", left: "160px", top: "10px" }}
                   >
                     { isLoaded && (
                     <GoogleMap
                       mapContainerStyle={containerStyle}
                       center={center}
-                      zoom={10}
+                      zoom={15}
                       onLoad={onLoad}
                       onUnmount={onUnmount}
                     >
                       {/* Child components, such as markers, info windows, etc. */}
+                      <Marker position={{ lat: 6.872815439336726, lng: 79.88325353947194 }} />
                       <></>
                     </GoogleMap>
                     )}
