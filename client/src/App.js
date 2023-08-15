@@ -23,9 +23,12 @@ import ChildDetails from "./views/driver/ChildDetails"
 import NextRide from "./views/driver/NextRide";
 import RideRequests from "./views/driver/RideRequests";
 import Deposits from "./views/driver/Deposits";
+import AddRide from "./views/driver/AddRide";
+import AddVehicle from "./views/driver/AddVehicle";
 
 import ParentDashboardPg from "./views/parent/Parent"; //
 import ParentChildren from "./views/parent/Children";
+import AddChild from "./views/parent/AddChild";
 import ViewChildLocation from "./views/parent/ViewChildLocation";
 import AddSchoolRide from "./views/parent/AddSchoolRide";
 import ViewVehicle from "./views/parent/ViewVehicle";
@@ -76,6 +79,7 @@ import Chat from "./views/sup_agent/Chat";
 import SupParents from "./views/sup_agent/Parents";
 import SupDrivers from "./views/sup_agent/Drivers";
 import SupAgentProfile from "./views/sup_agent/SupAgentProfile";
+import Complaints from "./views/sup_agent/Complaints";
 // import DriverVehicleDetails from "./views/sup_agent/DriverVehicleDetails";
 // import ParentChildDetails from "./views/sup_agent/ParentChildDetails";
 
@@ -111,9 +115,12 @@ function App() {
           <Route exact path="/driver/nextride" element={<NextRide/>} />
           <Route exact path="/driver/ride/riderequests" element={<RideRequests/>} />
           <Route exact path="/driver/finance/deposits" element={<Deposits/>} />
+          <Route exact path="/driver/vehicle/add" element={<AddVehicle/>} />
+          <Route exact path="/driver/ride/add" element={<AddRide/>} />
 
           <Route exact path="/parent/dashboard" element={<ParentDashboardPg />} />
           <Route exact path="/parent/children" element={<ParentChildren />} />
+          <Route exact path="/parent/children/addchild" element={<AddChild />} />
           <Route exact path="/parent/children/childrendetails/:id" element={<ChildrenDetails />} />
           <Route exact path="parent/children/addnewride/viewvehicle/:id" element={<ViewVehicle />} />
           <Route exact path="/parent/children/childlocation/:id" element={<ViewChildLocation />} />
@@ -160,6 +167,7 @@ function App() {
           <Route exact path="/sup_agent/parents" element={<SupParents />} />
           <Route exact path="/sup_agent/drivers" element={<SupDrivers />} />
           <Route exact path="/sup_agent/chat" element={<Chat/>} />
+          <Route exact path="/sup_agent/complaints" element={<Complaints/>} />
 
           <Route exact path="/driver/profile" element={<DriverProfile />} />
           <Route exact path="/parent/profile" element={<ParentProfile/>}/>

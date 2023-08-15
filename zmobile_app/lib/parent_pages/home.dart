@@ -2,6 +2,8 @@
 
 import 'package:flutter/material.dart';
 import './navbar.dart';
+import 'children.dart';
+import 'payment.dart';
 import 'location_tracking.dart';
 
 
@@ -16,7 +18,7 @@ class ParentHomePage extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.all(20.0),
             child: Text(
-              'Dashboard',
+              'Home',
               style: TextStyle(
                 fontSize: 24,
                 fontWeight: FontWeight.bold,
@@ -57,18 +59,8 @@ class ParentHomePage extends StatelessWidget {
           Expanded(
             flex: 2,
             child: Container(
-              padding: EdgeInsets.all(20),
-              height: 30, 
-              color: Colors.blue, // Placeholder color
-              child: Center(
-                child: Text(
-                  'Map',
-                  style: TextStyle(
-                    fontSize: 18,
-                    color: Colors.white,
-                  ),
-                ),
-              ),
+              width: MediaQuery.of(context).size.width,
+              child: Image.asset('assets/images/ss1.png'),
             ),
           ),
         ],
@@ -77,7 +69,16 @@ class ParentHomePage extends StatelessWidget {
   }
 
   Widget _buildChildrenCard(BuildContext context) {
-    return Card(
+    return GestureDetector(
+    onTap: () {
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => ChildrenPage(),
+        ),
+      );
+    },
+    child: Card(
       elevation: 4,
       child: Container(
         width: MediaQuery.of(context).size.width * 0.5 - 10,
@@ -109,12 +110,22 @@ class ParentHomePage extends StatelessWidget {
           ],
         ),
       ),
+      ),
     );
   }
 
   Widget _buildPaymentsCard(BuildContext context) {
     double totalPayments = 7500.0;
-    return Card(
+    return GestureDetector(
+    onTap: () {
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => PaymentPage(),
+        ),
+      );
+    },
+    child: Card(
       elevation: 4,
       child: Container(
         width: MediaQuery.of(context).size.width * 0.5 - 10,
@@ -145,6 +156,7 @@ class ParentHomePage extends StatelessWidget {
             ),
           ],
         ),
+      ),
       ),
     );
   }

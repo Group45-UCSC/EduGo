@@ -116,10 +116,11 @@ import React from "react";
 import { Link, useNavigate } from "react-router-dom";
 import img from "../../images/loginImage.jpg";
 import logo from "../../images/logo.png";
-import Regvalidation from "../user/ParentRegValidation";
+import Regvalidation from "../user/DriverRegValidation";
 import { useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import swal from "sweetalert";
 
 function ParentRegister() {
   const navigate = useNavigate();
@@ -153,7 +154,7 @@ function ParentRegister() {
         const body = { name, email, tpNum, nic, password };
 
         const response = await fetch(
-          "http://localhost:5000/edugo/user/register",
+          "http://localhost:5000/edugo/user/driver/register",
           {
             method: "POST",
             headers: { "Content-Type": "application/json" },
@@ -163,12 +164,23 @@ function ParentRegister() {
 
         if (response.status === 401) {
           toast.error("User Already Exists!");
-          // errors.email = "User Already Exists";
-          // alert("already exists");
+        } else if (response.status === 200) {
+          swal({
+            title: "Successfully Registered!",
+            text: "You can now log in with your new account.",
+            icon: "success",
+            buttons: {
+              confirm: {
+                className:
+                  "bg-orange text-white px-10 py-2 rounded-lg items-center hover:bg-gray ",
+              },
+            },
+          }).then(() => {
+            console.log(response);
+            navigate("/login");
+          });
         } else {
           console.log(response);
-          // toast.success("Registration Successfull!");
-          navigate("/login");
         }
       } catch (err) {
         console.error(err.message);
@@ -240,7 +252,7 @@ function ParentRegister() {
                 className="w-full px-3 py-1 border-b bg-[#f0f0f0] border-orange focus:border-gray outline-none"
                 type="nic"
                 name="nic"
-                placeholder="Enter your Driving License Number"
+                placeholder="Enter your Driving Nic Number"
                 onChange={handleInput}
               />
               {errors.nic && (

@@ -14,6 +14,7 @@ import { NavLink } from "react-router-dom";
 // import { useNavigate } from "react-router-dom";
 
 function Parent() {
+  const userName = localStorage.getItem('userName');
   const sideNavBarLinks = [
     {
       title: "Dashboard",
@@ -366,7 +367,8 @@ function Parent() {
       <MainLayout data={sideNavBarLinks}>
         <div className=" px-6">
           <h1 className="text-[#5a5c69] text-[28px] leading-8 font-normal cursor-pointer">
-            Dashboard
+            Hello {userName}!
+            {/* Dashboard */}
           </h1>
 
           <div className="grid grid-cols-2 grid-rows-3 gap-3 mt-[20px] pb-[12px]">

@@ -1,21 +1,7 @@
 import React from "react";
 import { FaTimes } from "react-icons/fa";
-import CarouselLayout from "../../components/carousel/CarouselLayout";
 
-const CAROUSEL_DATA = [
-  {
-    image: "https://riyasewana.com/uploads/toyota-shell-lh61-271528574871.jpg",
-    imageAlt: "v1 img1",
-  },
-  {
-    image: "https://riyasewana.com/uploads/toyota-shell-lh61-271528574692.jpg",
-    imageAlt: "v1 img2 ",
-  },
-  {
-    image: "https://riyasewana.com/uploads/toyota-shell-lh61-271529516704.jpg",
-    imageAlt: "v1 img3",
-  },
-];
+
 
 const DriverVehicleDetails = ({ isOpen, onClose, content, activeTab }) => {
   return (
@@ -41,7 +27,6 @@ const DriverVehicleDetails = ({ isOpen, onClose, content, activeTab }) => {
               {activeTab === "vehicles" && (
                 <div>
                   <h1 className="font-bold text-2xl">Vehicle Details</h1>
-                  <CarouselLayout data={CAROUSEL_DATA} />
                   <p className="text-gray-700">{content}</p>
                 </div>
               )}

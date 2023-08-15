@@ -6,6 +6,17 @@ import {
   MdSupportAgent,
   MdOutlineRateReview,
 } from "react-icons/md";
+import { GoogleMap, useJsApiLoader, Marker } from "@react-google-maps/api"; // Import the Google Maps components
+
+const containerStyle = {
+  width: "600px",
+  height: "280px",
+};
+
+const center = {
+  lat: 6.872718728491422,
+  lng:  79.88336081994609,
+};
 
 const sideNavBarLinks = [
   { title: "Dashboard", path: "/driver/dashboard", icon: <AiFillDashboard /> },
@@ -18,18 +29,102 @@ const sideNavBarLinks = [
     icon: <MdOutlineRateReview />,
   },
 ];
-function RideRequests() {
+const rideRequest = [
+  {
+    id: 1,
+    parentName: "K.L. Saman",
+    location: "No 45, Darmapala road, Maharagama",
+    image: require("../../images/child1.png"),
+    school: "Royal Collage",
+    lat: 6.851556,
+    lng: 79.919038,
+  },
+  {
+    id: 2,
+    parentName: "K.L. Kasun",
+    location: "No 25/1, Darmapala road, Pannipitya",
+    image: require("../../images/child2.png"),
+    school: "Anula Collage",
+    lat: 6.847198496442547,
+    lng: 79.94801407997109,
+  },
+];
+function RideRequests(props) {
+  const { isLoaded } = useJsApiLoader({
+    id: "google-map-script",
+    googleMapsApiKey: "AIzaSyBSRpk2O7ZkVtqQknrlERKR-DwpiRi8Z_U",
+  });
+
+  const [map, setMap] = React.useState(null);
+
+  const onLoad = React.useCallback(function callback(map) {
+    // This is just an example of getting and using the map instance!!! don't just blindly copy!
+    const bounds = new window.google.maps.LatLngBounds(center);
+    map.fitBounds(bounds);
+
+    setMap(map);
+  }, []);
+
+  const onUnmount = React.useCallback(function callback(map) {
+    setMap(null);
+  }, []);
+
   return (
     <div>
       <MainLayout data={sideNavBarLinks}>
-        <div className="pt-[25px] px-[25px] ">
-          <h1 className="text-[#5a5c69] text-[28px] mb-[550px] leading-8 font-normal cursor-pointer">
-            Ride Requests
+        <div className="px-[25px] ">
+          <h1 className="text-[#5a5c69] text-[28px]  leading-8 font-normal cursor-pointer">
+            Ride Requests (2)
           </h1>
+          <div className="mt-3">
+            <div className=" w-full gap-3">
+              {rideRequest.map((request, id) => (
+                <div
+                  key={id}
+                  className=" h-[300px]  flex bg-slate-200 mb-3 rounded-md"
+                >
+                  <div className="flex-col items-center justify-center">
+                    <div className="flex justify-center py-3">
+                      <img
+                        src={request.image}
+                        alt={request.id}
+                        className="bg-slate-300 w-32 h-[120px] cursor-pointer rounded-full p-1"
+                      ></img>
+                    </div>
+                    <div className="mt-3 ml-3 px-2 text-slate-600">
+                      <div className="">{request.parentName}</div>
+                      <div className="">{request.location}</div>
+                      <div className="">{request.school}</div>
+                    </div>
+                  </div>
+
+                  <div
+                    className=""
+                    style={{ position: "relative", left: "160px", top: "10px" }}
+                  >
+                    { isLoaded && (
+                    <GoogleMap
+                      mapContainerStyle={containerStyle}
+                      center={center}
+                      zoom={15}
+                      onLoad={onLoad}
+                      onUnmount={onUnmount}
+                    >
+                      {/* Child components, such as markers, info windows, etc. */}
+                      <Marker position={{ lat: 6.872815439336726, lng: 79.88325353947194 }} />
+                      <></>
+                    </GoogleMap>
+                    )}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
         </div>
       </MainLayout>
     </div>
   );
 }
 
-export default RideRequests;
+
+export default React.memo(RideRequests)

@@ -1,4 +1,4 @@
-// //db connection
+//db connection
 const pool = require("../../dbConnection");
 // // const query = require("../../models/userModel");
 
@@ -151,36 +151,99 @@ var session = require("express-session");
 //   });
 // };
 
-const register = async (req, res) => {
+//parent registration function -> POST
+const parentRegister = async (req, res) => {
   try {
     //1. destructure the req.body(name, email, password)
     const { name, email, tpNum, nic, password } = req.body;
 
     //2. check if user exist(if exist then throw error)
+    const userdata = await pool.query(
+      "SELECT * FROM registered_users WHERE user_email =   '" + email + "'"
+    );
 
-    const user = await pool.query("SELECT * FROM register WHERE email = $1", [
-      email,
-    ]);
-
-    if (user.rows.length !== 0) {
+    if (userdata.rows.length !== 0) {
       return res.status(401).json("User already exists");
     }
 
-    //3. Bcrypt the user password
+    //3.if doesn't exist, generate new user id
+    const lastUserIdData = await pool.query(
+      "SELECT * FROM parent ORDER BY user_id DESC LIMIT 1"
+    );
+    const lastUserId = lastUserIdData.rows[0]?.user_id || "PR0000"; // Default to PR0000 if no user_id found
 
+    const numericPart = parseInt(lastUserId.replace("PR", ""), 10); // Extract numeric part and convert to integer
+    const newNumericPart = numericPart + 1;
+    const newUserId = `PR${newNumericPart.toString().padStart(4, "0")}`; // Generate new user ID
+
+    //4. Bcrypt the user password
     const saltRound = 10;
     const salt = await bcrypt.genSalt(saltRound);
 
     const bcryptPassword = await bcrypt.hash(password, salt);
 
-    //4. enter the new user inside our database
-
+    //5. enter the new user inside our database
     const newUser = await pool.query(
-      "INSERT INTO register (name,email,tpnum,nic,password,reg_date) VALUES($1,$2,$3,$4,$5,NOW()) RETURNING * ",
-      [name, email, tpNum, nic, bcryptPassword]
+      "INSERT INTO registered_users (user_id, user_name, user_role, user_email, contact_number, nic, password, reg_date) VALUES ($1, $2, $3, $4, $5, $6, $7, Now()) RETURNING * ",
+      [newUserId, name, "parent", email, tpNum, nic, bcryptPassword]
     );
 
-    //5. register success
+    const newParent = await pool.query(
+      "INSERT INTO parent (user_id, num_of_registered_children) VALUES($1,$2) RETURNING * ",
+      [newUserId, 0]
+    );
+
+    //6. register success
+    return res.json(newUser.rows[0]);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send("Server Error");
+  }
+};
+
+//Driver registration function -> POST
+const driverRegister = async (req, res) => {
+  try {
+    //1. destructure the req.body(name, email, password)
+    const { name, email, tpNum, nic, password } = req.body;
+
+    //2. check if user exist(if exist then throw error)
+    const userdata = await pool.query(
+      "SELECT * FROM registered_users WHERE user_email =   '" + email + "'"
+    );
+
+    if (userdata.rows.length !== 0) {
+      return res.status(401).json("User already exists");
+    }
+
+    //3.if doesn't exist, generate new user id
+    const lastUserIdData = await pool.query(
+      "SELECT * FROM driver ORDER BY user_id DESC LIMIT 1"
+    );
+    const lastUserId = lastUserIdData.rows[0]?.user_id || "DRV000"; // Default to PR0000 if no user_id found
+
+    const numericPart = parseInt(lastUserId.replace("DRV", ""), 10); // Extract numeric part and convert to integer
+    const newNumericPart = numericPart + 1;
+    const newUserId = `DRV${newNumericPart.toString().padStart(3, "0")}`; // Generate new user ID
+
+    //4. Bcrypt the user password
+    const saltRound = 10;
+    const salt = await bcrypt.genSalt(saltRound);
+
+    const bcryptPassword = await bcrypt.hash(password, salt);
+
+    //5. enter the new user inside our database
+    const newUser = await pool.query(
+      "INSERT INTO registered_users (user_id, user_name, user_role, user_email, contact_number, nic, password, reg_date) VALUES ($1, $2, $3, $4, $5, $6, $7, Now()) RETURNING * ",
+      [newUserId, name, "driver", email, tpNum, nic, bcryptPassword]
+    );
+
+    const newDriver = await pool.query(
+      "INSERT INTO driver (user_id) VALUES($1) RETURNING * ",
+      [newUserId]
+    );
+
+    //6. register success
     return res.json(newUser.rows[0]);
   } catch (err) {
     console.error(err.message);
@@ -195,28 +258,34 @@ const login = async (req, res) => {
 
     //2. check if user doesn't exist(if not then throw error)
 
-    const user = await pool.query("SELECT * FROM register WHERE email = $1", [
-      email,
-    ]);
+    const userdata = await pool.query(
+      "SELECT * FROM registered_users WHERE user_email =   '" + email + "'"
+    );
 
-    if (user.rows.length === 0) {
+    if (userdata.rows.length === 0) {
       return res.status(401).json("User Not Found");
     }
 
     // 3. check if incoming password is the same as the db password
 
-    const validPassword = await bcrypt.compare(password, user.rows[0].password);
+    const validPassword = await bcrypt.compare(
+      password,
+      userdata.rows[0].password
+    );
 
     if (!validPassword) {
       return res.status(402).json("Password Incorrect");
     }
 
     //4. login success
-    req.session.username = user.rows[0].name;
-    req.session.useremail = user.rows[0].email;
-    // console.log(req.session.username);
+    const userRole = userdata.rows[0].user_role;
+    const userName = userdata.rows[0].user_name; 
+    const userId = userdata.rows[0].user_id; 
+    return res.json({ Login: true, role: userRole, userName: userName, userId: userId });
 
-    return res.json({ Login: true });
+    // req.session.username = user.rows[0].name;
+    // req.session.useremail = user.rows[0].email;
+    // console.log(req.session.username);
   } catch (err) {
     console.error(err.message);
     res.status(500).send("Server Error");
@@ -237,31 +306,4 @@ const isAuth = async (req, res) => {
   }
 };
 
-// const isAuth = async (req, res) => {
-//   try {
-//     if (req.session.username) {
-//       return res.json({ valid: true, username: req.session.username });
-//     } else {
-//       return res.json({ valid: false });
-//     }
-//   } catch (err) {
-//     console.error(err.message);
-//     res.status(500).send("Server Error");
-//   }
-// };
-
-module.exports = { register, login, isAuth };
-
-// const register = async (req, res) => {
-//     try {
-//       const { name, email, tpNum, nic, password } = req.body;
-
-//       const newUser = await pool.query(
-//         "INSERT INTO register (name,email,tpNum,nic,password) VALUES($1,$2,$3,$4,$5) RETURNING * ",
-//         [name, email, tpNum, nic, password]
-//       );
-//       return res.json(data);
-//     } catch (error) {
-//       return res.json("Error");
-//     }
-//   };
+module.exports = { parentRegister, driverRegister, login, isAuth };

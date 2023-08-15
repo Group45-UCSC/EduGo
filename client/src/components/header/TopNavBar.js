@@ -12,6 +12,7 @@ import { NavLink, useLocation } from "react-router-dom";
 // }
 
 function TopNavBar() {
+  const userName = localStorage.getItem("userName");
   const location = useLocation();
   let profileLink;
   if (location.pathname.includes("/driver/")) {
@@ -32,7 +33,7 @@ function TopNavBar() {
 
       <div className="flex item-center relative flex-row gap-6">
         <FaRegBell className="mt-[6px]"></FaRegBell>
-        <p>User Name</p>
+        <p>{userName}</p>
         <div>
           <NavLink to={profileLink}>
             <img

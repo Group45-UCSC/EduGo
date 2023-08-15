@@ -2,7 +2,9 @@
 
 import 'package:flutter/material.dart';
 import './navbar.dart';
+import 'financial.dart';
 import 'rides.dart';
+import 'students.dart';
 
 class DriverHomePage extends StatelessWidget {
   @override
@@ -15,7 +17,7 @@ class DriverHomePage extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.all(20.0),
             child: Text(
-              'Dashboard',
+              'Home',
               style: TextStyle(
                 fontSize: 24,
                 fontWeight: FontWeight.bold,
@@ -78,20 +80,10 @@ class DriverHomePage extends StatelessWidget {
           SizedBox(height: 20),
           
           Expanded(
-            flex: 2,
+            flex: 10,
             child: Container(
-              padding: EdgeInsets.all(20),
-              height: 30,
-              color: Colors.green, // Placeholder color
-              child: Center(
-                child: Text(
-                  'Map',
-                  style: TextStyle(
-                    fontSize: 18,
-                    color: Colors.white,
-                  ),
-                ),
-              ),
+              width: MediaQuery.of(context).size.width,
+              child: Image.asset('assets/images/ss1.png'),
             ),
           ),
         ],
@@ -100,7 +92,16 @@ class DriverHomePage extends StatelessWidget {
   }
 
   Widget _buildStudentsCard(BuildContext context) {
-    return Card(
+    return GestureDetector(
+    onTap: () {
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => StudentPage(),
+        ),
+      );
+    },
+    child: Card(
       elevation: 4,
       child: Container(
         width: MediaQuery.of(context).size.width * 0.35 - 10,
@@ -123,11 +124,21 @@ class DriverHomePage extends StatelessWidget {
           ],
         ),
       ),
+      ),
     );
   }
 
   Widget _buildPaymentsCard(BuildContext context) {
-    return Card(
+    return GestureDetector(
+    onTap: () {
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => FinancialPage(),
+        ),
+      );
+    },
+    child: Card(
       elevation: 4,
       child: Container(
         width: MediaQuery.of(context).size.width * 0.65 - 10,
@@ -157,6 +168,7 @@ class DriverHomePage extends StatelessWidget {
             ),
           ],
         ),
+      ),
       ),
     );
   }

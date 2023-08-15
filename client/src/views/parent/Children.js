@@ -155,19 +155,46 @@ function Children() {
   }
   const childDetails = [
     {
-      id:1,
+      id: 1,
       name: "R.B.S.Udayanga ",
       schoolName: "Royal Collage",
       schoolRide: "R103",
       startTime: "6.50",
       type: "ride",
+      pickupStatus: "Picked up",
       address: "No 79, Daramapala road, Pannipitya",
       schoolAddress: "Maradana Rd, Colombo 01000",
       contactnum: "0776438543",
-      image: require("../../images/child1.png")
+      image: require("../../images/child1.png"),
     },
     {
-      id:2,
+      id: 1,
+      name: "R.B.S.Udayanga ",
+      schoolName: "Royal Collage",
+      schoolRide: "R103",
+      startTime: "6.50",
+      type: "ride",
+      pickupStatus: "Not Yet",
+      address: "No 79, Daramapala road, Pannipitya",
+      schoolAddress: "Maradana Rd, Colombo 01000",
+      contactnum: "0776438543",
+      image: require("../../images/child1.png"),
+    },
+    {
+      id: 1,
+      name: "R.B.S.Udayanga ",
+      schoolName: "Royal Collage",
+      schoolRide: "R103",
+      startTime: "6.50",
+      type: "ride",
+      pickupStatus: "Missed",
+      address: "No 79, Daramapala road, Pannipitya",
+      schoolAddress: "Maradana Rd, Colombo 01000",
+      contactnum: "0776438543",
+      image: require("../../images/child1.png"),
+    },
+    {
+      id: 2,
       name: "L.L.A. Hansani",
       schoolName: "Sujatha collage",
       schoolRide: "R104",
@@ -179,7 +206,7 @@ function Children() {
       image: require("../../images/child2.png"),
     },
     {
-      id:3,
+      id: 3,
       name: "K.S.T. Gunawardhana ",
       schoolName: "Royal Collage",
       schoolRide: "R106",
@@ -201,17 +228,19 @@ function Children() {
           </h1>
           <div className="mt-[0px] pb-[15px]">
             <div className="flex justify-end w-5/6 ml-24 mb-4">
-              <button
-                className="flex justify-center w-56 h-10 bg-orange rounded-md cursor-pointer hover:shadow-lg transform hover:scale-[103%] transition duration-300 ease-out"
-                onClick={() => {
-                  setModalOpen(true);
-                }}
-              >
-                <div className="flex mt-2 gap-3 font-semibold">
-                  <MdPersonAdd className="text-[25px]" />
-                  Add New Children
-                </div>
-              </button>
+              <NavLink to="/parent/children/addchild">
+                <button
+                  className="flex justify-center w-56 h-10 bg-orange rounded-md cursor-pointer hover:shadow-lg transform hover:scale-[103%] transition duration-300 ease-out"
+                  // onClick={() => {
+                  //   setModalOpen(true);
+                  // }}
+                >
+                  <div className="flex mt-2 gap-3 font-semibold">
+                    <MdPersonAdd className="text-[25px]" />
+                    Add New Children
+                  </div>
+                </button>
+              </NavLink>
             </div>
             {/*-----------------------------------Child detail boxes---------------------------------*/}
             <div className="flex justify-center">

@@ -19,6 +19,7 @@ npm install react-modal
 npm i dotenv
 npm i fs path
 npm install react-datepicker react-dropzone
+npm install sweetalert
 
 --server--
 npm i express pg cors
@@ -27,7 +28,9 @@ npm i dotenv
 npm i fs path
 npm i bcrypt - a library to help you hash passwords.
 npm i jsonwebtoken
-npm install express-session body-parser cookie-parser
+npm install express-session body-parser cookie-
+npm install multer
+
 
 #to start run the application:
 
