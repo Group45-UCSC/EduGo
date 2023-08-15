@@ -252,7 +252,7 @@ function ParentRegister() {
                 className="w-full px-3 py-1 border-b bg-[#f0f0f0] border-orange focus:border-gray outline-none"
                 type="nic"
                 name="nic"
-                placeholder="Enter your Driving Nic Number"
+                placeholder="Enter your Driving License Number"
                 onChange={handleInput}
               />
               {errors.nic && (
