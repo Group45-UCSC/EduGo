@@ -3,6 +3,10 @@ import MainLayout from "../../components/layout/MainLayout";
 import { FaHome, FaBus, FaUsers } from "react-icons/fa";
 import { BsFillChatDotsFill } from "react-icons/bs";
 import { HiOutlineChat } from "react-icons/hi";
+import {MdOutlinePending,MdDoneAll} from "react-icons/md"
+import {GoReport} from "react-icons/go"
+
+import { Link } from "react-router-dom";
 import {
   LineChart,
   Line,
@@ -12,8 +16,7 @@ import {
   Tooltip,
   Legend,
 } from "recharts";
-import { PieChart, Pie, Cell } from "recharts";
-// import Chat from "../../components/chat/chat";
+
 const sideNavBarLinks = [
   { title: "Dashboard", path: "/sup_agent/dashboard", icon: <FaHome /> },
   { title: "Chat", path: "/sup_agent/chat", icon: <BsFillChatDotsFill /> },
@@ -40,13 +43,6 @@ const CustomTooltip = ({ active, payload }) => {
   }
   return null;
 };
-const data1 = [
-  { name: "Category A", value: Math.random() * 100 },
-  { name: "Category B", value: Math.random() * 100 },
-  { name: "Category C", value: Math.random() * 100 },
-  { name: "Category D", value: Math.random() * 100 },
-];
-const COLORS = ["#8884d8", "#82ca9d", "#ffc658", "#ff8042"];
 
 function SupAgentDashboardPg() {
   const [selectedPeriod, setSelectedPeriod] = useState("This Week");
@@ -58,32 +54,69 @@ function SupAgentDashboardPg() {
   return (
     <div>
       <MainLayout data={sideNavBarLinks}>
-        <div className="grid grid-cols-5 gap-2">
-          <div className="col-span-3 flex flex-col gap-[5rem]">
-            <div className="grid-cols-3  flex flex-row gap-5">
-              <div className="h-[100px] w-full rounded-[8px] bg-[#EEEEEE] border-l-8 border-gray pl-4 flex items-center justify-between px-[30px] cursor-pointer hover:shadow-lg transform hover:scale-[101%] trasition duration-300 ease-out shadow-md">
-                <HiOutlineChat className="text-5xl text-orange" />
-                <div className="text-xl flex-col">
-                  <strong>Chat Queue</strong>{" "}
-                  <p className="ml-[2rem] mt-3 text-2xl font-semibold">6</p>
+        <div className="grid grid-cols-5">
+          <div className="flex items-center justify-between gap-14 mb-5">
+            <div className="col-span-1">
+              <Link to="/sup_agent/complaints">
+                <div className="h-[100px] w-full rounded-[8px] bg-[#EEEEEE] border-l-8 border-[#22c55e]  flex items-center justify-between gap-5 px-[2rem] cursor-pointer hover:shadow-lg transform hover:scale-[101%] trasition duration-300 ease-out shadow-md">
+                  <GoReport className="text-5xl text-[#22c55e]" />
+                  <div className="text-xl flex-col">
+                    <strong>New Complaints</strong>{" "}
+                    <p className="ml-[2rem] mt-3 text-2xl font-semibold">2</p>
+                  </div>
                 </div>
-              </div>
-              <div className="h-[100px] w-full rounded-[8px] bg-[#EEEEEE] border-l-8 border-gray pl-6 flex items-center justify-between px-[30px] cursor-pointer hover:shadow-lg transform hover:scale-[101%] trasition duration-300 ease-out shadow-md">
-                <HiOutlineChat className="text-5xl text-gray" />
-                <div className="text-xl flex-col">
-                  <strong>Missed Chats</strong>{" "}
-                  <p className="ml-[2rem] mt-3 text-2xl font-semibold">12</p>
-                </div>
-              </div>
-              <div className="h-[100px] w-full rounded-[8px] bg-[#EEEEEE] border-l-8 border-orange pl-6 flex items-center justify-between px-[30px] cursor-pointer hover:shadow-lg transform hover:scale-[101%] trasition duration-300 ease-out shadow-md">
-                <HiOutlineChat className="text-5xl text-orange" />
-                <div className="text-xl flex-col">
-                  <strong>Chat Queue</strong>{" "}
-                  <p className="ml-[2rem] mt-3 text-2xl font-semibold">6</p>
-                </div>
-              </div>
+              </Link>
             </div>
-            <div className="col-span-2 bg-[#1d1a49] pt-5 rounded-xl mb-8">
+            <div className="col-span-1">
+              <Link to="">
+                <div className="h-[100px] w-full rounded-[8px] bg-[#EEEEEE] border-l-8 border-orange  flex items-center justify-between gap-5 px-[2rem] cursor-pointer hover:shadow-lg transform hover:scale-[101%] trasition duration-300 ease-out shadow-md">
+                  <MdOutlinePending className="text-5xl text-orange" />
+                  <div className="text-xl flex-col">
+                    <strong>Pending...</strong>{" "}
+                    <p className="ml-[2rem] mt-3 text-2xl font-semibold">1</p>
+                  </div>
+                </div>
+              </Link>
+            </div>
+            <div className="col-span-1">
+              <Link to="">
+                <div className="h-[100px] w-full rounded-[8px] bg-[#EEEEEE] border-l-8 border-[#0369a1] flex items-center justify-between gap-5 px-[2rem] cursor-pointer hover:shadow-lg transform hover:scale-[101%] trasition duration-300 ease-out shadow-md">
+                  <MdDoneAll className="text-5xl text-[#0369a1]" />
+                  <div className="text-xl flex-col">
+                    <strong>Completed Complaints</strong>{" "}
+                    <p className="ml-[2rem] mt-3 text-2xl font-semibold">5</p>
+                  </div>
+                </div>
+              </Link>
+            </div>
+            <div className="col-span-1">
+              <Link to="/sup_agent/chat">
+                <div className="h-[100px] w-full rounded-[8px] bg-[#EEEEEE] border-l-8 border-[#e11d48]  flex items-center justify-between gap-5 px-[2rem] cursor-pointer hover:shadow-lg transform hover:scale-[101%] trasition duration-300 ease-out shadow-md">
+                  <HiOutlineChat className="text-5xl text-[#e11d48]" />
+                  <div className="text-xl flex-col">
+                    <strong>Unread Chats</strong>{" "}
+                    <p className="ml-[2rem] mt-3 text-2xl font-semibold">6</p>
+                  </div>
+                </div>
+              </Link>
+            </div>
+            <div className="col-span-1">
+              <Link to="/sup_agent/chat">
+                <div className="h-[100px] w-full rounded-[8px] bg-[#EEEEEE] border-l-8 border-gray  flex items-center justify-between gap-5 px-[2rem] cursor-pointer hover:shadow-lg transform hover:scale-[101%] trasition duration-300 ease-out shadow-md">
+                  <HiOutlineChat className="text-5xl text-gray" />
+                  <div className="text-xl flex-col">
+                    <strong>Missed Chats</strong>{" "}
+                    <p className="ml-[2rem] mt-3 text-2xl font-semibold">12</p>
+                  </div>
+                </div>
+              </Link>
+            </div>
+          </div>
+        </div>
+        <div className="grid grid-cols-2 gap-2">
+          <div className="col-span-1 "></div>
+          <div className="col-span-1 flex flex-col gap-[5rem]">
+            <div className="col-span-1 bg-[#1d1a49] pt-5 rounded-xl mb-8">
               <div className="flex flex-row">
                 <div className="pl-8 pb-5">
                   <p className="text-white text-xl font-semibold  pt-3">
@@ -104,7 +137,7 @@ function SupAgentDashboardPg() {
                 </div>
               </div>
               <LineChart
-                width={600}
+                width={520}
                 height={275}
                 data={data}
                 margin={{ top: 5, right: 40, left: 0, bottom: 5 }}
@@ -122,28 +155,6 @@ function SupAgentDashboardPg() {
                 />
               </LineChart>
             </div>
-          </div>
-          <div className="col-span-2 bg-[#fb923c] w-full h-1/2 rounded-xl flex justify-center items-center">
-         
-            <PieChart width={400} height={400}>
-              <Pie
-                data={data1}
-                dataKey="value"
-                nameKey="name"
-                cx="50%"
-                cy="50%"
-                outerRadius={80}
-                fill="#8884d8"
-                label={(entry) => entry.name}
-              >
-                {data1.map((entry, index) => (
-                  <Cell
-                    key={`cell-${index}`}
-                    fill={COLORS[index % COLORS.length]}
-                  />
-                ))}
-              </Pie>
-            </PieChart>
           </div>
         </div>
       </MainLayout>

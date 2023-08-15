@@ -75,6 +75,7 @@ import Chat from "./views/sup_agent/Chat";
 import SupParents from "./views/sup_agent/Parents";
 import SupDrivers from "./views/sup_agent/Drivers";
 import SupAgentProfile from "./views/sup_agent/SupAgentProfile";
+import Complaints from "./views/sup_agent/Complaints";
 // import DriverVehicleDetails from "./views/sup_agent/DriverVehicleDetails";
 // import ParentChildDetails from "./views/sup_agent/ParentChildDetails";
 
@@ -161,6 +162,7 @@ function App() {
           <Route exact path="/sup_agent/parents" element={<SupParents />} />
           <Route exact path="/sup_agent/drivers" element={<SupDrivers />} />
           <Route exact path="/sup_agent/chat" element={<Chat/>} />
+          <Route exact path="/sup_agent/complaints" element={<Complaints/>} />
 
           <Route exact path="/driver/profile" element={<DriverProfile />} />
           <Route exact path="/parent/profile" element={<ParentProfile/>}/>
