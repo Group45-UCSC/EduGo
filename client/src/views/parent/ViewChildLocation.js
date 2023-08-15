@@ -11,16 +11,16 @@ import {
 } from "react-icons/md";
 import { useLocation } from "react-router-dom";
 // import { Map, GoogleApiWrapper, Marker } from 'google-maps-react'; // Import the Google Maps components
-import { GoogleMap, useJsApiLoader } from "@react-google-maps/api";
+import { GoogleMap, useJsApiLoader, Marker } from "@react-google-maps/api";
 
 const containerStyle = {
-  width: "400px",
-  height: "400px",
+  width: "700px",
+  height: "350px",
 };
 
 const center = {
-  lat: -3.745,
-  lng: -38.523,
+  lat: 6.872718728491422,
+  lng:  79.88336081994609,
 };
 
 function ViewChildLocation(props) {
@@ -150,24 +150,29 @@ function ViewChildLocation(props) {
 
             {/* Location View */}
             <div className="flex justify-center mt-5  gap-3">
-              <div className=" w-2/3 h-[434px] border border-orange shadow-lg cursor-pointer rounded-[4px]">
+              <div className=" w-2/3 h-[434px]  border border-orange shadow-lg cursor-pointer rounded-[4px]">
                 <div className="bg-white flex items-center justify-between py-[15px] px-[20px] border-b-[1px] border-[#EDEDED] mb-[20px] rounded-[4px]">
                   <h2 className="text-[#4e73df] text-[16px] leading-[19px] font-bold">
                     Ongoing Location {isLoaded}
                   </h2>
                 </div>
-                  {isLoaded && (
+                <div className="" style={{ position: "relative", left: "20px", top: "0", margin: "0 0 20px " }}>
+                {isLoaded && (
                   <GoogleMap
                     mapContainerStyle={containerStyle}
                     center={center}
-                    zoom={10}
+                    zoom={15}
                     onLoad={onLoad}
                     onUnmount={onUnmount}
                   >
                     {/* Child components, such as markers, info windows, etc. */}
-                    <></>
+                                  {/* Add a Marker at the desired location */}
+              <Marker position={{ lat: 6.872815439336726, lng: 79.88325353947194 }} />
+               
                   </GoogleMap>
                   )}
+                </div>
+
               </div>
               <div className="w-1/3 px-3 bg-slate-200 rounded-md">
                 <div className=" mt-5">
