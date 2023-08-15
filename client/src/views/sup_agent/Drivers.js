@@ -160,7 +160,7 @@ function Drivers() {
                     />
                     <span className="absolute inset-y-0 right-0 flex items-center pr-2 pt-4">
                       <svg className="h-8 w-8" viewBox="0 0 20 20">
-                        <FaSearch />
+                        <FaSearch/>
                       </svg>
                     </span>
                   </div>
