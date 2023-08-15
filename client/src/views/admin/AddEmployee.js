@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import MainLayout from "../../components/layout/MainLayout";
 import Empimg  from "../../images/empimg.png";
 
@@ -19,6 +19,57 @@ const sideNavBarLinks = [
 ];
 
 function AdminAddEmployee() {
+
+  const [values, setValues] = useState({
+    name: "",
+    email: "",
+    tpNum: "",
+    nic: "",
+    password: "",
+    re_password: "",
+    address: "",
+    dob: "",
+    role: "",
+  });
+
+  const { name, email, tpNum, nic, password, address, dob, role } = values;
+
+  const handleInput = (event) => {
+    setValues((prev) => ({
+      ...prev,
+      // [event.target.name]: [event.target.value],
+      [event.target.name]: event.target.value,
+    }));
+  };
+
+  const handleSubmit = async (event) => {
+      try {
+        const body = { name, email, tpNum, nic, password, address, dob, role };
+
+        const response = await fetch(
+          "http://localhost:5000/edugo/user/addemployee",
+          {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(body),
+          }
+        );
+
+        if (response.status === 200) {
+          // toast.error("User Already Exists!");
+          // errors.email = "User Already Exists";
+          // alert("already exists");
+        } else {
+          console.log(response);
+          // toast.success("Registration Successfull!");
+          // navigate("/login");
+        }
+      } catch (err) {
+        console.error(err.message);
+      }
+    
+  };
+
   return (
     <div>
         <MainLayout data={sideNavBarLinks}>
@@ -31,41 +82,38 @@ function AdminAddEmployee() {
                 <img src={Empimg} alt="employee" className="w-[500px] h-[500px] mt-24"></img>
 
                 {/* form */}
-                <form className="w-full mr-8 mt-12 leading-8 text-md">
-                    <label for="firstname">First Name : </label>
-                    <input type="text" className="ml-4 mb-4 bg-transparent border-2 w-full"></input><br />
-
-                    <label for="lastname">Last Name : </label>
-                    <input type="text" className="ml-4 mb-4 bg-transparent border-2 w-full"></input><br />
+                <form action="" onSubmit={handleSubmit} className="w-full mr-8 mt-12 leading-8 text-md">
+                    <label for="firstname">Name : </label>
+                    <input type="text" name="name" onChange={handleInput} className="ml-4 mb-4 bg-transparent border-2 w-full"></input><br />
 
                     <label for="email">Email : </label>
-                    <input type="email" className="ml-4 mb-4 bg-transparent border-2 w-full"></input><br />
+                    <input type="email" name="email" onChange={handleInput} className="ml-4 mb-4 bg-transparent border-2 w-full"></input><br />
 
                     <label for="password">Password : </label>
-                    <input type="password" className="ml-4 mb-4 bg-transparent border-2 w-full"></input><br />
+                    <input type="password" name="password" onChange={handleInput} className="ml-4 mb-4 bg-transparent border-2 w-full"></input><br />
                     
                     <label for="confpassword">Confirm Password : </label>
-                    <input type="password" className="ml-4 mb-4 bg-transparent border-2 w-full"></input><br />
+                    <input type="password" name="re_password" onChange={handleInput} className="ml-4 mb-4 bg-transparent border-2 w-full"></input><br />
 
                     <label for="nic">NIC : </label>
-                    <input type="text" className="ml-4 mb-4 bg-transparent border-2 w-full"></input><br />
+                    <input type="text" name="nic" onChange={handleInput} className="ml-4 mb-4 bg-transparent border-2 w-full"></input><br />
 
                     <label for="address">Address : </label>
-                    <input type="text" className="ml-4 mb-4 bg-transparent border-2 w-full"></input><br />
+                    <input type="text" name="address" onChange={handleInput} className="ml-4 mb-4 bg-transparent border-2 w-full"></input><br />
                     
                     <label for="contact">Contact : </label>
-                    <input type="text" className="ml-4 mb-4 bg-transparent border-2"></input><br />
+                    <input type="text" name="tpNum" onChange={handleInput} className="ml-4 mb-4 bg-transparent border-2"></input><br />
 
                     <label for="dob">Date of Birth : </label>
-                    <input type="date" className="ml-4 mb-4 bg-transparent border-2"></input><br />
+                    <input type="date" name="dob" onChange={handleInput} className="ml-4 mb-4 bg-transparent border-2"></input><br />
 
                     <label for="role">Recruit as : </label>
-                    <select className="ml-4 border-2" style={{backgroundColor:'#999999'}}>
+                    <select name="role" onChange={handleInput} className="ml-4 border-2" style={{backgroundColor:'#999999'}}>
                         <option>Support Agent</option>
                         <option>Vehicle Coordinator</option>
                         
                     </select><br />
-                    <div className="flex mt-8 ml-72 h-11 w-28 rounded-lg shadow-lg bg-orange font-semibold text-lg pt-2 pl-5 cursor-pointer hover:scale-[102%] hover:bg-amber-500 transition-transform ease-in-out">Confirm</div>
+                    <div type="submit" className="flex mt-8 ml-72 h-11 w-28 rounded-lg shadow-lg bg-orange font-semibold text-lg pt-2 pl-5 cursor-pointer hover:scale-[102%] hover:bg-amber-500 transition-transform ease-in-out">Confirm</div>
                 </form>
             </div>
         </MainLayout>
