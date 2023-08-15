@@ -21,7 +21,7 @@ class LocationPage extends StatelessWidget {
             ),
           ),
           SizedBox(height: 20),
-          Column(  
+          Column(
             children: [
               _buildCard(context, 'Child 1'),
               _buildCard(context, 'Child 2'),
@@ -51,25 +51,46 @@ class LocationPage extends StatelessWidget {
           width: cardWidth,
           height: cardWidth * 0.4,
           padding: const EdgeInsets.all(16.0),
-          child: Column(
+          child: Stack(
+            alignment: Alignment.center,
             children: [
-              Text(
-                locationName,
-                style: TextStyle(
-                  fontSize: 18,
-                  fontWeight: FontWeight.bold,
+              Column(
+                children: [
+                  Text(
+                    locationName,
+                    style: TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  SizedBox(height: 8),
+                  Text('Tap to view on location'),
+                ],
+              ),
+              Positioned(
+                bottom: 0,
+                right: 0,
+                child: Icon(
+                  Icons.location_on,
+                  color: Colors.red,
+                  size: 24,
                 ),
               ),
-              SizedBox(height: 8),
-              Text('Tap to view on location'),
+
+              Positioned(
+              bottom: 0,
+              left: 0,
+              child: Text(
+                'Maharagama, Highlevel Road',
+                style: TextStyle(fontSize: 12, color: Colors.grey),
+              ),
+            ),
             ],
           ),
         ),
       ),
     );
   }
-
-
 }
 
 class MapPage extends StatelessWidget {
@@ -81,8 +102,8 @@ class MapPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: Text('Map: $locationName'), backgroundColor: Color(0xFF999999)),
-      body: GoogleMap(
-        // Implement Google Maps
+      body: Center(
+        child: Image.asset('assets/images/ss3.png'),
       ),
     );
   }

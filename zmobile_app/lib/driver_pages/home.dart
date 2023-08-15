@@ -80,9 +80,8 @@ class DriverHomePage extends StatelessWidget {
           SizedBox(height: 20),
           
           Expanded(
-            // flex: 2,
+            flex: 10,
             child: Container(
-              // padding: EdgeInsets.all(20),
               width: MediaQuery.of(context).size.width,
               child: Image.asset('assets/images/ss1.png'),
             ),

@@ -50,29 +50,24 @@ class PaymentPage extends StatelessWidget {
 
   Widget _buildOngoingPayTabContent(BuildContext context) {
   return SingleChildScrollView(
-    child: DataTable(
-      columns: const <DataColumn>[
-        DataColumn(label: Text('Children')),
-        DataColumn(label: Text('Month')),
-        DataColumn(label: Text('Payment')),
-      ],
-      rows: List.generate(3, (index) {
-        return DataRow(
-          onSelectChanged: (selected) {
-            if (selected == true) {
-              if (index != -1) {
-                _showConfirmationDialog(context);
-              }
-            }
-          },
-          cells: <DataCell>[
-            // Indeex+1 because index starts at 0
-            DataCell(Text('Child ${index + 1}')),
-            DataCell(Text('September')),
-            DataCell(Text('2500')),
+    child: Container(
+      width: MediaQuery.of(context).size.width,
+      child: DataTable(
+        columnSpacing: 8,
+        columns: const <DataColumn>[
+          DataColumn(label: Text('Children')),
+          DataColumn(label: Text('Month')),
+          DataColumn(label: Text('Payment')),
+          DataColumn(label: Text('Action')),
+        ],
+        rows: [
+            _buildDataRow(context, 'Student 1', 'September', '2500'),
+            _buildDataRow(context, 'Student 2', 'September', '3000'),
+            _buildDataRow(context, 'Student 3', 'September', '2000'),
+            _buildDataRow(context, 'Student 4', 'September', '2500'),
+            _buildDataRow(context, 'Student 5', 'September', '3000'),
           ],
-        );
-      }),
+      ),
     ),
   );
 }
@@ -87,33 +82,50 @@ Widget _buildPaidPayTabContent() {
           DataColumn(label: Text('Payment')),
         ],
         rows: [
-          _buildDataRow('Child 1', 'August', '2500'),
-          _buildDataRow('Child 2', 'August', '3000'),
-          _buildDataRow('Child 3', 'August', '2000'),
-          _buildDataRow('Child 1', 'July', '2500'),
-          _buildDataRow('Child 2', 'July', '3000'),
-          _buildDataRow('Child 3', 'July', '2000'),
-          _buildDataRow('Child 1', 'June', '2500'),
-          _buildDataRow('Child 2', 'June', '3000'),
-          _buildDataRow('Child 3', 'June', '2000'),
-          _buildDataRow('Child 1', 'May', '2000'),
-          _buildDataRow('Child 2', 'May', '3000'),
-          _buildDataRow('Child 3', 'May', '2000'),
+          _buildDataRowForPaid('Child 1', 'August', '2500'),
+          _buildDataRowForPaid('Child 2', 'August', '3000'),
+          _buildDataRowForPaid('Child 3', 'August', '2000'),
+          _buildDataRowForPaid('Child 1', 'July', '2500'),
+          _buildDataRowForPaid('Child 2', 'July', '3000'),
+          _buildDataRowForPaid('Child 3', 'July', '2000'),
+          _buildDataRowForPaid('Child 1', 'June', '2500'),
+          _buildDataRowForPaid('Child 2', 'June', '3000'),
+          _buildDataRowForPaid('Child 3', 'June', '2000'),
+          _buildDataRowForPaid('Child 1', 'May', '2000'),
+          _buildDataRowForPaid('Child 2', 'May', '3000'),
+          _buildDataRowForPaid('Child 3', 'May', '2000'),
         ],
       ),
     ),
   );
 }
 
-DataRow _buildDataRow(String child, String month, String payment) {
+DataRow _buildDataRow(BuildContext context, String child, String month, String payment) {
   return DataRow(
     cells: <DataCell>[
       DataCell(Text(child)),
       DataCell(Text(month)),
       DataCell(Text(payment)),
+      DataCell(
+        ElevatedButton(
+          onPressed: () {
+            _showConfirmationDialog(context);
+          },
+          child: Text('Pay'),
+        ),
+      ),
     ],
   );
 }
+DataRow _buildDataRowForPaid(String student, String month, String payment) {
+    return DataRow(
+      cells: <DataCell>[
+        DataCell(Text(student)),
+        DataCell(Text(month)),
+        DataCell(Text(payment)),
+      ],
+    );
+  }
 
   void _showConfirmationDialog(BuildContext context) {
   showDialog(
