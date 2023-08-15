@@ -1,7 +1,41 @@
 import dlcard from"../../images/dlcard.jpg";
-import schoolVan from"../../images/schoolVan.jpeg"
-import { BsChevronLeft } from "react-icons/bs";
-import { BsChevronRight } from "react-icons/bs";
+import VehiCarousel from "../../components/carousel/VehiCarousel";
+
+// Carouselimage
+import vcv1 from"../../images/vcv1.jpg";
+import vcv2 from"../../images/vcv2.jpg";
+import vcv3 from"../../images/vcv3.jpg";
+import vcv4 from"../../images/vcv4.jpg";
+import vcv5 from"../../images/vcv5.jpg";
+import vcv6 from"../../images/vcv6.jpg";
+
+
+const CAROUSEL_DATA = [
+    {
+      image:vcv1,
+      imageAlt:vcv1
+    },
+    {
+      image:vcv2,
+      imageAlt:vcv2
+    },
+    {
+      image:vcv3,
+      imageAlt:vcv3
+    },
+    {
+      image:vcv4,
+      imageAlt:vcv4
+    },
+    {
+      image:vcv5,
+      imageAlt:vcv5
+    },
+    {
+      image:vcv6,
+      imageAlt:vcv6
+    }
+  ]
 
 function VRmodal({visible, onClose}) {
     if (!visible) return null;
@@ -12,23 +46,11 @@ function VRmodal({visible, onClose}) {
             {/* topic */}
             <div className='font-bold ml-16 mt-4 text-2xl'>Vehicle Registration Form</div>
 
-            {/* display image container */}
-            <div className="flex mt-8">
-                <BsChevronLeft className="mt-14 ml-[30%] w-8 h-8"/>
-                <img src={schoolVan} alt="school van" className="ml-12 max-h-[150px] max-w-[300px]"></img>
-                <BsChevronRight className="mt-14 ml-12 w-8 h-8"/>
+            <div className="-ml-[200px]">
+            <VehiCarousel data={CAROUSEL_DATA} />
             </div>
 
-            {/* all images container */}
-            <div className="flex mt-8">
-                <img src={schoolVan} alt="school van" className="ml-[20%] h-[50px] cursor-pointer"></img>
-                <img src={schoolVan} alt="school van" className="ml-2 h-[50px]  cursor-pointer"></img>
-                <img src={schoolVan} alt="school van" className="ml-2 h-[50px]  cursor-pointer"></img>
-                <img src={schoolVan} alt="school van" className="ml-2 h-[50px]  cursor-pointer"></img>
-                <img src={schoolVan} alt="school van" className="ml-2 h-[50px]  cursor-pointer"></img>
-                <img src={schoolVan} alt="school van" className="ml-2 h-[50px]  cursor-pointer"></img>
-                <img src={schoolVan} alt="school van" className="ml-2 h-[50px]  cursor-pointer"></img>
-            </div>
+
                 {/* firstsqure */}
                 <div className="mt-4 ml-10 pl-8 pt-4 pb-3 grid grid-cols-2 gap-[200px]">
                     <div className="">
