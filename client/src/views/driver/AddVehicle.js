@@ -54,6 +54,7 @@ function AddVehicle() {
   };
 
   const handleFileChange = (event) => {
+    console.log(event.target.files[0]);
     setValues((prev) => ({
       ...prev,
       registrationDocumentImage: event.target.files[0], // Store the selected file

@@ -344,10 +344,7 @@ function DriverDashboardPg() {
           Dashboard
         </h1>
 
-        {/* check if ride is available or not */}
-        {hasRide ? (
-          <>
-            <div className="grid grid-cols-5 h-screen gap-4">
+        <div className="grid grid-cols-5 h-screen gap-4">
               {/* left side column */}
               <div className="leftside col-span-3">
                 {/* upper row */}
@@ -377,6 +374,8 @@ function DriverDashboardPg() {
                         <h1 className="text-[20px] leading-[24px] font-bold text-[#5a5c69] mt-[5px] pb-1">
                           Vehicle
                         </h1>
+                        <NavLink to="/driver/vehicle/add">
+                        <button>Add vehicle</button></NavLink>
                         <div className="flex gap-x-20">
                           <div className="w-40 ">
                             <img
@@ -481,72 +480,6 @@ function DriverDashboardPg() {
               </div>
               {/* end of right column */}
             </div>
-          </>
-        ) : (
-          // if not ride is available
-          <div className="text-center mt-10">
-            <div className=" grid grid-cols-2 mb-5">
-              {/* left column */}
-              <div className="leftside bg-white">
-                <img src={schoolbusImg} alt="img" className="ml-4 w-full" />
-              </div>
-              {/* end of left column */}
-              {/* right column */}
-              <div className="rightside mt-12">
-                {/* text section */}
-                <div className="w-full h-3/5 p-10 text-center">
-                  <h1 className="text-orange text-4xl mb-3 leading-15 ">
-                    Hello {userName} , Welcome to the Edugo!{" "}
-                  </h1>
-                  <br></br>
-                  <div className="text-[#5a5c69] text-2xl mt-4">
-                    Begin your career as a Edugo Driver and enjoy best school
-                    hiring experience with awesome income.
-                  </div>
-                  <br></br>
-                  <div className="text-[#5a5c69] text-lg mt-5">
-                    So, Hurry up to add your ride now!
-                  </div>
-                </div>
-                {/* end of text section */}
-                {/* button section */}
-                {hasVehicle ? (
-                  <>
-                    <div>
-                      <div className="w-full h-2/5 flex justify-center">
-                        <NavLink to="/driver/vehicle/add">
-                          <button className="flex justify-center w-80 h-12 mt-12 bg-orange rounded-md cursor-pointer hover:shadow-lg transform hover:scale-[103%] transition duration-300 ease-out">
-                            <div className="flex py-3 gap-3 font-semibold">
-                              Add Your School Ride
-                            </div>
-                          </button>
-                        </NavLink>
-                      </div>
-                      <div>
-                        <NavLink to="/driver/vehicle">
-                          My vehicle Details
-                        </NavLink>
-                      </div>
-                    </div>
-                  </>
-                ) : (
-                  <div className="w-full h-2/5 flex justify-center">
-                    <NavLink to="/driver/vehicle/add">
-                      <button className="flex justify-center w-80 h-12 mt-12 bg-orange rounded-md cursor-pointer hover:shadow-lg transform hover:scale-[103%] transition duration-300 ease-out">
-                        <div className="flex py-3 gap-3 font-semibold">
-                          Add Your Vehicle
-                        </div>
-                      </button>
-                    </NavLink>
-                  </div>
-                )}
-
-                {/* end of button section */}
-              </div>
-              {/* end of right column */}
-            </div>
-          </div>
-        )}
       </MainLayout>
       {/* {modalOpen && <Modal setOpenModal={setModalOpen} />} */}
     </div>
