@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_constructors, use_key_in_widget_constructors, prefer_const_literals_to_create_immutables
+// ignore_for_file: prefer_const_constructors, use_key_in_widget_constructors, prefer_const_literals_to_create_immutables, avoid_unnecessary_containers
 
 import 'package:flutter/material.dart';
 import './navbar.dart';
@@ -20,21 +20,8 @@ class RidePage extends StatelessWidget {
             ),
           ),
           Expanded(
-            flex: 2,
-            child: Container(
-              padding: EdgeInsets.all(20),
-              height: 30, 
-              color: Colors.blue, // Placeholder color
-              child: Center(
-                child: Text(
-                  'Map',
-                  style: TextStyle(
-                    fontSize: 18,
-                    color: Colors.white,
-                  ),
-                ),
-              ),
-            ),
+            flex: 4,  
+            child: Image.asset('assets/images/ss2.png'),
           ),
           Padding(
             padding: EdgeInsets.all(20.0),
@@ -48,40 +35,109 @@ class RidePage extends StatelessWidget {
           ),
           Expanded(
             flex: 3,
-            child: SingleChildScrollView(
-              child: DataTable(
-                columns: const <DataColumn>[
-                  DataColumn(label: Text('Student')),
-                  DataColumn(label: Text('Destination Address')),
-                ],
-                rows: const <DataRow>[
-                  DataRow(cells: <DataCell>[
-                    DataCell(Text('Nilmi Disanayaka')),
-                    DataCell(Text('No. 12, Highway Road, Colombo 05')),
-                  ]),
-                  DataRow(cells: <DataCell>[
-                    DataCell(Text('Kawya Sandamini')),
-                    DataCell(Text('No. 12, Highway Road, Colombo 05')),
-                  ]),
-                  DataRow(cells: <DataCell>[
-                    DataCell(Text('Kavindu Tharaka')),
-                    DataCell(Text('No. 12, Highway Road, Colombo 05')),
-                  ]),
-                  DataRow(cells: <DataCell>[
-                    DataCell(Text('Kavindu Tharaka')),
-                    DataCell(Text('No. 12, Highway Road, Colombo 05')),
-                  ]),
-                  DataRow(cells: <DataCell>[
-                    DataCell(Text('Kavindu Tharaka')),
-                    DataCell(Text('No. 12, Highway Road, Colombo 05')),
-                  ]),
-                  DataRow(cells: <DataCell>[
-                    DataCell(Text('Kavindu Tharaka')),
-                    DataCell(Text('No. 12, Highway Road, Colombo 05')),
-                  ]),
-                  
-                ],
-              ),
+            child: Scrollable(
+              axisDirection: AxisDirection.right,
+              viewportBuilder: (context, offset) {
+                return SingleChildScrollView(
+                  scrollDirection: Axis.horizontal,
+                  child: DataTable(
+                    columns: const <DataColumn>[
+                      DataColumn(label: Text('Student')),
+                      DataColumn(label: Text('Destination Address')),
+                      DataColumn(label: Text('Action')),
+                    ],
+                    rows: <DataRow>[
+                      DataRow(cells: <DataCell>[
+                        DataCell(Text('Nilmi Disanayaka')),
+                        DataCell(Text(
+                          'No. 12, Highway Road, Colombo 05',
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                        )),
+                        DataCell(Container(
+                          child: Row(
+                            children: [
+                              ElevatedButton(
+                                onPressed: () {},
+                                style: ElevatedButton.styleFrom(
+                                  backgroundColor: Colors.orange,
+                                ),
+                                child: Text('Drop'),
+                              ),
+                              SizedBox(width: 8),
+                              ElevatedButton(
+                                onPressed: () {},
+                                style: ElevatedButton.styleFrom(
+                                  backgroundColor: Colors.red,
+                                ),
+                                child: Text('Missed'),
+                              ),
+                            ],
+                          ),
+                        )),
+                      ]),
+                      DataRow(cells: <DataCell>[
+                        DataCell(Text('Amanda Perera')),
+                        DataCell(Text(
+                          '12B, wijerama Road, Colombo 07',
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                        )),
+                        DataCell(Container(
+                          child: Row(
+                            children: [
+                              ElevatedButton(
+                                onPressed: () {},
+                                style: ElevatedButton.styleFrom(
+                                  backgroundColor: Colors.orange,
+                                ),
+                                child: Text('Drop'),
+                              ),
+                              SizedBox(width: 8),
+                              ElevatedButton(
+                                onPressed: () {},
+                                style: ElevatedButton.styleFrom(
+                                  backgroundColor: Colors.red,
+                                ),
+                                child: Text('Missed'),
+                              ),
+                            ],
+                          ),
+                        )),
+                      ]),
+                      DataRow(cells: <DataCell>[
+                        DataCell(Text('Malithi Silva')),
+                        DataCell(Text(
+                          '4B, Kirulapana',
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                        )),
+                        DataCell(Container(
+                          child: Row(
+                            children: [
+                              ElevatedButton(
+                                onPressed: () {},
+                                style: ElevatedButton.styleFrom(
+                                  backgroundColor: Colors.orange,
+                                ),
+                                child: Text('Drop'),
+                              ),
+                              SizedBox(width: 8),
+                              ElevatedButton(
+                                onPressed: () {},
+                                style: ElevatedButton.styleFrom(
+                                  backgroundColor: Colors.red,
+                                ),
+                                child: Text('Missed'),
+                              ),
+                            ],
+                          ),
+                        )),
+                      ]),
+                    ],
+                  ),
+                );
+              },
             ),
           ),
         ],
