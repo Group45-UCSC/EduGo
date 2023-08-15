@@ -20,7 +20,7 @@ const addEmployee = async (req, res) => {
     //4. enter the new user inside our database
 
     const newUser = await pool.query(
-      "INSERT INTO employee (name,email,tpNum,nic,password,address,dob,role,reg_date) VALUES($1,$2,$3,$4,$5,NOW()) RETURNING * ",
+      "INSERT INTO employee (name,email,tpNum,nic,password,address,dob,role,reg_date) VALUES($1,$2,$3,$4,$5,$6,$7,$8,NOW()) RETURNING * ",
       [name, email, tpNum, nic, password, address, dob, role]
     );
 

@@ -40,6 +40,14 @@ function AdminDashboardPg() {
     },
   ];
 
+  const vehicle = () => {
+    window.location.href = `/admin/drivers`;
+  };
+
+  const children = () => {
+    window.location.href = `/admin/childrenlist`;
+  };
+
   const emergency = () => {
     window.location.href = `/admin/emergencylist`;
   };
@@ -66,7 +74,7 @@ function AdminDashboardPg() {
             <div className='flex w-2 rounded-s-lg' style={{ backgroundColor: '#FF9900' }}></div>
 
             {/* title and icon container */}
-            <div className='flex flex-col'>
+            <div onClick={vehicle} className='flex flex-col'>
               <div className='flex'>
                 <div className='w-24 ml-4 mt-2 h-16 font-bold'>Total Vehicles</div>
                 <div className='ml-16 mt-4 w-8 h-8'><FaBusAlt className='h-6 w-6' /></div>
@@ -82,7 +90,7 @@ function AdminDashboardPg() {
             <div className='flex w-2 rounded-s-lg' style={{ backgroundColor: '#FF9900' }}></div>
 
             {/* title and icon container */}
-            <div className='flex flex-col'>
+            <div onClick={children} className='flex flex-col'>
               <div className='flex'>
                 <div className='w-24 ml-4 mt-2 h-16 font-bold'>Total Children</div>
                 <div className='ml-16 mt-4 w-8 h-8'><FaChild className='h-6 w-6' /></div>
