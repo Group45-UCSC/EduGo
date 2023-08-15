@@ -1,5 +1,7 @@
-import React from "react";
+import React, { useState } from "react";
 import MainLayout from "../../components/layout/MainLayout";
+import { BsStar, BsStarFill } from "react-icons/bs";
+import { AiOutlineClose } from "react-icons/ai";
 import { AiOutlineSearch } from "react-icons/ai";
 import { BiFilterAlt } from "react-icons/bi";
 import { FaBusAlt } from "react-icons/fa";
@@ -23,6 +25,76 @@ const sideNavBarLinks = [
 
 function AdminDashboardPg() {
 
+  const [viewPopup, setViewPopup] = useState(false);
+
+  function showPopup() {
+    setViewPopup(true);
+  }
+
+  function hidePopup() {
+    setViewPopup(false);
+  }
+
+  // Create Rating Stars
+  function RatingStars({ rating }) {
+    const filledStars = Math.floor(rating);
+    const partFilledStar = filledStars + 1;
+
+    const starFilledWidth = (starIndex) => {
+      if (starIndex + 1 <= filledStars) {
+        return "100%";
+      } else if (
+        starIndex + 1 ===
+        partFilledStar
+      ) {
+        console.log();
+        return `${Math.floor(
+          (rating - filledStars) * 100
+        )}%`;
+      } else {
+        return "0%";
+      }
+    };
+
+
+    return (
+      <div className="rating">
+        {Array(5)
+          .fill(0)
+          .map((star, index) => (
+            <div className="star"
+              key={index}>
+              <div
+                className="starFull"
+                style={{
+                  width: starFilledWidth(
+                    index
+                  ),
+                }}>
+                <BsStarFill className=" text-sm" />
+              </div>
+              <div className="starEmpty">
+                <BsStar className=" text-sm" />
+              </div>
+            </div>
+          ))}
+      </div>
+    );
+  }
+
+  const reviews = [
+    {
+      id: 1,
+      u_image: require("../../images/user.png"),
+      u_name: "K.L Kumarasiri",
+      rating: 4.5,
+      review: "Saman is a very responsible and safe driver. My child enjoys the ride every day!",
+    },
+  ];
+
+
+
+  // review list
   const rev = [
     {
       id: "001",
@@ -169,7 +241,7 @@ function AdminDashboardPg() {
 
             <tbody className=''>
               {rev.map((item) => (
-                <tr className=' bg-[#D9D9D9] bg-opacity-60 hover:cursor-pointer  hover:bg-[#eaeaea] drop-shadow-md'>
+                <tr onClick={showPopup} className=' bg-[#D9D9D9] bg-opacity-60 hover:cursor-pointer  hover:bg-[#eaeaea] drop-shadow-md'>
                   <td className='text-center  p-3 ' >{item.id}</td>
                   <td>{item.v_no}</td>
                   <td>{item.p_id}</td>
@@ -180,6 +252,42 @@ function AdminDashboardPg() {
             </tbody>
           </table>
         </div>
+
+
+        {/* popup */}
+        {viewPopup && (
+          <div className="fixed top-0 left-0 translate-x-[-16px] w-[102.6%] h-full bg-stone-900/75">
+
+            {/* close button */}
+            <div onClick={hidePopup} className="flex w-16 h-12 bg-red-600 float-right mr-16 mt-[12%] text-white text-lg pt-2 pl-4 cursor-pointer hover:bg-red-700 shadow-lg">
+              <AiOutlineClose className="mt-2 ml-2" />
+            </div>
+
+            {/* review container */}
+            <div>
+              {reviews.map((review, index) => (
+                <div key={index} className="rounded-[8px] bg-slate-100 mb-3 mt-[15%] w-3/4 ml-80 border-[1px] border-orange  items-center justify-between px-[30px] py-3 cursor-pointer hover:shadow-lg transform hover:scale-[101%] transition duration-300 ease-out">
+                  <div className="flex  w-full mb-3">
+                    <div className="flex justify-start gap-2 ">
+                      <img src={review.u_image} alt="user_image" className="bg-slate-300 w-8 cursor-pointer rounded-full p-1"></img>
+                      <h1 className="mt-1">{review.u_name}</h1>
+
+                    </div>
+                    <div className="flex justify-end mt-2  ml-auto">
+                      <RatingStars rating={review.rating} />
+                    </div>
+                  </div>
+
+                  <div>
+                    {review.review}
+                  </div>
+
+                </div>
+              ))}
+            </div>
+          </div>
+
+        )}
 
       </MainLayout>
     </div>

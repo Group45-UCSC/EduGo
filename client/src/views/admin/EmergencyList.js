@@ -3,6 +3,7 @@ import MainLayout from "../../components/layout/MainLayout";
 import { AiOutlineSearch } from "react-icons/ai";
 import { BiFilterAlt } from "react-icons/bi";
 
+
 import { AiFillDashboard } from "react-icons/ai";
 import { BsCoin } from "react-icons/bs";
 import { FaChild } from "react-icons/fa";
@@ -76,6 +77,9 @@ function AdminEmergencyList() {
   const handleClick = () => {
     window.location.href = `/admin/emergency`;
   };
+
+
+
   return (
     <div>
       <MainLayout data={sideNavBarLinks}>
@@ -179,6 +183,9 @@ function AdminEmergencyList() {
             </table>
           </div>
         </div>
+
+
+
 
       </MainLayout>
     </div>
