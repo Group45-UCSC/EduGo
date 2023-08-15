@@ -215,6 +215,7 @@ function Ride() {
             </div>
           </div>
           <div className="w-[80%] h-[80%]">
+
             <LoadScript googleMapsApiKey="AIzaSyBSRpk2O7ZkVtqQknrlERKR-DwpiRi8Z_U">
               <GoogleMap
                 mapContainerStyle={{
@@ -235,6 +236,7 @@ function Ride() {
                 />
               </GoogleMap>
             </LoadScript>
+
           </div>
           <div className="flex justify-center items-center mt-5">
             {/* <button

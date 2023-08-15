@@ -149,18 +149,24 @@ function Vehicle() {
 
               </div>
               <div className=" w-1/3 bg-slate-200 rounded-[8px]">
-                <div className="flex items-center justify-center p-2">
+                {/* <div className="flex items-center justify-center p-2">
                   <h1 className="text-lg text-slate-600">Reaching Schools</h1>
-                </div>
-                <div className="space-y-2 w-full px-3 overflow-y-auto">
-                  {vehicleData.school.map((school, index) => (
+                </div> */}
+                <div className="space-y-2 w-full px-3  flex justify-center">
+                  {/* {vehicleData.school.map((school, index) => (
                     <div
                       key={index}
                       className="p-1 flex justify-center rounded-md border border-orange bg-slate-100"
                     >
                       {school}
                     </div>
-                  ))}
+                  ))} */}
+                  <div className=" mt-[120px]">
+                  <button className="flex justify-center w-40 h-10 bg-orange rounded-md cursor-pointer hover:shadow-lg transform hover:scale-[103%] transition duration-300 ease-out">
+                    <div className="flex mt-1 gap-3 font-semibold text-xl">Add Ride</div>
+                  </button>
+                  </div>
+
                 </div>
               </div>
             </div>
