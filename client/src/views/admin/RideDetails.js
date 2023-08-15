@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import MainLayout from "../../components/layout/MainLayout";
+import driverpic from "../../images/driver1.png";
 import { AiFillDashboard } from "react-icons/ai";
 import { AiOutlineClose } from "react-icons/ai";
 import { BsCoin } from "react-icons/bs";
@@ -29,6 +30,18 @@ function AdminRideDetails() {
     setViewPopup(false);
   }
 
+  const child = () => {
+    window.location.href = `/admin/children`;
+  };
+
+  const driver = () => {
+    window.location.href = `/admin/driverinfo`;
+  };
+
+  const vehicle = () => {
+    window.location.href = `/admin/vehicleinfo`;
+  };
+
   return (
     <div>
       <MainLayout data={sideNavBarLinks}>
@@ -40,12 +53,12 @@ function AdminRideDetails() {
           <div className='flex'>
 
             {/* image */}
-            <div className='bg-gradient-to-b from-amber-500 to-amber-300 ml-20 mt-8 w-44 h-44 mr-14 rounded-full shadow-md'></div>
+            <div className='bg-gradient-to-b from-amber-500 to-amber-300 ml-20 mt-8 w-44 h-44 mr-14 rounded-full shadow-md'><img src={driverpic} alt="driverpic" className="w-44 h-44 rounded-full shadow-md"></img></div>
 
             {/* Driver's and vehicles detail container */}
             <div className='flex '>
               {/* driver's details container */}
-              <div className='bg-slate-200 w-[275px] h-80 ml-12 mt-8 rounded-lg shadow-md'>
+              <div onClick={driver} className='bg-slate-200 w-[275px] h-80 ml-12 mt-8 rounded-lg shadow-md cursor-pointer'>
                 <div className='font-bold text-[19px] mt-4 ml-8'>
                   Driver's details
                 </div>
@@ -60,7 +73,7 @@ function AdminRideDetails() {
               </div>
 
               {/* Vehicle details container */}
-              <div className='bg-slate-200 w-[275px] h-80 ml-12 mt-8 rounded-lg shadow-md '>
+              <div onClick={vehicle} className='bg-slate-200 w-[275px] h-80 ml-12 mt-8 rounded-lg shadow-md cursor-pointer'>
                 <div className='font-bold text-[19px] mt-4 ml-8'>
                   Vehicle details
                 </div>
@@ -103,7 +116,7 @@ function AdminRideDetails() {
               </thead>
 
               <tbody className=''>
-                <tr className=' bg-[#D9D9D9] bg-opacity-60 hover:cursor-pointer hover:bg-[#eaeaea] drop-shadow-md'>
+                <tr onClick={child} className=' bg-[#D9D9D9] bg-opacity-60 hover:cursor-pointer hover:bg-[#eaeaea] drop-shadow-md'>
                   <td className='text-center  p-3'> 001</td>
                   <td className='text-center'>Charitha Ruwindu</td>
                   <td className='text-center'>0711234567</td>
@@ -111,7 +124,7 @@ function AdminRideDetails() {
                   <td className='text-center'>Picked</td>
                 </tr>
 
-                <tr className=' bg-[#D9D9D9] bg-opacity-60 hover:cursor-pointer  hover:bg-[#eaeaea] drop-shadow-md' >
+                <tr onClick={child} className=' bg-[#D9D9D9] bg-opacity-60 hover:cursor-pointer  hover:bg-[#eaeaea] drop-shadow-md' >
                   <td className='text-center  p-3 ' >002</td>
                   <td className='text-center'>Dewmini Rathnawardhana</td>
                   <td className='text-center'>0768956423</td>
@@ -119,7 +132,7 @@ function AdminRideDetails() {
                   <td className='text-center'>Dropped</td>
                 </tr>
 
-                <tr className=' bg-[#D9D9D9] bg-opacity-60 hover:cursor-pointer  hover:bg-[#eaeaea] drop-shadow-md'>
+                <tr onClick={child} className=' bg-[#D9D9D9] bg-opacity-60 hover:cursor-pointer  hover:bg-[#eaeaea] drop-shadow-md'>
                   <td className='text-center  p-3 ' >003</td>
                   <td className='text-center'>Apsara Liyanage</td>
                   <td className='text-center'>0762222223</td>

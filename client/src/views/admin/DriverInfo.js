@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import MainLayout from "../../components/layout/MainLayout";
+import driverpic from "../../images/driver1.png";
 import { FaMapMarkerAlt } from "react-icons/fa";
 import { AiOutlineClose } from "react-icons/ai";
 import { AiFillDashboard } from "react-icons/ai";
@@ -47,7 +48,7 @@ function AdminDriverInfo() {
                         <div>
 
                             {/* image */}
-                            <div className='bg-gradient-to-b from-amber-500 to-amber-300 ml-20 mt-8 w-44 h-44 mr-14 rounded-full shadow-md'></div>
+                            <div className='bg-gradient-to-b from-amber-500 to-amber-300 ml-20 mt-8 w-44 h-44 mr-14 rounded-full shadow-md'><img src={driverpic} alt="driverpic" className="w-44 h-44 rounded-full shadow-md"></img></div>
 
                             {/* status & location */}
                             <div>
