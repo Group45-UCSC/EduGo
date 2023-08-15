@@ -1,36 +1,90 @@
 import React, { useState } from "react";
 import MainLayout from "../../components/layout/MainLayout";
 import { FaHome, FaBus, FaUsers, FaSearch } from "react-icons/fa";
-import {BsFillChatDotsFill} from "react-icons/bs";
+import { BsFillChatDotsFill } from "react-icons/bs";
 import { MdLocationPin } from "react-icons/md";
 import DriverVehicleDetails from "./DriverVehicleDetails";
+import CarouselLayout from "../../components/carousel/CarouselLayout";
 
 const sideNavBarLinks = [
   { title: "Dashboard", path: "/sup_agent/dashboard", icon: <FaHome /> },
-  { title: "Chat", path:"/sup_agent/chat", icon:<BsFillChatDotsFill/>},
+  { title: "Chat", path: "/sup_agent/chat", icon: <BsFillChatDotsFill /> },
   { title: "Parents", path: "/sup_agent/parents", icon: <FaUsers /> },
   { title: "Drivers", path: "/sup_agent/drivers", icon: <FaBus /> },
 ];
-const initialVehicleData = [
+const VehicleDriverData = [
   {
-    id: 1,
+    Vid: 1,
     vnum: "V12345",
     drivername: "H.A.Priyantha Perera",
     contact: "0112345678",
     sLocation: "Rosmead Place, Colombo 7",
   },
   {
-    id: 2,
+    Vid: 2,
     vnum: "V98765",
     drivername: "Saman Hettiarachchi",
     contact: "0332250444",
     sLocation: "Main St, Colombo 7",
   },
 ];
+const VehicleData = [
+  {
+    Vid: 1,
+    vnum: "V12345",
+    model: "Nissan Caravan TD27",
+    YOM: " 1991",
+    Gear: "Manual",
+    Engine: "2700",
+    options: ["AIR CONDITION", "POWER STEERING", "POWER WINDOW"],
+  },
+  {
+    Vid: 2,
+    vnum: "V98765",
+    model: "Isuzu Fargo",
+    YOM: " 1998",
+    Gear: "Manual",
+    Engine: "2700",
+    options: ["AIR CONDITION", "POWER STEERING", "POWER WINDOW"],
+  },
+];
+const VehicleCarouselData = [
+  {
+    Vid: 1,
+    image: "https://riyasewana.com/uploads/nissan-caravan-15602054231.jpg",
+    imageAlt: "v1 img1",
+  },
+  {
+    Vid: 1,
+    image: "https://riyasewana.com/uploads/nissan-caravan-15603406204.jpg",
+    imageAlt: "v1 img2 ",
+  },
+  {
+    Vid: 1,
+    image: "https://riyasewana.com/uploads/nissan-caravan-15603406056.jpg",
+    imageAlt: "v1 img3",
+  },
+  {
+    Vid: 2,
+    image: "https://riyasewana.com/uploads/isuzu-fargo-15710084691.jpg",
+    imageAlt: "v2 img1",
+  },
+  {
+    Vid: 2,
+    image: "https://riyasewana.com/uploads/isuzu-fargo-15710084682.jpg",
+    imageAlt: "v2 img2 ",
+  },
+  {
+    Vid: 2,
+    image: "https://riyasewana.com/uploads/isuzu-fargo-15710556844.jpg",
+    imageAlt: "v2 img3",
+  },
+];
 const initialDriverData = [
   {
     id: 1,
-    name: "John Doe",
+    vid: 1,
+    name: "H.A.Priyantha Perera",
     contact: "0332250444",
     address: "Rosmead Place, Colombo 7",
     vnum: "V12345",
@@ -38,7 +92,8 @@ const initialDriverData = [
   },
   {
     id: 2,
-    name: "Nethmini Abeykoon",
+    vid: 2,
+    name: "Saman Hettiarachchi",
     contact: "0332250444",
     address: "Flower Rd, Rajagiriya",
     vnum: "V98765",
@@ -50,7 +105,7 @@ function Drivers() {
   const [activeTab, setActiveTab] = useState("drivers");
   const [driverData] = useState(initialDriverData);
   // const [parentData, setParentData] = useState(initialParentData);
-  const [vehicleData] = useState(initialVehicleData);
+  const [vehicleDriverData] = useState(VehicleDriverData);
   // const [childrenData,setChildrenData] = useState(initialChildrenData);
   const [selectedRow, setSelectedRow] = useState(null);
 
@@ -60,7 +115,7 @@ function Drivers() {
   const handleClosePopup = () => {
     setSelectedRow(null);
   };
-
+  const [searchQuery, setSearchQuery] = useState("");
   return (
     <div>
       <MainLayout data={sideNavBarLinks}>
@@ -101,6 +156,8 @@ function Drivers() {
                       className=" bg-transparent px-5 py-2 border-2 border-gray rounded-full  outline-none pr-10 placeholder-black placeholder-opacity-75 focus:border-orange"
                       placeholder="Search Drivers..."
                       name="search"
+                      value={searchQuery}
+                      onChange={(e) => setSearchQuery(e.target.value)}
                     />
                     <span className="absolute inset-y-0 right-0 flex items-center pr-2 pt-4">
                       <svg className="h-8 w-8" viewBox="0 0 20 20">
@@ -124,7 +181,11 @@ function Drivers() {
                 </thead>
 
                 <tbody className="">
-                  {driverData.map((driver) => (
+                  {driverData
+                  .filter((driver) =>
+                  driver.name.toLowerCase().includes(searchQuery.toLowerCase()) 
+                  )
+                  .map((driver) => (
                     <tr
                       key={initialDriverData.id}
                       className="bg-[#D9D9D9] bg-opacity-60 hover:cursor-pointer hover:bg-[#eaeaea] drop-shadow-md"
@@ -141,7 +202,7 @@ function Drivers() {
               </table>
             </div>
           )}
-          {/* ---------------end vehicle details--------------- */}
+          {/* ---------------end driver details--------------- */}
 
           {/*------------------------------vehicle Details ----------------------------------*/}
 
@@ -157,6 +218,8 @@ function Drivers() {
                       className=" bg-transparent px-5 py-2 border-2 border-slate-500 rounded-full  outline-none pr-10 placeholder-black placeholder-opacity-75 focus:border-orange"
                       placeholder="Search Vehicles..."
                       name="search"
+                      value={searchQuery}
+                      onChange={(e) => setSearchQuery(e.target.value)}
                     />
                     <span className="absolute inset-y-0 right-0 flex items-center pr-2 pt-4">
                       <svg className="h-8 w-8" viewBox="0 0 20 20">
@@ -180,13 +243,19 @@ function Drivers() {
                 </thead>
 
                 <tbody className="">
-                  {vehicleData.map((vehicle) => (
+                  {vehicleDriverData
+                  .filter((vehicle) =>
+                  vehicle.vnum
+                    .toLowerCase()
+                    .includes(searchQuery.toLowerCase())
+                )
+                  .map((vehicle) => (
                     <tr
-                      key={vehicle.id}
+                      key={vehicle.Vid}
                       className="bg-[#D9D9D9] bg-opacity-60 hover:cursor-pointer hover:bg-[#eaeaea] drop-shadow-md"
                       onClick={() => handleRowClick(vehicle)}
                     >
-                      <td className="text-left px-4 py-4">{vehicle.id}</td>
+                      <td className="text-left px-4 py-4">{vehicle.Vid}</td>
                       <td className="text-left px-4 py-4">{vehicle.vnum}</td>
                       <td className="text-left px-4 py-4">
                         {vehicle.drivername}
@@ -256,9 +325,48 @@ function Drivers() {
                         </p>
                       </div>
                       <div className=" bg-[#EEEE] border-orange border-2 w-full h-auto p-5 rounded-xl mt-5">
-                      <h className="text-xl font-semibold">
+                        <h className="text-xl font-semibold">
                           <u>Vehicle Details</u>
                         </h>
+                        {VehicleData.filter(
+                      (vehicle) => vehicle.Vid === selectedRow.id
+                    ).map((vehicle, index) => (
+                      <div key={index} className="mt-3">
+                        <h2 className="text-lg font-semibold">
+                          {vehicle.vnum}
+                        </h2>
+                        <p>
+                          <strong className="mr-2">Model:</strong>
+                          {vehicle.model}
+                        </p>
+                        <p>
+                          <strong className="mr-2">
+                            {" "}
+                            Year of Manufacture:{" "}
+                          </strong>
+                          {vehicle.YOM}
+                        </p>
+                        <p>
+                          <strong className="mr-2">Gear:</strong>
+                          {vehicle.Gear}
+                        </p>
+                        <p>
+                          <strong className="mr-2">Engine Capacity:</strong>
+                          {vehicle.Engine}
+                        </p>
+                        <div className="mt-1">
+                          <strong className="mr-2">Options:</strong>
+                          {vehicle.options.map((option, index) => (
+                            <span
+                              key={index}
+                              className="bg-gray-200 text-gray-600 px-2 py-1 rounded-full mr-2"
+                            >
+                              {option}
+                            </span>
+                          ))}
+                        </div>
+                      </div>
+                    ))}
                       </div>
                     </div>
                   </div>
@@ -284,22 +392,88 @@ function Drivers() {
             onClose={handleClosePopup}
             activeTab={activeTab}
             content={
-              
-              <div className="grid grid-cols-3  gap-5">
-                <div className="bg-[#EEEE] border-orange border-2 w-full h-auto p-5 rounded-xl">
-                <h className="text-xl font-semibold">
-                          <u>Vehicle Details</u>
-                        </h>
-                </div>
-                <div className="bg-[#EEEE] border-orange border-2 w-full h-auto p-5 rounded-xl">
-                <h className="text-xl font-semibold">
-                          <u>Owner Details</u>
-                        </h>
-                </div>
-                <div className="bg-[#EEEE] border-orange border-2 w-full h-auto p-5 rounded-xl">
-                <h className="text-xl font-semibold">
-                          <u>Driver Details</u>
-                        </h>
+              <div className="">
+                <CarouselLayout
+                  data={VehicleCarouselData}
+                  vid={selectedRow.Vid}
+                />
+
+                <div className="grid grid-cols-2  gap-5">
+                  <div className="bg-[#EEEE] border-orange border-2 w-full h-auto p-5 rounded-xl">
+                    <h className="text-xl font-semibold">
+                      <u>Vehicle Details</u>
+                    </h>
+                    {VehicleData.filter(
+                      (vehicle) => vehicle.Vid === selectedRow.Vid
+                    ).map((vehicle, index) => (
+                      <div key={index} className="mt-3">
+                        <h2 className="text-lg font-semibold">
+                          {vehicle.vnum}
+                        </h2>
+                        <p>
+                          <strong className="mr-2">Model:</strong>
+                          {vehicle.model}
+                        </p>
+                        <p>
+                          <strong className="mr-2">
+                            {" "}
+                            Year of Manufacture:{" "}
+                          </strong>
+                          {vehicle.YOM}
+                        </p>
+                        <p>
+                          <strong className="mr-2">Gear:</strong>
+                          {vehicle.Gear}
+                        </p>
+                        <p>
+                          <strong className="mr-2">Engine Capacity:</strong>
+                          {vehicle.Engine}
+                        </p>
+                        <div className="mt-1">
+                          <strong className="mr-2">Options:</strong>
+                          {vehicle.options.map((option, index) => (
+                            <span
+                              key={index}
+                              className="bg-gray-200 text-gray-600 px-2 py-1 rounded-full mr-2"
+                            >
+                              {option}
+                            </span>
+                          ))}
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                  {/* <div className="bg-[#EEEE] border-orange border-2 w-full h-auto p-5 rounded-xl">
+                    <h className="text-xl font-semibold">
+                      <u>Owner Details</u>
+                    </h>
+                  </div> */}
+                  <div className="bg-[#EEEE] border-orange border-2 w-full h-auto p-5 rounded-xl">
+                    <h className="text-xl font-semibold">
+                      <u>Driver Details</u>
+                    </h>
+                    {VehicleDriverData.filter(
+                      (vehicle) => vehicle.Vid === selectedRow.Vid
+                    ).map((driver, index) => (
+                      <div key={index} className="mt-3">
+                        <h2 className="text-lg font-semibold">
+                          {driver.drivername}
+                        </h2>
+                        <p>
+                          <strong className="mr-2">Vehicle Number:</strong>
+                          {driver.vnum}
+                        </p>
+                        <p>
+                          <strong className="mr-2"> Contact:</strong>
+                          {driver.contact}
+                        </p>
+                        <p>
+                          <strong className="mr-2">Starting Location:</strong>
+                          {driver.sLocation}
+                        </p>
+                      </div>
+                    ))}
+                  </div>
                 </div>
               </div>
             }
