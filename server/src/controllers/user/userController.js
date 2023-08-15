@@ -1,4 +1,4 @@
-// //db connection
+//db connection
 const pool = require("../../dbConnection");
 // // const query = require("../../models/userModel");
 
@@ -280,7 +280,8 @@ const login = async (req, res) => {
     //4. login success
     const userRole = userdata.rows[0].user_role;
     const userName = userdata.rows[0].user_name; 
-    return res.json({ Login: true, role: userRole, userName: userName });
+    const userId = userdata.rows[0].user_id; 
+    return res.json({ Login: true, role: userRole, userName: userName, userId: userId });
 
     // req.session.username = user.rows[0].name;
     // req.session.useremail = user.rows[0].email;
