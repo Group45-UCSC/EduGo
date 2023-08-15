@@ -10,7 +10,6 @@ import {
 import schoolVan from "../../images/schoolVan.jpeg";
 import schoolbusImg from "../../images/schoolBus.jpg";
 
-
 import {
   LineChart,
   Line,
@@ -511,15 +510,37 @@ function DriverDashboardPg() {
                 </div>
                 {/* end of text section */}
                 {/* button section */}
-                <div className="w-full h-2/5 flex justify-center">
-                  <NavLink to="/driver/vehicle/add">
-                  <button className="flex justify-center w-80 h-12 mt-12 bg-orange rounded-md cursor-pointer hover:shadow-lg transform hover:scale-[103%] transition duration-300 ease-out">
-                    <div className="flex py-3 gap-3 font-semibold">
-                      Add School Ride
+                {hasVehicle ? (
+                  <>
+                    <div>
+                      <div className="w-full h-2/5 flex justify-center">
+                        <NavLink to="/driver/vehicle/add">
+                          <button className="flex justify-center w-80 h-12 mt-12 bg-orange rounded-md cursor-pointer hover:shadow-lg transform hover:scale-[103%] transition duration-300 ease-out">
+                            <div className="flex py-3 gap-3 font-semibold">
+                              Add Your School Ride
+                            </div>
+                          </button>
+                        </NavLink>
+                      </div>
+                      <div>
+                        <NavLink to="/driver/vehicle">
+                          My vehicle Details
+                        </NavLink>
+                      </div>
                     </div>
-                  </button>
-                  </NavLink>
-                </div>
+                  </>
+                ) : (
+                  <div className="w-full h-2/5 flex justify-center">
+                    <NavLink to="/driver/vehicle/add">
+                      <button className="flex justify-center w-80 h-12 mt-12 bg-orange rounded-md cursor-pointer hover:shadow-lg transform hover:scale-[103%] transition duration-300 ease-out">
+                        <div className="flex py-3 gap-3 font-semibold">
+                          Add Your Vehicle
+                        </div>
+                      </button>
+                    </NavLink>
+                  </div>
+                )}
+
                 {/* end of button section */}
               </div>
               {/* end of right column */}
