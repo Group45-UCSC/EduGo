@@ -19,7 +19,7 @@ npm install react-modal
 npm i dotenv
 npm i fs path
 npm install react-datepicker react-dropzone
-
+npm i react-switch
 --server--
 npm i express pg cors
 npm i nodemon

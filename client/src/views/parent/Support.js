@@ -13,6 +13,7 @@ import {
 } from "react-icons/ai";
 import chatIcon from "../../images/chatIcon.png";
 import Complaint from "./Complaint";
+import MinimizableChat from "./MinimizableChat";
 function Support() {
   const sideNavBarLinks = [
     {
@@ -294,63 +295,8 @@ function Support() {
               <div className="col-span-3 bg-orange w-3/4 h-[35rem] p-5 ml-5  ">
                 <Complaint />
               </div>
-              <div className="col-span-2 w-fill  p-8 bg-gradient-to-r from-[#e2e8f0] to-[#cbd5e0]">
-                <div className="flex flex-col h-full border rounded-lg overflow-hidden">
-                  <div className="bg-orange flex justify-center items-center border-b py-3 mb-3">
-                    <h1 className="font-semibold text-2xl">Customer Support</h1>
-                  </div>
-                  <div className="flex-grow p-4 overflow-y-auto">
-                    {/* Chat messages */}
-                    <div className="mb-4">
-                      <div className="flex items-start justify-start mb-2">
-                        <div className="bg-gray px-5 py-2 rounded-xl flex justify-start">
-                          Hi there! How can I help you today?
-                        </div>
-                      </div>
-                      <div className="flex items-end justify-end"></div>
-                      {/* ... Add more messages here */}
-                    </div>
-                  </div>
-                  <div className="flex-shrink-0 bg-gray-200 p-2">
-                    {/* Message input */}
-                    <div className="flex items-center gap-4 mt-5">
-                      <div className="flex items-center gap-2">
-                        <label htmlFor="file-input">
-                          <AiOutlinePaperClip
-                            className={`h-6 w-6 text-${
-                              inputValue.trim() !== "" ? "orange" : "black"
-                            } cursor-pointer hover:text-orange`}
-                          />
-                        </label>
-                        <input
-                          id="file-input"
-                          type="file"
-                          style={{ display: "none" }}
-                          onChange={handleFileChange} // Add a function to handle the file attachment
-                        />
-                      </div>
-                      <input
-                        type="text"
-                        className="flex-grow px-4 py-3 border border-black rounded-xl focus:outline-none focus:border-orange focus:border-2 placeholder-black placeholder-opacity-75"
-                        placeholder="Type your message..."
-                        value={inputValue} // Set the input value from state
-                        onChange={(e) => setInputValue(e.target.value)} // Update the input value in state
-                        onKeyPress={(e) => {
-                          if (e.key === "Enter") {
-                            handleSendMessage();
-                          }
-                        }}
-                      />
-                      <AiOutlineSend
-                        className={`h-6 w-6 text-${
-                          inputValue.trim() !== "" ? "orange" : "black"
-                        } cursor-pointer hover:text-orange `}
-                        onClick={handleSendMessage} //calll the function t send the message
-                      />
-                    </div>
-                  </div>
-                </div>
-              </div>
+              <div className="col-span-2 bg-[#EEEEEE] w-full h-[35rem] p-5 mr-5 text-3xl font-semibold">All Complaints</div>
+              <MinimizableChat />
             </div>
           )}
           {/* -------------------------------------------------------- */}
