@@ -54,7 +54,7 @@ class Navbar extends StatelessWidget {
             ),
             ListTile(
               leading: Icon(Icons.home_outlined, color: Colors.black),
-              title: Text('Dashboard'),
+              title: Text('Home page'),
               onTap: () {
                 Navigator.pop(context);
                 Navigator.pushNamed(context, '/home_d');
@@ -98,7 +98,7 @@ class Navbar extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
               child: Text(
-                'Contact Numbers:',
+                'Contact Us:',
                 style: TextStyle(
                   fontSize: 16,
                   fontWeight: FontWeight.bold,
@@ -108,7 +108,7 @@ class Navbar extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16),
               child: Text(
-                'Customer Support: 123-456-7890\nTechnical Support: 987-654-3210',
+                'Customer Support: 123-456-7890\nEmail: edudo@gmail.com',
                 style: TextStyle(fontSize: 14),
               ),
             ),
