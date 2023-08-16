@@ -1,4 +1,4 @@
-// ignore_for_file: use_key_in_widget_constructors, prefer_const_constructors, prefer_const_literals_to_create_immutables
+// ignore_for_file: use_key_in_widget_constructors, prefer_const_constructors, prefer_const_literals_to_create_immutables, sized_box_for_whitespace
 
 import 'package:flutter/material.dart';
 import './navbar.dart';
@@ -8,7 +8,7 @@ class FinancialPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Navbar(
       child: DefaultTabController(
-        length: 2,
+        length: 3,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
@@ -25,6 +25,7 @@ class FinancialPage extends StatelessWidget {
             SizedBox(height: 20),
             TabBar(
               tabs: [
+                Tab(text: 'Ongoing'),
                 Tab(text: 'Not Pay'),
                 Tab(text: 'Pay'),
               ],
@@ -34,10 +35,39 @@ class FinancialPage extends StatelessWidget {
                 color: Colors.orange,
               ),
             ),
+            SizedBox(height: 10),
+            // Search bar
+           Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  Expanded(
+                    child: Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(30),
+                        color: Colors.grey[200],
+                      ),
+                      child: TextField(
+                        decoration: InputDecoration(
+                          hintText: 'Search',
+                          prefixIcon: Icon(Icons.search),
+                          border: InputBorder.none,
+                          contentPadding: EdgeInsets.all(16),
+                        ),
+                      ),
+                    ),
+                  ),
+                  SizedBox(width: 8),
+                  
+                ],
+              ),
+            ),
             Expanded(
               child: TabBarView(
                 children: [
-                  _buildNotPayTabContent(context),
+                  _buildOngoingTabContent(context),
+                  _buildNotPayTabContent(),
                   _buildPayTabContent(),
                 ],
               ),
@@ -48,7 +78,29 @@ class FinancialPage extends StatelessWidget {
     );
   }
 
-  Widget _buildNotPayTabContent(BuildContext context) {
+  Widget _buildNotPayTabContent() {
+    return SingleChildScrollView(
+      child: DataTable(
+        columns: const <DataColumn>[
+          DataColumn(label: Text('Student')),
+          DataColumn(label: Text('Month')),
+          DataColumn(label: Text('Payment')),
+        ],
+        rows: [
+          _buildDataRowForPay('Student 6', 'September', '2500'),
+          _buildDataRowForPay('Student 7', 'September', '3000'),
+          _buildDataRowForPay('Student 8', 'September', '2000'),
+          _buildDataRowForPay('Student 9', 'September', '2500'),
+          _buildDataRowForPay('Student 10', 'September', '3000'),
+          
+         
+        ],
+      ),
+    );
+  }
+
+
+  Widget _buildOngoingTabContent(BuildContext context) {
     return SingleChildScrollView(
       child: Container(
         width: MediaQuery.of(context).size.width,

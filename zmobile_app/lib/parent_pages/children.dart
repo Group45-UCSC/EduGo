@@ -104,9 +104,6 @@ class ChildrenPage extends StatelessWidget {
 }
 
   void _showUpdateForm(BuildContext context) {
-    String updatedName = '';
-    String updatedHomeLocation = '';
-    String updatedSchool = '';
 
     showDialog(
       context: context,
@@ -118,19 +115,16 @@ class ChildrenPage extends StatelessWidget {
             children: [
               TextField(
                 onChanged: (value) {
-                  updatedName = value;
                 },
                 decoration: InputDecoration(labelText: 'Name'),
               ),
               TextField(
                 onChanged: (value) {
-                  updatedHomeLocation = value;
                 },
                 decoration: InputDecoration(labelText: 'Home Location'),
               ),
               TextField(
                 onChanged: (value) {
-                  updatedSchool = value;
                 },
                 decoration: InputDecoration(labelText: 'School'),
               ),
