@@ -374,8 +374,8 @@ function DriverDashboardPg() {
                         <h1 className="text-[20px] leading-[24px] font-bold text-[#5a5c69] mt-[5px] pb-1">
                           Vehicle
                         </h1>
-                        <NavLink to="/driver/vehicle/add">
-                        <button>Add vehicle</button></NavLink>
+                        {/* <NavLink to="/driver/vehicle/add">
+                        <button>Add vehicle</button></NavLink> */}
                         <div className="flex gap-x-20">
                           <div className="w-40 ">
                             <img

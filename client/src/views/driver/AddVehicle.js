@@ -33,9 +33,9 @@ function AddVehicle() {
     vehicleSeats: "",
     vehicleRegNum: "",
     vehicleRegDate: "",
-    // RegDocImg: null,
+    // RegDocImg: "",
     // vehicleImages: [],
-    registrationDocumentImage: null, // Initialize with null
+    registrationDocumentImage: "", // Initialize with null
   });
   const {
     vehicleNum,
@@ -44,6 +44,7 @@ function AddVehicle() {
     vehicleSeats,
     vehicleRegNum,
     vehicleRegDate,
+    registrationDocumentImage,
   } = values;
 
   const handleInputChange = (event) => {
@@ -53,11 +54,24 @@ function AddVehicle() {
     }));
   };
 
-  const handleFileChange = (event) => {
+  const handleFileChange = async (event) => {
     console.log(event.target.files[0]);
+    const formData = new FormData();
+    formData.append("vehicleRegDoc", event.target.files[0]);
+
+    const response = await fetch(
+      "http://localhost:5000/edugo/driver/vehicle/upload",
+      {
+        method: "POST",
+        // headers: { "Content-Type": "application/json" },
+        body: formData,
+      }
+    );
+    const data = await response.json();
+    console.log(data);
     setValues((prev) => ({
       ...prev,
-      registrationDocumentImage: event.target.files[0], // Store the selected file
+      registrationDocumentImage: data.filename, // Store the selected file
     }));
   };
 
@@ -97,9 +111,10 @@ function AddVehicle() {
         vehicleSeats,
         vehicleRegNum,
         vehicleRegDate,
+        registrationDocumentImage,
       };
       const response = await fetch(
-        `http://localhost:5000/edugo/driver/addride/vehicle/${userId}`,
+        `http://localhost:5000/edugo/driver/add/vehicle/${userId}`,
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
