@@ -1,8 +1,16 @@
 import React, { useState } from "react";
 import MainLayout from "../../components/layout/MainLayout";
-import { FaSearch,FaPhone } from "react-icons/fa";
-import { AiFillDashboard,AiOutlinePaperClip,AiOutlineSend } from "react-icons/ai"
-import { MdPayments, MdSupportAgent, MdOutlineRateReview } from "react-icons/md";
+import { FaSearch, FaPhone } from "react-icons/fa";
+import {
+  AiFillDashboard,
+  AiOutlinePaperClip,
+  AiOutlineSend,
+} from "react-icons/ai";
+import {
+  MdPayments,
+  MdSupportAgent,
+  MdOutlineRateReview,
+} from "react-icons/md";
 import { AiFillCar } from "react-icons/ai";
 import chatIcon from "../../images/chatIcon.png";
 import Complaint from "./Complaint";
@@ -13,17 +21,20 @@ const sideNavBarLinks = [
   { title: "School Ride", path: "/driver/ride", icon: <AiFillCar /> },
   { title: "Finance", path: "/driver/finance", icon: <MdPayments /> },
   { title: "Support", path: "/driver/support", icon: <MdSupportAgent /> },
-  { title: "Feedback", path: "/driver/feedback", icon: <MdOutlineRateReview /> },
+  {
+    title: "Feedback",
+    path: "/driver/feedback",
+    icon: <MdOutlineRateReview />,
+  },
 ];
 
 function Support() {
   const [activeTab, setActiveTab] = useState("chat");
-
   const [inputValue, setInputValue] = useState("");
   const [sentMessages, setSentMessages] = useState([]);
   const [selectedChatId, setSelectedChatId] = useState(null);
   const [searchQuery, setSearchQuery] = useState("");
-  
+  const [complaints, setComplaints] = useState([]);
 
   const handleChatItemClick = (chatId) => {
     setSelectedChatId(chatId);
@@ -47,6 +58,10 @@ function Support() {
       setSentMessages((prevMessages) => [...prevMessages, newMessage]);
       setInputValue("");
     }
+  };
+  // ------------------------
+  const handleComplaintSubmit = (newComplaint) => {
+    setComplaints([...complaints, newComplaint]); // Assuming complaints is your state array
   };
   const chatItems = [
     {
@@ -102,7 +117,7 @@ function Support() {
           {/* ------------------------------------------------------- */}
           {/* -------------------------chat Tab---------------------- */}
           {activeTab === "chat" && (
-            <div className="col-span-3  bg-orange w-3/4 m-2 p-3 h-[45rem]  grid grid-cols-3">
+            <div className="grid grid-cols-3 col-span-3  bg-orange w-3/4 m-2 p-3 h-[35rem] ">
               {/* -------------------chat list----------------- */}
               <div className="col-span-1  m-1 py-5  flex flex-col gap-8">
                 {/* Search Bar */}
@@ -140,7 +155,7 @@ function Support() {
               </div>
               {/* --------------------------------------------- */}
               {/* ------------------chat view------------------ */}
-              <div className="col-span-2 bg-gradient-to-r from-[#e2e8f0] to-[#cbd5e0] rounded-md m-1 p-5 flex flex-col justify-between">
+              <div className="col-span-2 bg-gradient-to-r from-[#e2e8f0] to-[#cbd5e0] overflow-hidden rounded-md m-1 p-5 flex flex-col justify-between">
                 {selectedChatId ? (
                   <div className="flex justify-center items-center border-b pb-2 mb-3">
                     <img
@@ -157,32 +172,28 @@ function Support() {
                           ?.name
                       }
                     </p>
-                    {/* <button
-    className="ml-2 text-blue-500"
-    onClick={() => handleCall(chatItems.find((item) => item.id === selectedChatId)?.phoneNumber)}
-  > */}
                     <button className="ml-5 cursor-pointer hover:text-orange">
                       <FaPhone />
                     </button>
                   </div>
                 ) : (
                   <div className="flex flex-col items-center justify-center mt-8">
-                  <img
-                    src={chatIcon}
-                    alt="Chat"
-                    className="w-[9rem] h-[9rem] mb-2"
-                  />
-                  <div className="flex flex-col justify-center items-center text-2xl font-semibold">
-                    <span className="text-center">Click a name</span>
-                    <span className="text-center">to open a chat</span>
+                    <img
+                      src={chatIcon}
+                      alt="Chat"
+                      className="w-[9rem] h-[9rem] mb-2"
+                    />
+                    <div className="flex flex-col justify-center items-center text-2xl font-semibold">
+                      <span className="text-center">Click a name</span>
+                      <span className="text-center">to open a chat</span>
+                    </div>
                   </div>
-                </div>
                 )}
                 {selectedChatId ? (
-                  <div className="">
+                  <div className="overflow-auto">
                     {/* Display the chat view for the selected chat */}
                     {/* Dummy chat messages */}
-                    <div className="flex flex-col gap-3 ml-1 mt-8">
+                    <div className="flex flex-col gap-3 ml-1 mt-8 ">
                       {chatItems.map((chatItem) => (
                         <div key={chatItem.id}>
                           {selectedChatId === chatItem.id && (
@@ -279,13 +290,32 @@ function Support() {
           {/* -------------------------complaint Tab------------------ */}
           {activeTab === "complaints" && (
             <div className="grid grid-cols-5">
-            <div className="col-span-3 bg-orange w-3/4 h-[35rem] p-5 ml-5  ">
-              <Complaint />
+              <div className="col-span-3 bg-orange w-3/4 h-[35rem] p-5 ml-5  ">
+                <Complaint onComplaintSubmit={handleComplaintSubmit} />
+              </div>
+              <div className="col-span-2 bg-[#EEEEEE] w-full h-[35rem] p-5 mr-5 ">
+                <h className=" text-3xl font-semibold">All Complaints</h>
+                {complaints.map((complaint, index) => (
+                  <div key={index} className="ml-3 pt-5">
+                    <p><strong>Complaint Type:</strong> {complaint.complaintType}</p>
+                    <p><strong>Complaint Details:</strong> {complaint.complaintDetails}</p>
+                    <p><strong>Date of Occurrence:</strong> {complaint.dateOfOccurrence}</p>
+                    <p><strong>Attachments:</strong>
+                      {" "}
+                      {complaint.attachments.map((file, index) => (
+                        <span key={index}>{file.name}, </span>
+                      ))}
+                    </p>
+                    <p><strong>Send to Vehicle Coordinator:</strong>
+                      {" "}
+                      {complaint.sendToVC ? "Yes" : "No"}
+                    </p>
+                    <div className="pt-2 text-lg flex flex-row font-medium">Status:<p className="text-[#16a34a] pl-3">Pending...</p></div>
+                  </div>
+                ))}
+              </div>
+              <MinimizableChat />
             </div>
-            <div className="col-span-2 bg-[#EEEEEE] w-full h-[35rem] p-5 mr-5 text-3xl font-semibold">All Complaints</div>
-            <MinimizableChat />
-           
-          </div>
           )}
           {/* -------------------------------------------------------- */}
         </div>
