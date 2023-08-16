@@ -25,8 +25,8 @@ class PaymentPage extends StatelessWidget {
             SizedBox(height: 20),
             TabBar(
               tabs: [
-                Tab(text: 'Not Pay'),
-                Tab(text: 'Ongoing'),
+                Tab(text: 'Not Paid'),
+                Tab(text: 'Pending'),
                 Tab(text: 'Paid'),
               ],
               labelColor: Colors.black,

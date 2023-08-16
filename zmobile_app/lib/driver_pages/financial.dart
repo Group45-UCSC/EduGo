@@ -25,9 +25,9 @@ class FinancialPage extends StatelessWidget {
             SizedBox(height: 20),
             TabBar(
               tabs: [
-                Tab(text: 'Ongoing'),
-                Tab(text: 'Not Pay'),
-                Tab(text: 'Pay'),
+                Tab(text: 'Pending'),
+                Tab(text: 'Not Paid'),
+                Tab(text: 'Paid'),
               ],
               labelColor: Colors.black,
               unselectedLabelColor: Colors.black,
@@ -82,16 +82,16 @@ class FinancialPage extends StatelessWidget {
     return SingleChildScrollView(
       child: DataTable(
         columns: const <DataColumn>[
-          DataColumn(label: Text('Student')),
+          DataColumn(label: Text('Name')),
           DataColumn(label: Text('Month')),
           DataColumn(label: Text('Payment')),
         ],
         rows: [
-          _buildDataRowForPay('Student 6', 'September', '2500'),
-          _buildDataRowForPay('Student 7', 'September', '3000'),
-          _buildDataRowForPay('Student 8', 'September', '2000'),
-          _buildDataRowForPay('Student 9', 'September', '2500'),
-          _buildDataRowForPay('Student 10', 'September', '3000'),
+          _buildDataRowForPay('Child 6', 'September', '2500'),
+          _buildDataRowForPay('Child 7', 'September', '3000'),
+          _buildDataRowForPay('Child 8', 'September', '2000'),
+          _buildDataRowForPay('Child 9', 'September', '2500'),
+          _buildDataRowForPay('Child 10', 'September', '3000'),
           
          
         ],
@@ -107,17 +107,17 @@ class FinancialPage extends StatelessWidget {
         child: DataTable(
           columnSpacing: 8,
           columns: const <DataColumn>[
-            DataColumn(label: Text('Student')),
+            DataColumn(label: Text('Name')),
             DataColumn(label: Text('Month')),
             DataColumn(label: Text('Payment')),
             DataColumn(label: Text('Action')),
           ],
           rows: [
-            _buildDataRow(context, 'Student 1', 'September', '2500'),
-            _buildDataRow(context, 'Student 2', 'September', '3000'),
-            _buildDataRow(context, 'Student 3', 'September', '2000'),
-            _buildDataRow(context, 'Student 4', 'September', '2500'),
-            _buildDataRow(context, 'Student 5', 'September', '3000'),
+            _buildDataRow(context, 'Child 1', 'September', '2500'),
+            _buildDataRow(context, 'Child 2', 'September', '3000'),
+            _buildDataRow(context, 'Child 3', 'September', '2000'),
+            _buildDataRow(context, 'Child 4', 'September', '2500'),
+            _buildDataRow(context, 'Child 5', 'September', '3000'),
           ],
         ),
       ),
@@ -128,41 +128,41 @@ class FinancialPage extends StatelessWidget {
     return SingleChildScrollView(
       child: DataTable(
         columns: const <DataColumn>[
-          DataColumn(label: Text('Student')),
+          DataColumn(label: Text('Name')),
           DataColumn(label: Text('Month')),
           DataColumn(label: Text('Payment')),
         ],
         rows: [
-          _buildDataRowForPay('Student 1', 'August', '2500'),
-          _buildDataRowForPay('Student 2', 'August', '3000'),
-          _buildDataRowForPay('Student 3', 'August', '2000'),
-          _buildDataRowForPay('Student 4', 'August', '2500'),
-          _buildDataRowForPay('Student 5', 'August', '3000'),
-          _buildDataRowForPay('Student 1', 'July', '2500'),
-          _buildDataRowForPay('Student 2', 'July', '3000'),
-          _buildDataRowForPay('Student 3', 'July', '2000'),
-          _buildDataRowForPay('Student 1', 'June', '2500'),
-          _buildDataRowForPay('Student 2', 'June', '3000'),
-          _buildDataRowForPay('Student 3', 'June', '2000'),
-          _buildDataRowForPay('Student 4', 'June', '2000'),
-          _buildDataRowForPay('Student 5', 'June', '3000'),
-          _buildDataRowForPay('Student 6', 'June', '2000'),
-          _buildDataRowForPay('Student 1', 'May', '2500'),
-          _buildDataRowForPay('Student 2', 'May', '3000'),
-          _buildDataRowForPay('Student 3', 'May', '2000'),
-          _buildDataRowForPay('Student 4', 'May', '2000'),
-          _buildDataRowForPay('Student 5', 'May', '3000'),
-          _buildDataRowForPay('Student 6', 'May', '2000'),
+          _buildDataRowForPay('Child 1', 'August', '2500'),
+          _buildDataRowForPay('Child 2', 'August', '3000'),
+          _buildDataRowForPay('Child 3', 'August', '2000'),
+          _buildDataRowForPay('Child 4', 'August', '2500'),
+          _buildDataRowForPay('Child 5', 'August', '3000'),
+          _buildDataRowForPay('Child 1', 'July', '2500'),
+          _buildDataRowForPay('Child 2', 'July', '3000'),
+          _buildDataRowForPay('Child 3', 'July', '2000'),
+          _buildDataRowForPay('Child 1', 'June', '2500'),
+          _buildDataRowForPay('Child 2', 'June', '3000'),
+          _buildDataRowForPay('Child 3', 'June', '2000'),
+          _buildDataRowForPay('Child 4', 'June', '2000'),
+          _buildDataRowForPay('Child 5', 'June', '3000'),
+          _buildDataRowForPay('Child 6', 'June', '2000'),
+          _buildDataRowForPay('Child 1', 'May', '2500'),
+          _buildDataRowForPay('Child 2', 'May', '3000'),
+          _buildDataRowForPay('Child 3', 'May', '2000'),
+          _buildDataRowForPay('Child 4', 'May', '2000'),
+          _buildDataRowForPay('Child 5', 'May', '3000'),
+          _buildDataRowForPay('Child 6', 'May', '2000'),
         ],
       ),
     );
   }
 
   DataRow _buildDataRow(
-      BuildContext context, String student, String month, String payment) {
+      BuildContext context, String name, String month, String payment) {
     return DataRow(
       cells: <DataCell>[
-        DataCell(Text(student)),
+        DataCell(Text(name)),
         DataCell(Text(month)),
         DataCell(Text(payment)),
         DataCell(ElevatedButton(
@@ -175,10 +175,10 @@ class FinancialPage extends StatelessWidget {
     );
   }
 
-  DataRow _buildDataRowForPay(String student, String month, String payment) {
+  DataRow _buildDataRowForPay(String name, String month, String payment) {
     return DataRow(
       cells: <DataCell>[
-        DataCell(Text(student)),
+        DataCell(Text(name)),
         DataCell(Text(month)),
         DataCell(Text(payment)),
       ],
