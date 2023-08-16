@@ -170,44 +170,13 @@ function Drivers() {
         <div className="flex text-center ml-32 mt-4">
 
           {/* buttons */}
-          <div onClick={() => updateToggle(1)} className={toggle === 1 ? "h-11 w-44 shadow-lg bg-amber-600 scale-[102%] font-semibold text-lg pt-2 cursor-pointer" : "h-11 w-44 shadow-lg bg-orange font-semibold text-lg pt-2 cursor-pointer hover:scale-[102%] hover:bg-amber-600 transition-transform ease-in-out"}>Drivers</div>
-          <div onClick={() => updateToggle(2)} className={toggle === 2 ? "ml-1 h-11 w-44 shadow-lg bg-amber-600 scale-[102%] font-semibold text-lg pt-2 cursor-pointer" : "h-11 w-44 ml-1 shadow-lg bg-orange font-semibold text-lg pt-2 cursor-pointer hover:scale-[102%] hover:bg-amber-600 transition-transform ease-in-out"}>Vehicles</div>
+          <div onClick={() => updateToggle(1)} className={toggle === 1 ? "h-11 w-44 shadow-lg bg-amber-600 scale-[102%] font-semibold text-lg pt-2 cursor-pointer" : "h-11 w-44 shadow-lg bg-orange font-semibold text-lg pt-2 cursor-pointer hover:scale-[102%] hover:bg-amber-600 transition-transform ease-in-out"}>Vehicles</div>
+          <div onClick={() => updateToggle(2)} className={toggle === 2 ? "ml-1 h-11 w-44 shadow-lg bg-amber-600 scale-[102%] font-semibold text-lg pt-2 cursor-pointer" : "h-11 w-44 ml-1 shadow-lg bg-orange font-semibold text-lg pt-2 cursor-pointer hover:scale-[102%] hover:bg-amber-600 transition-transform ease-in-out"}>Drivers</div>
         </div>
 
-
-        {/* drivers table */}
+        {/* vehicle table */}
 
         <div className={toggle === 1 ? "details" : "details hidden"}>
-
-          <div className='ml-32 mr-32 shadow-md overflow-auto '>
-            <table className='w-full text-center border-separate border-spacing-y-2 border border-slate-50 '>
-              <thead className='border-y-4 border-white drop-shadow '>
-                <tr className=' bg-[#999999] text-white border-b-2 text-[18px] drop-shadow-md '>
-                  <th className='px-3.5 p-1 w-24 '>ID</th>
-                  <th className='px-3.5 w-30'>Name</th>
-                  <th className='px-3.5 w-30'>Address</th>
-                  <th className='px-3.5 w-30'>Vehicle No</th>
-                </tr>
-              </thead>
-
-              <tbody className=''>
-                {dr.map((item) => (
-                <tr onClick={handleClickD} className=' bg-[#D9D9D9] bg-opacity-60 hover:cursor-pointer hover:bg-[#eaeaea] drop-shadow-md'>
-                  <td className='text-center  p-3'>{item.id}</td>
-                  <td>{item.name}</td>
-                  <td>{item.address}</td>
-                  <td>{item.v_no}</td>
-                </tr>
-                ))}
-              </tbody>
-
-            </table>
-          </div>
-        </div>
-
-        {/* vehicle coordiator table */}
-
-        <div className={toggle === 2 ? "details" : "details hidden"}>
 
           <div className='details ml-32 mr-32 shadow-md overflow-auto '>
             <table className='w-full text-center border-separate border-spacing-y-2 border border-slate-50 '>
@@ -236,6 +205,39 @@ function Drivers() {
             </table>
           </div>
         </div>
+
+
+        {/* drivers table */}
+
+        <div className={toggle === 2 ? "details" : "details hidden"}>
+
+          <div className='ml-32 mr-32 shadow-md overflow-auto '>
+            <table className='w-full text-center border-separate border-spacing-y-2 border border-slate-50 '>
+              <thead className='border-y-4 border-white drop-shadow '>
+                <tr className=' bg-[#999999] text-white border-b-2 text-[18px] drop-shadow-md '>
+                  <th className='px-3.5 p-1 w-24 '>ID</th>
+                  <th className='px-3.5 w-30'>Name</th>
+                  <th className='px-3.5 w-30'>Address</th>
+                  <th className='px-3.5 w-30'>Vehicle No</th>
+                </tr>
+              </thead>
+
+              <tbody className=''>
+                {dr.map((item) => (
+                <tr onClick={handleClickD} className=' bg-[#D9D9D9] bg-opacity-60 hover:cursor-pointer hover:bg-[#eaeaea] drop-shadow-md'>
+                  <td className='text-center  p-3'>{item.id}</td>
+                  <td>{item.name}</td>
+                  <td>{item.address}</td>
+                  <td>{item.v_no}</td>
+                </tr>
+                ))}
+              </tbody>
+
+            </table>
+          </div>
+        </div>
+
+        
       </MainLayout>
     </div>
   );
