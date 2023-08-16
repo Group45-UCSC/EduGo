@@ -121,6 +121,7 @@ import { useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import swal from "sweetalert";
+import { NavLink } from "react-router-dom";
 
 function ParentRegister() {
   const navigate = useNavigate();
@@ -194,7 +195,9 @@ function ParentRegister() {
     <div className="bg-[#f0f0f0] h-screen grid grid-cols-2">
       <div className="leftSide">
         <div>
+          <NavLink to="/" >
           <img src={logo} alt="logo" className="mt-3 ml-4 w-20 " />
+          </NavLink>
         </div>
         <div>
           <img
@@ -202,6 +205,7 @@ function ParentRegister() {
             alt="img"
             className="p-12 w-full h-auto max-w-80 mx-auto"
           />
+
         </div>
       </div>
       <div className="rightSide flex justify-center items-center bg-[#f0f0f0] h-screen">
