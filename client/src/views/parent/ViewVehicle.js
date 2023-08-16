@@ -199,7 +199,7 @@ function ViewVehicle() {
                 }}
               >
                 <div className="flex mt-2 gap-3 font-semibold">
-                  Add New Children
+                  Select Ride
                 </div>
               </button>
             </div>

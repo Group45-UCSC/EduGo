@@ -210,10 +210,10 @@ function ViewChildLocation(props) {
                       Droped Status :
                     </div>{" "}
                     <div className="p-2 text-lg font-semibold text-blue-600">
-                      {child.pickupStatus}
+                      {/* {child.pickupStatus} */} Not Yet
                     </div>
                   </div>
-                  <div className=" mt-5 flex justify-center">
+                  {/* <div className=" mt-5 flex justify-center">
                     {child.pickupStatus === "Picked up" && (
                       <div className="text-slate-600">
                         Droped Time : 1.50 AM
@@ -229,7 +229,7 @@ function ViewChildLocation(props) {
                         Estimate Time : 2.10 AM
                       </div>
                     )}
-                  </div>
+                  </div> */}
                 </div>
               </div>
             </div>
