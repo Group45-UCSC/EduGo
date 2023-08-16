@@ -26,7 +26,6 @@ function AdminAddEmployee() {
     tpNum: "",
     nic: "",
     password: "",
-    re_password: "",
     address: "",
     dob: "",
     role: "",
@@ -54,16 +53,13 @@ function AdminAddEmployee() {
             body: JSON.stringify(body),
           }
         );
-
-        if (response.status === 200) {
-          // toast.error("User Already Exists!");
-          // errors.email = "User Already Exists";
-          // alert("already exists");
+        if (response.status === 201) {
+          console.log("User created successfully");
+          // Do something here, like showing a success message to the user or redirecting.
         } else {
-          console.log(response);
-          // toast.success("Registration Successfull!");
-          // navigate("/login");
+          console.error("Failed to create user");
         }
+        
       } catch (err) {
         console.error(err.message);
       }
@@ -91,9 +87,6 @@ function AdminAddEmployee() {
 
                     <label for="password">Password : </label>
                     <input type="password" name="password" onChange={handleInput} className="ml-4 mb-4 bg-transparent border-2 w-full"></input><br />
-                    
-                    <label for="confpassword">Confirm Password : </label>
-                    <input type="password" name="re_password" onChange={handleInput} className="ml-4 mb-4 bg-transparent border-2 w-full"></input><br />
 
                     <label for="nic">NIC : </label>
                     <input type="text" name="nic" onChange={handleInput} className="ml-4 mb-4 bg-transparent border-2 w-full"></input><br />
@@ -113,7 +106,8 @@ function AdminAddEmployee() {
                         <option>Vehicle Coordinator</option>
                         
                     </select><br />
-                    <div type="submit" className="flex mt-8 ml-72 h-11 w-28 rounded-lg shadow-lg bg-orange font-semibold text-lg pt-2 pl-5 cursor-pointer hover:scale-[102%] hover:bg-amber-500 transition-transform ease-in-out">Confirm</div>
+                    <button type="submit" className="flex mt-8 ml-72 h-11 w-28 rounded-lg shadow-lg bg-orange font-semibold text-lg pt-2 pl-5 cursor-pointer hover:scale-[102%] hover:bg-amber-500 transition-transform ease-in-out">Confirm</button>
+
                 </form>
             </div>
         </MainLayout>

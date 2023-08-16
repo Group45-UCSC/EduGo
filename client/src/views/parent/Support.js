@@ -36,6 +36,11 @@ function Support() {
   const [sentMessages, setSentMessages] = useState([]);
   const [selectedChatId, setSelectedChatId] = useState(null);
   const [searchQuery, setSearchQuery] = useState("");
+  const [complaints, setComplaints] = useState([]);
+
+  const handleComplaintSubmit = (newComplaint) => {
+    setComplaints([...complaints, newComplaint]); // Assuming complaints is your state array
+  };
 
   const handleChatItemClick = (chatId) => {
     setSelectedChatId(chatId);
@@ -115,7 +120,7 @@ function Support() {
           {/* ------------------------------------------------------- */}
           {/* -------------------------chat Tab---------------------- */}
           {activeTab === "chat" && (
-            <div className="col-span-3  bg-orange w-3/4 m-2 p-3 h-[45rem]  grid grid-cols-3">
+            <div className="grid grid-cols-3 col-span-3  bg-orange w-3/4 m-2 p-3 h-[35rem] ">
               {/* -------------------chat list----------------- */}
               <div className="col-span-1  m-1 py-5  flex flex-col gap-8">
                 {/* Search Bar */}
@@ -153,7 +158,7 @@ function Support() {
               </div>
               {/* --------------------------------------------- */}
               {/* ------------------chat view------------------ */}
-              <div className="col-span-2 bg-gradient-to-r from-[#e2e8f0] to-[#cbd5e0] rounded-md m-1 p-5 flex flex-col justify-between">
+              <div className="col-span-2 bg-gradient-to-r from-[#e2e8f0] to-[#cbd5e0] overflow-hidden rounded-md m-1 p-5 flex flex-col justify-between">
                 {selectedChatId ? (
                   <div className="flex justify-center items-center border-b pb-2 mb-3">
                     <img
@@ -170,10 +175,6 @@ function Support() {
                           ?.name
                       }
                     </p>
-                    {/* <button
-    className="ml-2 text-blue-500"
-    onClick={() => handleCall(chatItems.find((item) => item.id === selectedChatId)?.phoneNumber)}
-  > */}
                     <button className="ml-5 cursor-pointer hover:text-orange">
                       <FaPhone />
                     </button>
@@ -192,7 +193,7 @@ function Support() {
                   </div>
                 )}
                 {selectedChatId ? (
-                  <div className="">
+                  <div className="overflow-auto">
                     {/* Display the chat view for the selected chat */}
                     {/* Dummy chat messages */}
                     <div className="flex flex-col gap-3 ml-1 mt-8">
@@ -293,9 +294,35 @@ function Support() {
           {activeTab === "complaints" && (
             <div className="grid grid-cols-5">
               <div className="col-span-3 bg-orange w-3/4 h-[35rem] p-5 ml-5  ">
-                <Complaint />
+                <Complaint onComplaintSubmit={handleComplaintSubmit} />
               </div>
-              <div className="col-span-2 bg-[#EEEEEE] w-full h-[35rem] p-5 mr-5 text-3xl font-semibold">All Complaints</div>
+              <div className="col-span-2 bg-[#EEEEEE] w-full h-[35rem] p-5 mr-5">
+                <h className=" text-3xl font-semibold">All Complaints</h>
+                {complaints.map((complaint, index) => (
+                  <div key={index} className="ml-3 pt-5">
+                    <p>
+                      <strong>Complaint Type:</strong> {complaint.complaintType}
+                    </p>
+                    <p>
+                      <strong>Complaint Details:</strong>{" "}
+                      {complaint.complaintDetails}
+                    </p>
+                    <p>
+                      <strong>Date of Occurrence:</strong>{" "}
+                      {complaint.dateOfOccurrence}
+                    </p>
+                    <p>
+                      <strong>Attachments:</strong>{" "}
+                      {complaint.attachments.map((file, index) => (
+                        <span key={index}>{file.name}, </span>
+                      ))}
+                    </p>
+                    <div className="pt-2 text-lg flex flex-row font-medium">
+                      Status:<p className="text-[#16a34a] pl-3">Pending...</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
               <MinimizableChat />
             </div>
           )}

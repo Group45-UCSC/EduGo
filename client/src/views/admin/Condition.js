@@ -1,9 +1,15 @@
 import React, { useState } from "react";
 import MainLayout from "../../components/layout/MainLayout";
 import { AiOutlineClose } from "react-icons/ai";
-import schoolVan from "../../images/schoolVan.jpeg";
-import { BsChevronLeft } from "react-icons/bs";
-import { BsChevronRight } from "react-icons/bs";
+import VehiCarousel from "../../components/carousel/VehiCarousel";
+
+// Carouselimage
+import vcv1 from"../../images/vcv1.jpg";
+import vcv2 from"../../images/vcv2.jpg";
+import vcv3 from"../../images/vcv3.jpg";
+import vcv4 from"../../images/vcv4.jpg";
+import vcv5 from"../../images/vcv5.jpg";
+import vcv6 from"../../images/vcv6.jpg";
 
 import { AiFillDashboard } from "react-icons/ai";
 import { BsCoin } from "react-icons/bs";
@@ -39,6 +45,33 @@ function AdminCondition() {
   function hidePopup() {
     setViewPopup(false);
   }
+
+  const CAROUSEL_DATA = [
+    {
+      image:vcv1,
+      imageAlt:vcv1
+    },
+    {
+      image:vcv2,
+      imageAlt:vcv2
+    },
+    {
+      image:vcv3,
+      imageAlt:vcv3
+    },
+    {
+      image:vcv4,
+      imageAlt:vcv4
+    },
+    {
+      image:vcv5,
+      imageAlt:vcv5
+    },
+    {
+      image:vcv6,
+      imageAlt:vcv6
+    }
+  ]
 
   const checks = [
     {
@@ -124,55 +157,7 @@ function AdminCondition() {
             <div className="mt-16 ml-80 mr-16 bg-[#F4F4F4] rounded-lg shadow-lg drop-shadow-lg">
 
             <div className='font-bold ml-12 mt-4 pt-4 text-2xl'>Condition Check</div>
-              {/* display image container */}
-              <div className="flex mt-8">
-                <BsChevronLeft className="mt-14 ml-[30%] w-8 h-8" />
-                <img
-                  src={schoolVan}
-                  alt="school van"
-                  className="ml-12 max-h-[150px] max-w-[300px]"
-                ></img>
-                <BsChevronRight className="mt-14 ml-12 w-8 h-8" />
-              </div>
-
-              {/* all images container */}
-              <div className="flex mt-8">
-                <img
-                  src={schoolVan}
-                  alt="school van"
-                  className="ml-[20%] h-[50px]"
-                ></img>
-                <img
-                  src={schoolVan}
-                  alt="school van"
-                  className="ml-2 h-[50px]"
-                ></img>
-                <img
-                  src={schoolVan}
-                  alt="school van"
-                  className="ml-2 h-[50px]"
-                ></img>
-                <img
-                  src={schoolVan}
-                  alt="school van"
-                  className="ml-2 h-[50px]"
-                ></img>
-                <img
-                  src={schoolVan}
-                  alt="school van"
-                  className="ml-2 h-[50px]"
-                ></img>
-                <img
-                  src={schoolVan}
-                  alt="school van"
-                  className="ml-2 h-[50px]"
-                ></img>
-                <img
-                  src={schoolVan}
-                  alt="school van"
-                  className="ml-2 h-[50px]"
-                ></img>
-              </div>
+            <VehiCarousel data={CAROUSEL_DATA}/>
 
               {/* firstsqure */}
               <div className="mt-4 ml-[10%] pl-8 pt-4 pb-3 grid grid-cols-2 gap-[250px] bg-[#F4F4F4] w-[900px] rounded-lg shadow-md drop-shadow-md">

@@ -1,5 +1,6 @@
 import React, {useState} from "react";
 import MainLayout from "../../components/layout/MainLayout";
+import parentpic from "../../images/parent1.png";
 import { AiFillDashboard } from "react-icons/ai";
 import { BsCoin } from "react-icons/bs";
 import { FaChild } from "react-icons/fa";
@@ -37,7 +38,7 @@ function AdminParentsInfo() {
             <div className='flex'>
 
                 {/* image */}
-                <div className='bg-slate-200 ml-12 mt-8 w-40 h-40 rounded-full shadow-md'></div>
+                <div className='bg-slate-200 ml-12 mt-8 w-40 h-40 rounded-full shadow-md'><img src={parentpic} alt="parentpic" className="w-40 h-40 rounded-full shadow-md"></img></div>
 
                 {/* parent's details */}
                 <div className='bg-slate-200 h-80 ml-12 w-[450px] mt-8 rounded-lg shadow-md overflow-auto'>
