@@ -74,12 +74,20 @@ function ChildDetails() {
                         Child Details
                       </h1>
                       <div className="leading-6">
+                      <div className="flex gap-1">
+                          <h3 className="text-[16px] leading-[17px] font-semibold">
+                            Id:
+                          </h3>
+                          <div className="text-[12px] font-semibold">
+                            {childData.id}
+                          </div>
+                        </div>
                         <div className="flex gap-1">
                           <h3 className="text-[16px] leading-[17px] font-semibold">
                             Name:
                           </h3>
                           <div className="text-[12px] font-semibold">
-                            {child.name}
+                            {childData.name}
                           </div>
                         </div>
                         <div className="flex gap-1">
