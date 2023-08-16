@@ -326,7 +326,7 @@ function Finance() {
           <div className="col-span-2 rounded-md h-[550px] ">
             <div className=" mt-8">
               <div className="h-8 mb-3 flex justify-center">
-                <h1 className="text-xl font-bold ">Payment Details - July</h1>
+                <h1 className="text-xl font-bold ">Payment Details - August</h1>
               </div>
               <div className="mb-1 mt-1 flex justify-end mr-5">
                 <select
