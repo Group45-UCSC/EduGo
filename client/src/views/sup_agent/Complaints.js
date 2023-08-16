@@ -63,7 +63,8 @@ function Complaints() {
   return (
     <div>
       <MainLayout data={sideNavBarLinks}>
-        <div className="bg-transparent w-full h-screen p-5 flex justify-center">
+        <div className="bg-transparent w-full h-screen p-5 flex justify-center flex-col">
+          <div className="p-5 pt-0 text-2xl font-semibold">All Complaints</div>
           <div className="bg-[orange] w-3/4 h-full p-5 flex flex-col gap-5">
             {complaintData.map((complaint, index) => (
               <div
