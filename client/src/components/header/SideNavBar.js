@@ -97,6 +97,11 @@ function SideNavBar({ data, open, setOpen }) {
     setActiveLink(index === activeLink ? null : index);
   };
 
+  const handleLogout = () => {
+    localStorage.removeItem('userName'); // Remove the userName from localStorage
+    localStorage.removeItem('userId');
+  };
+
   return (
     <div
       className={`${
@@ -140,7 +145,7 @@ function SideNavBar({ data, open, setOpen }) {
       </div>
       <div className=" flex justify-center pt-5">
       <NavLink to="/login">
-      <CiLogout className="text-black text-[30px] scale-150 font-bold "/></NavLink></div></div>
+      <CiLogout onClick={handleLogout} className="text-black text-[30px] scale-150 font-bold  "/></NavLink></div></div>
   );
 }
 
