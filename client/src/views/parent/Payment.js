@@ -78,7 +78,7 @@ function Payment() {
               <div className=" w-full h-full rounded-[8px] bg-slate-200 border-l-[4px] border-orange flex items-center justify-between px-[30px] cursor-pointer hover:shadow-lg transform hover:scale-[103%] transition duration-300 ease-out">
                 <div className=" h-[150px] w-full">
                   <h1 className="text-[24px] leading-[24px] font-semibold text-[#5a5c69] mt-[20px] mb-8">
-                    Payment pending
+                    Payment for current month
                   </h1>
                   <div className=" flex gap-32">
                     <div>
@@ -86,7 +86,7 @@ function Payment() {
                         LKR 3400
                       </h2>
                       <h2 className="text-slate-600 flex text-[18px] leading-[17px] font-bold">
-                        Before 2023/8/23
+                        Before 2023/8/31
                       </h2>
                     </div>
                     <div className="flex justify-center w-1/3 ">
