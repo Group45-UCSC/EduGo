@@ -166,7 +166,7 @@ function AdminRides() {
 
         {/* rides table */}
         <div className={toggle === 1 ? "details" : "details hidden"}>
-          <div className='ml-32 mr-32 shadow-md overflow-auto '>
+          <div className='ml-32 mr-32 shadow-md overflow-auto mb-48'>
             <table className='w-full text-center border-separate border-spacing-y-2 border border-slate-50 '>
               <thead className='border-y-4 border-white drop-shadow '>
                 <tr className=' bg-[#999999] text-white border-b-2 text-[18px] drop-shadow-md '>
@@ -198,7 +198,7 @@ function AdminRides() {
         </div>
 
         <div className={toggle === 2 ? "details" : "details hidden"}>
-          <div className='ml-32 mr-32 shadow-md overflow-auto '>
+          <div className='ml-32 mr-32 shadow-md overflow-auto'>
             <table className='w-full text-center border-separate border-spacing-y-2 border border-slate-50 '>
               <thead className='border-y-4 border-white drop-shadow '>
                 <tr className=' bg-[#999999] text-white border-b-2 text-[18px] drop-shadow-md '>
