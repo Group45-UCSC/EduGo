@@ -1,5 +1,6 @@
 import React from "react";
 import MainLayout from "../../components/layout/MainLayout";
+import childpic from "../../images/child3.png";
 import { AiFillDashboard } from "react-icons/ai";
 import { BsCoin } from "react-icons/bs";
 import { FaChild } from "react-icons/fa";
@@ -37,7 +38,7 @@ function AdminChildren() {
         <div className='flex'>
 
             {/* image */}
-            <div className='bg-slate-200 ml-12 mt-8 w-40 h-40 rounded-full shadow-md'></div>
+            <div className='bg-slate-200 ml-12 mt-8 w-40 h-40 rounded-full shadow-md'><img src={childpic} alt="chilpic" className="w-40 h-40 rounded-full shadow-md"></img></div>
 
             {/* child's details */}
             <div className='bg-gradient-to-b from-amber-500 to-amber-300 w-1/3 ml-24 mt-4 rounded-lg shadow'>

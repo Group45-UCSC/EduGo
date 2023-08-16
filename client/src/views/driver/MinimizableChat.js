@@ -6,13 +6,24 @@ import { FiMaximize2 } from "react-icons/fi";
 function MinimizableChat({ zIndex }) {
   const [isMinimized, setIsMinimized] = useState(true);
   const [inputValue, setInputValue] = useState("");
+  const [sentMessages, setSentMessages] = useState([]);
 
   const handleToggle = () => {
     setIsMinimized((prev) => !prev);
   };
 
   const handleSendMessage = () => {
-    // Handle sending the message
+    if (inputValue.trim() !== "") {
+      //create a new message object with the input value
+      const newMessage = {
+        sender: "You",
+        content: inputValue.trim(),
+        // chatId: selectedChatId,
+      };
+      //update the sentMessage  state with the new message
+      setSentMessages((prevMessages) => [...prevMessages, newMessage]);
+      setInputValue("");
+    }
   };
 
   const handleFileChange = (e) => {
@@ -58,7 +69,15 @@ function MinimizableChat({ zIndex }) {
                   Hi there! How can I help you today?
                 </div>
               </div>
-              <div className="flex items-end justify-end"></div>
+              <div className="">
+              {sentMessages.map((message, index) => (
+                <div key={index} className="flex  gap-3 items-center p-2 justify-end">
+                  <div className="bg-orange px-5 py-2 rounded-xl flex">
+                    {message.content}
+                  </div>
+                </div>
+              ))}
+              </div>
             </div>
           </div>
           <div className="flex-shrink-0 bg-gray-200 p-2">

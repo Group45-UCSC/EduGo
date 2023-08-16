@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import Select from "react-select";
 import "react-datepicker/dist/react-datepicker.css";
-function Complaint() {
+function Complaint({onComplaintSubmit}) {
   const [complaintType, setComplaintType] = useState(null);
   const [complaintDetails, setComplaintDetails] = useState("");
   const [dateOfOccurrence, setDateOfOccurrence] = useState(null);
@@ -9,11 +9,24 @@ function Complaint() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    alert("Your complaint has been submitted. Our team will address it promptly 😊");
+    
+  
+    const newComplaint = {
+      complaintType,
+      complaintDetails,
+      dateOfOccurrence,
+      attachments,
+      
+    };
+    onComplaintSubmit(newComplaint);
+
+
     setComplaintType(null);
     setComplaintDetails("");
     setDateOfOccurrence(null);
     setAttachments([]);
+    
+    alert("Your complaint has been submitted. Our team will address it promptly 😊");
   };
   const options = [
     // { value: "", label: "Select Complaint Type" },
