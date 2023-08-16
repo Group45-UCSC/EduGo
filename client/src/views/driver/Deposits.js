@@ -109,7 +109,7 @@ function Deposits() {
     <div>
       <MainLayout data={sideNavBarLinks}>
         <h1 className="text-[#5a5c69]  text-[28px] leading-8 font-normal cursor-pointer">
-          Submit the Ride Payments that you collected For July
+          Submit the Ride Payments that you collected For August
         </h1>
         {/* full box */}
         <div className="h-screen grid gap-4  grid-cols-4 mb-10">
@@ -281,7 +281,7 @@ function Deposits() {
           <div className="col-span-2 gap-4 mt-4 h-[600px]  ">
             <div className=" mt-8">
               <div className="h-8 mb-3 flex justify-center">
-                <h1 className="text-xl font-bold "> Cash Payments - July</h1>
+                <h1 className="text-xl font-bold "> Cash Payments - August</h1>
               </div>
               {/* table */}
               <div className="  col-span-2 mb-4 ">
