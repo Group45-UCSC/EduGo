@@ -7,6 +7,7 @@ import LoginValidation from "./LoginValidation";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
+
 function Login() {
   const navigate = useNavigate();
   const [values, setValues] = useState({
@@ -80,9 +81,12 @@ function Login() {
     <div className="bg-[#f0f0f0] h-screen grid grid-cols-2">
       <div className="leftSide">
         <div>
+          <NavLink to="/">
           <img src={logo} alt="logo" className="mt-3 ml-4 w-20 " />
+          </NavLink>
         </div>
         <div>
+
           <img
             src={img}
             alt="img"
@@ -147,7 +151,7 @@ function Login() {
           </form>
         </div>
       </div>
-      <br></br>
+      {/* <br></br>
       <NavLink to="/">Register</NavLink> <br></br>
       <NavLink to="/driver/dashboard">
         click me to go Driver landing page
@@ -165,7 +169,7 @@ function Login() {
       <br />
       <NavLink to="/vc/dashboard">
         click me to go Vehicle Coordinator landing page
-      </NavLink>
+      </NavLink> */}
     </div>
   );
 }

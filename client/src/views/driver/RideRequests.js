@@ -15,7 +15,7 @@ const containerStyle = {
 
 const center = {
   lat: 6.872718728491422,
-  lng:  79.88336081994609,
+  lng: 79.88336081994609,
 };
 
 const sideNavBarLinks = [
@@ -32,7 +32,7 @@ const sideNavBarLinks = [
 const rideRequest = [
   {
     id: 1,
-    parentName: "K.L. Saman",
+    parentName: "K.L. Hasindu",
     location: "No 45, Darmapala road, Maharagama",
     image: require("../../images/child1.png"),
     school: "Royal Collage",
@@ -41,7 +41,7 @@ const rideRequest = [
   },
   {
     id: 2,
-    parentName: "K.L. Kasun",
+    parentName: "H.P. Hasini",
     location: "No 25/1, Darmapala road, Pannipitya",
     image: require("../../images/child2.png"),
     school: "Anula Collage",
@@ -95,6 +95,18 @@ function RideRequests(props) {
                       <div className="">{request.parentName}</div>
                       <div className="">{request.location}</div>
                       <div className="">{request.school}</div>
+                      <div className=" flex justify-center gap-4 mt-3">
+                        <button className="flex justify-center w-28 h-10 bg-green-600 rounded-md cursor-pointer hover:shadow-lg transform hover:scale-[103%] transition duration-300 ease-out">
+                          <div className="flex mt-2 gap-3 font-semibold text-white">
+                            Accept
+                          </div>
+                        </button>
+                        <button className="flex justify-center w-28 h-10 bg-red-600 rounded-md cursor-pointer hover:shadow-lg transform hover:scale-[103%] transition duration-300 ease-out">
+                          <div className="flex mt-2 gap-3 font-semibold text-white">
+                            Reject
+                          </div>
+                        </button>
+                      </div>
                     </div>
                   </div>
 
@@ -102,18 +114,23 @@ function RideRequests(props) {
                     className=""
                     style={{ position: "relative", left: "160px", top: "10px" }}
                   >
-                    { isLoaded && (
-                    <GoogleMap
-                      mapContainerStyle={containerStyle}
-                      center={center}
-                      zoom={15}
-                      onLoad={onLoad}
-                      onUnmount={onUnmount}
-                    >
-                      {/* Child components, such as markers, info windows, etc. */}
-                      <Marker position={{ lat: 6.872815439336726, lng: 79.88325353947194 }} />
-                      <></>
-                    </GoogleMap>
+                    {isLoaded && (
+                      <GoogleMap
+                        mapContainerStyle={containerStyle}
+                        center={center}
+                        zoom={15}
+                        onLoad={onLoad}
+                        onUnmount={onUnmount}
+                      >
+                        {/* Child components, such as markers, info windows, etc. */}
+                        <Marker
+                          position={{
+                            lat: 6.872815439336726,
+                            lng: 79.88325353947194,
+                          }}
+                        />
+                        <></>
+                      </GoogleMap>
                     )}
                   </div>
                 </div>
@@ -126,5 +143,4 @@ function RideRequests(props) {
   );
 }
 
-
-export default React.memo(RideRequests)
+export default React.memo(RideRequests);
