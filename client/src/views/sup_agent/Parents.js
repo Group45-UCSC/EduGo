@@ -67,7 +67,7 @@ const initialChildrenData = [
   {
     id: 2,
     name: "Nethmini Ramanayake",
-    school: "BLC",
+    school: "Visakha Vidyalaya",
     address: "192 Old Moor Street, Colombo",
     contact: "0705012458",
     vnum: "V98765",
@@ -80,7 +80,7 @@ const initialChildrenData = [
     school: "Devi Balika Vidyalaya",
     address: "92/1 Main Street, Colombo",
     contact: "0782577381",
-    vnum: "V45632",
+    vnum: "V12345",
     img: "https://kidscountry.kidscountrynetwork.com/wp-content/uploads/sites/3/2018/03/smiling-happy-preschool-girl.jpg",
     parentId: 4,
   },
@@ -93,6 +93,28 @@ const initialChildrenData = [
     vnum: "V98765",
     img: "https://cdn.forumcomm.com/dims4/default/91338c5/2147483647/strip/true/crop/3456x2304+0+740/resize/840x560!/quality/90/?url=https%3A%2F%2Fforum-communications-production-web.s3.us-west-2.amazonaws.com%2Fbrightspot%2F49%2F82%2F74ae8fd64e72bd14630ee55e6287%2F090322.OP.PRE.JacksonBrann5776.JPG",
     parentId: 1,
+  },
+];
+const VehicleData = [
+  {
+    Vid: 1,
+    vnum: "V12345",
+    drivername: "Saman Hettiarachchi",
+    model: "Nissan Caravan TD27",
+    YOM: " 1991",
+    Gear: "Manual",
+    Engine: "2700",
+    options: ["AIR CONDITION", "POWER STEERING", "POWER WINDOW"],
+  },
+  {
+    Vid: 2,
+    vnum: "V98765",
+    drivername: "H.A.Priyantha Perera",
+    model: "Isuzu Fargo",
+    YOM: " 1998",
+    Gear: "Manual",
+    Engine: "2700",
+    options: ["AIR CONDITION", "POWER STEERING", "POWER WINDOW"],
   },
 ];
 
@@ -442,7 +464,26 @@ function Parents() {
                       <div className="bg-[#F9F9F9] w-2/5  px-5 py-2 border-orange border-2 rounded-lg">
                         <p className="text-xl font-bold">
                           <u>Vehicle Details</u>
+
                         </p>
+                        {selectedRow &&
+    VehicleData.filter((vehicle) => vehicle.vnum === selectedRow.vnum).map(
+      (vehicle) => (
+        <div key={vehicle.Vid} className="py-1">
+          <p>
+            <strong className="mr-2">DriverName:</strong> {vehicle.drivername}
+          </p>
+          <p>
+            <strong className="mr-2">Vehicle Number:</strong> {vehicle.vnum}
+          </p>
+          <p>
+            <strong className="mr-2">Model:</strong> {vehicle.model}
+          </p>
+          
+          
+        </div>
+      )
+    )}
                       </div>
                     </div>
                   </div>
