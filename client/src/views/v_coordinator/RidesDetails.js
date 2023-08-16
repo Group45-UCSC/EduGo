@@ -4,6 +4,7 @@ import { AiFillDashboard } from "react-icons/ai";
 import { BsFillCarFrontFill } from "react-icons/bs";
 import { FaShippingFast } from "react-icons/fa";
 import { FaCarCrash } from "react-icons/fa";
+import driverpic from "../../images/driver1.png";
 
 const sideNavBarLinks = [
   { title: "Dashboard", path: "/vc/dashboard", icon: <AiFillDashboard /> },
@@ -29,7 +30,9 @@ function RidesDetails() {
         <div className='flex'>
 
             {/* image */}
-            <div className='bg-gradient-to-b from-amber-500 to-amber-300 ml-20 mt-8 w-44 h-44 mr-14 rounded-full shadow-md'></div>
+            <div className='bg-gradient-to-b from-amber-500 to-amber-300 ml-20 mt-8 w-44 h-44 mr-14 rounded-full shadow-md'>
+            <img src={driverpic} alt="driverpic" className="w-44 h-44 rounded-full shadow-md"></img>
+            </div>
 
             {/* Driver's and vehicles detail container */}
             <div className='flex '>
