@@ -53,7 +53,6 @@ function AdminAddEmployee() {
             body: JSON.stringify(body),
           }
         );
-
         if (response.status === 201) {
           console.log("User created successfully");
           // Do something here, like showing a success message to the user or redirecting.
@@ -108,6 +107,7 @@ function AdminAddEmployee() {
                         
                     </select><br />
                     <button type="submit" className="flex mt-8 ml-72 h-11 w-28 rounded-lg shadow-lg bg-orange font-semibold text-lg pt-2 pl-5 cursor-pointer hover:scale-[102%] hover:bg-amber-500 transition-transform ease-in-out">Confirm</button>
+
                 </form>
             </div>
         </MainLayout>

@@ -8,7 +8,7 @@ import {
   MdSupportAgent,
   MdOutlineRateReview,
 } from "react-icons/md";
-import logo_old from "../../images/logo_old.png"
+import logo_old from "../../images/logo_old.png";
 
 const colors = {
   orange: "#FFBA5A",
@@ -52,34 +52,26 @@ function Feedback() {
     const starFilledWidth = (starIndex) => {
       if (starIndex + 1 <= filledStars) {
         return "100%";
-      } else if (
-        starIndex + 1 ===
-        partFilledStar
-      ) {
+      } else if (starIndex + 1 === partFilledStar) {
         console.log();
-        return `${Math.floor(
-          (rating - filledStars) * 100
-        )}%`;
+        return `${Math.floor((rating - filledStars) * 100)}%`;
       } else {
         return "0%";
       }
     };
-
 
     return (
       <div className="rating">
         {Array(5)
           .fill(0)
           .map((star, index) => (
-            <div className="star"
-              key={index}>
+            <div className="star" key={index}>
               <div
                 className="starFull"
                 style={{
-                  width: starFilledWidth(
-                    index
-                  ),
-                }}>
+                  width: starFilledWidth(index),
+                }}
+              >
                 <BsStarFill className=" text-sm" />
               </div>
               <div className="starEmpty">
@@ -90,64 +82,64 @@ function Feedback() {
       </div>
     );
   }
-  const reviews = [
-    {
-      id: 1,
-      u_image: require("../../images/user.png"),
-      u_name: "K.L Kumarasiri",
-      rating: 3,
-      review: "Saman is a very responsible and safe driver. My child enjoys the ride every day!",
-    },
-    {
-      id: 2,
-      u_image: require("../../images/user.png"),
-      u_name: "M.N. Pasindu Yasith",
-      rating: 4,
-      review: "Saman is fantastic! She always arrives on time, and my kid feels safe and comfortable during the journey.",
-    },
-    {
-      id: 3,
-      u_image: require("../../images/user.png"),
-      u_name: "M.N. Pasindu Yasith",
-      rating: 2,
-      review: "Saman is okay, but sometimes he's a little late. Overall, the service is satisfactory.",
-    },
-    {
-      id: 4,
-      u_image: require("../../images/user.png"),
-      u_name: "M.N. Pasindu Yasith",
-      rating: 4,
-      review: "Saman is an amazing driver! She is patient, friendly, and goes the extra mile to ensure the children are happy.",
-    },
-    {
-      id: 5,
-      u_image: require("../../images/user.png"),
-      u_name: "M.N. Pasindu Yasith",
-      rating: 1,
-      review: "I had a terrible experience with Saman. He drove recklessly and didn't seem to care about the safety of the children. I would not recommend her as a school driver.",
-    },
-    {
-      id: 6,
-      u_image: require("../../images/user.png"),
-      u_name: "M.N. Pasindu Yasith",
-      rating: 3,
-      review: "Saman is fantastic! She always arrives on time",
-    },
-    {
-      id: 7,
-      u_image: require("../../images/user.png"),
-      u_name: "M.N. Pasindu Yasith",
-      rating: 2,
-      review: "Saman is okay, but sometimes he's a little late. Overall, the service is satisfactory.",
-    },
-    {
-      id: 8,
-      u_image: require("../../images/user.png"),
-      u_name: "M.N. Pasindu Yasith",
-      rating: 4,
-      review: "Saman is an amazing driver! He is patient, friendly, and goes the extra mile to ensure the children are happy.",
-    },
-  ];
+  // const reviews = [
+  //   {
+  //     id: 1,
+  //     u_image: require("../../images/user.png"),
+  //     u_name: "K.L Kumarasiri",
+  //     rating: 3,
+  //     review: "Saman is a very responsible and safe driver. My child enjoys the ride every day!",
+  //   },
+  //   {
+  //     id: 2,
+  //     u_image: require("../../images/user.png"),
+  //     u_name: "M.N. Pasindu Yasith",
+  //     rating: 4,
+  //     review: "Saman is fantastic! She always arrives on time, and my kid feels safe and comfortable during the journey.",
+  //   },
+  //   {
+  //     id: 3,
+  //     u_image: require("../../images/user.png"),
+  //     u_name: "M.N. Pasindu Yasith",
+  //     rating: 2,
+  //     review: "Saman is okay, but sometimes he's a little late. Overall, the service is satisfactory.",
+  //   },
+  //   {
+  //     id: 4,
+  //     u_image: require("../../images/user.png"),
+  //     u_name: "M.N. Pasindu Yasith",
+  //     rating: 4,
+  //     review: "Saman is an amazing driver! She is patient, friendly, and goes the extra mile to ensure the children are happy.",
+  //   },
+  //   {
+  //     id: 5,
+  //     u_image: require("../../images/user.png"),
+  //     u_name: "M.N. Pasindu Yasith",
+  //     rating: 1,
+  //     review: "I had a terrible experience with Saman. He drove recklessly and didn't seem to care about the safety of the children. I would not recommend her as a school driver.",
+  //   },
+  //   {
+  //     id: 6,
+  //     u_image: require("../../images/user.png"),
+  //     u_name: "M.N. Pasindu Yasith",
+  //     rating: 3,
+  //     review: "Saman is fantastic! She always arrives on time",
+  //   },
+  //   {
+  //     id: 7,
+  //     u_image: require("../../images/user.png"),
+  //     u_name: "M.N. Pasindu Yasith",
+  //     rating: 2,
+  //     review: "Saman is okay, but sometimes he's a little late. Overall, the service is satisfactory.",
+  //   },
+  //   {
+  //     id: 8,
+  //     u_image: require("../../images/user.png"),
+  //     u_name: "M.N. Pasindu Yasith",
+  //     rating: 4,
+  //     review: "Saman is an amazing driver! He is patient, friendly, and goes the extra mile to ensure the children are happy.",
+  //   },
+  // ];
   return (
     <div>
       <MainLayout data={sideNavBarLinks}>
@@ -157,7 +149,7 @@ function Feedback() {
           </h1>
           <div className="grid grid-cols-2 grid-rows-1 gap-6 mt-3  ">
             {/* -----------Rate Driver--------------- */}
-            <div className=" bg-slate-200 rounded-md  h-[550px] ">
+            <div className=" bg-slate-200 rounded-md  h-[350px] ">
               <div className="grid gap-4 p-4  mt-3">
                 <div className=" h-8  flex justify-center">
                   <h1 className="text-xl font-bold">Rate your driver</h1>
@@ -201,17 +193,12 @@ function Feedback() {
                       </div>
                     </button>
                   </div>
-                  <div className="">
-                    <img src={logo_old} alt="logo" className="h-[300px] mr-3"></img>
-                  </div>
-
                 </div>
-
               </div>
             </div>
-            <div className="bg-slate-200 rounded-md   h-[550px] ">
+            <div className="  h-[350px] ">
               <div className=" mt-8">
-                <div className=" h-8 mb-3 flex justify-center">
+                {/* <div className=" h-8 mb-3 flex justify-center">
                   <h1 className="text-xl font-bold ">Driver Reviews</h1>
                 </div>
                 <div className=" px-3 h-[460px] overflow-y-auto">
@@ -234,6 +221,13 @@ function Feedback() {
 
                     </div>
                   ))}
+                </div> */}
+                <div className="">
+                  <img
+                    src={logo_old}
+                    alt="logo"
+                    className="h-[400px] mr-3"
+                  ></img>
                 </div>
               </div>
             </div>
@@ -267,7 +261,6 @@ function Feedback() {
                 </div>
               </div>
             </div>
-
           </div>
         </div>
       </MainLayout>
