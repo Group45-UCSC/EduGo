@@ -2,19 +2,86 @@ import { useState } from "react";
 import MainLayout from "../../components/layout/MainLayout";
 import { AiFillDashboard } from "react-icons/ai";
 import { FaStar, FaChild } from "react-icons/fa";
-import { BsStar, BsStarFill, BsSendFill } from "react-icons/bs";
+import { BsSendFill } from "react-icons/bs";
 import {
   MdPayments,
   MdSupportAgent,
   MdOutlineRateReview,
 } from "react-icons/md";
 import logo_old from "../../images/logo_old.png";
+import swal from "sweetalert";
 
 const colors = {
   orange: "#FFBA5A",
   grey: "#a9a9a9",
 };
+const sideNavBarLinks = [
+  {
+    title: "Dashboard",
+    path: "/parent/dashboard",
+    icon: <AiFillDashboard />,
+  },
+  { title: "Children", path: "/parent/children", icon: <FaChild /> },
+  { title: "Payment", path: "/parent/payment", icon: <MdPayments /> },
+  { title: "Support", path: "/parent/support", icon: <MdSupportAgent /> },
+  {
+    title: "Feedback",
+    path: "/parent/feedback",
+    icon: <MdOutlineRateReview />,
+  },
+];
+
 function Feedback() {
+  const [values, setValues] = useState({
+    feedback_msg: "",
+  });
+
+  const { feedback_msg } = values;
+
+  const handleInput = (event) => {
+    setValues((prev) => ({
+      ...prev,
+      [event.target.name]: event.target.value,
+    }));
+  };
+
+  //user id
+  const userId = localStorage.getItem("userId");
+  // submit driver feedback
+  const handleSubmit1 = async (event) => {
+    event.preventDefault();
+
+    try {
+      const body = { feedback_msg, currentValue };
+
+      const response = await fetch(
+        `http://localhost:5000/edugo/parent/feedback/add/${userId}`,
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(body),
+        }
+      );
+      if (response.status === 200) {
+        swal({
+          title: "Your Feedback Submitted!",
+          icon: "success",
+          buttons: {
+            confirm: {
+              className:
+                "bg-orange text-white px-10 py-2 rounded-lg items-center hover:bg-gray ",
+            },
+          },
+        }).then(() => {
+          console.log(response);
+        });
+      } else {
+        console.log(response);
+      }
+    } catch (err) {
+      console.error(err.message);
+    }
+  };
   const [currentValue, setCurrentValue] = useState(0);
   const [hoverValue, setHoverValue] = useState(undefined);
   const stars = Array(5).fill(0);
@@ -30,58 +97,44 @@ function Feedback() {
   const handleMouseLeave = () => {
     setHoverValue(undefined);
   };
-  const sideNavBarLinks = [
-    {
-      title: "Dashboard",
-      path: "/parent/dashboard",
-      icon: <AiFillDashboard />,
-    },
-    { title: "Children", path: "/parent/children", icon: <FaChild /> },
-    { title: "Payment", path: "/parent/payment", icon: <MdPayments /> },
-    { title: "Support", path: "/parent/support", icon: <MdSupportAgent /> },
-    {
-      title: "Feedback",
-      path: "/parent/feedback",
-      icon: <MdOutlineRateReview />,
-    },
-  ];
-  function RatingStars({ rating }) {
-    const filledStars = Math.floor(rating);
-    const partFilledStar = filledStars + 1;
 
-    const starFilledWidth = (starIndex) => {
-      if (starIndex + 1 <= filledStars) {
-        return "100%";
-      } else if (starIndex + 1 === partFilledStar) {
-        console.log();
-        return `${Math.floor((rating - filledStars) * 100)}%`;
-      } else {
-        return "0%";
-      }
-    };
+  // function RatingStars({ rating }) {
+  //   const filledStars = Math.floor(rating);
+  //   const partFilledStar = filledStars + 1;
 
-    return (
-      <div className="rating">
-        {Array(5)
-          .fill(0)
-          .map((star, index) => (
-            <div className="star" key={index}>
-              <div
-                className="starFull"
-                style={{
-                  width: starFilledWidth(index),
-                }}
-              >
-                <BsStarFill className=" text-sm" />
-              </div>
-              <div className="starEmpty">
-                <BsStar className=" text-sm" />
-              </div>
-            </div>
-          ))}
-      </div>
-    );
-  }
+  //   const starFilledWidth = (starIndex) => {
+  //     if (starIndex + 1 <= filledStars) {
+  //       return "100%";
+  //     } else if (starIndex + 1 === partFilledStar) {
+  //       console.log();
+  //       return `${Math.floor((rating - filledStars) * 100)}%`;
+  //     } else {
+  //       return "0%";
+  //     }
+  //   };
+
+  //   return (
+  //     <div className="rating">
+  //       {Array(5)
+  //         .fill(0)
+  //         .map((star, index) => (
+  //           <div className="star" key={index}>
+  //             <div
+  //               className="starFull"
+  //               style={{
+  //                 width: starFilledWidth(index),
+  //               }}
+  //             >
+  //               <BsStarFill className=" text-sm" />
+  //             </div>
+  //             <div className="starEmpty">
+  //               <BsStar className=" text-sm" />
+  //             </div>
+  //           </div>
+  //         ))}
+  //     </div>
+  //   );
+  // }
   // const reviews = [
   //   {
   //     id: 1,
@@ -178,21 +231,31 @@ function Feedback() {
                           />
                         );
                       })}
+                      <p>Selected rating: {currentValue} out of 5 stars</p>
                     </div>
                   </div>
                 </div>
                 <div className="h-full gap-2 flex flex-col items-center justify-center">
-                  <textarea
-                    className="border border-gray-200 bg-slate-100  rounded-md p-2 min-h-[120px] w-[350px]"
-                    placeholder="What's your experience?"
-                  />
-                  <div className="flex justify-center w-5/6 ">
-                    <button className="flex justify-center w-[350px] h-10 bg-orange rounded-md cursor-pointer hover:shadow-lg transform hover:scale-[103%] transition duration-300 ease-out">
-                      <div className="flex mt-2 gap-3 font-semibold">
-                        Submit
-                      </div>
-                    </button>
-                  </div>
+                  <form onSubmit={handleSubmit1}>
+                    <input
+                      name="feedback_msg"
+                      type="text"
+                      onChange={handleInput}
+                      className="border border-gray-200 bg-slate-100  rounded-md p-2 min-h-[120px] w-[350px]"
+                      placeholder="What's your experience?"
+                    />
+
+                    <div className="flex justify-center w-5/6 ">
+                      <button
+                        className="flex justify-center w-[350px] h-10 bg-orange rounded-md cursor-pointer hover:shadow-lg transform hover:scale-[103%] transition duration-300 ease-out"
+                        type="submit"
+                      >
+                        <div className="flex mt-2 gap-3 font-semibold">
+                          Submit
+                        </div>
+                      </button>
+                    </div>
+                  </form>
                 </div>
               </div>
             </div>
@@ -232,6 +295,34 @@ function Feedback() {
               </div>
             </div>
             <div className="gid col-span-2 bg-slate-200 rounded-md h-[200px] px-3 py-3 mb-3 ">
+              {/* --------Rating Stars----------- */}
+              <div className=" h-8">
+                <div style={styles.container}>
+                  <div style={styles.stars}>
+                    {stars.map((_, index) => {
+                      return (
+                        <FaStar
+                          key={index}
+                          size={24}
+                          onClick={() => handleClick(index + 1)}
+                          onMouseOver={() => handleMouseOver(index + 1)}
+                          onMouseLeave={handleMouseLeave}
+                          color={
+                            (hoverValue || currentValue) > index
+                              ? colors.orange
+                              : colors.grey
+                          }
+                          style={{
+                            marginRight: 10,
+                            cursor: "pointer",
+                          }}
+                        />
+                      );
+                    })}
+                    <p>Selected rating: {currentValue} out of 5 stars</p>
+                  </div>
+                </div>
+              </div>
               <div className=" h-16 ">
                 <h3 className="">“Edugo” How supports for you ?</h3>
                 <h3 className="">
