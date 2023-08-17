@@ -42,21 +42,60 @@ class RidePage extends StatelessWidget {
                   scrollDirection: Axis.horizontal,
                   child: DataTable(
                     columns: const <DataColumn>[
-                      DataColumn(label: Text('Student')),
-                      DataColumn(label: Text('Destination Address')),
                       DataColumn(label: Text('Action')),
+                      DataColumn(label: Text('Name')),
+                      DataColumn(label: Text('Destination Address')),
                     ],
                     rows: <DataRow>[
                       DataRow(cells: <DataCell>[
+                        DataCell(Container(
+                          child: Row(
+                            children: [
+                              ElevatedButton(
+                                onPressed: () {},
+                                style: ElevatedButton.styleFrom(
+                                  backgroundColor: Color.fromARGB(255, 11, 199, 58),
+                                ),
+                                child: Text('Pick'),
+                              ),
+                              SizedBox(width: 8),  
+                              ElevatedButton(
+                                onPressed: () {},
+                                style: ElevatedButton.styleFrom(
+                                  backgroundColor: Colors.orange,
+                                ),
+                                child: Text('Drop'),
+                              ),
+                              SizedBox(width: 8),
+                              ElevatedButton(
+                                onPressed: () {},
+                                style: ElevatedButton.styleFrom(
+                                  backgroundColor: Colors.red,
+                                ),
+                                child: Text('Missed'),
+                              ),
+                            ],
+                          ),
+                        )),
                         DataCell(Text('Nilmi Disanayaka')),
                         DataCell(Text(
                           'No. 12, Highway Road, Colombo 05',
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
                         )),
+                      ]),
+                      DataRow(cells: <DataCell>[
                         DataCell(Container(
                           child: Row(
                             children: [
+                              ElevatedButton(
+                                onPressed: () {},
+                                style: ElevatedButton.styleFrom(
+                                  backgroundColor: Color.fromARGB(255, 11, 199, 58),
+                                ),
+                                child: Text('Pick'),
+                              ),
+                              SizedBox(width: 8),  
                               ElevatedButton(
                                 onPressed: () {},
                                 style: ElevatedButton.styleFrom(
@@ -75,17 +114,27 @@ class RidePage extends StatelessWidget {
                             ],
                           ),
                         )),
-                      ]),
-                      DataRow(cells: <DataCell>[
+                      
                         DataCell(Text('Amanda Perera')),
                         DataCell(Text(
                           '12B, wijerama Road, Colombo 07',
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
                         )),
+                        
+                      ]),
+                      DataRow(cells: <DataCell>[
                         DataCell(Container(
                           child: Row(
                             children: [
+                              ElevatedButton(
+                                onPressed: () {},
+                                style: ElevatedButton.styleFrom(
+                                  backgroundColor: Color.fromARGB(255, 11, 199, 58),
+                                ),
+                                child: Text('Pick'),
+                              ),
+                              SizedBox(width: 8),                              
                               ElevatedButton(
                                 onPressed: () {},
                                 style: ElevatedButton.styleFrom(
@@ -104,35 +153,14 @@ class RidePage extends StatelessWidget {
                             ],
                           ),
                         )),
-                      ]),
-                      DataRow(cells: <DataCell>[
+                      
                         DataCell(Text('Malithi Silva')),
                         DataCell(Text(
                           '4B, Kirulapana',
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
                         )),
-                        DataCell(Container(
-                          child: Row(
-                            children: [
-                              ElevatedButton(
-                                onPressed: () {},
-                                style: ElevatedButton.styleFrom(
-                                  backgroundColor: Colors.orange,
-                                ),
-                                child: Text('Drop'),
-                              ),
-                              SizedBox(width: 8),
-                              ElevatedButton(
-                                onPressed: () {},
-                                style: ElevatedButton.styleFrom(
-                                  backgroundColor: Colors.red,
-                                ),
-                                child: Text('Missed'),
-                              ),
-                            ],
-                          ),
-                        )),
+                        
                       ]),
                     ],
                   ),

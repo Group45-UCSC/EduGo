@@ -12,7 +12,7 @@ class StudentPage extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.all(20.0),
             child: Text(
-              'Student Details',
+              'Children Details',
               style: TextStyle(
                 fontSize: 24,
                 fontWeight: FontWeight.bold,
@@ -51,7 +51,7 @@ class StudentPage extends StatelessWidget {
               child: DataTable(
                 columns: const <DataColumn>[
                   DataColumn(label: Text('ID')),
-                  DataColumn(label: Text('Student')),
+                  DataColumn(label: Text('Name')),
                   DataColumn(label: Text('School')),
                   DataColumn(label: Text('Home Address')),
                 ],

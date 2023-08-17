@@ -70,7 +70,7 @@ class Navbar extends StatelessWidget {
             ),
             ListTile(
               leading: Icon(Icons.phone_callback_outlined, color: Colors.black),
-              title: Text('Student details'),
+              title: Text('Children details'),
               onTap: () {
                 Navigator.pop(context);
                 Navigator.pushNamed(context, '/students');
