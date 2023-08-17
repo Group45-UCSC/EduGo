@@ -12,6 +12,8 @@ const {
   uploadVehicle,
 } = require("../controllers/driver/driverController");
 
+const { addFeedback } = require("../controllers/driver/feedbackController");
+
 //create routes2
 router.route("/dashboard/hasride/:userId").get(hasRide);
 router.route("/add/vehicle/:userId").post(addVehicle);
@@ -24,5 +26,7 @@ router.route("/vehicledetails/:userId").get(viewVehicle);
 // );
 
 router.post("/vehicle/upload/", upload.single("vehicleRegDoc"), uploadVehicle);
+
+router.route("/feedback/add/:userId").post(addFeedback);
 
 module.exports = router;
