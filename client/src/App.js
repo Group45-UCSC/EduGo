@@ -124,8 +124,8 @@ function App() {
           <Route exact path="/parent/children/childrendetails/:id" element={<ChildrenDetails />} />
           <Route exact path="parent/children/addnewride/viewvehicle/:id" element={<ViewVehicle />} />
           <Route exact path="/parent/children/childlocation/:id" element={<ViewChildLocation />} />
-          <Route exact path="/parent/Children/addnewride" element={<AddSchoolRide />} />
-          <Route exact path="/parent/children/viewride" element={<ViewRide />} />
+          <Route exact path="/parent/Children/addnewride/:id" element={<AddSchoolRide />} />
+          <Route exact path="/parent/children/viewride/:id" element={<ViewRide />} />
           <Route exact path="/parent/payment" element={<ParentPayment />} />
           <Route exact path="/parent/support" element={<ParentSupport />} />
           <Route exact path="/parent/feedback" element={<ParentFeedback />} />
