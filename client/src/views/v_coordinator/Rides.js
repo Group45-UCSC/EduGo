@@ -14,43 +14,167 @@ const sideNavBarLinks = [
 
 function VcRides() {
 
+
+  // all rides details
+
+  const allride = [
+    {
+      id: "001",
+      v_no: "PI - 1111",
+      departure:"Homagama",
+      destination: "Colombo 5",
+      contact: "0711234567",
+      status: "ongoing"
+    },
+
+    {
+      id: "002",
+      v_no: "PX - 2222",
+      departure:"Homagama",
+      destination: "Colombo 5",
+      contact: "0711234567",
+      status: "complete"
+    },
+
+    {
+      id: "003",
+      v_no: "PI - 3333",
+      departure:"Homagama",
+      destination: "Colombo 5",
+      contact: "0711234567",
+      status: "complete"
+    },
+
+    {
+      id: "004",
+      v_no: "PX - 4444",
+      departure:"Homagama",
+      destination: "Colombo 5",
+      contact: "0711234567",
+      status: "complete"
+    },
+
+    {
+      id: "005",
+      v_no: "PI - 5555",
+      departure:"Homagama",
+      destination: "Colombo 5",
+      contact: "0711234567",
+      status: "ongoing"
+    },
+
+    {
+      id: "006",
+      v_no: "PI - 6666",
+      departure:"Homagama",
+      destination: "Colombo 5",
+      contact: "0711234567",
+      status: "complete"
+    },
+
+    {
+      id: "007",
+      v_no: "PX - 7777",
+      departure:"Homagama",
+      destination: "Colombo 5",
+      contact: "0711234567",
+      status: "complete"
+    },
+
+    {
+      id: "008",
+      v_no: "PI - 8888",
+      departure:"Homagama",
+      destination: "Colombo 5",
+      contact: "0711234567",
+      status: "ongoing"
+    }
+  ];
+
+
+  // ongoing rides details
+
+
+  const ongoingrides = [
+    {
+      id: "001",
+      v_no: "PI - 1111",
+      departure:"Homagama",
+      destination: "Colombo 5",
+      contact: "0711234567",
+      status: "ongoing"
+    },
+
+    {
+      id: "005",
+      v_no: "PI - 5555",
+      departure:"Homagama",
+      destination: "Colombo 5",
+      contact: "0711234567",
+      status: "ongoing"
+    },
+
+    {
+      id: "008",
+      v_no: "PI - 8888",
+      departure:"Homagama",
+      destination: "Colombo 5",
+      contact: "0711234567",
+      status: "ongoing"
+    }
+  ];
+
+  // switch the tabes
+
     const [toggle, setToggle] = useState(1);
   
     function updateToggle(id) {
       setToggle(id);
     }
   
+    // redirect the page
     const handleClick = () => {
       window.location.href = `/vc/ridesdetails`;
     };
+
+
     return (
+
       <div>
         <MainLayout data={sideNavBarLinks}>
   
-        <h1 className='text-[26px] font-bold ml-32 mt-8'> 
-          School Services 
-        </h1>
+        {/* topic */}
+        <div>
+          <h1 className='text-[26px] font-bold ml-32 mt-8'> 
+            School Services 
+          </h1>
+        </div>
 
         {/* search and filter */}
             <div>
-            <div className='float-right '>
-                <form action=''>
-                <input type="text" placeholder='Search..' className=' mt-1 overflow-auto w-40 mr-32  border border-slate-400 pl-2 rounded-md'> 
-                </input>
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-10 stroke-slate-500 absolute -mt-8 ml-32 hover:cursor-pointer">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
-                </svg>
-                </form>
-            </div>
-            <div className='float-right '>
-                <form action=''>
-                <input type="text" placeholder='Filter here' className=' mt-1 overflow-auto w-40 mr-8  border border-slate-400 pl-2 rounded-md '> 
-                </input>
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-10 stroke-slate-500 absolute -mt-8 ml-32 hover:cursor-pointer">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 3c2.755 0 5.455.232 8.083.678.533.09.917.556.917 1.096v1.044a2.25 2.25 0 01-.659 1.591l-5.432 5.432a2.25 2.25 0 00-.659 1.591v2.927a2.25 2.25 0 01-1.244 2.013L9.75 21v-6.568a2.25 2.25 0 00-.659-1.591L3.659 7.409A2.25 2.25 0 013 5.818V4.774c0-.54.384-1.006.917-1.096A48.32 48.32 0 0112 3z  " />
-                </svg>
-                </form>
-            </div>
+
+              {/* search */}
+              <div className='float-right '>
+                  <form action=''>
+                    <input type="text" placeholder='Search..' className=' mt-1 overflow-auto w-40 mr-32  border border-slate-400 pl-2 rounded-md'> 
+                    </input>
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-10 stroke-slate-500 absolute -mt-8 ml-32 hover:cursor-pointer">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
+                    </svg>
+                  </form>
+              </div>
+              
+              {/* filter */}
+              <div className='float-right '>
+                  <form action=''>
+                    <input type="text" placeholder='Filter here' className=' mt-1 overflow-auto w-40 mr-8  border border-slate-400 pl-2 rounded-md '> 
+                    </input>
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-10 stroke-slate-500 absolute -mt-8 ml-32 hover:cursor-pointer">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 3c2.755 0 5.455.232 8.083.678.533.09.917.556.917 1.096v1.044a2.25 2.25 0 01-.659 1.591l-5.432 5.432a2.25 2.25 0 00-.659 1.591v2.927a2.25 2.25 0 01-1.244 2.013L9.75 21v-6.568a2.25 2.25 0 00-.659-1.591L3.659 7.409A2.25 2.25 0 013 5.818V4.774c0-.54.384-1.006.917-1.096A48.32 48.32 0 0112 3z  " />
+                    </svg>
+                  </form>
+              </div>
+
             </div>
   
         {/*employees button container */}
@@ -66,6 +190,8 @@ function VcRides() {
             >
               Ongoing rides 
             </div>
+
+
             <div
               onClick={() => updateToggle(2)}
               className={
@@ -79,9 +205,10 @@ function VcRides() {
           </div>
   
   
-        {/* rides table */}
+        {/* allrides table */}
         <div className={toggle === 2 ? "details" : "details hidden"}>
         <div className='ml-32 mr-32 shadow-md overflow-auto '>
+
           <table className='w-full text-center mb-5 border-separate border-spacing-y-2 border border-slate-50 '>
             <thead className='border-y-4 border-white drop-shadow '>
               <tr className=' bg-[#999999] text-white border-b-2 text-[18px] drop-shadow-md '>
@@ -95,132 +222,56 @@ function VcRides() {
             </thead>
   
             <tbody className=''>
+            {allride.map((item) => ( 
               <tr onClick={handleClick} className=' bg-[#D9D9D9] bg-opacity-60 hover:cursor-pointer hover:bg-[#eaeaea] drop-shadow-md'>
-                  <td className='text-center  p-3'> 001</td>
-                  <td>NA - 1111</td>
-                  <td>Arawwala</td>
-                  <td>Borella</td>
-                  <td>0711234567</td>
-                  <td>Completed</td>
+                  <td className='text-center  p-3'>{item.id}</td>
+                  <td>{item.v_no}</td>
+                  <td>{item.departure}</td>
+                  <td>{item.destination}</td>
+                  <td>{item.contact}</td>
+                  <td>{item.status}</td>
               </tr>
-              
-              <tr onClick={handleClick} className=' bg-[#D9D9D9] bg-opacity-60 hover:cursor-pointer  hover:bg-[#eaeaea] drop-shadow-md' >
-                <td className='text-center  p-3 ' >002</td>
-                <td>NA - 2222</td>
-                <td>Kadawatha</td>
-                <td>Pannipitiya</td>
-                <td>0768956423</td>
-                <td>Completed</td>
-              </tr>
-  
-              <tr onClick={handleClick} className=' bg-[#D9D9D9] bg-opacity-60 hover:cursor-pointer  hover:bg-[#eaeaea] drop-shadow-md'>
-                <td className='text-center  p-3 ' >003</td>
-                <td>NA - 3333</td>
-                <td>Wellampitiya</td>
-                <td>Borella</td>
-                <td>0762222223</td>
-                <td>Ongoing</td>
-              </tr>
-  
-              <tr onClick={handleClick} className=' bg-[#D9D9D9] bg-opacity-60 hover:cursor-pointer  hover:bg-[#eaeaea] drop-shadow-md'>
-                <td className='text-center  p-3 ' >004</td>
-                <td>NA - 4444</td>
-                <td>Hokandara</td>
-                <td>Rajagiriya</td>
-                <td>0711936423</td>
-                <td>Completed</td>
-              </tr>
-  
-              <tr onClick={handleClick} className=' bg-[#D9D9D9] bg-opacity-60 hover:cursor-pointer hover:bg-[#eaeaea] drop-shadow-md'>
-                <td className='text-center  p-3 ' >005</td>
-                <td>NA - 5555</td>
-                <td>Kaduwela</td>
-                <td>Nugegoda</td>
-                <td>0768123456</td>
-                <td >Completed</td>
-              </tr>
-  
-              <tr onClick={handleClick} className=' bg-[#D9D9D9] bg-opacity-60 hover:cursor-pointer  hover:bg-[#eaeaea] drop-shadow-md'>
-                <td className='text-center  p-3 ' >006</td>
-                <td>NA - 6666</td>
-                <td>Hanwella</td>
-                <td>Thimbirigasyaya</td>
-                <td>0768123456</td>
-                <td>Ongoing</td>
-              </tr>
-  
-              <tr onClick={handleClick} className=' bg-[#D9D9D9] bg-opacity-60 hover:cursor-pointer  hover:bg-[#eaeaea] drop-shadow-md'>
-                <td className='text-center  p-3 ' >007</td>
-                <td>NA - 7777</td>
-                <td>Kesbewa</td>
-                <td>Nugegoda</td>
-                <td>0712318987</td>
-                <td>Completed</td>
-              </tr>
-  
-              <tr onClick={handleClick} className=' bg-[#D9D9D9] bg-opacity-60 hover:cursor-pointer  hover:bg-[#eaeaea] drop-shadow-md'>
-                <td className='text-center  p-3 ' >008</td>
-                <td>NA - 8888</td>
-                <td>Piliyandala</td>
-                <td>Maharagama</td>
-                <td>0776745432</td>
-                <td>Completed</td>
-              </tr>
+              ))}
             </tbody>
   
-          </table>
-        </div>
-        </div>
-  
-        <div className={toggle === 1 ? "details" : "details hidden"}>
-        <div className='ml-32 mr-32 shadow-md overflow-auto '>
-          <table className='w-full text-center mb-52 border-separate border-spacing-y-2 border border-slate-50 '>
-            <thead className='border-y-4 border-white drop-shadow '>
-              <tr className=' bg-[#999999] text-white border-b-2 text-[18px] drop-shadow-md '>
-                <th className='px-3.5 p-1 w-24 '>ID</th>
-                <th className='px-3.5 w-30'>Number plate</th>
-                <th className='px-3.5 w-30'>Departure</th>
-                <th className='px-3.5 w-30'>Destination</th>
-                <th className='px-3.5 w-30'>Contact</th>
-                <th className='px-3.5 w-30'>Status</th>  
-              </tr>
-            </thead>
-  
-            <tbody className=''>
-  
-              <tr onClick={handleClick} className=' bg-[#D9D9D9] bg-opacity-60 hover:cursor-pointer  hover:bg-[#eaeaea] drop-shadow-md'>
-                <td className='text-center  p-3 ' >003</td>
-                <td>NA - 3333</td>
-                <td>Wellampitiya</td>
-                <td>Borella</td>
-                <td>0762222223</td>
-                <td>Ongoing</td>
-              </tr>
-  
-              <tr onClick={handleClick} className=' bg-[#D9D9D9] bg-opacity-60 hover:cursor-pointer  hover:bg-[#eaeaea] drop-shadow-md'>
-                <td className='text-center  p-3 ' >006</td>
-                <td>NA - 6666</td>
-                <td>Hanwella</td>
-                <td>Thimbirigasyaya</td>
-                <td>0768123456</td>
-                <td>Ongoing</td>
-              </tr>
 
-              <tr onClick={handleClick} className=' bg-[#D9D9D9] bg-opacity-60 hover:cursor-pointer hover:bg-[#eaeaea] drop-shadow-md'>
-                <td className='text-center  p-3'> 010</td>
-                <td > RR 8839</td>
-                <td >Homagama</td>
-                <td >Nugegoda</td>
-                <td >0716548792</td>
-                <td >OnGoing</td>
-            </tr>
-
-            </tbody>
-  
+          {/* ongoing table */}
           </table>
-        </div>
-        </div>
-  
+          </div>
+          </div>
+    
+          <div className={toggle === 1 ? "details" : "details hidden"}>
+          <div className='ml-32 mr-32 shadow-md overflow-auto '>
+            
+            <table className='w-full text-center mb-52 border-separate border-spacing-y-2 border border-slate-50 '>
+              <thead className='border-y-4 border-white drop-shadow '>
+                <tr className=' bg-[#999999] text-white border-b-2 text-[18px] drop-shadow-md '>
+                  <th className='px-3.5 p-1 w-24 '>ID</th>
+                  <th className='px-3.5 w-30'>Number plate</th>
+                  <th className='px-3.5 w-30'>Departure</th>
+                  <th className='px-3.5 w-30'>Destination</th>
+                  <th className='px-3.5 w-30'>Contact</th>
+                  <th className='px-3.5 w-30'>Status</th>  
+                </tr>
+              </thead>
+    
+              <tbody className=''>
+                {ongoingrides.map((item) => (
+                <tr onClick={handleClick} className=' bg-[#D9D9D9] bg-opacity-60 hover:cursor-pointer  hover:bg-[#eaeaea] drop-shadow-md'>
+                    <td className='text-center  p-3'>{item.id}</td>
+                    <td>{item.v_no}</td>
+                    <td>{item.departure}</td>
+                    <td>{item.destination}</td>
+                    <td>{item.contact}</td>
+                    <td>{item.status}</td>
+                </tr>
+              ))}
+              </tbody>
+    
+            </table>
+          </div>
+          </div>
+    
         </MainLayout>
       </div>
     );
