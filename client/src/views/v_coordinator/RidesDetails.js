@@ -24,7 +24,9 @@ function RidesDetails() {
     <div>
         
         {/* topic */}
-        <div className='font-bold ml-20 mt-4 text-2xl'>Ride details</div>
+        <div className='font-bold ml-20 mt-4 text-2xl'>
+          <h1>Ride details</h1>
+        </div>
 
         {/* image and details container */}
         <div className='flex'>

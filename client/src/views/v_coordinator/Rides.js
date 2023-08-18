@@ -27,7 +27,9 @@ function VcRides() {
       <div>
         <MainLayout data={sideNavBarLinks}>
   
-        <h1 className='text-[26px] font-bold ml-32 mt-8'> School Services </h1>
+        <h1 className='text-[26px] font-bold ml-32 mt-8'> 
+          School Services 
+        </h1>
 
         {/* search and filter */}
             <div>

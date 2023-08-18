@@ -25,17 +25,18 @@ function CCRequest() {
     <MainLayout data={sideNavBarLinks}>
     <div>
         
-    <h1 className='text-[26px] font-bold ml-12 mt-8'> Vehicle Condition Notifications </h1>
+    <h1 className='text-[26px] font-bold ml-12 mt-8'> 
+        Vehicle Condition Notifications 
+    </h1>
         
         <div className='ml-12 mt-8 mr-20 mb-64 w-[1000px] shadow-md'>
         <table className=' border-separate border-spacing-y-2 border border-slate-50 w-[1000px] '>
           <thead className='border-y-4 border-white drop-shadow '>
             <tr className=' bg-[#999999] text-white border-b-2 text-[18px] drop-shadow-md '>
-                <th className='px-3.5 w-40'>Type</th>
+              <th className='px-3.5 w-40'>Type</th>
               <th className='px-3.5 pt-2 pb-2 w-52 '>Driver's Name</th>
               <th className='px-3.5 w-48'>NIC Number</th>
               <th className='px-3.5 w-40'>Contact</th> 
-            
             </tr>
           </thead>
 
@@ -61,7 +62,7 @@ function CCRequest() {
             </tr>
 
             <tr className=' bg-[#D9D9D9]  hover:cursor-pointer  hover:bg-[#eaeaea] drop-shadow-md'>
-                <td className='text-center'>Van</td>
+              <td className='text-center'>Van</td>
               <td className='text-center pt-2 pb-2 '>Malshan Perera</td>
               <td className='text-center'>998674555V</td>
               <td className='text-center'>071-xxxxxxx</td>
