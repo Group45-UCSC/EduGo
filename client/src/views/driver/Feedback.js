@@ -60,7 +60,7 @@ function Feedback() {
           body: JSON.stringify(body),
         }
       );
-      if(response.status === 200){
+      if (response.status === 200) {
         swal({
           title: "Your Feedback Submitted!",
           icon: "success",
@@ -72,13 +72,16 @@ function Feedback() {
           },
         }).then(() => {
           console.log(response);
+          setValues((prev) => ({
+            ...prev,
+            feedback_msg: "", // Clear the input field
+          }));
+          
+          setCurrentValue(0); // Reset the rating
         });
-      }
-      else{
+      } else {
         console.log(response);
       }
-
-
     } catch (err) {
       console.error(err.message);
     }
