@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 // import { useEffect, useState } from "react";
 // import axios from "axios";
 import MainLayout from "../../components/layout/MainLayout";
@@ -12,24 +12,25 @@ import { AiFillDashboard } from "react-icons/ai";
 import { NavLink } from "react-router-dom";
 
 // import { useNavigate } from "react-router-dom";
+const sideNavBarLinks = [
+  {
+    title: "Dashboard",
+    path: "/parent/dashboard",
+    icon: <AiFillDashboard />,
+  },
+  { title: "Children", path: "/parent/children", icon: <FaChild /> },
+  { title: "Payment", path: "/parent/payment", icon: <MdPayments /> },
+  { title: "Support", path: "/parent/support", icon: <MdSupportAgent /> },
+  {
+    title: "Feedback",
+    path: "/parent/feedback",
+    icon: <MdOutlineRateReview />,
+  },
+];
 
 function Parent() {
   const userName = localStorage.getItem('userName');
-  const sideNavBarLinks = [
-    {
-      title: "Dashboard",
-      path: "/parent/dashboard",
-      icon: <AiFillDashboard />,
-    },
-    { title: "Children", path: "/parent/children", icon: <FaChild /> },
-    { title: "Payment", path: "/parent/payment", icon: <MdPayments /> },
-    { title: "Support", path: "/parent/support", icon: <MdSupportAgent /> },
-    {
-      title: "Feedback",
-      path: "/parent/feedback",
-      icon: <MdOutlineRateReview />,
-    },
-  ];
+
   const notifications = [
     {
       id: 1,
@@ -81,29 +82,48 @@ function Parent() {
     },
   ];
 
-  const child = [
-    {
-      id: 1,
-      name: "R.B.S. Udayanga",
-      image: require("../../images/user.png"),
-      status: "On ride",
-      pickupTime: " 7.10 AM",
-    },
-    {
-      id: 2,
-      name: "L.L.A Hansani",
-      image: require("../../images/user.png"),
-      status: "Not Ride",
-      pickupTime: " 7.20 AM",
-    },
-    {
-      id: 2,
-      name: "R.B.K. Maduranga",
-      image: require("../../images/user.png"),
-      status: "Not Ride",
-      pickupTime: " 6.50 AM",
-    },
-  ];
+  // const child = [
+  //   {
+  //     id: 1,
+  //     name: "R.B.S. Udayanga",
+  //     image: require("../../images/user.png"),
+  //     status: "On ride",
+  //     pickupTime: " 7.10 AM",
+  //   },
+  //   {
+  //     id: 2,
+  //     name: "L.L.A Hansani",
+  //     image: require("../../images/user.png"),
+  //     status: "Not Ride",
+  //     pickupTime: " 7.20 AM",
+  //   },
+  //   {
+  //     id: 2,
+  //     name: "R.B.K. Maduranga",
+  //     image: require("../../images/user.png"),
+  //     status: "Not Ride",
+  //     pickupTime: " 6.50 AM",
+  //   },
+  // ];
+
+  //user id
+  const userId = localStorage.getItem("userId");
+
+  const[children, setChildren] = useState([]);
+
+  useEffect(() => {
+    async function childrenData() {
+      try {
+        const response = await fetch(`http://localhost:5000/edugo/parent/dashboard/children/${userId}`); 
+        const data = await response.json();
+        setChildren(data);
+      } catch (err) {
+        console.error(err.message);
+      }
+    }
+
+    childrenData();
+  }, [userId]);
 
   // const navigate = useNavigate();
   // const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -379,9 +399,13 @@ function Parent() {
                   Registered Children (3)
                 </h1>
                 <div className="text-[#B589DF] text-[12px] leading-[17px] font-bold">
-                  <h2>R.B.S. Udayanga</h2>
-                  <h2> L.L.A. Hansani</h2>
-                  <h2>R.B.k Maduranga</h2>
+                {children.map((child) => (
+
+                  <div key={child.child_id}>
+                    {child.child_name}
+                  </div>
+                  
+                ))}
                 </div>
               </div>
               <FaRegCalendarMinus fontSize={28} color="" />
@@ -436,9 +460,9 @@ function Parent() {
                   Ongoing Ride{" "}
                 </div>
               </div>
-              {child.map((child) => (
+              {children.map((child) => (
                 <div
-                  key={child.id}
+                  key={child.child_id}
                   className="border border-orange rounded-[8px] flex h-[80px] px-3 py-3 gap-3"
                 >
                   <div className="">
@@ -458,7 +482,7 @@ function Parent() {
                         Next picked up time :{" "}
                         <div className=" font-semibold text-lg">
                           {" "}
-                          {child.pickupTime}
+                          {/* {child.pickupTime} */}
                         </div>{" "}
                       </span>
                     )}
