@@ -15,6 +15,7 @@ import { useState } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { useDropzone } from "react-dropzone";
+import swal from "sweetalert";
 
 const sideNavBarLinks = [
   { title: "Dashboard", path: "/driver/dashboard", icon: <AiFillDashboard /> },
@@ -74,6 +75,9 @@ const paymentDetails = [
 ];
 
 function Deposits() {
+  //userID
+  const userId = localStorage.getItem("userId");
+
   const [depositedAmount, setDepositedAmount] = useState("");
   const [depositedDate, setDepositedDate] = useState(null);
   const [depositSlip, setDepositSlip] = useState(null);
@@ -94,8 +98,38 @@ function Deposits() {
     onDrop,
   });
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
+
+    try {
+      const body = { depositedAmount, depositedDate, depositSlip };
+      const response = await fetch(
+        `http://localhost:5000/edugo/driver/deposit/add/${userId}`,
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(body),
+        }
+      );
+      if (response.status === 200) {
+        swal({
+          title: "Deposit added successfully!",
+          icon: "success",
+          buttons: {
+            confirm: {
+              className:
+                "bg-orange text-white px-10 py-2 rounded-lg items-center hover:bg-gray ",
+            },
+          },
+        }).then(() => {
+          console.log(response);
+        });
+      } else {
+        console.log(response);
+      }
+    } catch (err) {
+      console.error(err.message);
+    }
 
     // handle the form submission here
     // For example, send the data to an API or perform further actions
@@ -310,8 +344,8 @@ function Deposits() {
                       </svg>
                     </form>
                   </div>
-                  </div>
-                  <div className=" p-2 ">
+                </div>
+                <div className=" p-2 ">
                   <table className="w-full border-separate border-spacing-y-2 border-slate-50 overflow-y-auto  ">
                     <thead className="border-y-4 border-white drop-shadow">
                       <tr className="bg-[#999999] text-white text-[18px] border-b-2 drop-shadow-md">
@@ -338,7 +372,7 @@ function Deposits() {
                       ))}
                     </tbody>
                   </table>
-                  </div>
+                </div>
                 {/* </div> */}
               </div>
             </div>

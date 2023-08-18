@@ -33,7 +33,6 @@ function AddVehicle() {
     vehicleSeats: "",
     vehicleRegNum: "",
     vehicleRegDate: "",
-    // RegDocImg: "",
     // vehicleImages: [],
     registrationDocumentImage: "", // Initialize with null
   });
@@ -75,31 +74,6 @@ function AddVehicle() {
     }));
   };
 
-  // const handleFileChange = (event) => {
-  //   const { name, files } = event.target;
-  //   setFormData((prevData) => ({
-  //     ...prevData,
-  //     [name]: files[0],
-  //   }));
-  // };
-
-  // const handleFileChange = (event) => {
-  //   const { name, files } = event.target;
-
-  //   if (name === "RegDocImg") {
-  //     setFormData((prevData) => ({
-  //       ...prevData,
-  //       [name]: files[0],
-  //     }));
-  //   } else if (name === "vehicleImages") {
-  //     const newImagesArray = Array.from(files);
-  //     setFormData((prevData) => ({
-  //       ...prevData,
-  //       [name]: [...prevData[name], ...newImagesArray],
-  //     }));
-  //   }
-  // };
-
   const handleSubmit = async (event) => {
     event.preventDefault();
 
@@ -114,7 +88,7 @@ function AddVehicle() {
         registrationDocumentImage,
       };
       const response = await fetch(
-        `http://localhost:5000/edugo/driver/add/vehicle/${userId}`,
+        `http://localhost:5000/edugo/driver/vehicle/add/${userId}`,
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -163,17 +137,6 @@ function AddVehicle() {
                 required
               />
             </label>
-            {/* <label>
-              Vehicle Type:
-              <input
-                type="text"
-                name="vehicleType"
-                // value={formData.vehicleType}
-                onChange={handleInputChange}
-                className="border p-2"
-                required
-              />
-            </label> */}
             <label>Vehicle Type:</label>
             <div>
               <label>
@@ -253,17 +216,7 @@ function AddVehicle() {
                 required
               />
             </label>
-            {/* <label>
-              Registration Document :
-              <input
-                type="text"
-                name="RegDocImg"
-                value={formData.vehicleType}
-                onChange={handleInputChange}
-                className="border p-2"
-                required
-              />
-            </label>
+            {/*
             <label>
               Vehicle Images :
               <input
@@ -275,7 +228,6 @@ function AddVehicle() {
                 required
               />
             </label> */}
-            {/* Add other input fields similarly */}
             <button
               type="submit"
               className="bg-blue-500 text-white px-4 py-2 rounded"

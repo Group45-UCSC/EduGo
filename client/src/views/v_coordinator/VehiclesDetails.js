@@ -79,9 +79,12 @@ function VehiclesDetails(onClose) {
             <div className='bg-slate-200 h-[480px] ml-40 w-[380px] mt-8 rounded-lg shadow-md drop-shadow-md'>
             
                 <div className='mt-4 ml-8 leading-8 font-semibold'>
-                <div className='font-bold text-[19px] pt-3 pb-2'>
-                    Vehicle Details
-                </div>
+                  <div className='font-bold text-[19px] pt-3 pb-2'>
+                    <h1>
+                      Vehicle Details
+                    </h1>
+                  </div>
+
                 <p className='mb-1'>Type: van</p>
                 <p className='mb-1'>Make: Toyota</p>
                 <p className='mb-1'>Model: Hiace Dolphin 2001</p>
@@ -102,8 +105,11 @@ function VehiclesDetails(onClose) {
             
                 <div className='mt-4 ml-8 leading-8 font-semibold'>
                 <div className='font-bold text-[19px] pt-3 pb-2'>
+                  <h1>
                     Driver's Details
+                  </h1>
                 </div>
+
                 <p className='mb-1'>Name: Rasindu Vimanga</p>
                 <p className='mb-1'>Email: rasindu@gmail.com</p>
                 <p className='mb-1'>NIC: 980011234V</p>
@@ -111,6 +117,7 @@ function VehiclesDetails(onClose) {
                 <p className='mb-1'>Address: No:10, Queens Road, Colombo 03</p>
                 <p className='mb-1'>Birthday: 1998-01-01</p>
                 <p className='mb-1'>License Photo:</p>
+
                 <img src={dlcard} alt="dl card" className="ml-[25%] h-[100px]"></img>
                 
                 </div>
@@ -119,11 +126,17 @@ function VehiclesDetails(onClose) {
 
                     {/* secondsqure */}
                     <div className="mt-4 ml-32 pl-8 pt-4 pb-3 mb-6 bg-[rgb(244,244,244)] w-[900px] h-[500px] rounded-lg shadow-md drop-shadow-md">
-                    <h1 className="font-bold p-1 text-[19px]">Feedback Report</h1>
+                    <h1 className="font-bold p-1 text-[19px]">
+                      Feedback Report
+                    </h1>
+
                     <form className="">
                         {/* critiria */}
                         <div className="pl-4 mb-3">
-                            <h1 className="font-bold p-1 text-[16px] text-red-500">Evaluation criteria</h1>
+                            <h1 className="font-bold p-1 text-[16px] text-red-500">
+                              Evaluation criteria
+                            </h1>
+
                             <div className="ml-4">
                                 <input type="checkbox" id="critiria1" name="critiria1" value="one"></input>
                                 <label for="critiria1"> Exterior Condition</label><br/>
@@ -142,6 +155,7 @@ function VehiclesDetails(onClose) {
                                 <input type="checkbox" id="critiria8" name="critiria8" value="eight"></input>
                                 <label for="critiria8"> Electrical and Electronics </label><br/>
                             </div>
+                            
                         </div>
                             <input type="text" placeholder="Comment on the vehicle condition here..." className="w-[850px] h-[100px] pl-6 pt-1 pb-2 mb-3 rounded-lg shadow-md drop-shadow-md"></input>
                         

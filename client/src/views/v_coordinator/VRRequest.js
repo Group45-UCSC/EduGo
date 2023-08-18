@@ -25,7 +25,9 @@ function VRRequest() {
 
     <div>
 
-    <h1 className='text-[26px] font-bold ml-12 mt-8'> Vehicle Registration Requests </h1>
+    <h1 className='text-[26px] font-bold ml-12 mt-8'> 
+      Vehicle Registration Requests 
+    </h1>
         
             {/* table of children */}
             <div className='ml-12 mt-8 mr-20 mb-64 w-[1000px] shadow-md '>
