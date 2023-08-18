@@ -14,6 +14,96 @@ const sideNavBarLinks = [
 
 function Emergency() {
 
+
+  // all rides details
+
+  const emergency = [
+    {
+      id: "001",
+      v_no: "PI - 1111",
+      situation:"breackdown",
+      driver: "Amal perera",
+      contact: "0711234567",
+      date:"2023.05.13",
+      status: "complete"
+    },
+
+    {
+      id: "002",
+      v_no: "PX - 2222",
+      situation:"breackdown",
+      driver: "Amal perera",
+      contact: "0711234567",
+      date:"2023.05.13",
+      status: "complete"
+    },
+
+    {
+      id: "003",
+      v_no: "PI - 3333",
+      situation:"breackdown",
+      driver: "Amal perera",
+      contact: "0711234567",
+      date:"2023.05.13",
+      status: "complete"
+    },
+
+    {
+      id: "004",
+      v_no: "PX - 4444",
+      situation:"breackdown",
+      driver: "Amal perera",
+      contact: "0711234567",
+      date:"2023.05.13",
+      status: "complete"
+    },
+
+    {
+      id: "005",
+      v_no: "PI - 5555",
+      situation:"breackdown",
+      driver: "Amal perera",
+      contact: "0711234567",
+      date:"2023.05.13",
+      status: "complete"
+    },
+
+    {
+      id: "006",
+      v_no: "PI - 6666",
+      situation:"breackdown",
+      driver: "Amal perera",
+      contact: "0711234567",
+      date:"2023.05.13",
+      status: "complete"
+    },
+
+    {
+      id: "007",
+      v_no: "PX - 7777",
+      situation:"breackdown",
+      driver: "Amal perera",
+      contact: "0711234567",
+      date:"2023.05.13",
+      status: "complete"
+    },
+
+    {
+      id: "008",
+      v_no: "PI - 8888",
+      situation:"breackdown",
+      driver: "Amal perera",
+      contact: "0711234567",
+      date:"2023.05.13",
+      status: "complete"
+    }
+  ];
+
+
+
+
+  // redirect the page
+
   const handleClick = () => {
     window.location.href = `/vc/emergencyDetails`;
   };
@@ -22,13 +112,16 @@ function Emergency() {
   return (
     <MainLayout data={sideNavBarLinks}>
 
+    {/* topic */} 
     <div>
       <h1 className='text-[26px] font-bold ml-32 mt-8'> 
         Emergency List
       </h1>
 
-  {/* filter n search */}
+      {/* filter n search */}
         <div>
+
+        {/* search */}  
         <div className='float-right '>
           <form action=''>
             <input type="text" placeholder='Search..' className=' mt-1 overflow-auto w-40 mr-32  border border-slate-400 pl-2 rounded-md'> 
@@ -38,6 +131,8 @@ function Emergency() {
             </svg>
           </form>
         </div>
+                   
+        {/* filter */}   
         <div className='float-right '>
           <form action=''>
             <input type="text" placeholder='Filter here' className=' mt-1 overflow-auto w-40 mr-8  border border-slate-400 pl-2 rounded-md '> 
@@ -47,14 +142,19 @@ function Emergency() {
             </svg>
           </form>
         </div>
+
       </div>
 
-      <div className='ml-32 mt-16 mr-32 mb-10 shadow-md overflow-auto '>
+
+      {/* emergency table */}
+      <div className='ml-28 mt-16 mr-28 mb-10 shadow-md overflow-auto '>
+
         <table className='w-full text-center border-separate border-spacing-y-2 border border-slate-50 '>
           <thead className='border-y-4 border-white drop-shadow '>
             <tr className=' bg-[#999999] text-white border-b-2 text-[18px] drop-shadow-md '>
               <th className='px-3.5 p-1 w-24 '>ID</th>
-              <th className='px-3.5 w-30'>Vehicle</th>
+              <th className='px-3.5 w-30'>Vehicle Number</th>
+              <th className='px-3.5 w-30'>Situation</th>
               <th className='px-3.5 w-30'>Driver</th>
               <th className='px-3.5 w-30'>Contact</th>
               <th className='px-3.5 w-30'>Date</th>
@@ -63,78 +163,18 @@ function Emergency() {
           </thead>
 
           <tbody className=''>
-            <tr onClick={handleClick}  className=' bg-[#D9D9D9] bg-opacity-60 hover:cursor-pointer hover:bg-[#eaeaea] drop-shadow-md'>
-                <td className='text-center  p-3'> 001</td>
-                <td> Car</td>
-                <td>Saman kumara</td>
-                <td>0711234567</td>
-                <td>2023-05-13</td>
-                <td>Completed</td>
-            </tr>
-            
-            <tr onClick={handleClick}  className=' bg-[#D9D9D9] bg-opacity-60 hover:cursor-pointer  hover:bg-[#eaeaea] drop-shadow-md' >
-              <td className='text-center  p-3 ' >002</td>
-              <td>Van</td>
-              <td>Namal Balachandran</td>
-              <td>0768956423</td>
-              <td>2023-06-12</td>
-              <td>Completed</td>
-            </tr>
-
-            <tr onClick={handleClick}  className=' bg-[#D9D9D9] bg-opacity-60 hover:cursor-pointer  hover:bg-[#eaeaea] drop-shadow-md'>
-              <td className='text-center  p-3 ' >003</td>
-              <td>Bus</td>
-              <td>Pawan Madura</td>
-              <td>0762222223</td>
-              <td>2023-07-07</td>
-              <td>Not done</td>
-            </tr>
-
-            <tr onClick={handleClick}  className=' bg-[#D9D9D9] bg-opacity-60 hover:cursor-pointer  hover:bg-[#eaeaea] drop-shadow-md'>
-              <td className='text-center  p-3 ' >004</td>
-              <td>Van</td>
-              <td>Nilantha Jayasooriya</td>
-              <td>0711936423</td>
-              <td>2023-07-13</td>
-              <td>Completed</td>
-            </tr>
-
-            <tr onClick={handleClick}  className=' bg-[#D9D9D9] bg-opacity-60 hover:cursor-pointer hover:bg-[#eaeaea] drop-shadow-md'>
-              <td className='text-center  p-3 ' >005</td>
-              <td>Bus</td>
-              <td>Charitha Dassanayaka</td>
-              <td>0768123456</td>
-              <td>2023-07-22</td>
-              <td >Completed</td>
-            </tr>
-
-            <tr onClick={handleClick}  className=' bg-[#D9D9D9] bg-opacity-60 hover:cursor-pointer  hover:bg-[#eaeaea] drop-shadow-md'>
-              <td className='text-center  p-3 ' >006</td>
-              <td>Bus</td>
-              <td>Manoj Sanjaya</td>
-              <td>0723456723</td>
-              <td>2023-08-01</td>
-              <td>Not done</td>
-            </tr>
-
-            <tr onClick={handleClick}  className=' bg-[#D9D9D9] bg-opacity-60 hover:cursor-pointer  hover:bg-[#eaeaea] drop-shadow-md'>
-              <td className='text-center  p-3 ' >007</td>
-              <td>Van</td>
-              <td>Sanath Nihantha</td>
-              <td>0762256423</td>
-              <td>2023-08-17</td>
-              <td>Completed</td>
-            </tr>
-
-            <tr onClick={handleClick}  className=' bg-[#D9D9D9] bg-opacity-60 hover:cursor-pointer  hover:bg-[#eaeaea] drop-shadow-md'>
-              <td className='text-center  p-3 ' >008</td>
-              <td>Car</td>
-              <td>Nishan Danushka</td>
-              <td>0762256423</td>
-              <td>2023-08-17</td>
-              <td>Completed</td>
-            </tr>
-          </tbody>
+            {emergency.map((item) => ( 
+              <tr onClick={handleClick} className=' bg-[#D9D9D9] bg-opacity-60 hover:cursor-pointer hover:bg-[#eaeaea] drop-shadow-md'>
+                  <td className='text-center  p-3'>{item.id}</td>
+                  <td>{item.v_no}</td>
+                  <td>{item.situation}</td>
+                  <td>{item.driver}</td>
+                  <td>{item.contact}</td>
+                  <td>{item.date}</td>
+                  <td>{item.status}</td>
+              </tr>
+              ))}
+            </tbody>
 
         </table>
       </div>
