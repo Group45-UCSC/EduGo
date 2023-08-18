@@ -14,18 +14,105 @@ const sideNavBarLinks = [
 
 function Vehicles() {
 
+
+
+  // all vehicle details
+
+  const vehicle = [
+    {
+      id: "001",
+      type: "van",
+      make: "Toyota",
+      model: "Hiace Dolphin 2001",
+      contact: "0711234567",
+      departure:"Homagama",
+    },
+
+    {
+      id: "002",
+      type: "van",
+      make: "Toyota",
+      model: "Hiace Dolphin 2001",
+      contact: "0711234567",
+      departure:"Homagama",
+    },
+
+    {
+      id: "003",
+      type: "van",
+      make: "Toyota",
+      model: "Hiace Dolphin 2001",
+      contact: "0711234567",
+      departure:"Homagama",
+    },
+
+    {
+      id: "004",
+      type: "van",
+      make: "Toyota",
+      model: "Hiace Dolphin 2001",
+      contact: "0711234567",
+      departure:"Homagama",
+    },
+
+    {
+      id: "005",
+      type: "van",
+      make: "Toyota",
+      model: "Hiace Dolphin 2001",
+      contact: "0711234567",
+      departure:"Homagama",
+    },
+
+    {
+      id: "006",
+      type: "van",
+      make: "Toyota",
+      model: "Hiace Dolphin 2001",
+      contact: "0711234567",
+      departure:"Homagama",
+    },
+
+    {
+      id: "007",
+      type: "van",
+      make: "Toyota",
+      model: "Hiace Dolphin 2001",
+      contact: "0711234567",
+      departure:"Homagama",
+    },
+
+    {
+      id: "008",
+      type: "van",
+      make: "Toyota",
+      model: "Hiace Dolphin 2001",
+      contact: "0711234567",
+      departure:"Homagama",
+    }
+  ];
+
+
+
+
+  // redirect the page
   const handleClick = () => {
     window.location.href = `/vc/vehiclesdetails`;
   };
 
   return (
     <MainLayout data={sideNavBarLinks}>
+
+          {/* topic */} 
           <div>
-          <h1 className='text-[26px] font-bold ml-32 mt-8'> 
-            Vehicle Details 
-          </h1>
-      {/* search and filter */}
+            <h1 className='text-[26px] font-bold ml-32 mt-8'> 
+              Vehicle Details 
+            </h1>
+
+          {/* search and filter */}
           <div>
+
+             {/* search */} 
             <div className='float-right '>
 
               <form action=''>
@@ -38,6 +125,7 @@ function Vehicles() {
 
             </div>
 
+            {/* filter */}   
             <div className='float-right '>
 
               <form action=''>
@@ -49,9 +137,13 @@ function Vehicles() {
               </form>
               
             </div>
+
           </div>
 
+
+          {/* vehicle table */}
           <div className='ml-32  mb-12  mt-16 mr-32 shadow-md overflow-auto '>
+
             <table className='w-full border-separate border-spacing-y-2 border border-slate-50 '>
               <thead className='border-y-4 border-white drop-shadow '>
                 <tr className=' bg-[#999999] text-white border-b-2 text-[18px] drop-shadow-md '>
@@ -65,77 +157,16 @@ function Vehicles() {
               </thead>
 
               <tbody className=''>
+              {vehicle.map((item) => ( 
                 <tr onClick={handleClick} className=' bg-[#D9D9D9] bg-opacity-60 hover:cursor-pointer hover:bg-[#eaeaea] drop-shadow-md'>
-                    <td className='text-center  p-3'> 001</td>
-                    <td className='text-center'> Van</td>
-                    <td className='text-center'>Nissan</td>
-                    <td className='text-center'>Hiace</td>
-                    <td className='text-center'>0716548792</td>
-                    <td className='text-center'>Homagama</td>
+                    <td className='text-center  p-3'> {item.id}</td>
+                    <td className='text-center'>{item.type} </td>
+                    <td className='text-center'> {item.make} </td>
+                    <td className='text-center'> {item.model} </td>
+                    <td className='text-center'> {item.contact}</td>
+                    <td className='text-center'> {item.departure} </td>
                 </tr>
-                
-                <tr onClick={handleClick} className=' bg-[#D9D9D9] bg-opacity-60 hover:cursor-pointer hover:bg-[#eaeaea] drop-shadow-md'>
-                    <td className='text-center  p-3'> 002</td>
-                    <td className='text-center'> Van</td>
-                    <td className='text-center'>Nissan</td>
-                    <td className='text-center'>Hiace</td>
-                    <td className='text-center'>0716548792</td>
-                    <td className='text-center'>Colombo 07</td>
-                </tr>
-
-                <tr onClick={handleClick} className=' bg-[#D9D9D9] bg-opacity-60 hover:cursor-pointer hover:bg-[#eaeaea] drop-shadow-md'>
-                    <td className='text-center  p-3'> 003</td>
-                    <td className='text-center'> Van</td>
-                    <td className='text-center'>Nissan</td>
-                    <td className='text-center'>Hiace</td>
-                    <td className='text-center'>0716548792</td>
-                    <td className='text-center'>Kirulapone</td>
-                </tr>
-
-                <tr onClick={handleClick} className=' bg-[#D9D9D9] bg-opacity-60 hover:cursor-pointer hover:bg-[#eaeaea] drop-shadow-md'>
-                    <td className='text-center  p-3'> 004</td>
-                    <td className='text-center'> Van</td>
-                    <td className='text-center'>Nissan</td>
-                    <td className='text-center'>Hiace</td>
-                    <td className='text-center'>0716548792</td>
-                    <td className='text-center'>Gampaha</td>
-                </tr>
-
-                <tr onClick={handleClick} className=' bg-[#D9D9D9] bg-opacity-60 hover:cursor-pointer hover:bg-[#eaeaea] drop-shadow-md'>
-                    <td className='text-center  p-3'> 005</td>
-                    <td className='text-center'> Van</td>
-                    <td className='text-center'>Nissan</td>
-                    <td className='text-center'>Hiace</td>
-                    <td className='text-center'>0715555592</td>
-                    <td className='text-center'>Dompe</td>
-                </tr>
-
-                <tr onClick={handleClick} className=' bg-[#D9D9D9] bg-opacity-60 hover:cursor-pointer hover:bg-[#eaeaea] drop-shadow-md'>
-                    <td className='text-center  p-3'> 006</td>
-                    <td className='text-center'> Van</td>
-                    <td className='text-center'>Nissan</td>
-                    <td className='text-center'>Hiace</td>
-                    <td className='text-center'>0723456789</td>
-                    <td className='text-center'>Athurugiriya</td>
-                </tr>
-
-                <tr onClick={handleClick} className=' bg-[#D9D9D9] bg-opacity-60 hover:cursor-pointer hover:bg-[#eaeaea] drop-shadow-md'>
-                    <td className='text-center  p-3'> 007</td>
-                    <td className='text-center'> Van</td>
-                    <td className='text-center'>Nissan</td>
-                    <td className='text-center'>Hiace</td>
-                    <td className='text-center'>0716548792</td>
-                    <td className='text-center'>Malabe</td>
-                </tr>
-
-                <tr onClick={handleClick} className=' bg-[#D9D9D9] bg-opacity-60 hover:cursor-pointer hover:bg-[#eaeaea] drop-shadow-md'>
-                    <td className='text-center  p-3'> 008</td>
-                    <td className='text-center'> Van</td>
-                    <td className='text-center'>Nissan</td>
-                    <td className='text-center'>Hiace</td>
-                    <td className='text-center'>0716548792</td>
-                    <td className='text-center'>Kaluaggala</td>
-                </tr>
+                ))}
               </tbody>
 
             </table>
