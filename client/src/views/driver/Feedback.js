@@ -1,5 +1,5 @@
 import React from "react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 import MainLayout from "../../components/layout/MainLayout";
 import { FaStar } from "react-icons/fa";
@@ -32,6 +32,22 @@ const colors = {
 function Feedback() {
   //userID
   const userId = localStorage.getItem("userId");
+
+  const[reviews, setReviews] = useState([]);
+
+  useEffect(() => {
+    async function reviewsData() {
+      try {
+        const response = await fetch(`http://localhost:5000/edugo/driver/feedback/view/${userId}`); 
+        const data = await response.json();
+        setReviews(data);
+      } catch (err) {
+        console.error(err.message);
+      }
+    }
+
+    reviewsData();
+  }, [userId]);
 
   const [values, setValues] = useState({
     feedback_msg: "",
@@ -140,71 +156,71 @@ function Feedback() {
       </div>
     );
   }
-  const reviews = [
-    {
-      id: 1,
-      u_image: require("../../images/user.png"),
-      u_name: "K.L Kumarasiri",
-      rating: 3,
-      review:
-        "Saman is a very responsible and safe driver. My child enjoys the ride every day!",
-    },
-    {
-      id: 2,
-      u_image: require("../../images/user.png"),
-      u_name: "M.N. Pasindu Yasith",
-      rating: 4,
-      review:
-        "Saman is fantastic! She always arrives on time, and my kid feels safe and comfortable during the journey.",
-    },
-    {
-      id: 3,
-      u_image: require("../../images/user.png"),
-      u_name: "M.N. Pasindu Yasith",
-      rating: 2,
-      review:
-        "Saman is okay, but sometimes he's a little late. Overall, the service is satisfactory.",
-    },
-    {
-      id: 4,
-      u_image: require("../../images/user.png"),
-      u_name: "M.N. Pasindu Yasith",
-      rating: 4,
-      review:
-        "Saman is an amazing driver! She is patient, friendly, and goes the extra mile to ensure the children are happy.",
-    },
-    {
-      id: 5,
-      u_image: require("../../images/user.png"),
-      u_name: "M.N. Pasindu Yasith",
-      rating: 1,
-      review:
-        "I had a terrible experience with Saman. He drove recklessly and didn't seem to care about the safety of the children. I would not recommend her as a school driver.",
-    },
-    {
-      id: 6,
-      u_image: require("../../images/user.png"),
-      u_name: "M.N. Pasindu Yasith",
-      rating: 3,
-      review: "Saman is fantastic! She always arrives on time",
-    },
-    {
-      id: 7,
-      u_image: require("../../images/user.png"),
-      u_name: "M.N. Pasindu Yasith",
-      rating: 2,
-      review:
-        "Saman is okay, but sometimes he's a little late. Overall, the service is satisfactory.",
-    },
-    {
-      id: 8,
-      u_image: require("../../images/user.png"),
-      u_name: "M.N. Pasindu Yasith",
-      rating: 4,
-      review:
-        "Saman is an amazing driver! He is patient, friendly, and goes the extra mile to ensure the children are happy.",
-    },
-  ];
+  // const reviews = [
+  //   {
+  //     id: 1,
+  //     u_image: require("../../images/user.png"),
+  //     u_name: "K.L Kumarasiri",
+  //     rating: 3,
+  //     review:
+  //       "Saman is a very responsible and safe driver. My child enjoys the ride every day!",
+  //   },
+  //   {
+  //     id: 2,
+  //     u_image: require("../../images/user.png"),
+  //     u_name: "M.N. Pasindu Yasith",
+  //     rating: 4,
+  //     review:
+  //       "Saman is fantastic! She always arrives on time, and my kid feels safe and comfortable during the journey.",
+  //   },
+  //   {
+  //     id: 3,
+  //     u_image: require("../../images/user.png"),
+  //     u_name: "M.N. Pasindu Yasith",
+  //     rating: 2,
+  //     review:
+  //       "Saman is okay, but sometimes he's a little late. Overall, the service is satisfactory.",
+  //   },
+  //   {
+  //     id: 4,
+  //     u_image: require("../../images/user.png"),
+  //     u_name: "M.N. Pasindu Yasith",
+  //     rating: 4,
+  //     review:
+  //       "Saman is an amazing driver! She is patient, friendly, and goes the extra mile to ensure the children are happy.",
+  //   },
+  //   {
+  //     id: 5,
+  //     u_image: require("../../images/user.png"),
+  //     u_name: "M.N. Pasindu Yasith",
+  //     rating: 1,
+  //     review:
+  //       "I had a terrible experience with Saman. He drove recklessly and didn't seem to care about the safety of the children. I would not recommend her as a school driver.",
+  //   },
+  //   {
+  //     id: 6,
+  //     u_image: require("../../images/user.png"),
+  //     u_name: "M.N. Pasindu Yasith",
+  //     rating: 3,
+  //     review: "Saman is fantastic! She always arrives on time",
+  //   },
+  //   {
+  //     id: 7,
+  //     u_image: require("../../images/user.png"),
+  //     u_name: "M.N. Pasindu Yasith",
+  //     rating: 2,
+  //     review:
+  //       "Saman is okay, but sometimes he's a little late. Overall, the service is satisfactory.",
+  //   },
+  //   {
+  //     id: 8,
+  //     u_image: require("../../images/user.png"),
+  //     u_name: "M.N. Pasindu Yasith",
+  //     rating: 4,
+  //     review:
+  //       "Saman is an amazing driver! He is patient, friendly, and goes the extra mile to ensure the children are happy.",
+  //   },
+  // ];
   return (
     <div>
       <MainLayout data={sideNavBarLinks}>
@@ -283,26 +299,26 @@ function Feedback() {
                   <h1 className="text-xl font-bold ">Driver Reviews</h1>
                 </div>
                 <div className=" px-3 mx-2 rounded-md h-[460px] overflow-y-auto">
-                  {reviews.map((review, index) => (
+                  {reviews.map((review) => (
                     <div
-                      key={index}
+                      key={review.feedback_id}
                       className="rounded-[8px] bg-slate-100 mb-3 mt-3  border-[1px] border-orange  items-center justify-between px-[30px] py-3 cursor-pointer hover:shadow-lg transform hover:scale-[101%] transition duration-300 ease-out"
                     >
                       <div className="flex  w-full mb-3">
                         <div className="flex justify-start gap-2 ">
                           <img
-                            src={review.u_image}
+                            // src={review.u_image}
                             alt="user_image"
                             className="bg-slate-300 w-8 cursor-pointer rounded-full p-1"
                           ></img>
-                          <h1 className="mt-1">{review.u_name}</h1>
+                          {/* <h1 className="mt-1">{review.u_name}</h1> */}
                         </div>
                         <div className="flex justify-end mt-2  ml-auto">
                           <RatingStars rating={review.rating} />
                         </div>
                       </div>
 
-                      <div>{review.review}</div>
+                      <div>{review.feedback}</div>
                     </div>
                   ))}
                 </div>
