@@ -9,23 +9,33 @@ import "./style/main.css";
 import { BsStar, BsStarFill } from "react-icons/bs";
 import { NavLink } from "react-router-dom";
 import MainLayout from "../../components/layout/MainLayout";
+// import { Children } from "react";
+import { useLocation } from "react-router-dom";
 
+const sideNavBarLinks = [
+  {
+    title: "Dashboard",
+    path: "/parent/dashboard",
+    icon: <AiFillDashboard />,
+  },
+  { title: "Children", path: "/parent/children", icon: <FaChild /> },
+  { title: "Payment", path: "/parent/payment", icon: <MdPayments /> },
+  { title: "Support", path: "/parent/support", icon: <MdSupportAgent /> },
+  {
+    title: "Feedback",
+    path: "/parent/feedback",
+    icon: <MdOutlineRateReview />,
+  },
+];
 function AddSchoolRide() {
-  const sideNavBarLinks = [
-    {
-      title: "Dashboard",
-      path: "/parent/dashboard",
-      icon: <AiFillDashboard />,
-    },
-    { title: "Children", path: "/parent/children", icon: <FaChild /> },
-    { title: "Payment", path: "/parent/payment", icon: <MdPayments /> },
-    { title: "Support", path: "/parent/support", icon: <MdSupportAgent /> },
-    {
-      title: "Feedback",
-      path: "/parent/feedback",
-      icon: <MdOutlineRateReview />,
-    },
-  ];
+  const location = useLocation();
+  const dataParam = new URLSearchParams(location.search).get("data");
+  const child = JSON.parse(decodeURIComponent(dataParam));
+
+  // const childParamViewRide = new URLSearchParams(location.search).get('child');
+  // const childViewRide = childParamViewRide ? JSON.parse(decodeURIComponent(childParamViewRide)) : null;
+
+
 
   const vehicleData = [
     {
@@ -44,7 +54,7 @@ function AddSchoolRide() {
         "Isipathana College",
       ],
       children: 12,
-      sheets:15,
+      sheets: 15,
     },
     {
       id: 2,
@@ -62,7 +72,7 @@ function AddSchoolRide() {
         "Gothami Balika Vidyalaya",
       ],
       children: 8,
-      sheets:12,
+      sheets: 12,
     },
     {
       id: 3,
@@ -79,7 +89,7 @@ function AddSchoolRide() {
         "D.S. Senanayake College",
       ],
       children: 13,
-      sheets:15,
+      sheets: 15,
     },
     {
       id: 4,
@@ -97,7 +107,7 @@ function AddSchoolRide() {
         "Gothami Balika Vidyalaya",
       ],
       children: 6,
-      sheets:10,
+      sheets: 10,
     },
     {
       id: 5,
@@ -114,8 +124,8 @@ function AddSchoolRide() {
         "D.S. Senanayake College",
         "Gothami Balika Vidyalaya",
       ],
-      children:7,
-      sheets:12,
+      children: 7,
+      sheets: 12,
     },
     {
       id: 6,
@@ -133,7 +143,7 @@ function AddSchoolRide() {
         "Gothami Balika Vidyalaya",
       ],
       children: 10,
-      sheets:15,
+      sheets: 15,
     },
   ];
   function RatingStars({ rating }) {
@@ -179,7 +189,8 @@ function AddSchoolRide() {
       <MainLayout data={sideNavBarLinks}>
         <div className="pt-6 px-6">
           <h1 className="text-[#5a5c69] text-[28px] leading-8 font-normal cursor-pointer">
-            School Van
+            School Van <br></br>
+            {/* child id:{childViewRide.id} */}
           </h1>
           <div className="App">
             <main>
@@ -201,10 +212,13 @@ function AddSchoolRide() {
                       <p>Start: {vehicleData.start}</p>
                     </div>
                     <NavLink
-                      to={`/parent/children/addnewride/viewvehicle/${vehicleData.id
-                        }?data=${encodeURIComponent(
-                          JSON.stringify(vehicleData)
-                        )}`}
+                      to={`/parent/children/addnewride/viewvehicle/${
+                        vehicleData.id
+                      }?child=${encodeURIComponent(
+                        JSON.stringify(child)
+                      )}&data=${encodeURIComponent(
+                        JSON.stringify(vehicleData)
+                      )}`}
                     >
                       <div className="buttons">
                         <button className="btn">View Ride</button>

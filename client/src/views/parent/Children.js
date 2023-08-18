@@ -315,7 +315,11 @@ function Children() {
                               </NavLink>
                             </div>
                             <div className="">
-                              <NavLink to="/parent/children/viewride">
+                              <NavLink to={`/parent/children/viewride/${
+                                  child.id
+                                }?data=${encodeURIComponent(
+                                  JSON.stringify(child)
+                                )}`}>
                                 <button className="flex justify-center  w-40 h-10 bg-orange hover:bg-[#b3913b] rounded-md cursor-pointer">
                                   <div className="flex mt-2 gap-3 font-semibold">
                                     <FaEye fontSize={28} color="" />
@@ -337,7 +341,8 @@ function Children() {
                           <div className=" flex gap-5">
                             {/*---------------------Buttons-----------------------------*/}
                             <div className="">
-                              <NavLink to="/parent/Children/addnewride">
+                              <NavLink to={`/parent/Children/addnewride/${child.id}?data=${encodeURIComponent(JSON.stringify(child))}`}
+                        >
                                 <button className="flex justify-center w-48 h-10  bg-orange hover:bg-[#b3913b] rounded-md cursor-pointer">
                                   <div className="flex mt-2 gap-3 font-semibold">
                                     Choose School Ride

@@ -13,9 +13,13 @@ import user from "../../images/user.png";
 
 function ViewVehicle() {
   const location = useLocation();
-
+  // get vehicle data array
   const dataParam = new URLSearchParams(location.search).get("data");
   const vehicleData = JSON.parse(decodeURIComponent(dataParam));
+
+  // get child data array
+  const childParam = new URLSearchParams(location.search).get("child");
+  const child = JSON.parse(decodeURIComponent(childParam));
 
   const sideNavBarLinks = [
     {
@@ -188,7 +192,8 @@ function ViewVehicle() {
       <MainLayout data={sideNavBarLinks}>
         <div className=" px-6 ">
           <h1 className="text-[#5a5c69] text-[28px] leading-8 font-normal cursor-pointer">
-            Vehicle Review
+            Vehicle Review <br></br>
+            {child.id}
           </h1>
           <div className="">
             <div className="flex justify-end w-5/6 ml-24 mb-4">
