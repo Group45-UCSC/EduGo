@@ -23,7 +23,9 @@ function Emergency() {
     <MainLayout data={sideNavBarLinks}>
 
     <div>
-      <h1 className='text-[26px] font-bold ml-32 mt-8'> Emergency List </h1>
+      <h1 className='text-[26px] font-bold ml-32 mt-8'> 
+        Emergency List
+      </h1>
 
   {/* filter n search */}
         <div>
