@@ -5,7 +5,7 @@ const addFeedback = async (req, res) => {
   try {
     const userId = req.params.userId;
     const { feedback_msg, currentValue, selectedDriver  } = req.body;
-    console.log(selectedDriver);
+ 
 
     //genarate feedback id
     const lastFeedbackData = await pool.query(
