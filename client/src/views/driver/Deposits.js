@@ -11,7 +11,7 @@ import {
   MdSupportAgent,
   MdOutlineRateReview,
 } from "react-icons/md";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { useDropzone } from "react-dropzone";
@@ -131,13 +131,35 @@ function Deposits() {
       console.error(err.message);
     }
 
-    // handle the form submission here
-    // For example, send the data to an API or perform further actions
-
     console.log("Deposited Amount:", depositedAmount);
     console.log("Deposited Date:", depositedDate);
     console.log("Deposit Slip:", depositSlip);
   };
+
+  //get total collected amount & deposit amount
+  const [totalCollection, setCollection] = useState("");
+  const [totalDeposits, setDeposits] = useState("");
+  const [difference, setDifference] = useState(0);
+
+  useEffect(() => {
+    async function getTotalCashData() {
+      try {
+        const response = await fetch(
+          `http://localhost:5000/edugo/driver/deposit/viewtotal/${userId}`
+        );
+        const data = await response.json();
+        setCollection(data.collected);
+        setDeposits(data.deposited);
+
+        const diff = data.collected - data.deposited;
+        setDifference(diff);
+      } catch (err) {
+        console.error(err.message);
+      }
+    }
+
+    getTotalCashData();
+  }, [userId]);
 
   return (
     <div>
@@ -225,13 +247,13 @@ function Deposits() {
               <div className=" h-[180px] rounded-[8px] bg-slate-200 mt-14 mx-8 border-t-[4px] border-orange flex items-center justify-between px-[30px] cursor-pointer hover:shadow-lg transform hover:scale-[103%] transition duration-300 ease-out">
                 <div>
                   <div className="text-[20px] leading-[24px] font-bold text-[#5a5c69] my-4 mb-3">
-                    Total Collected Amount : Rs. 13115.00
+                    Total Collected Amount : Rs. {totalCollection}.00
                   </div>
                   <div className="text-[20px] leading-[24px] font-bold text-[#00b300] my-4 mb-3">
-                    You deposited Amount : Rs. 8500.00
+                    You deposited Amount : Rs. {totalDeposits}.00
                   </div>
                   <div className="text-[20px] leading-[24px] font-bold text-[#ff0000] my-4 pb-1">
-                    You have to Deposit more : Rs. 4615.00
+                    You have to Deposit more : Rs. {difference} .00
                   </div>
                 </div>
               </div>
