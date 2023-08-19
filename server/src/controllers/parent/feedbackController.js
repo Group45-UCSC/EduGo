@@ -4,12 +4,15 @@ const pool = require("../../dbConnection");
 const addFeedback = async (req, res) => {
   try {
     const userId = req.params.userId;
-    const { feedback_msg, currentValue } = req.body;
+    const { feedback_msg, currentValue, selectedDriver  } = req.body;
+    console.log(selectedDriver);
 
     //genarate feedback id
     const lastFeedbackData = await pool.query(
       "SELECT * FROM driver_feedback ORDER BY feedback_id DESC LIMIT 1"
     );
+
+    //Creat feedback id
     const lastFeedbackId = lastFeedbackData.rows[0]?.feedback_id || "DFB000"; // Default to PR0000 if no user_id found
 
     const numericPart = parseInt(lastFeedbackId.replace("DFB", ""), 10); // Extract numeric part and convert to integer
@@ -18,8 +21,8 @@ const addFeedback = async (req, res) => {
 
     //Insert into db
     const newFeedback = await pool.query(
-      "INSERT INTO driver_feedback (feedback_id, feedback, rating, sender_id) VALUES ($1,$2,$3, $4) RETURNING * ",
-      [newFeedbackId, feedback_msg, currentValue, userId]
+      "INSERT INTO driver_feedback (feedback_id, feedback, rating, sender_id,driver_id) VALUES ($1,$2,$3, $4, $5) RETURNING * ",
+      [newFeedbackId, feedback_msg, currentValue, userId, selectedDriver]
     );
     return res.json(newFeedback.rows[0]);
   } catch (err) {
@@ -57,5 +60,19 @@ const addEdugoFeedback = async (req, res) => {
     res.status(500).send("Server Error");
   }
 };
+// Get drivers
+const getDrivers = async (req, res) => {
 
-module.exports = { addFeedback,addEdugoFeedback  };
+  try {
+    const userId = req.params.userId;
+    const drivers = await pool.query("SELECT registered_users.user_id, registered_users.user_name FROM registered_users INNER JOIN children ON registered_users.user_id = children.driver_id WHERE children.parent_id = '" + userId + "'");
+    
+    // console.log(drivers.rows);
+    return res.json(drivers.rows);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send("Server Error");
+  }
+};
+
+module.exports = { addFeedback,addEdugoFeedback, getDrivers };
