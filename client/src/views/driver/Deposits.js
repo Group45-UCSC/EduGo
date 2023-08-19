@@ -11,7 +11,7 @@ import {
   MdSupportAgent,
   MdOutlineRateReview,
 } from "react-icons/md";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { useDropzone } from "react-dropzone";
@@ -29,50 +29,6 @@ const sideNavBarLinks = [
   },
 ];
 
-const paymentDetails = [
-  {
-    pId: "P10001",
-    childId: "C10005",
-    name: "R.B.S.Udayanga",
-    amount: 2410,
-    date: "2023/7/23",
-  },
-  {
-    pId: "P10004",
-    childId: "C10009",
-    name: "L.L.A. Hansani",
-    amount: 2100,
-    date: "2023/7/21",
-  },
-  {
-    pId: "P10021",
-    childId: "C10011",
-    name: "K.S.T. Gunawardhana ",
-    amount: 1980,
-    date: "2023/7/24",
-  },
-  {
-    pId: "P10305",
-    childId: "C10011",
-    name: "A.W.K.S. Jayasiri ",
-    amount: 2700,
-    date: "2023/7/02",
-  },
-  {
-    pId: "P10012",
-    childId: "C10005",
-    name: "R.B.S.Udayanga",
-    amount: 2050,
-    date: "2023/7/16",
-  },
-  {
-    pId: "P10015",
-    childId: "C10009",
-    name: "L.L.A. Hansani",
-    amount: 1875,
-    date: "2023/7/12",
-  },
-];
 
 function Deposits() {
   //userID
@@ -131,13 +87,61 @@ function Deposits() {
       console.error(err.message);
     }
 
-    // handle the form submission here
-    // For example, send the data to an API or perform further actions
-
     console.log("Deposited Amount:", depositedAmount);
     console.log("Deposited Date:", depositedDate);
     console.log("Deposit Slip:", depositSlip);
   };
+
+  //get total collected amount & deposit amount
+  const [totalCollection, setCollection] = useState("");
+  const [totalDeposits, setDeposits] = useState("");
+  const [difference, setDifference] = useState(0);
+
+  useEffect(() => {
+    async function getTotalCashData() {
+      try {
+        const response = await fetch(
+          `http://localhost:5000/edugo/driver/deposit/viewtotal/${userId}`
+        );
+        const data = await response.json();
+        setCollection(data.collected);
+        setDeposits(data.deposited);
+
+        const diff = data.collected - data.deposited;
+        setDifference(diff);
+      } catch (err) {
+        console.error(err.message);
+      }
+    }
+
+    getTotalCashData();
+  }, [userId]);
+
+
+  //get cash payments view
+  const[paymentDetails, setPaymentDetails] = useState([]);
+
+  useEffect(() => {
+    async function paymentData() {
+      try {
+        const response = await fetch(`http://localhost:5000/edugo/driver/deposit/cashpayments/view/${userId}`); 
+        const data = await response.json();
+        setPaymentDetails(data);
+      } catch (err) {
+        console.error(err.message);
+      }
+    }
+
+    paymentData();
+  }, [userId]);
+
+    // Format the date before displaying
+    const formatDate = (dateString) => {
+      const options = { year: 'numeric', month: '2-digit', day: '2-digit' };
+      return new Date(dateString).toLocaleDateString(undefined, options);
+    };
+  
+
 
   return (
     <div>
@@ -225,13 +229,13 @@ function Deposits() {
               <div className=" h-[180px] rounded-[8px] bg-slate-200 mt-14 mx-8 border-t-[4px] border-orange flex items-center justify-between px-[30px] cursor-pointer hover:shadow-lg transform hover:scale-[103%] transition duration-300 ease-out">
                 <div>
                   <div className="text-[20px] leading-[24px] font-bold text-[#5a5c69] my-4 mb-3">
-                    Total Collected Amount : Rs. 13115.00
+                    Total Collected Amount : Rs. {totalCollection}.00
                   </div>
                   <div className="text-[20px] leading-[24px] font-bold text-[#00b300] my-4 mb-3">
-                    You deposited Amount : Rs. 8500.00
+                    You deposited Amount : Rs. {totalDeposits}.00
                   </div>
                   <div className="text-[20px] leading-[24px] font-bold text-[#ff0000] my-4 pb-1">
-                    You have to Deposit more : Rs. 4615.00
+                    You have to Deposit more : Rs. {difference} .00
                   </div>
                 </div>
               </div>
@@ -359,17 +363,21 @@ function Deposits() {
 
                     <tbody>
                       {paymentDetails.map((payment) => (
+                        
                         <tr
-                          key={payment.pId}
+                          key={payment.cash_pay_id}
                           className="bg-[#D9D9D9] bg-opacity-60 hover:cursor-pointer hover:bg-[#eaeaea] drop-shadow-md"
                         >
-                          <td className="text-center p-3">{payment.pId}</td>
-                          <td className="text-center">{payment.childId}</td>
-                          <td className="text-center">{payment.name}</td>
+                          
+                          <td className="text-center p-3">{payment.parent_id}</td>
+                          <td className="text-center">{payment.child_id}</td>
+                          <td className="text-center">{payment.child_name}</td>
                           <td className="text-center">{payment.amount}</td>
-                          <td className="text-center">{payment.date}</td>
+                          <td className="text-center">{formatDate(payment.date)}</td>
                         </tr>
+                        
                       ))}
+                      
                     </tbody>
                   </table>
                 </div>
