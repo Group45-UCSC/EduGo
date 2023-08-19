@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import MainLayout from "../../components/layout/MainLayout";
 import { AiFillDashboard } from "react-icons/ai";
 import { FaStar, FaChild } from "react-icons/fa";
@@ -34,14 +34,10 @@ const sideNavBarLinks = [
 function Feedback() {
   const [values, setValues] = useState({
     feedback_msg: "",
-    edugo_feedback_msg: ""
+    edugo_feedback_msg: "",
   });
 
-
-
   const { feedback_msg, edugo_feedback_msg } = values;
-
-
 
   const handleInput = (event) => {
     setValues((prev) => ({
@@ -52,12 +48,18 @@ function Feedback() {
 
   //user id
   const userId = localStorage.getItem("userId");
+
+  
+  //View driver list
+  const [drivers, setDrivers] = useState([]); // State to store drivers list
+  const [selectedDriver, setSelectedDriver] = useState(""); // State to store selected driver's ID
+  
   // submit driver feedback
   const handleSubmit1 = async (event) => {
     event.preventDefault();
 
     try {
-      const body = { feedback_msg, currentValue };
+      const body = { feedback_msg, currentValue, selectedDriver };
 
       const response = await fetch(
         `http://localhost:5000/edugo/parent/feedback/add/${userId}`,
@@ -89,14 +91,14 @@ function Feedback() {
   };
 
   //submit edugo feedback
-  const handleSubmit2 = async(event) => {
+  const handleSubmit2 = async (event) => {
     event.preventDefault();
 
     try {
-      const body = { edugo_feedback_msg, currentValue2 }
+      const body = { edugo_feedback_msg, currentValue2 };
 
       const response = await fetch(
-        `http://localhost:5000/edugo/parent/edugofeedback/add/${userId}`, 
+        `http://localhost:5000/edugo/parent/edugofeedback/add/${userId}`,
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -119,11 +121,27 @@ function Feedback() {
       } else {
         console.log(response);
       }
-      
     } catch (err) {
-      console.error(err.message)
+      console.error(err.message);
     }
   };
+
+
+  useEffect(() => {
+    const fetchDrivers = async () => {
+      try {
+        const response = await fetch(
+          `http://localhost:5000/edugo/parent/feedback/driverlist/${userId}`
+        );         
+        const data = await response.json();
+        setDrivers(data);
+      } catch (error) {
+        console.error(error.message);
+      }
+    };
+    fetchDrivers();
+  }, [userId]);
+
   //----------Driver rating stars
   const [currentValue, setCurrentValue] = useState(0);
   const [hoverValue, setHoverValue] = useState(undefined);
@@ -158,7 +176,6 @@ function Feedback() {
     setHoverValue2(undefined);
   };
 
-
   return (
     <div>
       <MainLayout data={sideNavBarLinks}>
@@ -166,6 +183,21 @@ function Feedback() {
           <h1 className="text-[#5a5c69] text-[28px] leading-8 font-normal cursor-pointer">
             Feedback
           </h1>
+          {/* -------------Select Driver------------- */}
+          <select
+            name="selectedDriver"
+            value={selectedDriver}
+            onChange={(event) => setSelectedDriver(event.target.value)}
+            className="border border-gray-200 bg-slate-100 rounded-md p-2 w-[350px]"
+          >
+            <option value="">Select a driver</option>
+            {drivers.map((driver) => (
+              <option key={driver.user_id} value={driver.user_id}>
+                {driver.user_name}
+              </option>
+            ))}
+          </select>
+
           <div className="grid grid-cols-2 grid-rows-1 gap-6 mt-3  ">
             {/* -----------Rate Driver--------------- */}
             <div className=" bg-slate-200 rounded-md  h-[350px] ">
@@ -197,7 +229,6 @@ function Feedback() {
                           />
                         );
                       })}
-                      
                     </div>
                   </div>
                 </div>
@@ -227,7 +258,6 @@ function Feedback() {
             </div>
             <div className="  h-[350px] ">
               <div className=" mt-8">
-
                 <div className="">
                   <img
                     src={logo_old}
@@ -269,13 +299,15 @@ function Feedback() {
                         />
                       );
                     })}
-                  
                   </div>
                 </div>
               </div>
               <div className=" h-28 p-2">
                 <div className="p-4  bg-slate-200 border border-gray rounded-lg">
-                  <form onSubmit={handleSubmit2} className="flex items-center justify-between">
+                  <form
+                    onSubmit={handleSubmit2}
+                    className="flex items-center justify-between"
+                  >
                     <input
                       type="text"
                       name="edugo_feedback_msg"
