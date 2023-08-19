@@ -156,71 +156,7 @@ function Feedback() {
       </div>
     );
   }
-  // const reviews = [
-  //   {
-  //     id: 1,
-  //     u_image: require("../../images/user.png"),
-  //     u_name: "K.L Kumarasiri",
-  //     rating: 3,
-  //     review:
-  //       "Saman is a very responsible and safe driver. My child enjoys the ride every day!",
-  //   },
-  //   {
-  //     id: 2,
-  //     u_image: require("../../images/user.png"),
-  //     u_name: "M.N. Pasindu Yasith",
-  //     rating: 4,
-  //     review:
-  //       "Saman is fantastic! She always arrives on time, and my kid feels safe and comfortable during the journey.",
-  //   },
-  //   {
-  //     id: 3,
-  //     u_image: require("../../images/user.png"),
-  //     u_name: "M.N. Pasindu Yasith",
-  //     rating: 2,
-  //     review:
-  //       "Saman is okay, but sometimes he's a little late. Overall, the service is satisfactory.",
-  //   },
-  //   {
-  //     id: 4,
-  //     u_image: require("../../images/user.png"),
-  //     u_name: "M.N. Pasindu Yasith",
-  //     rating: 4,
-  //     review:
-  //       "Saman is an amazing driver! She is patient, friendly, and goes the extra mile to ensure the children are happy.",
-  //   },
-  //   {
-  //     id: 5,
-  //     u_image: require("../../images/user.png"),
-  //     u_name: "M.N. Pasindu Yasith",
-  //     rating: 1,
-  //     review:
-  //       "I had a terrible experience with Saman. He drove recklessly and didn't seem to care about the safety of the children. I would not recommend her as a school driver.",
-  //   },
-  //   {
-  //     id: 6,
-  //     u_image: require("../../images/user.png"),
-  //     u_name: "M.N. Pasindu Yasith",
-  //     rating: 3,
-  //     review: "Saman is fantastic! She always arrives on time",
-  //   },
-  //   {
-  //     id: 7,
-  //     u_image: require("../../images/user.png"),
-  //     u_name: "M.N. Pasindu Yasith",
-  //     rating: 2,
-  //     review:
-  //       "Saman is okay, but sometimes he's a little late. Overall, the service is satisfactory.",
-  //   },
-  //   {
-  //     id: 8,
-  //     u_image: require("../../images/user.png"),
-  //     u_name: "M.N. Pasindu Yasith",
-  //     rating: 4,
-  //     review:
-  //       "Saman is an amazing driver! He is patient, friendly, and goes the extra mile to ensure the children are happy.",
-  //   },
-  // ];
+ 
   return (
     <div>
       <MainLayout data={sideNavBarLinks}>

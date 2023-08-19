@@ -29,50 +29,6 @@ const sideNavBarLinks = [
   },
 ];
 
-const paymentDetails = [
-  {
-    pId: "P10001",
-    childId: "C10005",
-    name: "R.B.S.Udayanga",
-    amount: 2410,
-    date: "2023/7/23",
-  },
-  {
-    pId: "P10004",
-    childId: "C10009",
-    name: "L.L.A. Hansani",
-    amount: 2100,
-    date: "2023/7/21",
-  },
-  {
-    pId: "P10021",
-    childId: "C10011",
-    name: "K.S.T. Gunawardhana ",
-    amount: 1980,
-    date: "2023/7/24",
-  },
-  {
-    pId: "P10305",
-    childId: "C10011",
-    name: "A.W.K.S. Jayasiri ",
-    amount: 2700,
-    date: "2023/7/02",
-  },
-  {
-    pId: "P10012",
-    childId: "C10005",
-    name: "R.B.S.Udayanga",
-    amount: 2050,
-    date: "2023/7/16",
-  },
-  {
-    pId: "P10015",
-    childId: "C10009",
-    name: "L.L.A. Hansani",
-    amount: 1875,
-    date: "2023/7/12",
-  },
-];
 
 function Deposits() {
   //userID
@@ -160,6 +116,32 @@ function Deposits() {
 
     getTotalCashData();
   }, [userId]);
+
+
+  //get cash payments view
+  const[paymentDetails, setPaymentDetails] = useState([]);
+
+  useEffect(() => {
+    async function paymentData() {
+      try {
+        const response = await fetch(`http://localhost:5000/edugo/driver/deposit/cashpayments/view/${userId}`); 
+        const data = await response.json();
+        setPaymentDetails(data);
+      } catch (err) {
+        console.error(err.message);
+      }
+    }
+
+    paymentData();
+  }, [userId]);
+
+    // Format the date before displaying
+    const formatDate = (dateString) => {
+      const options = { year: 'numeric', month: '2-digit', day: '2-digit' };
+      return new Date(dateString).toLocaleDateString(undefined, options);
+    };
+  
+
 
   return (
     <div>
@@ -381,17 +363,21 @@ function Deposits() {
 
                     <tbody>
                       {paymentDetails.map((payment) => (
+                        
                         <tr
-                          key={payment.pId}
+                          key={payment.cash_pay_id}
                           className="bg-[#D9D9D9] bg-opacity-60 hover:cursor-pointer hover:bg-[#eaeaea] drop-shadow-md"
                         >
-                          <td className="text-center p-3">{payment.pId}</td>
-                          <td className="text-center">{payment.childId}</td>
-                          <td className="text-center">{payment.name}</td>
+                          
+                          <td className="text-center p-3">{payment.parent_id}</td>
+                          <td className="text-center">{payment.child_id}</td>
+                          <td className="text-center">{payment.child_name}</td>
                           <td className="text-center">{payment.amount}</td>
-                          <td className="text-center">{payment.date}</td>
+                          <td className="text-center">{formatDate(payment.date)}</td>
                         </tr>
+                        
                       ))}
+                      
                     </tbody>
                   </table>
                 </div>

@@ -15,7 +15,7 @@ const { addFeedback,viewFeedback } = require("../controllers/driver/feedbackCont
 
 const { addVehicle, uploadVehicle,viewVehicleImg } = require("../controllers/driver/vehicleController");
 
-const { addDeposit, uploadSlip, viewTotalCashData } = require("../controllers/driver/financeController")
+const { addDeposit, uploadSlip, viewTotalCashData, viewCashPaymentData } = require("../controllers/driver/financeController")
 
 //create routes
 router.route("/dashboard/hasride/:userId").get(hasRide);
@@ -30,6 +30,8 @@ router.route("/vehicle/viewImg/:userId").get(viewVehicleImg);
 router.route("/deposit/add/:userId").post(addDeposit);
 router.post("/deposit/upload/", upload.single("addDeposit"), uploadSlip);
 router.route("/deposit/viewtotal/:userId").get(viewTotalCashData);
+router.route("/deposit/cashpayments/view/:userId").get(viewCashPaymentData);
+
 
 
 

@@ -79,12 +79,6 @@ const viewTotalCashData = async (req, res) => {
         "' AND related_month = EXTRACT(MONTH FROM CURRENT_DATE)-1 AND year = EXTRACT(YEAR FROM CURRENT_DATE) AND verify_status = true "
     );
 
-    // console.log(totDepositData.rows);
-
-    // console.log(totCashData.rows);
-    // return res.json(totCashData.rows[0]);
-    // return res.json({collected:totCashData.rows[0], deposit:totDepositData.rows[0]})
-    // return res.json(data)
     return res.json({
       collected: totCashData.rows[0].total_cash_payment,
       deposited: totDepositData.rows[0].total_deposit_amount
@@ -95,4 +89,32 @@ const viewTotalCashData = async (req, res) => {
   }
 };
 
-module.exports = { addDeposit, uploadSlip, viewTotalCashData };
+//view driver reviews -> GET method
+const viewCashPaymentData = async (req, res) => {
+  try {
+    const userId = req.params.userId;
+
+    // const cashpaymentData = await pool.query(
+    //   "SELECT SUM(amount) AS total_cash_payment FROM cash_payment WHERE driver_id =  '" +
+    //     userId +
+    //     "' AND related_month = EXTRACT(MONTH FROM CURRENT_DATE)-1 AND year = EXTRACT(YEAR FROM CURRENT_DATE) AND verify_status = true "
+    // );
+
+    //db query to get cash payment details
+    const cashpaymentData = await pool.query(
+      "SELECT cash_payment.cash_pay_id, cash_payment.parent_id, cash_payment.child_id,cash_payment.amount,cash_payment.date,children.child_name FROM cash_payment INNER JOIN children ON cash_payment.child_id = children.child_id WHERE cash_payment.driver_id =  '" +
+      userId +
+      "' AND related_month = EXTRACT(MONTH FROM CURRENT_DATE)-1 AND year = EXTRACT(YEAR FROM CURRENT_DATE) AND verify_status = true "
+ 
+    );
+
+    console.log(cashpaymentData.rows);
+    return res.json(cashpaymentData.rows)
+
+  } catch (err) {
+    console.error(err.massage);
+    return res.status(500).send("Server Error");
+  }
+};
+
+module.exports = { addDeposit, uploadSlip, viewTotalCashData, viewCashPaymentData };
