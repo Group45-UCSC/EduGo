@@ -11,7 +11,7 @@ const {
   viewVehicle,
 } = require("../controllers/driver/driverController");
 
-const { addFeedback } = require("../controllers/driver/feedbackController");
+const { addFeedback,viewFeedback } = require("../controllers/driver/feedbackController");
 
 const { addVehicle, uploadVehicle,viewVehicleImg } = require("../controllers/driver/vehicleController");
 
@@ -32,6 +32,8 @@ router.post("/deposit/upload/", upload.single("addDeposit"), uploadSlip);
 
 
 router.route("/feedback/add/:userId").post(addFeedback);
+router.route("/feedback/view/:userId").get(viewFeedback);
+
 
 
 

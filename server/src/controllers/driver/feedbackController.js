@@ -31,4 +31,22 @@ const addFeedback = async (req, res) => {
   }
 };
 
-module.exports = { addFeedback };
+//view driver reviews -> GET method
+const viewFeedback = async (req, res) => {
+  try {
+    const userId = req.params.userId;
+
+    //db query
+    const reviewsData = await pool.query(
+      "SELECT * FROM driver_feedback WHERE driver_id =  '" + userId + "'"
+    );
+
+    return res.json(reviewsData.rows)
+    
+  } catch (err) {
+    console.error(err.massage);
+    return res.status(500).send("Server Error");
+  }
+};
+
+module.exports = { addFeedback, viewFeedback };
