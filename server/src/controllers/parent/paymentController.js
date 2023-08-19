@@ -10,7 +10,7 @@ const viewPayment = async (req, res) => {
 
     //db query
     const paymentData = await pool.query(
-      "SELECT parent_id,child_id,amount, related_month, pay_status FROM ride_payment WHERE parent_id = $1 AND related_month = $2 ",
+      "SELECT rp.parent_id,rp.child_id,rp.amount, rp.related_month, rp.pay_status, c.child_name FROM ride_payment rp INNER JOIN children c ON rp.child_id = c.child_id WHERE rp.parent_id = $1 AND rp.related_month = $2 ",
       [userId, currentMonth]
     );
 
@@ -28,7 +28,7 @@ const viewPastPayment = async (req, res) => {
 
     //db query
     const pastPaymentData = await pool.query(
-      "SELECT parent_id, child_id, amount, related_month, date, year FROM ride_payment WHERE parent_id = $1 AND pay_status = $2",
+      "SELECT rp.parent_id, rp.child_id, rp.amount, rp.related_month, rp.date, rp.year, c.child_name FROM ride_payment rp INNER JOIN children c ON rp.child_id = c.child_id WHERE rp.parent_id = $1 AND rp.pay_status = $2",
       [userId, "paid"]
     );
 
