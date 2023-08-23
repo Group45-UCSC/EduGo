@@ -94,7 +94,7 @@ function AdminVehicleInfo() {
                 <div className="flex mt-8">
 
                     {/* vehicle details container */}
-                    <div className='bg-slate-200 h-[480px] ml-16 w-[500px] mt-8 rounded-lg shadow-md'>
+                    <div className='bg-slate-200 h-[480px] ml-8 w-[370px] mt-8 rounded-lg shadow-md'>
 
                         <div className='mt-4 ml-8 leading-8 font-semibold'>
                             <div className='font-bold text-[19px] pt-4 pb-2'>
@@ -113,8 +113,24 @@ function AdminVehicleInfo() {
                         </div>
                     </div>
 
+                    {/* owner details container */}
+                    <div className='bg-slate-200 cursor-pointer h-[480px] ml-8 w-[370px] mt-8 rounded-lg shadow-md'>
+
+                        <div className='mt-4 ml-8 leading-8 font-semibold'>
+                            <div className='font-bold text-[19px] pt-4 pb-2'>
+                                Owner's details
+                            </div>
+                            <p className='mb-1'>Name: Rasindu Vimanga</p>
+                            <p className='mb-1'>NIC: 948897724V</p>
+                            <p className='mb-1'>Contact: 071-1231234</p>
+                            <p className='mb-1'>Address: No:08, Baseline Road, Colombo</p>
+                            <p className='mb-1'>Birthday: 1998-01-01</p>
+
+                        </div>
+                    </div>
+
                     {/* driver details container */}
-                    <div onClick={driver} className='bg-slate-200 cursor-pointer h-[480px] ml-12 w-[500px] mt-8 rounded-lg shadow-md'>
+                    <div onClick={driver} className='bg-slate-200 cursor-pointer h-[480px] ml-8 w-[370px] mt-8 rounded-lg shadow-md'>
 
                         <div className='mt-4 ml-8 leading-8 font-semibold'>
                             <div className='font-bold text-[19px] pt-4 pb-2'>
