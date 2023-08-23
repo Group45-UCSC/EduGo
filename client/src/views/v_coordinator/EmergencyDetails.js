@@ -24,9 +24,13 @@ function EmergencyDetails() {
 
     <div className='absolute float-left'>
         {/* topic */}
-        <div className='font-bold ml-20 mt-4 text-2xl'>Emergency details</div>
+        <div className='font-bold ml-20 mt-4 text-2xl'> 
+          Emergency details
+        </div>
           <div className='bg-slate-200 w-[600px] h-52 ml-20 mt-8 rounded-lg shadow-md '>
-              <div className='font-bold text-[19px] mt-4 ml-8 pt-4'> Emergency Handle </div>
+              <div className='font-bold text-[19px] mt-4 ml-8 pt-4'> 
+                  Emergency Handle 
+              </div>
                 <div className='mt-4 ml-8 float-left '>
                   <p className='mb-1'>Vehicle : QL - 1122</p>
                   <p className='mb-1'>Type : van</p>

@@ -20,7 +20,9 @@ function ConditionCheck() {
     <MainLayout data={sideNavBarLinks}>
     <div>
         {/* topic */}
-        <div className='font-bold ml-12 mt-4 text-2xl'>Vehicle Condition Check</div>
+        <div className='font-bold ml-12 mt-4 text-2xl'>
+            Vehicle Condition Check
+        </div>
 
         {/* display image container */}
         <div className="flex mt-8">

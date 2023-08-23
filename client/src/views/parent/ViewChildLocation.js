@@ -19,8 +19,8 @@ const containerStyle = {
 };
 
 const center = {
-  lat: 6.872718728491422,
-  lng:  79.88336081994609,
+  lat:  6.88973975280605, 
+  lng:  79.86389598307984,
 };
 
 function ViewChildLocation(props) {
@@ -167,7 +167,7 @@ function ViewChildLocation(props) {
                   >
                     {/* Child components, such as markers, info windows, etc. */}
                                   {/* Add a Marker at the desired location */}
-              <Marker position={{ lat: 6.872815439336726, lng: 79.88325353947194 }} />
+              <Marker position={{ lat: 6.889489886667279, lng: 79.86398851330264 }} />  
                
                   </GoogleMap>
                   )}
@@ -210,10 +210,10 @@ function ViewChildLocation(props) {
                       Droped Status :
                     </div>{" "}
                     <div className="p-2 text-lg font-semibold text-blue-600">
-                      {child.pickupStatus}
+                      {/* {child.pickupStatus} */} Not Yet
                     </div>
                   </div>
-                  <div className=" mt-5 flex justify-center">
+                  {/* <div className=" mt-5 flex justify-center">
                     {child.pickupStatus === "Picked up" && (
                       <div className="text-slate-600">
                         Droped Time : 1.50 AM
@@ -229,7 +229,7 @@ function ViewChildLocation(props) {
                         Estimate Time : 2.10 AM
                       </div>
                     )}
-                  </div>
+                  </div> */}
                 </div>
               </div>
             </div>
