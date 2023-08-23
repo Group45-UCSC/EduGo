@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { AiFillDashboard } from "react-icons/ai";
 import { FaChild } from "react-icons/fa";
 import {
@@ -11,31 +11,51 @@ import MainLayout from "../../components/layout/MainLayout";
 import { useLocation } from "react-router-dom";
 import user from "../../images/user.png";
 
+const sideNavBarLinks = [
+  {
+    title: "Dashboard",
+    path: "/parent/dashboard",
+    icon: <AiFillDashboard />,
+  },
+  { title: "Children", path: "/parent/children", icon: <FaChild /> },
+  { title: "Payment", path: "/parent/payment", icon: <MdPayments /> },
+  { title: "Support", path: "/parent/support", icon: <MdSupportAgent /> },
+  {
+    title: "Feedback",
+    path: "/parent/feedback",
+    icon: <MdOutlineRateReview />,
+  },
+];
+
 function ViewVehicle() {
+  // --------get child and vehicleData array from Addschool page--------------------------
   const location = useLocation();
-  // get vehicle data array
-  const dataParam = new URLSearchParams(location.search).get("data");
-  const vehicleData = JSON.parse(decodeURIComponent(dataParam));
-
-  // get child data array
   const childParam = new URLSearchParams(location.search).get("child");
-  const child = JSON.parse(decodeURIComponent(childParam));
+  const vehicleDataParam = new URLSearchParams(location.search).get("data");
 
-  const sideNavBarLinks = [
-    {
-      title: "Dashboard",
-      path: "/parent/dashboard",
-      icon: <AiFillDashboard />,
-    },
-    { title: "Children", path: "/parent/children", icon: <FaChild /> },
-    { title: "Payment", path: "/parent/payment", icon: <MdPayments /> },
-    { title: "Support", path: "/parent/support", icon: <MdSupportAgent /> },
-    {
-      title: "Feedback",
-      path: "/parent/feedback",
-      icon: <MdOutlineRateReview />,
-    },
-  ];
+  const child = JSON.parse(decodeURIComponent(childParam));
+  const vehicleData = JSON.parse(decodeURIComponent(vehicleDataParam));
+
+  //-------Get reaching school list-----------------------------------------
+  const rideId = vehicleData.ride_id;
+  const [school, setSchool] = useState([]);
+
+  useEffect(() => {
+    async function schoolData() {
+      try {
+        const response = await fetch(
+          `http://localhost:5000/edugo/parent/children/viewVehicle/viewSchool/${rideId}`
+        );
+        const data = await response.json();
+        setSchool(data);
+      } catch (err) {
+        console.error(err.message);
+      }
+    }
+
+    schoolData();
+  }, [rideId]);
+
   const handleSubmit = (e) => {
     e.preventDefault();
   };
@@ -193,7 +213,7 @@ function ViewVehicle() {
         <div className=" px-6 ">
           <h1 className="text-[#5a5c69] text-[28px] leading-8 font-normal cursor-pointer">
             Vehicle Review <br></br>
-            {child.id}
+            Child Id:{child.child_id}
           </h1>
           <div className="">
             <div className="flex justify-end w-5/6 ml-24 mb-4">
@@ -203,9 +223,7 @@ function ViewVehicle() {
                   setModalOpen(true);
                 }}
               >
-                <div className="flex mt-2 gap-3 font-semibold">
-                  Select Ride
-                </div>
+                <div className="flex mt-2 gap-3 font-semibold">Select Ride</div>
               </button>
             </div>
           </div>
@@ -240,25 +258,35 @@ function ViewVehicle() {
                   ></img>
                 </div>
                 <div className="flex justify-center mt-2">
-                  <h1 className="">Condition : {vehicleData.type}</h1>
+                  <h1 className="">
+                    Condition : {vehicleData.condition_status}
+                  </h1>
                 </div>
               </div>
             </div>
             <div className=" w-1/2 bg-slate-200 rounded-[8px]">
               <div className="grid grid-cols-2 grid-rows-2 h-[110px] mx-2 my-2 gap-2 text-sm ">
                 <div className="p-3">
-                  <div className="mb-1">Ride ID : {vehicleData.id}</div>
-                  <div className="mb-1">Type: {vehicleData.type}</div>
-                  <div className="mb-1">Shift 1 start: xxxx</div>
-                  <div className="">Shift 2 start: xxxx</div>
+                  <div className="mb-1">Ride ID : {vehicleData.ride_id}</div>
+                  <div className="mb-1">Type: {vehicleData.vehicle_type}</div>
+                  <div className="mb-1">
+                    Shift 1 start: {vehicleData.location_morning_ride}
+                  </div>
+                  <div className="">
+                    Shift 2 start: {vehicleData.location_noon_ride}
+                  </div>
                 </div>
                 <div className="p-3">
-                  <div className="mb-1">Childrens: {vehicleData.children}</div>
+                  <div className="mb-1">
+                    Childrens: {vehicleData.num_of_children}
+                  </div>
                   <div className="mb-1">
                     Number of availabe sheets:{" "}
-                    {vehicleData.sheets - vehicleData.children}
+                    {vehicleData.num_of_seats - vehicleData.num_of_children}
                   </div>
-                  <div className="mb-1">Pay rate: {vehicleData.price}</div>
+                  <div className="mb-1">
+                    Pay rate: {vehicleData.payment_per_1km}
+                  </div>
                 </div>
               </div>
               <div className=" h-12 flex justify-center ">
@@ -273,40 +301,44 @@ function ViewVehicle() {
           <div className="flex gird grid-cols-2 grid-rows-1 gap-3 h-[300px] px-6 my-3">
             <div className="w-1/4 flex justify-center rounded-[8px] py-5 bg-slate-200 overflow-y-auto">
               <div className="space-y-2 w-full px-3 ">
-                {vehicleData.school.map((school, index) => (
+                {school.map((schoolItem, index) => (
                   <div
                     key={index}
                     className=" p-1 flex justify-center rounded-md bg-orange"
                   >
-                    {school}
+                    {schoolItem.school}
                   </div>
                 ))}
+                
               </div>
             </div>
             {/* ----------Driver reviews---------- */}
             <div className="w-3/4 bg-slate-200 rounded-[8px]">
-            <div className=" mt-3">
+              <div className=" mt-3">
                 <div className=" h-6 mb-1 flex justify-center">
                   <h1 className="text-xl font-semibold ">Driver Reviews</h1>
                 </div>
-                <div className=" px-3 mx-2 rounded-md h-[250px] overflow-y-auto" >
+                <div className=" px-3 mx-2 rounded-md h-[250px] overflow-y-auto">
                   {reviews.map((review, index) => (
-                    <div key={index} className="rounded-[8px] bg-slate-100 mb-3 mt-3  border-[1px] border-orange  items-center justify-between px-[30px] py-3 cursor-pointer hover:shadow-lg transform hover:scale-[101%] transition duration-300 ease-out">
+                    <div
+                      key={index}
+                      className="rounded-[8px] bg-slate-100 mb-3 mt-3  border-[1px] border-orange  items-center justify-between px-[30px] py-3 cursor-pointer hover:shadow-lg transform hover:scale-[101%] transition duration-300 ease-out"
+                    >
                       <div className="flex  w-full mb-3">
                         <div className="flex justify-start gap-2 ">
-                          <img src={review.u_image} alt="user_image" className="bg-slate-300 w-8 cursor-pointer rounded-full p-1"></img>
+                          <img
+                            src={review.u_image}
+                            alt="user_image"
+                            className="bg-slate-300 w-8 cursor-pointer rounded-full p-1"
+                          ></img>
                           <h1 className="mt-1">{review.u_name}</h1>
-
                         </div>
                         <div className="flex justify-end mt-2  ml-auto">
                           <RatingStars rating={review.rating} />
                         </div>
                       </div>
 
-                      <div>
-                        {review.review}
-                      </div>
-
+                      <div>{review.review}</div>
                     </div>
                   ))}
                 </div>
@@ -318,6 +350,7 @@ function ViewVehicle() {
       </MainLayout>
     </div>
   );
+ 
 }
 
 export default ViewVehicle;

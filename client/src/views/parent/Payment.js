@@ -95,6 +95,12 @@ function Payment() {
     pastPaymentData();
   }, [userId]);
 
+      // Format the date before displaying
+      const formatDate = (dateString) => {
+        const options = { year: 'numeric', month: '2-digit', day: '2-digit' };
+        return new Date(dateString).toLocaleDateString(undefined, options);
+      };
+
   return (
     <div>
       <MainLayout data={sideNavBarLinks}>
@@ -186,7 +192,7 @@ function Payment() {
                       <td className="text-center">
                         {pastPay.year}/{pastPay.related_month}
                       </td>
-                      <td className="text-center">{pastPay.date}</td>
+                      <td className="text-center">{formatDate(pastPay.date)}</td>
                     </tr>
                   </tbody>
                 ))}
