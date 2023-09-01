@@ -29,11 +29,11 @@ const sideNavBarLinks = [
   },
 ];
 
-
 function Deposits() {
   //userID
   const userId = localStorage.getItem("userId");
 
+  //add deposit form
   const [depositedAmount, setDepositedAmount] = useState("");
   const [depositedDate, setDepositedDate] = useState(null);
   const [depositSlip, setDepositSlip] = useState(null);
@@ -117,14 +117,15 @@ function Deposits() {
     getTotalCashData();
   }, [userId]);
 
-
   //get cash payments view
-  const[paymentDetails, setPaymentDetails] = useState([]);
+  const [paymentDetails, setPaymentDetails] = useState([]);
 
   useEffect(() => {
     async function paymentData() {
       try {
-        const response = await fetch(`http://localhost:5000/edugo/driver/deposit/cashpayments/view/${userId}`); 
+        const response = await fetch(
+          `http://localhost:5000/edugo/driver/deposit/cashpayments/view/${userId}`
+        );
         const data = await response.json();
         setPaymentDetails(data);
       } catch (err) {
@@ -135,19 +136,24 @@ function Deposits() {
     paymentData();
   }, [userId]);
 
-    // Format the date before displaying
-    const formatDate = (dateString) => {
-      const options = { year: 'numeric', month: '2-digit', day: '2-digit' };
-      return new Date(dateString).toLocaleDateString(undefined, options);
-    };
-  
+  // Format the date before displaying
+  const formatDate = (dateString) => {
+    const options = { year: "numeric", month: "2-digit", day: "2-digit" };
+    return new Date(dateString).toLocaleDateString(undefined, options);
+  };
 
+  //search bar of the table
+  const [searchText, setSearchText] = useState("");
+
+  const handleSearch = (event) => {
+    setSearchText(event.target.value);
+  };
 
   return (
     <div>
       <MainLayout data={sideNavBarLinks}>
         <h1 className="text-[#5a5c69]  text-[28px] leading-8 font-normal cursor-pointer">
-          Submit the Ride Payments that you collected For August
+          Submit the Ride Payments that you collected For September
         </h1>
         {/* full box */}
         <div className="h-screen grid gap-4  grid-cols-4 mb-10">
@@ -324,31 +330,34 @@ function Deposits() {
               {/* table */}
               <div className="  col-span-2 mb-4 ">
                 {/* <div className="p-3"> */}
-                <div className="flex justify-end">
-                  <div className="float-right  mr-[-100px]">
-                    <form action="">
-                      <input
-                        type="text"
-                        placeholder="Search.."
-                        className=" mt-1 overflow-auto w-40 mr-32  border border-slate-400 pl-2 rounded-md"
-                      ></input>
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        stroke-width="1.5"
-                        stroke="currentColor"
-                        class="w-5 h-10 stroke-slate-500 absolute -mt-8 ml-32 hover:cursor-pointer"
-                      >
-                        <path
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
-                          d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z"
-                        />
-                      </svg>
-                    </form>
+                {paymentDetails.length > 0 ? (
+                  <div className="flex justify-end">
+                    <div className="float-right  mr-[-100px]">
+                      <form action="">
+                        <input
+                          type="text"
+                          placeholder="Search Child Name.."
+                          value={searchText}
+                          onChange={handleSearch}
+                          className=" mt-1 overflow-auto w-60 mr-32  border border-slate-400 pl-2 rounded-md"
+                        ></input>
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          fill="none"
+                          viewBox="0 0 24 24"
+                          stroke="currentColor"
+                          className="absolute right-12 top-[245px] transform -translate-y-1/2 w-5 h-5 text-slate-400 hover:text-slate-500 cursor-pointer"
+                        >
+                          <path
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z"
+                          />
+                        </svg>
+                      </form>
+                    </div>
                   </div>
-                </div>
+                ) : null}
                 <div className=" p-2 ">
                   <table className="w-full border-separate border-spacing-y-2 border-slate-50 overflow-y-auto  ">
                     <thead className="border-y-4 border-white drop-shadow">
@@ -362,22 +371,31 @@ function Deposits() {
                     </thead>
 
                     <tbody>
-                      {paymentDetails.map((payment) => (
-                        
-                        <tr
-                          key={payment.cash_pay_id}
-                          className="bg-[#D9D9D9] bg-opacity-60 hover:cursor-pointer hover:bg-[#eaeaea] drop-shadow-md"
-                        >
-                          
-                          <td className="text-center p-3">{payment.parent_id}</td>
-                          <td className="text-center">{payment.child_id}</td>
-                          <td className="text-center">{payment.child_name}</td>
-                          <td className="text-center">{payment.amount}</td>
-                          <td className="text-center">{formatDate(payment.date)}</td>
-                        </tr>
-                        
-                      ))}
-                      
+                      {paymentDetails
+                        .filter(
+                          (payment) =>
+                            payment.child_name
+                              .toLowerCase()
+                              .includes(searchText.toLowerCase()) // Case-insensitive search
+                        )
+                        .map((payment) => (
+                          <tr
+                            key={payment.cash_pay_id}
+                            className="bg-[#D9D9D9] bg-opacity-60 hover:cursor-pointer hover:bg-[#eaeaea] drop-shadow-md"
+                          >
+                            <td className="text-center p-3">
+                              {payment.parent_id}
+                            </td>
+                            <td className="text-center">{payment.child_id}</td>
+                            <td className="text-center">
+                              {payment.child_name}
+                            </td>
+                            <td className="text-center">{payment.amount}</td>
+                            <td className="text-center">
+                              {formatDate(payment.date)}
+                            </td>
+                          </tr>
+                        ))}
                     </tbody>
                   </table>
                 </div>

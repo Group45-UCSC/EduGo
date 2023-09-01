@@ -60,7 +60,7 @@ const uploadSlip = async (req, res) => {
   });
 };
 
-//view driver reviews -> GET method
+//view total cash collected details -> GET method
 const viewTotalCashData = async (req, res) => {
   try {
     const userId = req.params.userId;
@@ -116,5 +116,17 @@ const viewCashPaymentData = async (req, res) => {
     return res.status(500).send("Server Error");
   }
 };
+
+
+// // Modify your existing code to handle search queries
+// const searchCashPaymentData = async (req, res) => {
+//   try {
+   
+//   } catch (err) {
+//     console.error(err.message);
+//     return res.status(500).send("Server Error");
+//   }
+// };
+
 
 module.exports = { addDeposit, uploadSlip, viewTotalCashData, viewCashPaymentData };
