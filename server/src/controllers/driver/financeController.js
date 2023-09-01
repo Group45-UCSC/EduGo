@@ -89,7 +89,7 @@ const viewTotalCashData = async (req, res) => {
   }
 };
 
-//view driver reviews -> GET method
+//view cash payments data table -> GET method
 const viewCashPaymentData = async (req, res) => {
   try {
     const userId = req.params.userId;
@@ -108,7 +108,7 @@ const viewCashPaymentData = async (req, res) => {
  
     );
 
-    console.log(cashpaymentData.rows);
+    // console.log(cashpaymentData.rows);
     return res.json(cashpaymentData.rows)
 
   } catch (err) {
