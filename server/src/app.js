@@ -8,6 +8,8 @@ app.use(cors());
 
 //middleware
 app.use(express.json()); //req.body
+// app.use(express.json({strict:false})); //req.body
+app.use(express.urlencoded({ extended: true }));
 
 // app.use(
 //   cors({
