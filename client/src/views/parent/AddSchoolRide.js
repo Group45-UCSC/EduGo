@@ -208,9 +208,9 @@ function AddSchoolRide() {
         <div className="pt-6 px-6">
           <h1 className="text-[#5a5c69] text-[28px] leading-8 font-normal cursor-pointer">
             School Van <br></br>
-            child id:{child.child_id}
+            {/* child id:{child.child_id} */}
           </h1>
-          <div className="App">
+          <div className="App mb-7">
             <main>
               <div className="products">
                 {vehicle.length > 0 ? (
@@ -230,7 +230,8 @@ function AddSchoolRide() {
                           Type: {vehicleData.vehicle_type}
                         </h4>
                         <p>Model: {vehicleData.vehicle_model}</p>
-                        <p>Start: {vehicleData.start}</p>
+                        <p>Start: {vehicleData.location_morning_ride}</p>
+                        <p>Start: {vehicleData.vehicle_no}</p>
                       </div>
                       <NavLink
                         to={`/parent/children/addnewride/viewvehicle/${
