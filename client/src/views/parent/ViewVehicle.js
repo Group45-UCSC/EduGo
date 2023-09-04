@@ -8,8 +8,9 @@ import {
 } from "react-icons/md";
 import { BsStar, BsStarFill } from "react-icons/bs";
 import MainLayout from "../../components/layout/MainLayout";
-import { useLocation } from "react-router-dom";
+import { NavLink, useLocation } from "react-router-dom";
 import user from "../../images/user.png";
+import swal from "sweetalert";
 
 const sideNavBarLinks = [
   {
@@ -55,6 +56,27 @@ function ViewVehicle() {
 
     schoolData();
   }, [rideId]);
+  //----Get driver reviews-----------------------------------------------------------
+
+  const driver_id = vehicleData.driver_id;
+
+  const [review, setReview] = useState([]);
+
+  useEffect(() => {
+    async function reviewData() {
+      try {
+        const response = await fetch(
+          `http://localhost:5000/edugo/parent/children/viewVehicle/viewReview/${driver_id}`
+        );
+        const data = await response.json();
+        setReview(data);
+      } catch (err) {
+        console.error(err.message);
+      }
+    }
+
+    reviewData();
+  }, [driver_id]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -80,23 +102,33 @@ function ViewVehicle() {
                 </button>
               </div>
               <div className="">
-                <h1 className="text-[#5a5c69] text-[28px] leading-8 font-normal cursor-pointer text-center">
-                  Register
+                <h1 className="text-[#5a5c69] text-[24px] leading-8 font-normal cursor-pointer text-center">
+                  Are you sure add this vehicle ?
                 </h1>
               </div>
 
               <div className="flex justify-center items-center mt-5">
+                <NavLink
+                to={`/parent/children/`}
+                >
                 <button
-                  className="w-36 h-12 mr-2 bg-orange rounded-lg text-xl cursor-pointer"
+                  className="w-36 h-12 mr-5 bg-orange rounded-lg text-xl cursor-pointer"
+                  onClick={() => {
+                    handleSelectRideClick();
+                    setOpenModal(false);
+                  }}
+                >
+                  Ok
+                </button>
+                </NavLink>
+                <button
+                  className="w-36 h-12  bg-orange rounded-lg text-xl cursor-pointer"
                   onClick={() => {
                     setOpenModal(false);
                   }}
                   id="cancelBtn"
                 >
                   Cancel
-                </button>
-                <button className="w-36 h-12 bg-orange rounded-lg text-xl cursor-pointer">
-                  Submit
                 </button>
               </div>
             </div>
@@ -105,6 +137,63 @@ function ViewVehicle() {
       </div>
     );
   }
+
+  // Get a reference to the button element by its ID
+  const handleSelectRideClick = () => {
+    const ride_id = vehicleData.ride_id;
+    const driver_id = vehicleData.driver_id;
+    const child_location = child.location;
+    const school = child.school;
+    const child_id = child.child_id
+
+    // Call the function when the button is clicked
+    handleSelectRide(ride_id, driver_id, child_location, school, child_id);
+  };
+
+  const userId = localStorage.getItem("userId");
+
+  const handleSelectRide = async (
+    ride_id,
+    driver_id,
+    child_location,
+    school,
+    child_id
+  ) => {
+    try {
+      const body = { ride_id, driver_id, child_location, school, child_id };
+
+      const response = await fetch(
+        `http://localhost:5000/edugo/parent/children/viewVehicle/rideRequest/${userId}`,
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(body),
+        }
+      );
+
+      if (response.status === 200) {
+        console.log("Ride details uploaded successfully!");
+        swal({
+          title: "Requested for Driver!",
+          icon: "success",
+          buttons: {
+            confirm: {
+              className:
+                "bg-orange text-white px-10 py-2 rounded-lg items-center hover:bg-gray ",
+            },
+          },
+        }).then(() => {
+          console.log(response);
+        });
+      } else {
+        // Handle the error here
+        console.error("Failed to upload ride details:", response.statusText);
+      }
+    } catch (err) {
+      console.error("Error:", err.message);
+    }
+  };
+
   function RatingStars({ rating }) {
     const filledStars = Math.floor(rating);
     const partFilledStar = filledStars + 1;
@@ -142,83 +231,22 @@ function ViewVehicle() {
       </div>
     );
   }
-  const reviews = [
-    {
-      id: 1,
-      u_image: require("../../images/user.png"),
-      u_name: "K.L Kumarasiri",
-      rating: 3,
-      review:
-        "Saman is a very responsible and safe driver. My child enjoys the ride every day!",
-    },
-    {
-      id: 2,
-      u_image: require("../../images/user.png"),
-      u_name: "M.N. Pasindu Yasith",
-      rating: 4,
-      review:
-        "Saman is fantastic! She always arrives on time, and my kid feels safe and comfortable during the journey.",
-    },
-    {
-      id: 3,
-      u_image: require("../../images/user.png"),
-      u_name: "M.N. Pasindu Yasith",
-      rating: 2,
-      review:
-        "Saman is okay, but sometimes he's a little late. Overall, the service is satisfactory.",
-    },
-    {
-      id: 4,
-      u_image: require("../../images/user.png"),
-      u_name: "M.N. Pasindu Yasith",
-      rating: 4,
-      review:
-        "Saman is an amazing driver! She is patient, friendly, and goes the extra mile to ensure the children are happy.",
-    },
-    {
-      id: 5,
-      u_image: require("../../images/user.png"),
-      u_name: "M.N. Pasindu Yasith",
-      rating: 1,
-      review:
-        "I had a terrible experience with Saman. He drove recklessly and didn't seem to care about the safety of the children. I would not recommend her as a school driver.",
-    },
-    {
-      id: 6,
-      u_image: require("../../images/user.png"),
-      u_name: "M.N. Pasindu Yasith",
-      rating: 3,
-      review: "Saman is fantastic! She always arrives on time",
-    },
-    {
-      id: 7,
-      u_image: require("../../images/user.png"),
-      u_name: "M.N. Pasindu Yasith",
-      rating: 2,
-      review:
-        "Saman is okay, but sometimes he's a little late. Overall, the service is satisfactory.",
-    },
-    {
-      id: 8,
-      u_image: require("../../images/user.png"),
-      u_name: "M.N. Pasindu Yasith",
-      rating: 4,
-      review:
-        "Saman is an amazing driver! He is patient, friendly, and goes the extra mile to ensure the children are happy.",
-    },
-  ];
+
   return (
     <div>
       <MainLayout data={sideNavBarLinks}>
         <div className=" px-6 ">
           <h1 className="text-[#5a5c69] text-[28px] leading-8 font-normal cursor-pointer">
             Vehicle Review <br></br>
-            Child Id:{child.child_id}
+            {/* Child Id:{child.child_id} <br></br>
+            Driver Id: {vehicleData.driver_id} */}
           </h1>
           <div className="">
             <div className="flex justify-end w-5/6 ml-24 mb-4">
               <button
                 className="flex justify-center w-56 h-10 bg-orange rounded-md cursor-pointer hover:shadow-lg transform hover:scale-[103%] transition duration-300 ease-out"
+                // onClick={handleSelectRideClick}
+
                 onClick={() => {
                   setModalOpen(true);
                 }}
@@ -309,7 +337,6 @@ function ViewVehicle() {
                     {schoolItem.school}
                   </div>
                 ))}
-                
               </div>
             </div>
             {/* ----------Driver reviews---------- */}
@@ -319,7 +346,7 @@ function ViewVehicle() {
                   <h1 className="text-xl font-semibold ">Driver Reviews</h1>
                 </div>
                 <div className=" px-3 mx-2 rounded-md h-[250px] overflow-y-auto">
-                  {reviews.map((review, index) => (
+                  {review.map((reviewItem, index) => (
                     <div
                       key={index}
                       className="rounded-[8px] bg-slate-100 mb-3 mt-3  border-[1px] border-orange  items-center justify-between px-[30px] py-3 cursor-pointer hover:shadow-lg transform hover:scale-[101%] transition duration-300 ease-out"
@@ -334,11 +361,11 @@ function ViewVehicle() {
                           <h1 className="mt-1">{review.u_name}</h1>
                         </div>
                         <div className="flex justify-end mt-2  ml-auto">
-                          <RatingStars rating={review.rating} />
+                          <RatingStars rating={reviewItem.rating} />
                         </div>
                       </div>
 
-                      <div>{review.review}</div>
+                      <div>{reviewItem.feedback}</div>
                     </div>
                   ))}
                 </div>
@@ -350,7 +377,6 @@ function ViewVehicle() {
       </MainLayout>
     </div>
   );
- 
 }
 
 export default ViewVehicle;
