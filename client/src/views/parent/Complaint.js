@@ -1,32 +1,50 @@
 import React, { useState } from "react";
 import Select from "react-select";
 import "react-datepicker/dist/react-datepicker.css";
-function Complaint({onComplaintSubmit}) {
+function Complaint({ onComplaintSubmit }) {
   const [complaintType, setComplaintType] = useState(null);
   const [complaintDetails, setComplaintDetails] = useState("");
   const [dateOfOccurrence, setDateOfOccurrence] = useState(null);
   const [attachments, setAttachments] = useState([]);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    
-  
+
     const newComplaint = {
       complaintType,
       complaintDetails,
       dateOfOccurrence,
       attachments,
-      
     };
-    onComplaintSubmit(newComplaint);
 
+    try {
+      const response = await fetch("http://localhost:3000/edugo/parent/addcomplaint", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(newComplaint),
+      });
+      if (response.ok) {
+        const data = await response.json();
+        onComplaintSubmit(data.data);
 
-    setComplaintType(null);
-    setComplaintDetails("");
-    setDateOfOccurrence(null);
-    setAttachments([]);
-    
-    alert("Your complaint has been submitted. Our team will address it promptly 😊");
+        setComplaintType(null);
+        setComplaintDetails("");
+        setDateOfOccurrence(null);
+        setAttachments([]);
+
+        alert(
+          "Your complaint has been submitted. Our team will address it promptly 😊"
+        );
+      } else {
+        console.error("Error:", response.statusText);
+        alert("Error submitting the complaint :( Please try again later.");
+      }
+    } catch (error) {
+      console.error("Error:", error);
+      alert("Error submitting the complaint. Please try again later.");
+    }
   };
   const options = [
     // { value: "", label: "Select Complaint Type" },
