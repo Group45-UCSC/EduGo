@@ -119,7 +119,7 @@ function Deposits() {
     getTotalCashData();
   }, [userId]);
 
-  //get cash payments view
+  //get cash payments view table
   const [paymentDetails, setPaymentDetails] = useState([]);
 
   useEffect(() => {

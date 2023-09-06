@@ -66,38 +66,38 @@ const data = [
   },
 ];
 
-const tabeldata = [
-  {
-    name: "pId005",
-    payment: 35000,
-    date: "2023/1/12",
-    period: "2022 Nov/Dec",
-  },
-  {
-    name: "pId018",
-    payment: 46000,
-    date: "2023/3/12",
-    period: "2023 Jan/Feb",
-  },
-  {
-    name: "pId025",
-    payment: 29500,
-    date: "2023/4/12",
-    period: "2023 March",
-  },
-  {
-    name: "pId032",
-    payment: 23500,
-    date: "2023/6/12",
-    period: "2023 April/May",
-  },
-  {
-    name: "pId041",
-    payment: 24100,
-    date: "2023/8/6",
-    period: "2023 June",
-  },
-];
+// const tabeldata = [
+//   {
+//     name: "pId005",
+//     payment: 35000,
+//     date: "2023/1/12",
+//     period: "2022 Nov/Dec",
+//   },
+//   {
+//     name: "pId018",
+//     payment: 46000,
+//     date: "2023/3/12",
+//     period: "2023 Jan/Feb",
+//   },
+//   {
+//     name: "pId025",
+//     payment: 29500,
+//     date: "2023/4/12",
+//     period: "2023 March",
+//   },
+//   {
+//     name: "pId032",
+//     payment: 23500,
+//     date: "2023/6/12",
+//     period: "2023 April/May",
+//   },
+//   {
+//     name: "pId041",
+//     payment: 24100,
+//     date: "2023/8/6",
+//     period: "2023 June",
+//   },
+// ];
 
 const childDetails = [
   {
@@ -210,6 +210,33 @@ function Finance() {
     getLatMonthIncome();
   }, [userId]);
 
+  //get income view table-----------------------------------------------------------
+  const [incomeDetails, setIncomeDetails] = useState([]);
+
+  useEffect(() => {
+    async function incomeData() {
+      try {
+        const response = await fetch(
+          `http://localhost:5000/edugo/driver/income/view/totaldetails/${userId}`
+        );
+        const data = await response.json();
+        setIncomeDetails(data);
+      } catch (err) {
+        console.error(err.message);
+      }
+    }
+
+    incomeData();
+  }, [userId]);
+
+  // Format the date before displaying
+  const formatDate = (dateString) => {
+    const options = { year: "numeric", month: "2-digit", day: "2-digit" };
+    return new Date(dateString).toLocaleDateString(undefined, options);
+  };
+
+  //-------------------------------------
+
   const [filterValue, setFilterValue] = useState("All");
 
   const filteredChildren =
@@ -220,6 +247,26 @@ function Finance() {
   //for display the current month name
   const currentDate = new Date();
   const currentMonthName = format(currentDate, "MMMM"); // 'MMMM' format gives you the full month name
+
+  //to convert month number to month name
+  const getMonthName = (monthNumber) => {
+    const monthNames = [
+      "January",
+      "February",
+      "March",
+      "April",
+      "May",
+      "June",
+      "July",
+      "August",
+      "September",
+      "October",
+      "November",
+      "December",
+    ];
+
+    return monthNames[monthNumber - 1] || "Invalid Month";
+  };
 
   return (
     <div>
@@ -279,7 +326,7 @@ function Finance() {
             {/* table */}
             <div className=" col-span-2 h-[400px] mt-[-100px] mb-4">
               <div>
-                <div className="float-right ">
+                {/* <div className="float-right ">
                   <form action="">
                     <input
                       type="text"
@@ -324,27 +371,33 @@ function Finance() {
                       />
                     </svg>
                   </form>
-                </div>
+                </div> */}
                 <table className="w-full border-separate border-spacing-y-2 border border-slate-50">
                   <thead className="border-y-4 border-white drop-shadow">
                     <tr className="bg-[#999999] text-white text-[18px] border-b-2 drop-shadow-md">
-                      <th className="px-3.5 py-1 w-30">Payment Id</th>
-                      <th className="px-3.5 w-30">Amount</th>
+                      {/* <th className="px-3.5 py-1 w-30">Payment Id</th> */}
                       <th className="px-3.5 w-30">Date</th>
-                      <th className="px-3.5 w-30">period</th>
+                      <th className="px-3.5 w-30">Amount</th>
+                      <th className="px-3.5 w-30">Month</th>
+                      <th className="px-3.5 w-30">More</th>
                     </tr>
                   </thead>
 
                   <tbody>
-                    {tabeldata.map((item) => (
+                    {incomeDetails.map((income) => (
                       <tr
-                        key={item.id}
+                        key={income.income_id}
                         className="bg-[#D9D9D9] bg-opacity-60 hover:cursor-pointer hover:bg-[#eaeaea] drop-shadow-md"
                       >
-                        <td className="text-center p-3">{item.name}</td>
-                        <td className="text-center">{item.payment}</td>
-                        <td className="text-center">{item.date}</td>
-                        <td className="text-center">{item.period}</td>
+                        <td className="text-center p-3">
+                          {formatDate(income.date)}
+                        </td>
+                        <td className="text-center">{income.amount}</td>
+                        <td className="text-center">
+                          {getMonthName(parseInt(income.month))}
+                        </td>
+
+                        <td className="text-center">view</td>
                       </tr>
                     ))}
                   </tbody>

@@ -117,7 +117,7 @@ const viewCashPaymentData = async (req, res) => {
 
 // --------------------------------- INCOME PAGE-----------------------------------------------------//
 
-//to get last month income total
+//to get last month income total -> GET method
 const viewLastIncome = async (req, res) => {
   try {
     const userId = req.params.userId;
@@ -139,7 +139,7 @@ const viewLastIncome = async (req, res) => {
   }
 };
 
-//to get last 6 months income details for the chart
+//to get last 6 months income details for the chart -> GET method
 const viewIncomeChart = async (req, res) => {
   try {
     const userId = req.params.userId;
@@ -149,17 +149,25 @@ const viewIncomeChart = async (req, res) => {
   }
 };
 
-//to get total income details for the table
+//to get total income details for the table -> GET method
 const viewTotalIncome = async (req, res) => {
   try {
     const userId = req.params.userId;
+
+    const incomeData = await pool.query(
+      "SELECT income_id, date, amount, month FROM income WHERE driver_id = '" +
+        userId +
+        "' ORDER BY income_id ASC "
+    );
+
+    return res.json(incomeData.rows);
   } catch (err) {
     console.error(err.massage);
     return res.status(500).send("Server Error");
   }
 };
 
-//to get total children list with payment status
+//to get total children list with payment status -> GET method
 const viewChildFees = async (req, res) => {
   try {
     const userId = req.params.userId;
@@ -179,7 +187,6 @@ module.exports = {
   viewTotalIncome,
   viewChildFees,
 };
-
 
 //EXTRACT(MONTH FROM NOW()) would return 9 for september
 
