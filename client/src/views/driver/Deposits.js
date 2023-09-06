@@ -17,6 +17,7 @@ import "react-datepicker/dist/react-datepicker.css";
 import { useDropzone } from "react-dropzone";
 import swal from "sweetalert";
 import { RiRefreshLine } from "react-icons/ri";
+import { format } from "date-fns";
 
 const sideNavBarLinks = [
   { title: "Dashboard", path: "/driver/dashboard", icon: <AiFillDashboard /> },
@@ -172,11 +173,15 @@ function Deposits() {
     }
   };
 
+  //for display the current month name
+  const currentDate = new Date();
+  const currentMonthName = format(currentDate, "MMMM"); // 'MMMM' format gives you the full month name
+
   return (
     <div>
       <MainLayout data={sideNavBarLinks}>
         <h1 className="text-[#5a5c69]  text-[28px] leading-8 font-normal cursor-pointer">
-          Submit the Ride Payments that you collected For September
+          Submit the Ride Payments that you collected For {currentMonthName}
         </h1>
         {/* full box */}
         <div className="h-screen grid gap-4  grid-cols-4 mb-10">
@@ -279,7 +284,7 @@ function Deposits() {
               <div className="h-8 mb-3 flex justify-center">
                 <h1 className="text-xl font-bold ">
                   {" "}
-                  Cash Payments - September
+                  Cash Payments - {currentMonthName}
                 </h1>
               </div>
               {/* table */}

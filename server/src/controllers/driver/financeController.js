@@ -61,7 +61,7 @@ const uploadSlip = async (req, res) => {
 };
 
 //view total cash collected details -> GET method
-const viewTotalCashData = async (req, res) => {
+const viewTotalCash = async (req, res) => {
   try {
     const userId = req.params.userId;
 
@@ -69,19 +69,19 @@ const viewTotalCashData = async (req, res) => {
     const totCashData = await pool.query(
       "SELECT SUM(amount) AS total_cash_payment FROM cash_payment WHERE driver_id =  '" +
         userId +
-        "' AND related_month = EXTRACT(MONTH FROM CURRENT_DATE)-1 AND year = EXTRACT(YEAR FROM CURRENT_DATE) AND verify_status = true "
+        "' AND related_month = EXTRACT(MONTH FROM CURRENT_DATE) AND year = EXTRACT(YEAR FROM CURRENT_DATE) AND verify_status = true "
     );
 
     //db query to get total deposit amount
     const totDepositData = await pool.query(
       "SELECT SUM(amount) AS total_deposit_amount FROM cash_deposit WHERE driver_id =  '" +
         userId +
-        "' AND related_month = EXTRACT(MONTH FROM CURRENT_DATE)-1 AND year = EXTRACT(YEAR FROM CURRENT_DATE) AND verify_status = true "
+        "' AND related_month = EXTRACT(MONTH FROM CURRENT_DATE) AND year = EXTRACT(YEAR FROM CURRENT_DATE) AND verify_status = true "
     );
 
     return res.json({
       collected: totCashData.rows[0].total_cash_payment,
-      deposited: totDepositData.rows[0].total_deposit_amount
+      deposited: totDepositData.rows[0].total_deposit_amount,
     });
   } catch (err) {
     console.error(err.massage);
@@ -103,30 +103,86 @@ const viewCashPaymentData = async (req, res) => {
     //db query to get cash payment details
     const cashpaymentData = await pool.query(
       "SELECT cash_payment.cash_pay_id, cash_payment.parent_id, cash_payment.child_id,cash_payment.amount,cash_payment.date,children.child_name FROM cash_payment INNER JOIN children ON cash_payment.child_id = children.child_id WHERE cash_payment.driver_id =  '" +
-      userId +
-      "' AND related_month = EXTRACT(MONTH FROM CURRENT_DATE)-1 AND year = EXTRACT(YEAR FROM CURRENT_DATE) AND verify_status = true "
- 
+        userId +
+        "' AND related_month = EXTRACT(MONTH FROM CURRENT_DATE) AND year = EXTRACT(YEAR FROM CURRENT_DATE) AND verify_status = true "
     );
 
     // console.log(cashpaymentData.rows);
-    return res.json(cashpaymentData.rows)
-
+    return res.json(cashpaymentData.rows);
   } catch (err) {
     console.error(err.massage);
     return res.status(500).send("Server Error");
   }
 };
 
+// --------------------------------- INCOME PAGE-----------------------------------------------------//
 
-// // Modify your existing code to handle search queries
-// const searchCashPaymentData = async (req, res) => {
-//   try {
-   
-//   } catch (err) {
-//     console.error(err.message);
-//     return res.status(500).send("Server Error");
-//   }
-// };
+//to get last month income total
+const viewLastIncome = async (req, res) => {
+  try {
+    const userId = req.params.userId;
+
+    //db query to get last month total income
+
+    const lastMonthIncome = await pool.query(
+      "SELECT SUM(amount) AS last_month_income FROM income WHERE driver_id = '" +
+        userId +
+        "' AND month = EXTRACT(MONTH FROM CURRENT_DATE)-1 AND year = EXTRACT(YEAR FROM CURRENT_DATE) "
+    );
+
+    return res.json({
+      income: lastMonthIncome.rows[0].last_month_income,
+    });
+  } catch (err) {
+    console.error(err.massage);
+    return res.status(500).send("Server Error");
+  }
+};
+
+//to get last 6 months income details for the chart
+const viewIncomeChart = async (req, res) => {
+  try {
+    const userId = req.params.userId;
+  } catch (err) {
+    console.error(err.massage);
+    return res.status(500).send("Server Error");
+  }
+};
+
+//to get total income details for the table
+const viewTotalIncome = async (req, res) => {
+  try {
+    const userId = req.params.userId;
+  } catch (err) {
+    console.error(err.massage);
+    return res.status(500).send("Server Error");
+  }
+};
+
+//to get total children list with payment status
+const viewChildFees = async (req, res) => {
+  try {
+    const userId = req.params.userId;
+  } catch (err) {
+    console.error(err.massage);
+    return res.status(500).send("Server Error");
+  }
+};
+
+module.exports = {
+  addDeposit,
+  uploadSlip,
+  viewTotalCash,
+  viewCashPaymentData,
+  viewLastIncome,
+  viewIncomeChart,
+  viewTotalIncome,
+  viewChildFees,
+};
 
 
-module.exports = { addDeposit, uploadSlip, viewTotalCashData, viewCashPaymentData };
+//EXTRACT(MONTH FROM NOW()) would return 9 for september
+
+// ex:
+// INSERT INTO your_table_name (name, age, month)
+// VALUES ('John', 30, EXTRACT(MONTH FROM NOW()));
