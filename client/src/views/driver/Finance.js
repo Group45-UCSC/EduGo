@@ -1,15 +1,25 @@
 import React, { useEffect } from "react";
 import MainLayout from "../../components/layout/MainLayout";
 import { AiFillCar } from "react-icons/ai";
+// import {
+//   BarChart,
+//   Bar,
+//   XAxis,
+//   YAxis,
+//   Tooltip,
+//   Legend,
+//   ResponsiveContainer,
+// } from "recharts";
+
 import {
-  BarChart,
-  Bar,
-  XAxis,
-  YAxis,
+  PieChart,
+  Pie,
+  Cell,
+  ResponsiveContainer,
   Tooltip,
   Legend,
-  ResponsiveContainer,
 } from "recharts";
+
 // import { Cell, CartesianGrid } from 'recharts';
 import { AiFillDashboard } from "react-icons/ai";
 import {
@@ -23,84 +33,14 @@ import { format } from "date-fns";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { RiRefreshLine } from "react-icons/ri";
-
-const data = [
-  {
-    name: 0,
-    income: 4000,
-    pv: 2400,
-    amt: 2400,
-  },
-  {
-    name: 1,
-    income: 3000,
-    pv: 1398,
-    amt: 2210,
-  },
-  {
-    name: 2,
-    income: 2000,
-    pv: 9800,
-    amt: 2290,
-  },
-  {
-    name: 3,
-    income: 2780,
-    pv: 3908,
-    amt: 2000,
-  },
-  {
-    name: 4,
-    income: 1890,
-    pv: 4800,
-    amt: 2181,
-  },
-  {
-    name: 5,
-    income: 2390,
-    pv: 3800,
-    amt: 2500,
-  },
-  {
-    name: 6,
-    income: 3490,
-    pv: 4300,
-    amt: 2100,
-  },
+const COLORS = [
+  "#0088FE",
+  "#00C49F",
+  "#FFBB28",
+  "#FF8042",
+  "#AF19FF",
+  "#FF2E63",
 ];
-
-// const tabeldata = [
-//   {
-//     name: "pId005",
-//     payment: 35000,
-//     date: "2023/1/12",
-//     period: "2022 Nov/Dec",
-//   },
-//   {
-//     name: "pId018",
-//     payment: 46000,
-//     date: "2023/3/12",
-//     period: "2023 Jan/Feb",
-//   },
-//   {
-//     name: "pId025",
-//     payment: 29500,
-//     date: "2023/4/12",
-//     period: "2023 March",
-//   },
-//   {
-//     name: "pId032",
-//     payment: 23500,
-//     date: "2023/6/12",
-//     period: "2023 April/May",
-//   },
-//   {
-//     name: "pId041",
-//     payment: 24100,
-//     date: "2023/8/6",
-//     period: "2023 June",
-//   },
-// ];
 
 const childDetails = [
   {
@@ -188,6 +128,36 @@ const sideNavBarLinks = [
     icon: <MdOutlineRateReview />,
   },
 ];
+
+//for chart tooltip
+function CustomTooltip({ active, payload }) {
+  const monthNames = [
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December",
+  ];
+
+  if (active && payload && payload.length) {
+    const data = payload[0].payload;
+    const monthName = monthNames[data.month - 1];
+    return (
+      <div className="custom-tooltip">
+        <p>{`${monthName}: ${data.total_income}`}</p>
+      </div>
+    );
+  }
+  return null;
+}
+//-------------------------------------------
 
 function Finance() {
   //userID
@@ -279,6 +249,35 @@ function Finance() {
 
   //----------------------------------
 
+  // State to hold the data for the pie chart
+  const [pieChartData, setPieChartData] = useState([]);
+  console.log(pieChartData);
+
+  useEffect(() => {
+    async function fetchPieChartData() {
+      try {
+        const response = await fetch(
+          `http://localhost:5000/edugo/driver/income/view/chart/${userId}`
+        );
+        const data = await response.json();
+
+        // Assuming that 'data' is an array of objects with 'month' and 'total_income'
+        const parsedData = data.map((entry) => ({
+          month: parseInt(entry.month),
+          total_income: parseFloat(entry.total_income), // Assuming it's a number
+        }));
+
+        setPieChartData(parsedData);
+      } catch (err) {
+        console.error(err.message);
+      }
+    }
+
+    fetchPieChartData();
+  }, [userId]);
+
+  //----------------------------------
+
   const [filterValue, setFilterValue] = useState("All");
 
   const filteredChildren =
@@ -350,8 +349,36 @@ function Finance() {
             </div>
             {/* end of Income box*/}
             {/* chart */}
+            <div className="w-[130%] ml-[-100px] h-[200px]">
+              <ResponsiveContainer width="100%" height="100%">
+                <PieChart width={400} height={400}>
+                  <Pie
+                    dataKey="total_income"
+                    data={pieChartData}
+                    cx="50%"
+                    cy="50%"
+                    outerRadius={100}
+                    fill="#8884d8"
+                  >
+                    {pieChartData.map((entry, index) => (
+                      <Cell
+                        key={`cell-${index}`}
+                        fill={COLORS[index % COLORS.length]}
+                      />
+                    ))}
+                  </Pie>
+                  {/* <Tooltip
+                    formatter={(value, name) => [value, "Total Income"]}
+                  /> */}
+                  <Tooltip content={<CustomTooltip />} />
+                  {/* <Legend /> */}
+                </PieChart>
+              </ResponsiveContainer>
+              <div className="text-center mt-3 text-lg">Last 6 months income</div>
+            </div>
+            {/* end of chart */}
 
-            <div className="w-[130%] ml-[-120px] h-[200px]">
+            {/* <div className="w-[130%] ml-[-120px] h-[200px]">
               <ResponsiveContainer width="100%" height="100%">
                 <BarChart width={150} height={40} data={data}>
                   <XAxis dataKey="name" />
@@ -360,10 +387,10 @@ function Finance() {
                   <Legend />
                   <Bar dataKey="income" fill=" rgb(51 65 85)" />
                 </BarChart>
-              </ResponsiveContainer>
-              {/* </div> */}
-              {/* end of chart */}
-            </div>
+              </ResponsiveContainer> */}
+            {/* </div> */}
+
+            {/* </div> */}
 
             {/* table */}
             <div className=" col-span-2 h-[400px] mt-[-100px] mb-4 ">
