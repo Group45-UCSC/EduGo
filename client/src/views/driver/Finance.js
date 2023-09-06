@@ -20,6 +20,9 @@ import {
 import { NavLink } from "react-router-dom";
 import { useState } from "react";
 import { format } from "date-fns";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
+import { RiRefreshLine } from "react-icons/ri";
 
 const data = [
   {
@@ -237,6 +240,45 @@ function Finance() {
 
   //-------------------------------------
 
+  //search bar of the table
+  // const [selectedDate, setSelectedDate] = useState(null);
+
+  // Create states for "From" and "To" dates
+  const [fromDate, setFromDate] = useState(null);
+  const [toDate, setToDate] = useState(null);
+
+  // Modify the filtering logic for the table
+  const filteredIncomeDetails = incomeDetails.filter((income) => {
+    const incomeDate = new Date(income.date);
+    if (fromDate && toDate) {
+      return incomeDate >= fromDate && incomeDate <= toDate;
+    } else if (fromDate) {
+      return incomeDate >= fromDate;
+    } else if (toDate) {
+      return incomeDate <= toDate;
+    }
+    return true; // If no date range is specified, return all rows
+  });
+
+  //refresh button working
+  const resetTable = async () => {
+    setFromDate(null);
+    setToDate(null);
+
+    // Fetch the original data or re-fetch the data from API
+    try {
+      const response = await fetch(
+        `http://localhost:5000/edugo/driver/income/view/totaldetails/${userId}`
+      );
+      const data = await response.json();
+      setIncomeDetails(data);
+    } catch (err) {
+      console.error(err.message);
+    }
+  };
+
+  //----------------------------------
+
   const [filterValue, setFilterValue] = useState("All");
 
   const filteredChildren =
@@ -324,7 +366,7 @@ function Finance() {
             </div>
 
             {/* table */}
-            <div className=" col-span-2 h-[400px] mt-[-100px] mb-4">
+            <div className=" col-span-2 h-[400px] mt-[-100px] mb-4 ">
               <div>
                 {/* <div className="float-right ">
                   <form action="">
@@ -372,36 +414,68 @@ function Finance() {
                     </svg>
                   </form>
                 </div> */}
-                <table className="w-full border-separate border-spacing-y-2 border border-slate-50">
-                  <thead className="border-y-4 border-white drop-shadow">
-                    <tr className="bg-[#999999] text-white text-[18px] border-b-2 drop-shadow-md">
-                      {/* <th className="px-3.5 py-1 w-30">Payment Id</th> */}
-                      <th className="px-3.5 w-30">Date</th>
-                      <th className="px-3.5 w-30">Amount</th>
-                      <th className="px-3.5 w-30">Month</th>
-                      <th className="px-3.5 w-30">More</th>
-                    </tr>
-                  </thead>
+                {incomeDetails.length > 0 ? (
+                  <div className="px-2">
+                    <form action="">
+                      <div className="flex items-center justify-between pr-10 pl-4">
+                        <DatePicker
+                          selected={fromDate}
+                          onChange={(date) => setFromDate(date)}
+                          placeholderText="From Date"
+                          maxDate={new Date()} // This restricts dates in the future
+                          className="mt-1 py-1 overflow-auto w-[260px] border border-slate-400 pl-2 rounded-md"
+                        />
+                        <DatePicker
+                          selected={toDate}
+                          onChange={(date) => setToDate(date)}
+                          placeholderText="To Date"
+                          maxDate={new Date()} // This restricts dates in the future
+                          className="mt-1 py-1 overflow-auto w-[260px] border border-slate-400 pl-2 rounded-md"
+                        />
+                        <button
+                          type="button"
+                          onClick={resetTable}
+                          className="ml-2 scale-125 text-gray-500 hover:text-red-500"
+                        >
+                          <RiRefreshLine size={20} />
+                        </button>
+                      </div>
+                    </form>
+                  </div>
+                ) : null}
 
-                  <tbody>
-                    {incomeDetails.map((income) => (
-                      <tr
-                        key={income.income_id}
-                        className="bg-[#D9D9D9] bg-opacity-60 hover:cursor-pointer hover:bg-[#eaeaea] drop-shadow-md"
-                      >
-                        <td className="text-center p-3">
-                          {formatDate(income.date)}
-                        </td>
-                        <td className="text-center">{income.amount}</td>
-                        <td className="text-center">
-                          {getMonthName(parseInt(income.month))}
-                        </td>
-
-                        <td className="text-center">view</td>
+                <div className=" p-3 mt-2 h-[400px] overflow-y-auto ">
+                  <table className="w-full border-separate border-spacing-y-2 border border-slate-50 ">
+                    <thead className="border-y-4 border-white drop-shadow">
+                      <tr className="bg-[#999999] text-white text-[18px] border-b-2 drop-shadow-md">
+                        {/* <th className="px-3.5 py-1 w-30">Payment Id</th> */}
+                        <th className="px-3.5 w-30">Date</th>
+                        <th className="px-3.5 w-30">Amount</th>
+                        <th className="px-3.5 w-30">Month</th>
+                        <th className="px-3.5 w-30">More</th>
                       </tr>
-                    ))}
-                  </tbody>
-                </table>
+                    </thead>
+
+                    <tbody>
+                      {filteredIncomeDetails.map((income) => (
+                        <tr
+                          key={income.income_id}
+                          className="bg-[#D9D9D9] bg-opacity-60 hover:cursor-pointer hover:bg-[#eaeaea] drop-shadow-md"
+                        >
+                          <td className="text-center p-3">
+                            {formatDate(income.date)}
+                          </td>
+                          <td className="text-center">{income.amount}</td>
+                          <td className="text-center">
+                            {getMonthName(parseInt(income.month))}
+                          </td>
+
+                          <td className="text-center">view</td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
               </div>
             </div>
           </div>
