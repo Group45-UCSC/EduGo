@@ -16,6 +16,8 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { useDropzone } from "react-dropzone";
 import swal from "sweetalert";
+import { RiRefreshLine } from "react-icons/ri";
+import { format } from "date-fns";
 
 const sideNavBarLinks = [
   { title: "Dashboard", path: "/driver/dashboard", icon: <AiFillDashboard /> },
@@ -29,11 +31,11 @@ const sideNavBarLinks = [
   },
 ];
 
-
 function Deposits() {
   //userID
   const userId = localStorage.getItem("userId");
 
+  //add deposit form
   const [depositedAmount, setDepositedAmount] = useState("");
   const [depositedDate, setDepositedDate] = useState(null);
   const [depositSlip, setDepositSlip] = useState(null);
@@ -117,14 +119,15 @@ function Deposits() {
     getTotalCashData();
   }, [userId]);
 
-
   //get cash payments view
-  const[paymentDetails, setPaymentDetails] = useState([]);
+  const [paymentDetails, setPaymentDetails] = useState([]);
 
   useEffect(() => {
     async function paymentData() {
       try {
-        const response = await fetch(`http://localhost:5000/edugo/driver/deposit/cashpayments/view/${userId}`); 
+        const response = await fetch(
+          `http://localhost:5000/edugo/driver/deposit/cashpayments/view/${userId}`
+        );
         const data = await response.json();
         setPaymentDetails(data);
       } catch (err) {
@@ -135,19 +138,50 @@ function Deposits() {
     paymentData();
   }, [userId]);
 
-    // Format the date before displaying
-    const formatDate = (dateString) => {
-      const options = { year: 'numeric', month: '2-digit', day: '2-digit' };
-      return new Date(dateString).toLocaleDateString(undefined, options);
-    };
-  
+  // Format the date before displaying
+  const formatDate = (dateString) => {
+    const options = { year: "numeric", month: "2-digit", day: "2-digit" };
+    return new Date(dateString).toLocaleDateString(undefined, options);
+  };
 
+  //search bar of the table
+  const [searchText, setSearchText] = useState("");
+  const [selectedDate, setSelectedDate] = useState(null);
+
+  const handleSearch = (event) => {
+    const { name, value } = event.target;
+    if (name === "childName") {
+      setSearchText(value);
+    }
+  };
+
+  //refresh button working
+  const resetTable = async () => {
+    // Reset the filtering states (searchText, selectedDate) to their initial values
+    setSearchText("");
+    setSelectedDate(null);
+
+    // Fetch the original data or re-fetch the data from your API
+    try {
+      const response = await fetch(
+        `http://localhost:5000/edugo/driver/deposit/cashpayments/view/${userId}`
+      );
+      const data = await response.json();
+      setPaymentDetails(data);
+    } catch (err) {
+      console.error(err.message);
+    }
+  };
+
+  //for display the current month name
+  const currentDate = new Date();
+  const currentMonthName = format(currentDate, "MMMM"); // 'MMMM' format gives you the full month name
 
   return (
     <div>
       <MainLayout data={sideNavBarLinks}>
         <h1 className="text-[#5a5c69]  text-[28px] leading-8 font-normal cursor-pointer">
-          Submit the Ride Payments that you collected For August
+          Submit the Ride Payments that you collected For {currentMonthName}
         </h1>
         {/* full box */}
         <div className="h-screen grid gap-4  grid-cols-4 mb-10">
@@ -155,77 +189,6 @@ function Deposits() {
           <div className="h-screen col-span-2 grid grid-rows-3">
             {/* upper */}
             <div className="h-screen col-span-2 gap-6  row-span-1">
-              {/* <form
-              onSubmit={handleSubmit}
-              className="bg-white ml-2 p-10 px-12 ring-1 ring-orange rounded-lg shadow-md"
-            >
-              <div className="mb-4  gap-[80px] flex">
-                <div className=" w-1/2  pr-2">
-                  <label className="block text-gray-700 text-sm font-bold mb-2">
-                    Deposited Amount:
-                  </label>
-                  <input
-                    type="number"
-                    step="0.01"
-                    value={depositedAmount}
-                    onChange={(e) => setDepositedAmount(e.target.value)}
-                    className="w-[103%] px-4 py-1 rounded border -gray-300 focus:border-gray focus:ring focus:ring-orange"
-                  />
-                </div>
-                <div className="w-1/2  ">
-                  <label className="block text-gray-700 text-sm font-bold mb-[8px]">
-                    Deposited Date:
-                  </label>
-                  <DatePicker
-                    selected={depositedDate}
-                    onChange={(date) => setDepositedDate(date)}
-                    maxDate={new Date()} // This restricts dates in the future
-                    className="w-[100%] px-4 py-1 rounded border border-gray-300 focus:border-gray focus:ring focus:ring-orange"
-                  />
-                </div>
-              </div>
-              <div className="mb-4 relative">
-                <label className="block text-gray-700 text-sm font-bold mb-2">
-                  Bank Deposit Slip:
-                </label>
-                <div
-                  {...getRootProps()}
-                  className="dropzone p-4 border-2 border-dashed rounded cursor-pointer text-center"
-                >
-                  <input {...getInputProps()} />
-                  {imageUploaded ? (
-                    <div>
-                      <p>Uploaded: {depositSlip.name}</p>
-                      <img
-                        src={URL.createObjectURL(depositSlip)}
-                        alt="Deposit Slip"
-                        className="w-32 h-auto mx-auto mt-4"
-                      />
-                      <button
-                        type="button"
-                        onClick={handleImageCancel}
-                        className="absolute top-0 right-0 mt-2 mr-2 text-red-500 hover:text-red-700"
-                      >
-                        <AiOutlineClose />
-                      </button>
-                    </div>
-                  ) : (
-                    <p className="text-slate-600 text-xs flex  justify-center">
-                      <AiOutlinePlus className="text-2xl" />
-                    </p>
-                  )}
-                </div>
-              </div>
-              <div className="flex justify-center">
-              <button
-                type="submit"
-                className="flex justify-center w-56 h-10 pt-2 mt-5 text-base bg-orange rounded-md cursor-pointer hover:shadow-lg transform hover:scale-[103%] transition duration-300 ease-out"
-                // className="bg-orange hover:bg-gray text-white font-bold py-2 px-4 rounded "
-              >
-                Submit
-              </button>
-              </div>
-            </form> */}
               <div className=" h-[180px] rounded-[8px] bg-slate-200 mt-14 mx-8 border-t-[4px] border-orange flex items-center justify-between px-[30px] cursor-pointer hover:shadow-lg transform hover:scale-[103%] transition duration-300 ease-out">
                 <div>
                   <div className="text-[20px] leading-[24px] font-bold text-[#5a5c69] my-4 mb-3">
@@ -319,36 +282,56 @@ function Deposits() {
           <div className="col-span-2 gap-4 mt-4 h-[600px]  ">
             <div className=" mt-8">
               <div className="h-8 mb-3 flex justify-center">
-                <h1 className="text-xl font-bold "> Cash Payments - August</h1>
+                <h1 className="text-xl font-bold ">
+                  {" "}
+                  Cash Payments - {currentMonthName}
+                </h1>
               </div>
               {/* table */}
               <div className="  col-span-2 mb-4 ">
                 {/* <div className="p-3"> */}
-                <div className="flex justify-end">
-                  <div className="float-right  mr-[-100px]">
+                {paymentDetails.length > 0 ? (
+                  <div className="px-2">
                     <form action="">
-                      <input
-                        type="text"
-                        placeholder="Search.."
-                        className=" mt-1 overflow-auto w-40 mr-32  border border-slate-400 pl-2 rounded-md"
-                      ></input>
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        stroke-width="1.5"
-                        stroke="currentColor"
-                        class="w-5 h-10 stroke-slate-500 absolute -mt-8 ml-32 hover:cursor-pointer"
-                      >
-                        <path
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
-                          d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z"
+                      <div className="flex items-center justify-between">
+                        <input
+                          type="text"
+                          name="childName"
+                          placeholder="Search Child Name.."
+                          value={searchText}
+                          onChange={handleSearch}
+                          className=" mt-1 py-1 overflow-auto w-[260px] border border-slate-400 pl-2 rounded-md"
+                        ></input>
+                        <DatePicker
+                          selected={selectedDate}
+                          onChange={(date) => setSelectedDate(date)}
+                          placeholderText="Search Date.."
+                          className="mt-1 py-1 overflow-auto w-[260px] border border-slate-400 pl-2 rounded-md"
                         />
-                      </svg>
+                        <button
+                          type="button"
+                          onClick={resetTable}
+                          className="ml-2 scale-125 text-gray-500 hover:text-red-500"
+                        >
+                          <RiRefreshLine size={20} />
+                        </button>
+                      </div>
+                      {/* <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          fill="none"
+                          viewBox="0 0 24 24"
+                          stroke="currentColor"
+                          className="absolute right-12 top-[245px] transform -translate-y-1/2 w-5 h-5 text-slate-400 hover:text-slate-500 cursor-pointer"
+                        >
+                          <path
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z"
+                          />
+                        </svg> */}
                     </form>
                   </div>
-                </div>
+                ) : null}
                 <div className=" p-2 ">
                   <table className="w-full border-separate border-spacing-y-2 border-slate-50 overflow-y-auto  ">
                     <thead className="border-y-4 border-white drop-shadow">
@@ -362,22 +345,38 @@ function Deposits() {
                     </thead>
 
                     <tbody>
-                      {paymentDetails.map((payment) => (
-                        
-                        <tr
-                          key={payment.cash_pay_id}
-                          className="bg-[#D9D9D9] bg-opacity-60 hover:cursor-pointer hover:bg-[#eaeaea] drop-shadow-md"
-                        >
-                          
-                          <td className="text-center p-3">{payment.parent_id}</td>
-                          <td className="text-center">{payment.child_id}</td>
-                          <td className="text-center">{payment.child_name}</td>
-                          <td className="text-center">{payment.amount}</td>
-                          <td className="text-center">{formatDate(payment.date)}</td>
-                        </tr>
-                        
-                      ))}
-                      
+                      {paymentDetails
+                        .filter(
+                          (payment) =>
+                            payment.child_name
+                              .toLowerCase()
+                              .includes(searchText.toLowerCase()) // Case-insensitive search
+                        )
+                        .filter((payment) =>
+                          selectedDate
+                            ? formatDate(payment.date).includes(
+                                formatDate(selectedDate) // Format the selected date to match your data format
+                              )
+                            : true
+                        )
+                        .map((payment) => (
+                          <tr
+                            key={payment.cash_pay_id}
+                            className="bg-[#D9D9D9] bg-opacity-60 hover:cursor-pointer hover:bg-[#eaeaea] drop-shadow-md"
+                          >
+                            <td className="text-center p-3">
+                              {payment.parent_id}
+                            </td>
+                            <td className="text-center">{payment.child_id}</td>
+                            <td className="text-center">
+                              {payment.child_name}
+                            </td>
+                            <td className="text-center">{payment.amount}</td>
+                            <td className="text-center">
+                              {formatDate(payment.date)}
+                            </td>
+                          </tr>
+                        ))}
                     </tbody>
                   </table>
                 </div>
