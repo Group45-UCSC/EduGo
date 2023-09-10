@@ -6,7 +6,7 @@ const router = express.Router();
 const {  viewChildDashboard, viewChildChildren,ViewVehicle,viewSchool,viewDriverReview, addRideRequest} = require("../controllers/parent/childController");
 const { addFeedback , addEdugoFeedback, getDrivers} = require("../controllers/parent/feedbackController");
 const { viewPayment, viewPastPayment } = require("../controllers/parent/paymentController");
-
+const {addComplaint} = require("../controllers/parent/complaintController");
 //create routes
 router.route("/feedback/add/:userId").post(addFeedback);
 router.route("/edugofeedback/add/:userId").post(addEdugoFeedback);
@@ -19,6 +19,6 @@ router.route("/children/viewVehicle/rideRequest/:userId").post(addRideRequest);
 router.route("/feedback/driverlist/:userId").get(getDrivers);
 router.route("/payment/viewprice/:userId").get(viewPayment);
 router.route("/payment/pastpayment/:userId").get(viewPastPayment)
-
+router.route("/complaint/add/:userId").post(addComplaint);
 
 module.exports = router;

@@ -1,45 +1,57 @@
 import React, { useState } from "react";
 import Select from "react-select";
 import "react-datepicker/dist/react-datepicker.css";
-function Complaint({ onComplaintSubmit }) {
-  const [complaintType, setComplaintType] = useState(null);
+import swal from "sweetalert";
+
+function Complaint() {
+
+  const [complaintType, setComplaintType] = useState("");
   const [complaintDetails, setComplaintDetails] = useState("");
   const [dateOfOccurrence, setDateOfOccurrence] = useState(null);
   const [attachments, setAttachments] = useState([]);
-
+  const userId = localStorage.getItem("userId");
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const newComplaint = {
-      complaintType,
-      complaintDetails,
-      dateOfOccurrence,
-      attachments,
-    };
-
     try {
-      const response = await fetch("", {
+      const body = {
+        complaintType,
+        complaintDetails,
+        dateOfOccurrence,
+        attachments,
+      };
+      const response = await fetch(`http://localhost:5000/edugo/parent/complaint/add/${userId}`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(newComplaint),
+        body: JSON.stringify(body),
       });
-      if (response.ok) {
-        const data = await response.json();
-        onComplaintSubmit(data.data);
-
-        setComplaintType(null);
-        setComplaintDetails("");
-        setDateOfOccurrence(null);
-        setAttachments([]);
-
-        alert(
-          "Your complaint has been submitted. Our team will address it promptly 😊"
-        );
+      if (response.status===200) {
+        swal({
+          title: "Your Complaint Submitted!",
+          icon: "success",
+          buttons: {
+            confirm: {
+              className:
+                "bg-orange text-white px-10 py-2 rounded-lg items-center hover:bg-gray ",
+            },
+          },
+        }).then(() => {
+          console.log(response);
+        });
       } else {
-        console.error("Error:", response.statusText);
-        alert("Error submitting the complaint :( Please try again later.");
+        swal({
+          icon: 'error',
+          title: 'Oops...',
+          text: 'Something went wrong. Try again!',
+          buttons: {
+            confirm: {
+              className:
+                "bg-orange text-white px-10 py-2 rounded-lg items-center hover:bg-gray ",
+            },
+          },
+        })
       }
     } catch (error) {
       console.error("Error:", error);
@@ -76,6 +88,7 @@ function Complaint({ onComplaintSubmit }) {
     }
   };
   const handleComplaintTypeChange = (selectedOption) => {
+    console.log("Selected Complaint Type:", selectedOption.value);
     setComplaintType(selectedOption.value);
   };
   const handleComplaintDetailsChange = (e) => {
