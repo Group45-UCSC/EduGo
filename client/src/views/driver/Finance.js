@@ -1,15 +1,18 @@
 import React, { useEffect } from "react";
 import MainLayout from "../../components/layout/MainLayout";
 import { AiFillCar } from "react-icons/ai";
-import {
-  BarChart,
-  Bar,
-  XAxis,
-  YAxis,
-  Tooltip,
-  Legend,
-  ResponsiveContainer,
-} from "recharts";
+// import {
+//   BarChart,
+//   Bar,
+//   XAxis,
+//   YAxis,
+//   Tooltip,
+//   Legend,
+//   ResponsiveContainer,
+// } from "recharts";
+
+import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip } from "recharts";
+
 // import { Cell, CartesianGrid } from 'recharts';
 import { AiFillDashboard } from "react-icons/ai";
 import {
@@ -20,83 +23,16 @@ import {
 import { NavLink } from "react-router-dom";
 import { useState } from "react";
 import { format } from "date-fns";
-
-const data = [
-  {
-    name: 0,
-    income: 4000,
-    pv: 2400,
-    amt: 2400,
-  },
-  {
-    name: 1,
-    income: 3000,
-    pv: 1398,
-    amt: 2210,
-  },
-  {
-    name: 2,
-    income: 2000,
-    pv: 9800,
-    amt: 2290,
-  },
-  {
-    name: 3,
-    income: 2780,
-    pv: 3908,
-    amt: 2000,
-  },
-  {
-    name: 4,
-    income: 1890,
-    pv: 4800,
-    amt: 2181,
-  },
-  {
-    name: 5,
-    income: 2390,
-    pv: 3800,
-    amt: 2500,
-  },
-  {
-    name: 6,
-    income: 3490,
-    pv: 4300,
-    amt: 2100,
-  },
-];
-
-const tabeldata = [
-  {
-    name: "pId005",
-    payment: 35000,
-    date: "2023/1/12",
-    period: "2022 Nov/Dec",
-  },
-  {
-    name: "pId018",
-    payment: 46000,
-    date: "2023/3/12",
-    period: "2023 Jan/Feb",
-  },
-  {
-    name: "pId025",
-    payment: 29500,
-    date: "2023/4/12",
-    period: "2023 March",
-  },
-  {
-    name: "pId032",
-    payment: 23500,
-    date: "2023/6/12",
-    period: "2023 April/May",
-  },
-  {
-    name: "pId041",
-    payment: 24100,
-    date: "2023/8/6",
-    period: "2023 June",
-  },
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
+import { RiRefreshLine } from "react-icons/ri";
+const COLORS = [
+  "#0088FE",
+  "#00C49F",
+  "#FFBB28",
+  "#FF8042",
+  "#AF19FF",
+  "#FF2E63",
 ];
 
 const childDetails = [
@@ -186,11 +122,41 @@ const sideNavBarLinks = [
   },
 ];
 
+//for chart tooltip
+function CustomTooltip({ active, payload }) {
+  const monthNames = [
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December",
+  ];
+
+  if (active && payload && payload.length) {
+    const data = payload[0].payload;
+    const monthName = monthNames[data.month - 1];
+    return (
+      <div className="custom-tooltip">
+        <p>{`${monthName}: ${data.total_income}`}</p>
+      </div>
+    );
+  }
+  return null;
+}
+//-------------------------------------------
+
 function Finance() {
   //userID
   const userId = localStorage.getItem("userId");
 
-  //get last month total income
+  //get last month total income---------------------------------------
   const [lastMonthIncome, setLastMonthIncome] = useState("");
 
   useEffect(() => {
@@ -210,12 +176,148 @@ function Finance() {
     getLatMonthIncome();
   }, [userId]);
 
+  //get income view table-----------------------------------------------------------
+  const [incomeDetails, setIncomeDetails] = useState([]);
+
+  useEffect(() => {
+    async function incomeData() {
+      try {
+        const response = await fetch(
+          `http://localhost:5000/edugo/driver/income/view/totaldetails/${userId}`
+        );
+        const data = await response.json();
+        setIncomeDetails(data);
+      } catch (err) {
+        console.error(err.message);
+      }
+    }
+
+    incomeData();
+  }, [userId]);
+
+  // Format the date before displaying
+  const formatDate = (dateString) => {
+    const options = { year: "numeric", month: "2-digit", day: "2-digit" };
+    return new Date(dateString).toLocaleDateString(undefined, options);
+  };
+
+  //-------------------------------------
+
+  // Create states for "From" and "To" dates
+  const [fromDate, setFromDate] = useState(null);
+  const [toDate, setToDate] = useState(null);
+
+  // Modify the filtering logic for the table
+  const filteredIncomeDetails = incomeDetails.filter((income) => {
+    const incomeDate = new Date(income.date);
+    if (fromDate && toDate) {
+      return incomeDate >= fromDate && incomeDate <= toDate;
+    } else if (fromDate) {
+      return incomeDate >= fromDate;
+    } else if (toDate) {
+      return incomeDate <= toDate;
+    }
+    return true; // If no date range is specified, return all rows
+  });
+
+  //to convert month number to month name
+  const getMonthName = (monthNumber) => {
+    const monthNames = [
+      "January",
+      "February",
+      "March",
+      "April",
+      "May",
+      "June",
+      "July",
+      "August",
+      "September",
+      "October",
+      "November",
+      "December",
+    ];
+
+    return monthNames[monthNumber - 1] || "Invalid Month";
+  };
+
+  //refresh button working
+  const resetTable = async () => {
+    setFromDate(null);
+    setToDate(null);
+
+    // Fetch the original data or re-fetch the data from API
+    try {
+      const response = await fetch(
+        `http://localhost:5000/edugo/driver/income/view/totaldetails/${userId}`
+      );
+      const data = await response.json();
+      setIncomeDetails(data);
+    } catch (err) {
+      console.error(err.message);
+    }
+  };
+
+  //-------------------------------------------------------------------
+
+  // State to hold the data for the pie chart-------------------------------
+  const [pieChartData, setPieChartData] = useState([]);
+  // console.log(pieChartData);
+
+  useEffect(() => {
+    async function fetchPieChartData() {
+      try {
+        const response = await fetch(
+          `http://localhost:5000/edugo/driver/income/view/chart/${userId}`
+        );
+        const data = await response.json();
+
+        // Assuming that 'data' is an array of objects with 'month' and 'total_income'
+        const parsedData = data.map((entry) => ({
+          month: parseInt(entry.month),
+          total_income: parseFloat(entry.total_income), // Assuming it's a number
+        }));
+
+        setPieChartData(parsedData);
+      } catch (err) {
+        console.error(err.message);
+      }
+    }
+
+    fetchPieChartData();
+  }, [userId]);
+
+  //----------------------------------------------------------------------
+
+  //get children list ----------------------------------------------------
+  const [childFeeData, setchildFeeData] = useState([]);
+
+  useEffect(() => {
+    async function childFeeList() {
+      try {
+        const response = await fetch(
+          `http://localhost:5000/edugo/driver/income/view/childrenfees/${userId}`
+        );
+        const data = await response.json();
+        setchildFeeData(data);
+        // console.log(data);
+      } catch (err) {
+        console.error(err.message);
+      }
+    }
+
+    childFeeList();
+  }, [userId]);
+
+  //drop down filter for the children list
   const [filterValue, setFilterValue] = useState("All");
 
   const filteredChildren =
     filterValue === "All"
-      ? childDetails
-      : childDetails.filter((child) => child.paymentStatus === filterValue);
+      ? childFeeData
+      : childFeeData.filter(
+          (child) => child.last_payment_status === filterValue
+        );
+  //-------------------------------------------------------------
 
   //for display the current month name
   const currentDate = new Date();
@@ -261,8 +363,38 @@ function Finance() {
             </div>
             {/* end of Income box*/}
             {/* chart */}
+            <div className="w-[130%] ml-[-100px] h-[200px]">
+              <ResponsiveContainer width="100%" height="100%">
+                <PieChart width={400} height={400}>
+                  <Pie
+                    dataKey="total_income"
+                    data={pieChartData}
+                    cx="50%"
+                    cy="50%"
+                    outerRadius={100}
+                    fill="#8884d8"
+                  >
+                    {pieChartData.map((entry, index) => (
+                      <Cell
+                        key={`cell-${index}`}
+                        fill={COLORS[index % COLORS.length]}
+                      />
+                    ))}
+                  </Pie>
+                  {/* <Tooltip
+                    formatter={(value, name) => [value, "Total Income"]}
+                  /> */}
+                  <Tooltip content={<CustomTooltip />} />
+                  {/* <Legend /> */}
+                </PieChart>
+              </ResponsiveContainer>
+              <div className="text-center mt-3 text-lg">
+                Last 6 months income
+              </div>
+            </div>
+            {/* end of chart */}
 
-            <div className="w-[130%] ml-[-120px] h-[200px]">
+            {/* <div className="w-[130%] ml-[-120px] h-[200px]">
               <ResponsiveContainer width="100%" height="100%">
                 <BarChart width={150} height={40} data={data}>
                   <XAxis dataKey="name" />
@@ -271,15 +403,15 @@ function Finance() {
                   <Legend />
                   <Bar dataKey="income" fill=" rgb(51 65 85)" />
                 </BarChart>
-              </ResponsiveContainer>
-              {/* </div> */}
-              {/* end of chart */}
-            </div>
+              </ResponsiveContainer> */}
+            {/* </div> */}
+
+            {/* </div> */}
 
             {/* table */}
-            <div className=" col-span-2 h-[400px] mt-[-100px] mb-4">
+            <div className=" col-span-2 h-[400px] mt-[-100px] mb-4 ">
               <div>
-                <div className="float-right ">
+                {/* <div className="float-right ">
                   <form action="">
                     <input
                       type="text"
@@ -324,31 +456,69 @@ function Finance() {
                       />
                     </svg>
                   </form>
-                </div>
-                <table className="w-full border-separate border-spacing-y-2 border border-slate-50">
-                  <thead className="border-y-4 border-white drop-shadow">
-                    <tr className="bg-[#999999] text-white text-[18px] border-b-2 drop-shadow-md">
-                      <th className="px-3.5 py-1 w-30">Payment Id</th>
-                      <th className="px-3.5 w-30">Amount</th>
-                      <th className="px-3.5 w-30">Date</th>
-                      <th className="px-3.5 w-30">period</th>
-                    </tr>
-                  </thead>
+                </div> */}
+                {incomeDetails.length > 0 ? (
+                  <div className="px-2">
+                    <form action="">
+                      <div className="flex items-center justify-between pr-10 pl-4">
+                        <DatePicker
+                          selected={fromDate}
+                          onChange={(date) => setFromDate(date)}
+                          placeholderText="From Date"
+                          maxDate={new Date()} // This restricts dates in the future
+                          className="mt-1 py-1 overflow-auto w-[260px] border border-slate-400 pl-2 rounded-md"
+                        />
+                        <DatePicker
+                          selected={toDate}
+                          onChange={(date) => setToDate(date)}
+                          placeholderText="To Date"
+                          maxDate={new Date()} // This restricts dates in the future
+                          className="mt-1 py-1 overflow-auto w-[260px] border border-slate-400 pl-2 rounded-md"
+                        />
+                        <button
+                          type="button"
+                          onClick={resetTable}
+                          className="ml-2 scale-125 text-gray-500 hover:text-red-500"
+                        >
+                          <RiRefreshLine size={20} />
+                        </button>
+                      </div>
+                    </form>
+                  </div>
+                ) : null}
 
-                  <tbody>
-                    {tabeldata.map((item) => (
-                      <tr
-                        key={item.id}
-                        className="bg-[#D9D9D9] bg-opacity-60 hover:cursor-pointer hover:bg-[#eaeaea] drop-shadow-md"
-                      >
-                        <td className="text-center p-3">{item.name}</td>
-                        <td className="text-center">{item.payment}</td>
-                        <td className="text-center">{item.date}</td>
-                        <td className="text-center">{item.period}</td>
+                <div className=" p-3 mt-2 h-[400px] overflow-y-auto ">
+                  <table className="w-full border-separate border-spacing-y-2 border border-slate-50 ">
+                    <thead className="border-y-4 border-white drop-shadow">
+                      <tr className="bg-[#999999] text-white text-[18px] border-b-2 drop-shadow-md">
+                        {/* <th className="px-3.5 py-1 w-30">Payment Id</th> */}
+                        <th className="px-3.5 w-30">Date</th>
+                        <th className="px-3.5 w-30">Amount</th>
+                        <th className="px-3.5 w-30">Month</th>
+                        <th className="px-3.5 w-30">More</th>
                       </tr>
-                    ))}
-                  </tbody>
-                </table>
+                    </thead>
+
+                    <tbody>
+                      {filteredIncomeDetails.map((income) => (
+                        <tr
+                          key={income.income_id}
+                          className="bg-[#D9D9D9] bg-opacity-60 hover:cursor-pointer hover:bg-[#eaeaea] drop-shadow-md"
+                        >
+                          <td className="text-center p-3">
+                            {formatDate(income.date)}
+                          </td>
+                          <td className="text-center">{income.amount}</td>
+                          <td className="text-center">
+                            {getMonthName(parseInt(income.month))}
+                          </td>
+
+                          <td className="text-center">view</td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
               </div>
             </div>
           </div>
@@ -377,22 +547,24 @@ function Finance() {
                 {filteredChildren.map((child, index) => (
                   <div key={index}>
                     {(() => {
-                      switch (child.paymentStatus) {
+                      switch (child.last_payment_status) {
                         case "Paid":
                           return (
                             <div className="rounded-[8px] bg-[#c8eac8] mb-3 mt-3  border-[1px] border-[#389438]  items-center justify-between px-[30px] py-1 cursor-pointer hover:shadow-lg transform hover:scale-[101%] transition duration-300 ease-out">
                               <div className="flex  justify-between w-full mb-1">
                                 <div className="flex  justify-start gap-2 ">
-                                  <h1 className="mt-1 text-sm">{child.name}</h1>
+                                  <h1 className="mt-1 text-sm">
+                                    {child.child_name}
+                                  </h1>
                                 </div>
                                 <div className="flex  justify-end gap-2 ">
                                   <h1 className="mt-1 text-[#428a42]">
-                                    {child.paymentStatus}
+                                    {child.last_payment_status}
                                   </h1>
                                 </div>
                               </div>
                               <div className="text-slate-600 text-xs ">
-                                {child.id}
+                                {child.child_id}
                               </div>
                             </div>
                           );
@@ -401,16 +573,18 @@ function Finance() {
                             <div className="rounded-[8px] bg-[#fff2cc] mb-3 mt-3  border-[1px] border-orange  items-center justify-between px-[30px] py-1 cursor-pointer hover:shadow-lg transform hover:scale-[101%] transition duration-300 ease-out">
                               <div className="flex  justify-between w-full mb-1">
                                 <div className="flex  justify-start gap-2 ">
-                                  <h1 className="mt-1 text-sm">{child.name}</h1>
+                                  <h1 className="mt-1 text-sm">
+                                    {child.child_name}
+                                  </h1>
                                 </div>
                                 <div className="flex  justify-end gap-2 ">
                                   <h1 className="mt-1 text-[#e67300]">
-                                    {child.paymentStatus}
+                                    {child.last_payment_status}
                                   </h1>
                                 </div>
                               </div>
                               <div className="text-slate-600 text-xs">
-                                {child.id}
+                                {child.child_id}
                               </div>
                             </div>
                           );
@@ -420,16 +594,18 @@ function Finance() {
                             <div className="rounded-[8px] bg-[#ffd9dc] mb-3 mt-3  border-[1px] border-[#df2020]  items-center justify-between px-[30px] py-1 cursor-pointer hover:shadow-lg transform hover:scale-[101%] transition duration-300 ease-out">
                               <div className="flex  justify-between w-full mb-1">
                                 <div className="flex  justify-start gap-2 ">
-                                  <h1 className="mt-1 text-sm">{child.name}</h1>
+                                  <h1 className="mt-1 text-sm">
+                                    {child.child_name}
+                                  </h1>
                                 </div>
                                 <div className="flex  justify-end gap-2 ">
                                   <h1 className="mt-1 text-[#ff0000]">
-                                    {child.paymentStatus}
+                                    {child.last_payment_status}
                                   </h1>
                                 </div>
                               </div>
                               <div className="text-slate-600 text-xs ">
-                                {child.id}
+                                {child.child_id}
                               </div>
                             </div>
                           );
