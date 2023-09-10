@@ -168,7 +168,7 @@ const viewIncomeChart = async (req, res) => {
       // [userId]
     );
 
-    console.log(lastSixMonthsIncome.rows);
+    // console.log(lastSixMonthsIncome.rows);
     return res.json(lastSixMonthsIncome.rows);
   } catch (err) {
     console.error(err.message);
@@ -198,6 +198,18 @@ const viewTotalIncome = async (req, res) => {
 const viewChildFees = async (req, res) => {
   try {
     const userId = req.params.userId;
+
+    //to get all child list
+    const childFeeList = await pool.query(
+      "SELECT child_id,child_name,last_payment_status FROM children WHERE driver_id = '" +
+        userId +
+        "' "
+    );
+
+    // console.log(childFeeList.rows);
+
+    return res.json(childFeeList.rows);
+
   } catch (err) {
     console.error(err.massage);
     return res.status(500).send("Server Error");

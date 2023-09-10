@@ -11,14 +11,7 @@ import { AiFillCar } from "react-icons/ai";
 //   ResponsiveContainer,
 // } from "recharts";
 
-import {
-  PieChart,
-  Pie,
-  Cell,
-  ResponsiveContainer,
-  Tooltip,
-  Legend,
-} from "recharts";
+import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip } from "recharts";
 
 // import { Cell, CartesianGrid } from 'recharts';
 import { AiFillDashboard } from "react-icons/ai";
@@ -163,7 +156,7 @@ function Finance() {
   //userID
   const userId = localStorage.getItem("userId");
 
-  //get last month total income
+  //get last month total income---------------------------------------
   const [lastMonthIncome, setLastMonthIncome] = useState("");
 
   useEffect(() => {
@@ -210,9 +203,6 @@ function Finance() {
 
   //-------------------------------------
 
-  //search bar of the table
-  // const [selectedDate, setSelectedDate] = useState(null);
-
   // Create states for "From" and "To" dates
   const [fromDate, setFromDate] = useState(null);
   const [toDate, setToDate] = useState(null);
@@ -229,6 +219,26 @@ function Finance() {
     }
     return true; // If no date range is specified, return all rows
   });
+
+  //to convert month number to month name
+  const getMonthName = (monthNumber) => {
+    const monthNames = [
+      "January",
+      "February",
+      "March",
+      "April",
+      "May",
+      "June",
+      "July",
+      "August",
+      "September",
+      "October",
+      "November",
+      "December",
+    ];
+
+    return monthNames[monthNumber - 1] || "Invalid Month";
+  };
 
   //refresh button working
   const resetTable = async () => {
@@ -247,11 +257,11 @@ function Finance() {
     }
   };
 
-  //----------------------------------
+  //-------------------------------------------------------------------
 
-  // State to hold the data for the pie chart
+  // State to hold the data for the pie chart-------------------------------
   const [pieChartData, setPieChartData] = useState([]);
-  console.log(pieChartData);
+  // console.log(pieChartData);
 
   useEffect(() => {
     async function fetchPieChartData() {
@@ -276,38 +286,42 @@ function Finance() {
     fetchPieChartData();
   }, [userId]);
 
-  //----------------------------------
+  //----------------------------------------------------------------------
 
+  //get children list ----------------------------------------------------
+  const [childFeeData, setchildFeeData] = useState([]);
+
+  useEffect(() => {
+    async function childFeeList() {
+      try {
+        const response = await fetch(
+          `http://localhost:5000/edugo/driver/income/view/childrenfees/${userId}`
+        );
+        const data = await response.json();
+        setchildFeeData(data);
+        // console.log(data);
+      } catch (err) {
+        console.error(err.message);
+      }
+    }
+
+    childFeeList();
+  }, [userId]);
+
+  //drop down filter for the children list
   const [filterValue, setFilterValue] = useState("All");
 
   const filteredChildren =
     filterValue === "All"
-      ? childDetails
-      : childDetails.filter((child) => child.paymentStatus === filterValue);
+      ? childFeeData
+      : childFeeData.filter(
+          (child) => child.last_payment_status === filterValue
+        );
+  //-------------------------------------------------------------
 
   //for display the current month name
   const currentDate = new Date();
   const currentMonthName = format(currentDate, "MMMM"); // 'MMMM' format gives you the full month name
-
-  //to convert month number to month name
-  const getMonthName = (monthNumber) => {
-    const monthNames = [
-      "January",
-      "February",
-      "March",
-      "April",
-      "May",
-      "June",
-      "July",
-      "August",
-      "September",
-      "October",
-      "November",
-      "December",
-    ];
-
-    return monthNames[monthNumber - 1] || "Invalid Month";
-  };
 
   return (
     <div>
@@ -374,7 +388,9 @@ function Finance() {
                   {/* <Legend /> */}
                 </PieChart>
               </ResponsiveContainer>
-              <div className="text-center mt-3 text-lg">Last 6 months income</div>
+              <div className="text-center mt-3 text-lg">
+                Last 6 months income
+              </div>
             </div>
             {/* end of chart */}
 
@@ -531,22 +547,24 @@ function Finance() {
                 {filteredChildren.map((child, index) => (
                   <div key={index}>
                     {(() => {
-                      switch (child.paymentStatus) {
+                      switch (child.last_payment_status) {
                         case "Paid":
                           return (
                             <div className="rounded-[8px] bg-[#c8eac8] mb-3 mt-3  border-[1px] border-[#389438]  items-center justify-between px-[30px] py-1 cursor-pointer hover:shadow-lg transform hover:scale-[101%] transition duration-300 ease-out">
                               <div className="flex  justify-between w-full mb-1">
                                 <div className="flex  justify-start gap-2 ">
-                                  <h1 className="mt-1 text-sm">{child.name}</h1>
+                                  <h1 className="mt-1 text-sm">
+                                    {child.child_name}
+                                  </h1>
                                 </div>
                                 <div className="flex  justify-end gap-2 ">
                                   <h1 className="mt-1 text-[#428a42]">
-                                    {child.paymentStatus}
+                                    {child.last_payment_status}
                                   </h1>
                                 </div>
                               </div>
                               <div className="text-slate-600 text-xs ">
-                                {child.id}
+                                {child.child_id}
                               </div>
                             </div>
                           );
@@ -555,16 +573,18 @@ function Finance() {
                             <div className="rounded-[8px] bg-[#fff2cc] mb-3 mt-3  border-[1px] border-orange  items-center justify-between px-[30px] py-1 cursor-pointer hover:shadow-lg transform hover:scale-[101%] transition duration-300 ease-out">
                               <div className="flex  justify-between w-full mb-1">
                                 <div className="flex  justify-start gap-2 ">
-                                  <h1 className="mt-1 text-sm">{child.name}</h1>
+                                  <h1 className="mt-1 text-sm">
+                                    {child.child_name}
+                                  </h1>
                                 </div>
                                 <div className="flex  justify-end gap-2 ">
                                   <h1 className="mt-1 text-[#e67300]">
-                                    {child.paymentStatus}
+                                    {child.last_payment_status}
                                   </h1>
                                 </div>
                               </div>
                               <div className="text-slate-600 text-xs">
-                                {child.id}
+                                {child.child_id}
                               </div>
                             </div>
                           );
@@ -574,16 +594,18 @@ function Finance() {
                             <div className="rounded-[8px] bg-[#ffd9dc] mb-3 mt-3  border-[1px] border-[#df2020]  items-center justify-between px-[30px] py-1 cursor-pointer hover:shadow-lg transform hover:scale-[101%] transition duration-300 ease-out">
                               <div className="flex  justify-between w-full mb-1">
                                 <div className="flex  justify-start gap-2 ">
-                                  <h1 className="mt-1 text-sm">{child.name}</h1>
+                                  <h1 className="mt-1 text-sm">
+                                    {child.child_name}
+                                  </h1>
                                 </div>
                                 <div className="flex  justify-end gap-2 ">
                                   <h1 className="mt-1 text-[#ff0000]">
-                                    {child.paymentStatus}
+                                    {child.last_payment_status}
                                   </h1>
                                 </div>
                               </div>
                               <div className="text-slate-600 text-xs ">
-                                {child.id}
+                                {child.child_id}
                               </div>
                             </div>
                           );
