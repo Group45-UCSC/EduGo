@@ -33,6 +33,8 @@ const {
   viewChildFees,
 } = require("../controllers/driver/financeController");
 
+const { viewRideDetails } = require("../controllers/driver/rideController");
+
 //create routes
 router.route("/dashboard/hasride/:userId").get(hasRide);
 // router.route("/add/vehicle/:userId").post(addVehicle);
@@ -42,6 +44,9 @@ router.route("/vehicle/add/:userId").post(addVehicle);
 router.post("/vehicle/upload/", upload.single("vehicleRegDoc"), uploadVehicle);
 
 router.route("/vehicle/viewImg/:userId").get(viewVehicleImg);
+
+//ride page
+router.route("/ride/view/details/:userId").get(viewRideDetails);
 
 //income page
 router.route("/income/view/lastmonth/:userId").get(viewLastIncome);
