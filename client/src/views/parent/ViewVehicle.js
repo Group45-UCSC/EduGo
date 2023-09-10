@@ -108,9 +108,10 @@ function ViewVehicle() {
               </div>
 
               <div className="flex justify-center items-center mt-5">
-                <NavLink
+                
+                {/* <NavLink
                 to={`/parent/children/`}
-                >
+                > */}
                 <button
                   className="w-36 h-12 mr-5 bg-orange rounded-lg text-xl cursor-pointer"
                   onClick={() => {
@@ -120,7 +121,7 @@ function ViewVehicle() {
                 >
                   Ok
                 </button>
-                </NavLink>
+                {/* </NavLink> */}
                 <button
                   className="w-36 h-12  bg-orange rounded-lg text-xl cursor-pointer"
                   onClick={() => {
@@ -142,8 +143,8 @@ function ViewVehicle() {
   const handleSelectRideClick = () => {
     const ride_id = vehicleData.ride_id;
     const driver_id = vehicleData.driver_id;
-    const child_location = child.location;
-    const school = child.school;
+    const child_location = child.pickup_location;
+    const school = child.school_id;
     const child_id = child.child_id
 
     // Call the function when the button is clicked

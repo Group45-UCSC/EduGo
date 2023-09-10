@@ -92,7 +92,7 @@ const addRideRequest = async (req, res) => {
   try {
     const userId = req.params.userId;
     const { ride_id, driver_id, child_location, school, child_id } = req.body;
-
+    
     //genarate request id
     const lastRequestData = await pool.query(
       "SELECT * FROM ride_request ORDER BY request_id DESC LIMIT 1"
@@ -104,23 +104,46 @@ const addRideRequest = async (req, res) => {
     const numericPart = parseInt(lastRequestId.replace("REQ", ""), 10); // Extract numeric part and convert to integer
     const newNumericPart = numericPart + 1;
     const newRequestId = `REQ${newNumericPart.toString().padStart(3, "0")}`; // Generate new user ID
+    // console.log(newRequestId);
 
-    //Insert into db
+    //Insert into ride request table
     const newRideRequest = await pool.query(
-      "INSERT INTO ride_request (request_id,location, school, driver_id, parent_id, ride_id) VALUES ($1,$2,$3,$4,$5,$6) RETURNING * ",
-      [newRequestId, child_location, school, driver_id, userId, ride_id]
+      "INSERT INTO ride_request (request_id,pickup_location, school_name, ride_id, request_status, driver_id, child_id , parent_id) VALUES ($1,$2,$3,$4,$5,$6,$7,$8) RETURNING * ",
+      [newRequestId, child_location, school, ride_id, 'pending', driver_id, child_id, userId]
     );
 
-    // Update children table with ride_id and status
-    const updateChildrenQuery = `
-        UPDATE children
-        SET ride_id = $1, status = 'notride'
-        WHERE child_id = $2
-      `;
+    //Create notification id
+    const lastNotifyData = await pool.query(
+      "SELECT * FROM notification ORDER BY notification_id DESC LIMIT 1"
+    );
 
-    await pool.query(updateChildrenQuery, [ride_id, child_id]);
+    const lastNotifiId = lastNotifyData.rows[0]?.request_id || "NOT000"; // Default to NOT000 if no user_id found
 
-    return res.json(newRideRequest.rows[0]);
+    const numericPartNotify = parseInt(lastNotifiId.replace("NOT", ""), 10); // Extract numeric part and convert to integer
+    const newNumericPartNotifi = numericPartNotify + 1;
+    const newNotifiId = `NOT${newNumericPartNotifi.toString().padStart(3, "0")}`; // Generate new Notification ID
+    
+    const newNotification = await pool.query(
+      "INSERT INTO notification (notification_id,sender_id, receiver_id, message, type, status ) VALUES ($1,$2,$3,$4,$5,$6) RETURNING * ",
+      [newNotifiId, userId, driver_id, 'ride request', 'parent', 'delivered']
+    );
+
+    //Update children table with ride_id and status
+    // const updateChildrenQuery = `
+    //     UPDATE children
+    //     SET ride_id = $1, status = 'notride'
+    //     WHERE child_id = $2
+    //   `;
+
+    // await pool.query(updateChildrenQuery, [ride_id, child_id]);
+
+    //Prepare the response object including both newRideRequest and newNotification
+    const response = {
+      newRideRequest: newRideRequest.rows[0],
+      newNotification: newNotification.rows[0],
+    };
+
+    return res.json(response);
   } catch (err) {
     console.error(err.massage);
     res.status(500).send("Server Error");
