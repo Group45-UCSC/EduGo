@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import MainLayout from "../../components/layout/MainLayout";
 import { AiFillCar } from "react-icons/ai";
 import {
@@ -19,6 +19,7 @@ import {
 } from "react-icons/md";
 import { NavLink } from "react-router-dom";
 import { useState } from "react";
+import { format } from "date-fns";
 
 const data = [
   {
@@ -184,13 +185,41 @@ const sideNavBarLinks = [
     icon: <MdOutlineRateReview />,
   },
 ];
+
 function Finance() {
+  //userID
+  const userId = localStorage.getItem("userId");
+
+  //get last month total income
+  const [lastMonthIncome, setLastMonthIncome] = useState("");
+
+  useEffect(() => {
+    async function getLatMonthIncome() {
+      try {
+        const response = await fetch(
+          `http://localhost:5000/edugo/driver/income/view/lastmonth/${userId}`
+        );
+        // console.log(response);
+        const data = await response.json();
+        setLastMonthIncome(data.income);
+      } catch (err) {
+        console.error(err.message);
+      }
+    }
+
+    getLatMonthIncome();
+  }, [userId]);
+
   const [filterValue, setFilterValue] = useState("All");
 
   const filteredChildren =
     filterValue === "All"
       ? childDetails
       : childDetails.filter((child) => child.paymentStatus === filterValue);
+
+  //for display the current month name
+  const currentDate = new Date();
+  const currentMonthName = format(currentDate, "MMMM"); // 'MMMM' format gives you the full month name
 
   return (
     <div>
@@ -201,7 +230,9 @@ function Finance() {
         <div className="flex justify-end w-full mb-4">
           <NavLink to="/driver/finance/deposits">
             <button className="flex justify-center w-56 h-10 mr-12 bg-orange rounded-md cursor-pointer hover:shadow-lg transform hover:scale-[103%] transition duration-300 ease-out">
-              <div className="flex mt-2 gap-3 font-semibold">Collected Ride Payments</div>
+              <div className="flex mt-2 gap-3 font-semibold">
+                Collected Ride Payments
+              </div>
             </button>
           </NavLink>
         </div>
@@ -221,7 +252,7 @@ function Finance() {
                   <div className=" flex justify-center gap-32">
                     <div>
                       <h2 className=" text-orange text-[28px] leading-[17px] ml-[-14px] font-bold mb-3">
-                        LKR 34000
+                        LKR {lastMonthIncome}.00
                       </h2>
                     </div>
                   </div>
@@ -326,7 +357,9 @@ function Finance() {
           <div className="col-span-2 rounded-md h-[550px] ">
             <div className=" mt-8">
               <div className="h-8 mb-3 flex justify-center">
-                <h1 className="text-xl font-bold ">Payment Details - August</h1>
+                <h1 className="text-xl font-bold ">
+                  Payment Details - {currentMonthName}
+                </h1>
               </div>
               <div className="mb-1 mt-1 flex justify-end mr-5">
                 <select

@@ -11,11 +11,27 @@ const {
   viewVehicle,
 } = require("../controllers/driver/driverController");
 
-const { addFeedback,viewFeedback } = require("../controllers/driver/feedbackController");
+const {
+  addFeedback,
+  viewFeedback,
+} = require("../controllers/driver/feedbackController");
 
-const { addVehicle, uploadVehicle,viewVehicleImg } = require("../controllers/driver/vehicleController");
+const {
+  addVehicle,
+  uploadVehicle,
+  viewVehicleImg,
+} = require("../controllers/driver/vehicleController");
 
-const { addDeposit, uploadSlip } = require("../controllers/driver/financeController")
+const {
+  addDeposit,
+  uploadSlip,
+  viewTotalCash,
+  viewCashPaymentData,
+  viewLastIncome,
+  viewIncomeChart,
+  viewTotalIncome,
+  viewChildFees,
+} = require("../controllers/driver/financeController");
 
 //create routes
 router.route("/dashboard/hasride/:userId").get(hasRide);
@@ -27,14 +43,20 @@ router.post("/vehicle/upload/", upload.single("vehicleRegDoc"), uploadVehicle);
 
 router.route("/vehicle/viewImg/:userId").get(viewVehicleImg);
 
+//income page
+router.route("/income/view/lastmonth/:userId").get(viewLastIncome);
+router.route("/income/view/chart/:userId").get(viewIncomeChart);
+router.route("/income/view/totaldetails/:userId").get(viewTotalIncome);
+router.route("/income/view/childrenlist/:userId").get(viewChildFees);
+
+//deposit page
 router.route("/deposit/add/:userId").post(addDeposit);
 router.post("/deposit/upload/", upload.single("addDeposit"), uploadSlip);
+router.route("/deposit/viewtotal/:userId").get(viewTotalCash);
+router.route("/deposit/cashpayments/view/:userId").get(viewCashPaymentData);
 
-
+//feedback page
 router.route("/feedback/add/:userId").post(addFeedback);
 router.route("/feedback/view/:userId").get(viewFeedback);
-
-
-
 
 module.exports = router;
