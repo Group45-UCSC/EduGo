@@ -18,7 +18,7 @@ function Complaint({ onComplaintSubmit }) {
     };
 
     try {
-      const response = await fetch("http://localhost:3000/edugo/parent/addcomplaint", {
+      const response = await fetch("", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
