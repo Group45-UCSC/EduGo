@@ -22,6 +22,8 @@ npm install react-datepicker react-dropzone
 npm install sweetalert
 npm i react-switch
 npm install date-fns
+npm i react-places-autocomplete
+
 
 
 --server--
