@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import MainLayout from "../../components/layout/MainLayout";
 import { BsPlusCircleFill } from "react-icons/bs";
 import { AiOutlineSearch } from "react-icons/ai";
@@ -39,123 +39,42 @@ function Employees() {
     window.location.href = `/admin/VCoordinator`;
   };
 
-  const support = [
-    {
-      id: "001",
-      name: "Ashan Dhanushka",
-      email: "ashan@gmail.com",
-      address: "No.87 main street, Piliyandala",
-      contact: "0711234567"
-    },
-    {
-      id: "002",
-      name: "Sachintha Muthuhetti",
-      email: "sachintha@gmail.com",
-      address: "No.34/5 Mutuwal, Modara",
-      contact: "0757676763"
-    },
-    {
-      id: "003",
-      name: "Nifas Rizwan",
-      email: "nifas@gmail.com",
-      address: "No.23/5, maley street, colombo",
-      contact: "0710912873"
-    },
-    {
-      id: "004",
-      name: "Ridma Priyanjan",
-      email: "ridma@gmail.com",
-      address: "No.7 School lane, Wijerama",
-      contact: "0778765432"
-    },
-    {
-      id: "005",
-      name: "Hiran Jayashanka",
-      email: "hiran@gmail.com",
-      address: "No.2 Akbar street, Malabe",
-      contact: "0712342345"
-    },
-    {
-      id: "006",
-      name: "Nishantha Gamlath",
-      email: "nishantha@gmail.com",
-      address: "No.7 School Road, Raththanapitiya",
-      contact: "0729874567"
-    },
-    {
-      id: "007",
-      name: "Pasindu Gayashan",
-      email: "pasindu@gmail.com",
-      address: "No.22 Good shed road, Kohuwala",
-      contact: "0708765421"
-    },
-    {
-      id: "008",
-      name: "Gayan Anushka",
-      email: "gayan@gmail.com",
-      address: "No.22 main street, Meepe",
-      contact: "0770987654"
-    }
-  ];
+  const [supAgent, setsupAgent] = useState([]);
 
-  const coordinator = [
-    {
-      id: "009",
-      name: "Ashan Dhanushka",
-      email: "ashan@gmail.com",
-      address: "No.87 main street, Piliyandala",
-      contact: "0711234567"
-    },
-    {
-      id: "010",
-      name: "Sachintha Muthuhetti",
-      email: "sachintha@gmail.com",
-      address: "No.34/5 Mutuwal, Modara",
-      contact: "0757676763"
-    },
-    {
-      id: "011",
-      name: "Nifas Rizwan",
-      email: "nifas@gmail.com",
-      address: "No.23/5, maley street, colombo",
-      contact: "0710912873"
-    },
-    {
-      id: "012",
-      name: "Ridma Priyanjan",
-      email: "ridma@gmail.com",
-      address: "No.7 School lane, Wijerama",
-      contact: "0778765432"
-    },
-    {
-      id: "013",
-      name: "Hiran Jayashanka",
-      email: "hiran@gmail.com",
-      address: "No.2 Akbar street, Malabe",
-      contact: "0712342345"
-    },
-    {
-      id: "014",
-      name: "Nishantha Gamlath",
-      email: "nishantha@gmail.com",
-      address: "No.7 School Road, Raththanapitiya",
-      contact: "0729874567"
-    },
-    {
-      id: "015",
-      name: "Pasindu Gayashan",
-      email: "pasindu@gmail.com",
-      address: "No.22 Good shed road, Kohuwala",
-      contact: "0708765421"
-    },
-    {
-      id: "016",
-      name: "Gayan Anushka",
-      email: "gayan@gmail.com",
-      address: "No.22 main street, Meepe",
-      contact: "0770987654"
+  useEffect(() => {
+    async function agentData() {
+      try {
+        const response = await fetch(
+          `http://localhost:5000/edugo/admin/employees/agent`
+        );
+        const data = await response.json();
+        setsupAgent(data);
+      } catch (err) {
+        console.error(err.message);
+      }
     }
-  ];
+
+    agentData();
+  });
+  
+
+  const [vehiCo, setvehiCo] = useState([]);
+
+  useEffect(() => {
+    async function vcData() {
+      try {
+        const response = await fetch(
+          `http://localhost:5000/edugo/admin/employees/vc`
+        );
+        const data = await response.json();
+        setvehiCo(data);
+      } catch (err) {
+        console.error(err.message);
+      }
+    }
+
+    vcData();
+  });
 
   return (
     <div>
@@ -234,16 +153,16 @@ function Employees() {
               </thead>
 
               <tbody className="">
-              {support.map((item) => (
+              {supAgent.map((agent) => (
                 <tr
                   onClick={handleClick}
                   className=" bg-[#D9D9D9] bg-opacity-60 hover:cursor-pointer hover:bg-[#eaeaea] drop-shadow-md"
                 >
-                  <td className="text-center  p-3">{item.id}</td>
-                  <td>{item.name}</td>
-                  <td>{item.email}</td>
-                  <td>{item.address}</td>
-                  <td>{item.contact}</td>
+                  <td className="text-center  p-3">{agent.user_id}</td>
+                  <td>{agent.user_name}</td>
+                  <td>{agent.user_email}</td>
+                  <td>{agent.address}</td>
+                  <td>{agent.contact_number}</td>
                   <td>
                     <div className="flex ml-2 h-8 w-20 bg-orange rounded-md shadow-md">
                       <BsPencilFill className="mt-2 ml-4 hover:scale-[110%] transition-transform ease-in-out" />
@@ -274,16 +193,16 @@ function Employees() {
               </thead>
 
               <tbody className="">
-              {coordinator.map((item) => (
+              {vehiCo.map((coordinator) => (
                 <tr
                   onClick={handleClickVC}
                   className=" bg-[#D9D9D9] bg-opacity-60 hover:cursor-pointer hover:bg-[#eaeaea] drop-shadow-md"
                 >
-                  <td className="text-center  p-3">{item.id}</td>
-                  <td>{item.name}</td>
-                  <td>{item.email}</td>
-                  <td>{item.address}</td>
-                  <td>{item.contact}</td>
+                  <td className="text-center  p-3">{coordinator.user_id}</td>
+                  <td>{coordinator.user_name}</td>
+                  <td>{coordinator.user_email}</td>
+                  <td>{coordinator.address}</td>
+                  <td>{coordinator.contact_number}</td>
                   <td>
                     <div className="flex ml-2 h-8 w-20 bg-orange rounded-md shadow-md">
                       <BsPencilFill className="mt-2 ml-4 hover:scale-[110%] transition-transform ease-in-out" />

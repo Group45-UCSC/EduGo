@@ -30,4 +30,36 @@ const addEmployee = async (req, res) => {
   }
 };
 
-module.exports = { addEmployee };
+//view support agent list in employees page
+const viewSupList = async (req, res) => {
+
+  try{
+  //db query
+  const agentData = await pool.query(
+    "SELECT * FROM registered_users WHERE user_role = 'supAgent'",
+  );
+
+  return res.json(agentData.rows);
+  } catch (err) {
+  console.error(err.massage);
+  return res.status(500).send("Server Error");
+}
+};
+
+//view vehicle coordinator list in employees page
+const viewVCList = async (req, res) => {
+
+  try{
+  //db query
+  const vcData = await pool.query(
+    "SELECT * FROM registered_users WHERE user_role = 'vc'",
+  );
+
+  return res.json(vcData.rows);
+  } catch (err) {
+  console.error(err.massage);
+  return res.status(500).send("Server Error");
+}
+};
+
+module.exports = { addEmployee, viewSupList, viewVCList };
