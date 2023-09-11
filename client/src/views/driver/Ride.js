@@ -6,6 +6,7 @@ import { NavLink } from "react-router-dom";
 // import ChildDetails from "./ChildDetails";
 import user from "../../images/user.png";
 import { MdLocationOn } from "react-icons/md";
+import { CiRead,CiShare1 } from "react-icons/ci";
 import { GoogleMap, LoadScript, Marker } from "@react-google-maps/api";
 import { AiFillDashboard, AiOutlinePlus } from "react-icons/ai";
 import {
