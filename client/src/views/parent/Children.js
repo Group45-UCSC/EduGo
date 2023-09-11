@@ -29,16 +29,16 @@ const sideNavBarLinks = [
 ];
 
 function Children() {
-
- 
   const userId = localStorage.getItem("userId");
 
-  const[children, setChildren] = useState([]);
+  const [children, setChildren] = useState([]);
 
   useEffect(() => {
     async function childrenData() {
       try {
-        const response = await fetch(`http://localhost:5000/edugo/parent/children/view/${userId}`); 
+        const response = await fetch(
+          `http://localhost:5000/edugo/parent/children/view/${userId}`
+        );
         const data = await response.json();
         setChildren(data);
       } catch (err) {
@@ -48,9 +48,6 @@ function Children() {
 
     childrenData();
   }, [userId]);
-
-
-
 
   const [modalOpen, setModalOpen] = useState(false);
   // Add children model load
@@ -176,71 +173,6 @@ function Children() {
       </div>
     );
   }
-  // const childDetails = [
-  //   {
-  //     id: 1,
-  //     name: "R.B.S.Udayanga ",
-  //     schoolName: "Royal Collage",
-  //     schoolRide: "R103",
-  //     startTime: "6.50",
-  //     type: "ride",
-  //     pickupStatus: "Picked up",
-  //     address: "No 79, Daramapala road, Pannipitya",
-  //     schoolAddress: "Maradana Rd, Colombo 01000",
-  //     contactnum: "0776438543",
-  //     image: require("../../images/child1.png"),
-  //   },
-  //   {
-  //     id: 1,
-  //     name: "R.B.S.Udayanga ",
-  //     schoolName: "Royal Collage",
-  //     schoolRide: "R103",
-  //     startTime: "6.50",
-  //     type: "ride",
-  //     pickupStatus: "Not Yet",
-  //     address: "No 79, Daramapala road, Pannipitya",
-  //     schoolAddress: "Maradana Rd, Colombo 01000",
-  //     contactnum: "0776438543",
-  //     image: require("../../images/child1.png"),
-  //   },
-  //   {
-  //     id: 1,
-  //     name: "R.B.S.Udayanga ",
-  //     schoolName: "Royal Collage",
-  //     schoolRide: "R103",
-  //     startTime: "6.50",
-  //     type: "ride",
-  //     pickupStatus: "Missed",
-  //     address: "No 79, Daramapala road, Pannipitya",
-  //     schoolAddress: "Maradana Rd, Colombo 01000",
-  //     contactnum: "0776438543",
-  //     image: require("../../images/child1.png"),
-  //   },
-  //   {
-  //     id: 2,
-  //     name: "L.L.A. Hansani",
-  //     schoolName: "Sujatha collage",
-  //     schoolRide: "R104",
-  //     startTime: "7.00",
-  //     type: "notride",
-  //     address: "No 79, Daramapala road, Pannipitya",
-  //     schoolAddress: "Maradana Rd, Colombo 01000",
-  //     contactnum: "0776438543",
-  //     image: require("../../images/child2.png"),
-  //   },
-  //   {
-  //     id: 3,
-  //     name: "K.S.T. Gunawardhana ",
-  //     schoolName: "Royal Collage",
-  //     schoolRide: "R106",
-  //     startTime: "7.10",
-  //     type: "notreg",
-  //     address: "No 79, Daramapala road, Pannipitya",
-  //     schoolAddress: "Maradana Rd, Colombo 01000",
-  //     contactnum: "0776438543",
-  //     image: require("../../images/child3.png"),
-  //   },
-  // ];
 
   return (
     <div>
@@ -302,7 +234,7 @@ function Children() {
                               School Name:
                             </h3>
                             <div className="text-[12px] font-semibold">
-                              {child.school}
+                              {child.school_id}
                             </div>
                           </div>
                           <div className="flex gap-1">
@@ -310,14 +242,27 @@ function Children() {
                               School Ride:
                             </h3>
                             <div className="text-[12px] font-semibold">
-                              {child.ride_id}
-                              
+                              {child.ride_status !== "notreg" ? (
+                                <div>{child.ride_id}</div>
+                              ) : (
+                                <div>
+                                  {child.request_status === "accept" ? (
+                                    <div>Accepted</div>
+                                  ) : child.request_status === "reject" ? (
+                                    <div>Rejected</div>
+                                  ) : child.request_status === "pending" ? (
+                                    <div>Pending</div>
+                                  ) : (
+                                    <div>No Ride ID</div>
+                                  )}
+                                </div>
+                              )}
                             </div>
                           </div>
                         </div>
                       </div>
                       <div className="w-[420px] ml-40 flex justify-end pt-9">
-                        {child.status === "ride" && (
+                        {child.ride_status === "ride" && (
                           <div className=" flex gap-5">
                             <div className="font-bold text-[#16a34a] text-lg">
                               <h1>On Ride</h1>
@@ -339,11 +284,13 @@ function Children() {
                               </NavLink>
                             </div>
                             <div className="">
-                              <NavLink to={`/parent/children/viewride/${
+                              <NavLink
+                                to={`/parent/children/viewride/${
                                   child.id
                                 }?data=${encodeURIComponent(
                                   JSON.stringify(child)
-                                )}`}>
+                                )}`}
+                              >
                                 <button className="flex justify-center  w-40 h-10 bg-orange hover:bg-[#b3913b] rounded-md cursor-pointer">
                                   <div className="flex mt-2 gap-3 font-semibold">
                                     <FaEye fontSize={28} color="" />
@@ -354,28 +301,48 @@ function Children() {
                             </div>
                           </div>
                         )}
-                        {child.status === "notride" && (
+
+                        {child.ride_status === "notride" && (
                           <div className=" mr-24">
                             <h1 className=" text-xl font-bold text-slate-600">
                               Next Ride: 7.10 AM{" "}
                             </h1>
                           </div>
                         )}
-                        {child.status === "notreg" && (
-                          <div className=" flex gap-5">
-                            {/*---------------------Buttons-----------------------------*/}
-                            <div className="">
-                              <NavLink to={`/parent/Children/addnewride/${child.id}?data=${encodeURIComponent(JSON.stringify(child))}`}
-                        >
-                                <button className="flex justify-center w-48 h-10  bg-orange hover:bg-[#b3913b] rounded-md cursor-pointer">
-                                  <div className="flex mt-2 gap-3 font-semibold">
-                                    Choose School Ride
-                                  </div>
-                                </button>
-                              </NavLink>
+
+                        {child.ride_status === "notreg" &&
+                          (child.request_status === "pending" ? (
+                            <label className="flex justify-center w-48 h-10 bg-orange hover:bg-[#b3913b] rounded-md cursor-pointer">
+                              <div className="flex mt-2 gap-3 font-semibold">
+                                {child.request_status}
+                              </div>
+                            </label>
+                          ) : child.request_status === "reject" ? (
+                            <label className="flex justify-center w-48 h-10 bg-orange hover:bg-[#b3913b] rounded-md cursor-pointer">
+                              <div className="flex mt-2 gap-3 font-semibold">
+                                {child.request_status}
+                              </div>
+                            </label>
+                          ) : (
+                            <div className="flex gap-5">
+                              {/*---------------------Buttons-----------------------------*/}
+                              <div className="">
+                                <NavLink
+                                  to={`/parent/Children/addnewride/${
+                                    child.id
+                                  }?data=${encodeURIComponent(
+                                    JSON.stringify(child)
+                                  )}`}
+                                >
+                                  <button className="flex justify-center w-48 h-10 bg-orange hover:bg-[#b3913b] rounded-md cursor-pointer">
+                                    <div className="flex mt-2 gap-3 font-semibold">
+                                      Choose School Ride
+                                    </div>
+                                  </button>
+                                </NavLink>
+                              </div>
                             </div>
-                          </div>
-                        )}
+                          ))}
                       </div>
                     </div>
                   </div>

@@ -78,6 +78,18 @@ function ViewVehicle() {
     reviewData();
   }, [driver_id]);
 
+
+  const [selectedShift, setSelectedShift] = useState(''); // State to store the selected shift
+
+  const handleShiftChange = (event) => {
+    setSelectedShift(event.target.value);
+  };
+
+
+
+
+
+
   const handleSubmit = (e) => {
     e.preventDefault();
   };
@@ -106,7 +118,38 @@ function ViewVehicle() {
                   Are you sure add this vehicle ?
                 </h1>
               </div>
-
+              <div className="flex justify-center items-center mt-5">
+                <label>
+                  <input
+                    type="radio"
+                    name="shift"
+                    value="morning"
+                    checked={selectedShift === "morning"}
+                    onChange={handleShiftChange}
+                  />
+                  Morning
+                </label>
+                <label>
+                  <input
+                    type="radio"
+                    name="shift"
+                    value="afternoon"
+                    checked={selectedShift === "afternoon"}
+                    onChange={handleShiftChange}
+                  />
+                  Afternoon
+                </label>
+                <label>
+                  <input
+                    type="radio"
+                    name="shift"
+                    value="both"
+                    checked={selectedShift === "both"}
+                    onChange={handleShiftChange}
+                  />
+                  Both
+                </label>
+              </div>
               <div className="flex justify-center items-center mt-5">
                 <NavLink
                 to={`/parent/children/`}
@@ -118,7 +161,7 @@ function ViewVehicle() {
                     setOpenModal(false);
                   }}
                 >
-                  Ok
+                  Submit
                 </button>
                 </NavLink>
                 <button
@@ -140,11 +183,29 @@ function ViewVehicle() {
 
   // Get a reference to the button element by its ID
   const handleSelectRideClick = () => {
+
+    if (!selectedShift) {
+      // Display a SweetAlert alert for the user
+      swal({
+        title: "Please select a shift (morning/afternoon/both)!",
+        icon: "warning", // You can change the icon to "error" for an error message
+        buttons: {
+          confirm: {
+            className:
+              "bg-orange text-white px-10 py-2 rounded-lg items-center hover:bg-gray",
+          },
+        },
+      });
+      return; // Do not proceed with the submission
+    }
+
     const ride_id = vehicleData.ride_id;
     const driver_id = vehicleData.driver_id;
-    const child_location = child.location;
-    const school = child.school;
-    const child_id = child.child_id
+    const child_location = child.pickup_location;
+    const school = child.school_id;
+    const child_id = child.child_id;
+
+    console.log('Selected Shift:', selectedShift);
 
     // Call the function when the button is clicked
     handleSelectRide(ride_id, driver_id, child_location, school, child_id);
@@ -160,7 +221,7 @@ function ViewVehicle() {
     child_id
   ) => {
     try {
-      const body = { ride_id, driver_id, child_location, school, child_id };
+      const body = { ride_id, driver_id, child_location, school, child_id, selectedShift };
 
       const response = await fetch(
         `http://localhost:5000/edugo/parent/children/viewVehicle/rideRequest/${userId}`,
