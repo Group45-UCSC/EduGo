@@ -26,8 +26,10 @@ const viewChildChildren = async (req, res) => {
 
     //db query
     const childrenData = await pool.query(
-      "SELECT * FROM children WHERE parent_id =  '" + userId + "'"
+      "SELECT * FROM children WHERE parent_id = $1 ORDER BY child_id ASC",
+      [userId]
     );
+    
     // const childrenData = await pool.query(
     //   "SELECT rr.request_status, c.* FROM ride_request rr RIGHT JOIN children c ON rr.child_id = c.child_id WHERE C.parent_id = '"+userId+"'"
     // );

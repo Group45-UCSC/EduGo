@@ -29,16 +29,16 @@ const sideNavBarLinks = [
 ];
 
 function Children() {
-
- 
   const userId = localStorage.getItem("userId");
 
-  const[children, setChildren] = useState([]);
+  const [children, setChildren] = useState([]);
 
   useEffect(() => {
     async function childrenData() {
       try {
-        const response = await fetch(`http://localhost:5000/edugo/parent/children/view/${userId}`); 
+        const response = await fetch(
+          `http://localhost:5000/edugo/parent/children/view/${userId}`
+        );
         const data = await response.json();
         setChildren(data);
       } catch (err) {
@@ -48,9 +48,6 @@ function Children() {
 
     childrenData();
   }, [userId]);
-
-
-
 
   const [modalOpen, setModalOpen] = useState(false);
   // Add children model load
@@ -183,7 +180,6 @@ function Children() {
         <div className=" px-6">
           <h1 className="text-[#5a5c69] text-[28px] leading-8 font-normal cursor-pointer">
             Children
-            {userId}
           </h1>
           <div className="mt-[0px] pb-[15px]">
             <div className="flex justify-end w-5/6 ml-24 mb-4">
@@ -238,7 +234,7 @@ function Children() {
                               School Name:
                             </h3>
                             <div className="text-[12px] font-semibold">
-                              {child.school}
+                              {child.school_id}
                             </div>
                           </div>
                           <div className="flex gap-1">
@@ -246,10 +242,22 @@ function Children() {
                               School Ride:
                             </h3>
                             <div className="text-[12px] font-semibold">
-                              {child.ride_id}
-                              
+                              {child.ride_status !== "notreg" ? (
+                                <div>{child.ride_id}</div>
+                              ) : (
+                                <div>
+                                  {child.request_status === "accept" ? (
+                                    <div>Accepted</div>
+                                  ) : child.request_status === "reject" ? (
+                                    <div>Rejected</div>
+                                  ) : child.request_status === "pending" ? (
+                                    <div>Pending</div>
+                                  ) : (
+                                    <div>No Ride ID</div>
+                                  )}
+                                </div>
+                              )}
                             </div>
-                            {child.request_status}
                           </div>
                         </div>
                       </div>
@@ -276,11 +284,13 @@ function Children() {
                               </NavLink>
                             </div>
                             <div className="">
-                              <NavLink to={`/parent/children/viewride/${
+                              <NavLink
+                                to={`/parent/children/viewride/${
                                   child.id
                                 }?data=${encodeURIComponent(
                                   JSON.stringify(child)
-                                )}`}>
+                                )}`}
+                              >
                                 <button className="flex justify-center  w-40 h-10 bg-orange hover:bg-[#b3913b] rounded-md cursor-pointer">
                                   <div className="flex mt-2 gap-3 font-semibold">
                                     <FaEye fontSize={28} color="" />
@@ -291,6 +301,7 @@ function Children() {
                             </div>
                           </div>
                         )}
+
                         {child.ride_status === "notride" && (
                           <div className=" mr-24">
                             <h1 className=" text-xl font-bold text-slate-600">
@@ -299,37 +310,39 @@ function Children() {
                           </div>
                         )}
 
-                        {child.ride_status === "notreg"  && (
-                          <div className=" flex gap-5">
-                            {/*---------------------Buttons-----------------------------*/}
-                            <div className="">
-                              <NavLink to={`/parent/Children/addnewride/${child.id}?data=${encodeURIComponent(JSON.stringify(child))}`}
-                        >
-                                <button className="flex justify-center w-48 h-10  bg-orange hover:bg-[#b3913b] rounded-md cursor-pointer">
-                                  <div className="flex mt-2 gap-3 font-semibold">
-                                    Choose School Ride
-                                  </div>
-                                </button>
-                              </NavLink>
+                        {child.ride_status === "notreg" &&
+                          (child.request_status === "pending" ? (
+                            <label className="flex justify-center w-48 h-10 bg-orange hover:bg-[#b3913b] rounded-md cursor-pointer">
+                              <div className="flex mt-2 gap-3 font-semibold">
+                                {child.request_status}
+                              </div>
+                            </label>
+                          ) : child.request_status === "reject" ? (
+                            <label className="flex justify-center w-48 h-10 bg-orange hover:bg-[#b3913b] rounded-md cursor-pointer">
+                              <div className="flex mt-2 gap-3 font-semibold">
+                                {child.request_status}
+                              </div>
+                            </label>
+                          ) : (
+                            <div className="flex gap-5">
+                              {/*---------------------Buttons-----------------------------*/}
+                              <div className="">
+                                <NavLink
+                                  to={`/parent/Children/addnewride/${
+                                    child.id
+                                  }?data=${encodeURIComponent(
+                                    JSON.stringify(child)
+                                  )}`}
+                                >
+                                  <button className="flex justify-center w-48 h-10 bg-orange hover:bg-[#b3913b] rounded-md cursor-pointer">
+                                    <div className="flex mt-2 gap-3 font-semibold">
+                                      Choose School Ride
+                                    </div>
+                                  </button>
+                                </NavLink>
+                              </div>
                             </div>
-                            {child.request_status}
-                          </div>
-                        )}
-                        
-                        {child.ride_status === "notreg" && child.request_status === "pending" &&(
-                          <div className=" flex gap-5">
-                            {/*---------------------Buttons-----------------------------*/}
-                            <div className="">
-                              
-                                <button className="flex justify-center w-48 h-10  bg-orange hover:bg-[#b3913b] rounded-md cursor-pointer">
-                                  <div className="flex mt-2 gap-3 font-semibold">
-                                    Pending
-                                  </div>
-                                </button>
-                           
-                            </div>
-                          </div>
-                        )}
+                          ))}
                       </div>
                     </div>
                   </div>
