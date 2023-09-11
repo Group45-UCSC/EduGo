@@ -98,7 +98,7 @@ function Schools() {
       );
       if (response.status === 200) {
         swal({
-          title: "Selected School is sucessfully added!",
+          title: "Selected school is sucessfully added to your ride!",
           icon: "success",
           buttons: {
             confirm: {
@@ -122,8 +122,7 @@ function Schools() {
 
   const handleAddClick = (schoolId) => {
     swal({
-      title: "Are you sure?",
-      text: "The selected school will be add to your school ride",
+      title: "Do you want to add this school to your ride?",
       icon: "warning",
       buttons: ["No, cancel!", "Yes, add it!"],
       dangerMode: true,
@@ -137,40 +136,46 @@ function Schools() {
 
   //remove selected school-----------------------------------------------------------------------------------------------------------
 
-//   const handleRemove = async (schoolId) => {
-//     // event.preventDefault();
-
-//     try {
-//       const body = { schoolId: schoolId };
-//       const response = await fetch(
-//         `http://localhost:5000/edugo/driver/ride/select/school/${userId}`,
-//         {
-//           method: "POST",
-//           headers: { "Content-Type": "application/json" },
-//           body: JSON.stringify(body),
-//         }
-//       );
-//       if (response.status === 200) {
-//         swal({
-//           title: "Selected School is sucessfully added!",
-//           icon: "success",
-//           buttons: {
-//             confirm: {
-//               className:
-//                 "bg-orange text-white px-10 py-2 rounded-lg items-center hover:bg-gray ",
-//             },
-//           },
-//         }).then(() => {
-//           // window.location.reload();
-//           recallData();
-//         });
-//       } else {
-//         console.log(response);
-//       }
-//     } catch (err) {
-//       console.error(err.message);
-//     }
-//   };
+  const handleRemove = async (schoolId) => {
+    try {
+      const response = await fetch(
+        `http://localhost:5000/edugo/driver/ride/remove/school/${userId},${schoolId}`,
+        {
+          method: "DELETE", // Use the DELETE HTTP method for removal
+          headers: { "Content-Type": "application/json" },
+        }
+      );
+      const data = await response.json();
+      console.log(data);
+      if (response.ok) {
+        swal({
+          title: "Selected school removed from your ride successfully",
+          icon: "success",
+          buttons: {
+            confirm: {
+              className:
+                "bg-orange text-white px-10 py-2 rounded-lg items-center hover:bg-gray ",
+            },
+          },
+        }).then(() => {
+          recallData();
+        });
+      } else {
+        swal({
+          title: "Can't remove school from your ride!",
+          icon: "warning",
+          buttons: {
+            confirm: {
+              className:
+                "bg-orange text-white px-10 py-2 rounded-lg items-center hover:bg-gray ",
+            },
+          },
+        }).then(() => {});
+      }
+    } catch (err) {
+      console.error(err.message);
+    }
+  };
 
   //handle school removing option and alert display-------------------------------------------------------------------------------------------
 
@@ -182,25 +187,26 @@ function Schools() {
       const data = await response.json();
 
       //check whether related school has childrens in this ride
-      if (data === "can't delete") {
-        handleRemove(schoolId);
+      if (data === "can delete") {
+        swal({
+          title: "Do you want to remove this school from your ride?",
+          icon: "warning",
+          buttons: ["No, cancel!", "Yes, remove it!"],
+          dangerMode: true,
+        }).then((confirmed) => {
+          if (confirmed) {
+            handleRemove(schoolId);
+          } else {
+          }
+        });
       }
       //prevent the removing
       else {
-        swal({
-          title:
-            "You can't remove this school from your ride!\n There are children of this school in your school ride\nPlaease Contact Support agent if need.",
-          icon: "success",
-          buttons: {
-            confirm: {
-              className:
-                "bg-orange text-white px-10 py-2 rounded-lg items-center hover:bg-gray ",
-            },
-          },
-        }).then(() => {
-          // window.location.reload();
-          // recallData();
-        });
+        swal(
+          "You can't remove this school from your ride!",
+          "Your school ride contain children from this school.\nPlease contact Support Agent for more details.",
+          "warning"
+        );
       }
     } catch (err) {
       console.error(err.message);
