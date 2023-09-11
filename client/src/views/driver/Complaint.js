@@ -1,40 +1,62 @@
 import React, { useState } from "react";
 import Select from "react-select";
 import "react-datepicker/dist/react-datepicker.css";
-function Complaint({ onComplaintSubmit }) {
-  const [complaintType, setComplaintType] = useState(null);
+import swal from "sweetalert";
+function Complaint() {
+  const [complaintType, setComplaintType] = useState(null)
   const [complaintDetails, setComplaintDetails] = useState("");
   const [dateOfOccurrence, setDateOfOccurrence] = useState(null);
   const [attachments, setAttachments] = useState([]);
   const [sendToVC, setSendToVC] = useState(false);
+  const userId = localStorage.getItem("userId");
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    const newComplaint = {
-      complaintType,
-      complaintDetails,
-      dateOfOccurrence,
-      attachments,
-      sendToVC,
-    };
-    onComplaintSubmit(newComplaint);
-
-
-    setComplaintType(null);
-    setComplaintDetails("");
-    setDateOfOccurrence(null);
-    setAttachments([]);
-    setSendToVC(false);
-    
-    let message =
-      "Your complaint has been submitted. Our team will address it promptly 😊";
-
-    if (sendToVC) {
-      message += " Your Complaint will also be sent to the vehicle coordinator.";
+    try{
+      const body = {
+        complaintType,
+        complaintDetails,
+        dateOfOccurrence,
+        attachments,
+        sendToVC,
+      };
+      const response = await fetch(`http://localhost:5000/edugo/driver/complaint/add/${userId}`,{
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(body),
+      });
+      if(response.status === 200) {
+        swal({
+          title: "Your Complaint Submitted!",
+          icon: "success",
+          buttons: {
+            confirm: {
+              className:
+              "bg-orange text-white px-10 py-2 rounded-lg items-center hover:bg-gray ",
+            },
+          },
+        }).then(() => {
+          console.log(response);
+        });
+      } else {
+        swal ({
+          icon: 'error',
+          title: 'Oops...',
+          text: 'Something went wrong. Try again!',
+          buttons: {
+            confirm: {
+              className:
+                "bg-orange text-white px-10 py-2 rounded-lg items-center hover:bg-gray ",
+            },
+          },
+        })
+      }
+    } catch (error) {
+      console.error("Error:", error);
+      alert("Error submitting the omplaint. Please try again later.");
     }
-
-    alert(message);
-    
   };
   const options = [
     // { value: "", label: "Select Complaint Type" },
@@ -115,7 +137,7 @@ function Complaint({ onComplaintSubmit }) {
               id="complaintType"
               options={options}
               value={options.find((option) => option.value === complaintType)}
-              onChange={{ handleComplaintTypeChange }}
+              onChange={ handleComplaintTypeChange }
               required
               styles={customStyles}
               placeholder="Select Complaint Type"

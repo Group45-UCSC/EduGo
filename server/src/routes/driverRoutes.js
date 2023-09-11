@@ -32,6 +32,7 @@ const {
   viewTotalIncome,
   viewChildFees,
 } = require("../controllers/driver/financeController");
+const {addComplaint} = require("../controllers/driver/complaintController");
 
 //create routes
 router.route("/dashboard/hasride/:userId").get(hasRide);
@@ -58,5 +59,8 @@ router.route("/deposit/cashpayments/view/:userId").get(viewCashPaymentData);
 //feedback page
 router.route("/feedback/add/:userId").post(addFeedback);
 router.route("/feedback/view/:userId").get(viewFeedback);
+
+//support page
+router.route("/complaint/add/:userId").post(addComplaint);
 
 module.exports = router;
