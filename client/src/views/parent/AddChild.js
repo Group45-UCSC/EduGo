@@ -8,28 +8,30 @@ import {
   MdOutlineRateReview,
 } from "react-icons/md";
 import MainLayout from "../../components/layout/MainLayout";
-import addchild from "../../images/addchild.png"
+import addchild from "../../images/addchild.png";
+import swal from "sweetalert";
+
+const sideNavBarLinks = [
+  {
+    title: "Dashboard",
+    path: "/parent/dashboard",
+    icon: <AiFillDashboard />,
+  },
+  { title: "Children", path: "/parent/children", icon: <FaChild /> },
+  { title: "Payment", path: "/parent/payment", icon: <MdPayments /> },
+  { title: "Support", path: "/parent/support", icon: <MdSupportAgent /> },
+  {
+    title: "Feedback",
+    path: "/parent/feedback",
+    icon: <MdOutlineRateReview />,
+  },
+];
 
 function AddChild() {
-  const sideNavBarLinks = [
-    {
-      title: "Dashboard",
-      path: "/parent/dashboard",
-      icon: <AiFillDashboard />,
-    },
-    { title: "Children", path: "/parent/children", icon: <FaChild /> },
-    { title: "Payment", path: "/parent/payment", icon: <MdPayments /> },
-    { title: "Support", path: "/parent/support", icon: <MdSupportAgent /> },
-    {
-      title: "Feedback",
-      path: "/parent/feedback",
-      icon: <MdOutlineRateReview />,
-    },
-  ];
   const [values, setValues] = useState({
     childname: "",
     pickupLocation: "",
-    schoolLocation: "",
+    schoolName: "",
     pickupTime: "",
     schoolEndTime: "",
   });
@@ -40,10 +42,9 @@ function AddChild() {
       name: "childname",
       type: "text",
       placeholder: "Child Name",
-      errorMessage:
-        "required",
+      errorMessage: "required",
       label: "Child Name",
-    //   pattern: "^[A-Za-z0-9]{3,16}$",
+      //   pattern: "^[A-Za-z0-9]{3,16}$",
       required: true,
     },
     {
@@ -57,11 +58,11 @@ function AddChild() {
     },
     {
       id: 3,
-      name: "schoolLocation",
+      name: "schoolName",
       type: "location",
-      placeholder: "School Location",
+      placeholder: "School Name",
       errorMessage: "required",
-      label: "School Location",
+      label: "School Name",
       required: true,
     },
     {
@@ -69,10 +70,8 @@ function AddChild() {
       name: "pickupTime",
       type: "time",
       placeholder: "Pickup Time",
-      errorMessage:
-        "please enter time before 7.20",
+      errorMessage: "please enter time before 7.20",
       label: "Pickup Time",
-
       required: true,
     },
     {
@@ -82,7 +81,7 @@ function AddChild() {
       placeholder: "School end time",
       errorMessage: "require",
       label: "School end time",
-    //   pattern: values.password,
+      //   pattern: values.password,
       required: true,
     },
   ];
@@ -90,31 +89,88 @@ function AddChild() {
   const onChange = (e) => {
     setValues({ ...values, [e.target.name]: e.target.value });
   };
+
+  const userId = localStorage.getItem("userId");
+
+  // Function to handle form submission
+  const handleSubmit =async(e) => {
+    e.preventDefault();
+
+    try {
+      const body = {
+        childname: values.childname,
+        pickupLocation: values.pickupLocation,
+        schoolName: values.schoolName,
+        pickupTime: values.pickupTime,
+        schoolEndTime: values.schoolEndTime,
+      };
+
+      const response = await fetch(
+        `http://localhost:5000/edugo/parent/children/addride/${userId}`,
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(body),
+        }
+      );
+
+      if (response.status === 200) {
+        console.log("Children details uploaded successfully!");
+        swal({
+          title: "Add your children !",
+          icon: "success",
+          buttons: {
+            confirm: {
+              className:
+                "bg-orange text-white px-10 py-2 rounded-lg items-center hover:bg-gray ",
+            },
+          },
+        }).then(() => {
+          console.log(response);
+        });
+      } else {
+        // Handle the error here
+        console.error("Failed to upload children details:", response.statusText);
+      }
+    } catch (err) {
+      console.error("Error:", err.message);
+    }
+    
+  };
+
   return (
     <div>
       <MainLayout data={sideNavBarLinks}>
-        <div className="px-6">
+        <div className="px-6 mb-8">
           <h1 className="text-[#5a5c69] text-[28px] leading-8 font-normal cursor-pointer">
             Add New Children
           </h1>
           <div className="flex h-[523px] mt-2 mb-3">
             <div className=" w-2/5 ">
-                <div className=" mt-[90px]">
-                    <img src={addchild} alt="childImage" className=" ml-7"></img>
-                </div>
+              <div className=" mt-[90px]">
+                <img src={addchild} alt="childImage" className=" ml-7"></img>
+              </div>
             </div>
             <div className=" w-3/5 flex items-center justify-center">
-              <div className="p-3 w-[500px] h-[500px] ">
-
-                {inputs.map((input) => (
-                  <FormInput
-                    key={input.id}
-                    {...input}
-                    value={values[input.name]}
-                    onChange={onChange}
-                  />
-                ))}
-              </div>
+              <form onSubmit={handleSubmit}>
+                <div className="p-3 w-[500px] h-[500px] ">
+                  {inputs.map((input) => (
+                    <FormInput
+                      key={input.id}
+                      {...input}
+                      value={values[input.name]}
+                      onChange={onChange}
+                    />
+                  ))}
+                  {/* Submit button */}
+                  <button
+                    type="submit"
+                    className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full"
+                  >
+                    Submit
+                  </button>
+                </div>
+              </form>
             </div>
           </div>
         </div>
