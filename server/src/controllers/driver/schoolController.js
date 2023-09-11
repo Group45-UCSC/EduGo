@@ -11,15 +11,12 @@ const viewSchoolDetails = async (req, res) => {
       "SELECT * FROM school ORDER BY school_id ASC  "
     );
 
-    // console.log(rideChildrenData.rows);
-
     //to get driver registered school data
     const regSchoolData = await pool.query(
       "SELECT school.school_name, school.location,school.school_id FROM school INNER JOIN reaching_school ON school.school_id= reaching_school.school_id WHERE reaching_school.driver_id = '" +
         userId +
         "' ORDER BY school.school_id ASC "
     );
-    // console.log(rideSchoolData.rows);
 
     return res.json({
       schoolList: allSchoolData.rows,
@@ -43,7 +40,6 @@ const selectSchool = async (req, res) => {
     );
 
     const rideId = getRideId.rows[0].ride_id;
-    console.log(rideId);
 
     //insert into database
     const selectedSchool = await pool.query(
@@ -58,7 +54,7 @@ const selectSchool = async (req, res) => {
   }
 };
 
-//to get school details for schools page -> GET method
+//check ride school has children or not -> POST method
 const checkRideBeforeRemove = async (req, res) => {
   try {
     const userId = req.params.userId;
@@ -72,10 +68,6 @@ const checkRideBeforeRemove = async (req, res) => {
         schoolId +
         "' "
     );
-    console.log(userId);
-    console.log(schoolId);
-
-    console.log(checkRideChildren.rows);
 
     if (checkRideChildren.rows.length === 0) {
       //no children that go to this school -> can delete
@@ -89,4 +81,31 @@ const checkRideBeforeRemove = async (req, res) => {
   }
 };
 
-module.exports = { viewSchoolDetails, selectSchool, checkRideBeforeRemove };
+//to remove school details from ride -> Delete method
+const removeSchoolFromRide = async (req, res) => {
+  try {
+    const userId = req.params.userId;
+    const schoolId = req.params.schoolId;
+
+    //to get all children data who use this ride to this school
+    const result = await pool.query(
+      "DELETE FROM reaching_school WHERE driver_id  =   '" +
+        userId +
+        "' AND school_id =   '" +
+        schoolId +
+        "' "
+    );
+
+    return res.json(result);
+  } catch (err) {
+    console.error(err.massage);
+    return res.status(500).send("Server Error");
+  }
+};
+
+module.exports = {
+  viewSchoolDetails,
+  selectSchool,
+  checkRideBeforeRemove,
+  removeSchoolFromRide,
+};

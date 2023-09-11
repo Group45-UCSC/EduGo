@@ -38,6 +38,7 @@ const {
   viewSchoolDetails,
   selectSchool,
   checkRideBeforeRemove,
+  removeSchoolFromRide,
 } = require("../controllers/driver/schoolController");
 
 //create routes
@@ -52,10 +53,16 @@ router.route("/vehicle/viewImg/:userId").get(viewVehicleImg);
 
 //ride page
 router.route("/ride/view/details/:userId").get(viewRideDetails);
+
 //school page
 router.route("/ride/view/school/:userId").get(viewSchoolDetails);
 router.route("/ride/select/school/:userId").post(selectSchool);
-router.route("/ride/checkBeforeRemove/school/:userId,:schoolId").get(checkRideBeforeRemove);
+router
+  .route("/ride/checkBeforeRemove/school/:userId,:schoolId")
+  .get(checkRideBeforeRemove);
+router
+  .route("/ride/remove/school/:userId,:schoolId")
+  .delete(removeSchoolFromRide);
 
 //income page
 router.route("/income/view/lastmonth/:userId").get(viewLastIncome);
