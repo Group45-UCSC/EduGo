@@ -23,7 +23,9 @@ const viewRideDetails = async (req, res) => {
 
     //to get all ride children data
     const rideChildrenData = await pool.query(
-      "SELECT * FROM children WHERE driver_id = '" + userId + "' ORDER BY child_id ASC  "
+      "SELECT * FROM children WHERE driver_id = '" +
+        userId +
+        "' ORDER BY child_id ASC  "
     );
 
     // console.log(rideChildrenData.rows);
@@ -39,4 +41,34 @@ const viewRideDetails = async (req, res) => {
   }
 };
 
-module.exports = { viewRideDetails };
+//to get school details for ride page -> GET method
+const viewSchoolDetails = async (req, res) => {
+  try {
+    const userId = req.params.userId;
+
+    //to get all school data in the edugo
+    const allSchoolData = await pool.query(
+      "SELECT * FROM school ORDER BY school_id ASC  "
+    );
+
+    // console.log(rideChildrenData.rows);
+
+    //to get driver registered school data
+    const regSchoolData = await pool.query(
+      "SELECT school.school_name, school.location,school.school_id FROM school INNER JOIN reaching_school ON school.school_id= reaching_school.school_id WHERE reaching_school.driver_id = '" +
+        userId +
+        "' ORDER BY school.school_id ASC "
+    );
+    // console.log(rideSchoolData.rows);
+
+    return res.json({
+      schoolList: allSchoolData.rows,
+      regSchoolList: regSchoolData.rows,
+    });
+  } catch (err) {
+    console.error(err.massage);
+    return res.status(500).send("Server Error");
+  }
+};
+
+module.exports = { viewRideDetails, viewSchoolDetails };
