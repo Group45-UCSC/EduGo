@@ -26,12 +26,10 @@ function AdminAddEmployee() {
     tpNum: "",
     nic: "",
     password: "",
-    address: "",
-    dob: "",
     role: "",
   });
 
-  const { name, email, tpNum, nic, password, address, dob, role } = values;
+  const { name, email, tpNum, nic, password, role } = values;
 
   const handleInput = (event) => {
     setValues((prev) => ({
@@ -43,10 +41,10 @@ function AdminAddEmployee() {
 
   const handleSubmit = async (event) => {
       try {
-        const body = { name, email, tpNum, nic, password, address, dob, role };
+        const body = { name, email, tpNum, nic, password, role };
 
         const response = await fetch(
-          "http://localhost:5000/edugo/user/addemployee",
+          "http://localhost:5000/edugo/user/admin/addemployee",
           {
             method: "POST",
             headers: { "Content-Type": "application/json" },
@@ -79,31 +77,25 @@ function AdminAddEmployee() {
 
                 {/* form */}
                 <form action="" onSubmit={handleSubmit} className="w-full mr-8 mt-12 leading-8 text-md">
-                    <label for="firstname">Name : </label>
+                    <label htmlFor="firstname">Name : </label>
                     <input type="text" name="name" onChange={handleInput} className="ml-4 mb-4 bg-transparent border-2 w-full"></input><br />
 
-                    <label for="email">Email : </label>
+                    <label htmlFor="email">Email : </label>
                     <input type="email" name="email" onChange={handleInput} className="ml-4 mb-4 bg-transparent border-2 w-full"></input><br />
 
-                    <label for="password">Password : </label>
+                    <label htmlFor="password">Password : </label>
                     <input type="password" name="password" onChange={handleInput} className="ml-4 mb-4 bg-transparent border-2 w-full"></input><br />
 
-                    <label for="nic">NIC : </label>
+                    <label htmlFor="nic">NIC : </label>
                     <input type="text" name="nic" onChange={handleInput} className="ml-4 mb-4 bg-transparent border-2 w-full"></input><br />
 
-                    <label for="address">Address : </label>
-                    <input type="text" name="address" onChange={handleInput} className="ml-4 mb-4 bg-transparent border-2 w-full"></input><br />
-                    
-                    <label for="contact">Contact : </label>
+                    <label htmlFor="contact">Contact : </label>
                     <input type="text" name="tpNum" onChange={handleInput} className="ml-4 mb-4 bg-transparent border-2"></input><br />
 
-                    <label for="dob">Date of Birth : </label>
-                    <input type="date" name="dob" onChange={handleInput} className="ml-4 mb-4 bg-transparent border-2"></input><br />
-
-                    <label for="role">Recruit as : </label>
+                    <label htmlFor="role">Recruit as : </label>
                     <select name="role" onChange={handleInput} className="ml-4 border-2" style={{backgroundColor:'#999999'}}>
-                        <option>Support Agent</option>
-                        <option>Vehicle Coordinator</option>
+                        <option value="supAgent">Support Agent</option>
+                        <option value="vc">Vehicle Coordinator</option>
                         
                     </select><br />
                     <button type="submit" className="flex mt-8 ml-72 h-11 w-28 rounded-lg shadow-lg bg-orange font-semibold text-lg pt-2 pl-5 cursor-pointer hover:scale-[102%] hover:bg-amber-500 transition-transform ease-in-out">Confirm</button>
