@@ -94,7 +94,7 @@ function Deposits() {
     console.log("Deposit Slip:", depositSlip);
   };
 
-  //get total collected amount & deposit amount
+  //get total collected amount & deposit amount----------------------------------------
   const [totalCollection, setCollection] = useState("");
   const [totalDeposits, setDeposits] = useState("");
   const [difference, setDifference] = useState(0);
@@ -119,7 +119,7 @@ function Deposits() {
     getTotalCashData();
   }, [userId]);
 
-  //get cash payments view
+  //get cash payments view table
   const [paymentDetails, setPaymentDetails] = useState([]);
 
   useEffect(() => {
