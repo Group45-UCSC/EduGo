@@ -234,7 +234,7 @@ function Children() {
                               School Name:
                             </h3>
                             <div className="text-[12px] font-semibold">
-                              {child.school_id}
+                              {child.school_name}
                             </div>
                           </div>
                           <div className="flex gap-1">

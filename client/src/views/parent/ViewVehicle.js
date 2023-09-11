@@ -202,7 +202,7 @@ function ViewVehicle() {
     const ride_id = vehicleData.ride_id;
     const driver_id = vehicleData.driver_id;
     const child_location = child.pickup_location;
-    const school = child.school_id;
+    const school = child.school_name;
     const child_id = child.child_id;
 
     console.log('Selected Shift:', selectedShift);

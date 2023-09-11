@@ -41,6 +41,60 @@ const viewChildChildren = async (req, res) => {
   }
 };
 
+//Add child 
+
+const addChildren = async (req, res) => {
+  try {
+    const userId = req.params.userId;
+    const { childname, pickupLocation, schoolName, pickupTime, schoolEndTime } = req.body;
+
+    // Generate child id
+    const lastChildData = await pool.query(
+      "SELECT * FROM children ORDER BY child_id DESC LIMIT 1"
+    );
+
+    const lastChildId = lastChildData.rows[0]?.child_id || "CH0000"; // Default to CH0000 if no child_id found
+
+    const numericPart = parseInt(lastChildId.replace("CH", ""), 10); // Extract numeric part and convert to an integer
+    const newNumericPart = numericPart + 1;
+    const newChildId = `CH${newNumericPart.toString().padStart(5, "0")}`; // Generate a new child ID
+
+    // Convert pickupTime and schoolEndTime to valid timestamp values
+    const currentTime = new Date(); // Get the current date and time
+    const pickupTimeParts = pickupTime.split(":");
+    const schoolEndTimeParts = schoolEndTime.split(":");
+    const pickupTimestamp = new Date(
+      currentTime.getFullYear(),
+      currentTime.getMonth(),
+      currentTime.getDate(),
+      parseInt(pickupTimeParts[0]), // Hours
+      parseInt(pickupTimeParts[1]), // Minutes
+      0, // Seconds
+    );
+
+    const schoolEndTimeTimestamp = new Date(
+      currentTime.getFullYear(),
+      currentTime.getMonth(),
+      currentTime.getDate(),
+      parseInt(schoolEndTimeParts[0]), // Hours
+      parseInt(schoolEndTimeParts[1]), // Minutes
+      0, // Seconds
+    );
+
+    const newChild = await pool.query(
+      "INSERT INTO children (child_id, parent_id, school_name, pickup_location, child_name,ride_status, pickup_time, school_end_time) VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING *",
+      [newChildId, userId, schoolName, pickupLocation, childname,'notreg', pickupTimestamp, schoolEndTimeTimestamp]
+    );
+
+    return res.json(newChild.rows[0]);
+  } catch (error) {
+    console.error(error.message);
+    res.status(500).send("Server Error");
+  }
+};
+
+
+
 // view vehivel list in addNewRide page
 const ViewVehicle = async (req, res) => {
   try {
@@ -163,4 +217,5 @@ module.exports = {
   viewSchool,
   viewDriverReview,
   addRideRequest,
+  addChildren
 };
