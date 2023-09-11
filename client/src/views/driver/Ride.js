@@ -135,7 +135,7 @@ function Ride() {
 
   //get total ride details----------------------------------------
   const [rideDataList, setRideDataList] = useState([]);
-  const [schoolList, sestSchoolList] = useState([]);
+  const [schoolList, setSchoolList] = useState([]);
   const [childrenList, setChildrenList] = useState([]);
 
   useEffect(() => {
@@ -146,7 +146,7 @@ function Ride() {
         );
         const data = await response.json();
         setRideDataList(data.rideDataList);
-        sestSchoolList(data.schoolList);
+        setSchoolList(data.schoolList);
         setChildrenList(data.childrenList);
       } catch (err) {
         console.error(err.message);
