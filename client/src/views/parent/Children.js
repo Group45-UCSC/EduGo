@@ -176,71 +176,6 @@ function Children() {
       </div>
     );
   }
-  // const childDetails = [
-  //   {
-  //     id: 1,
-  //     name: "R.B.S.Udayanga ",
-  //     schoolName: "Royal Collage",
-  //     schoolRide: "R103",
-  //     startTime: "6.50",
-  //     type: "ride",
-  //     pickupStatus: "Picked up",
-  //     address: "No 79, Daramapala road, Pannipitya",
-  //     schoolAddress: "Maradana Rd, Colombo 01000",
-  //     contactnum: "0776438543",
-  //     image: require("../../images/child1.png"),
-  //   },
-  //   {
-  //     id: 1,
-  //     name: "R.B.S.Udayanga ",
-  //     schoolName: "Royal Collage",
-  //     schoolRide: "R103",
-  //     startTime: "6.50",
-  //     type: "ride",
-  //     pickupStatus: "Not Yet",
-  //     address: "No 79, Daramapala road, Pannipitya",
-  //     schoolAddress: "Maradana Rd, Colombo 01000",
-  //     contactnum: "0776438543",
-  //     image: require("../../images/child1.png"),
-  //   },
-  //   {
-  //     id: 1,
-  //     name: "R.B.S.Udayanga ",
-  //     schoolName: "Royal Collage",
-  //     schoolRide: "R103",
-  //     startTime: "6.50",
-  //     type: "ride",
-  //     pickupStatus: "Missed",
-  //     address: "No 79, Daramapala road, Pannipitya",
-  //     schoolAddress: "Maradana Rd, Colombo 01000",
-  //     contactnum: "0776438543",
-  //     image: require("../../images/child1.png"),
-  //   },
-  //   {
-  //     id: 2,
-  //     name: "L.L.A. Hansani",
-  //     schoolName: "Sujatha collage",
-  //     schoolRide: "R104",
-  //     startTime: "7.00",
-  //     type: "notride",
-  //     address: "No 79, Daramapala road, Pannipitya",
-  //     schoolAddress: "Maradana Rd, Colombo 01000",
-  //     contactnum: "0776438543",
-  //     image: require("../../images/child2.png"),
-  //   },
-  //   {
-  //     id: 3,
-  //     name: "K.S.T. Gunawardhana ",
-  //     schoolName: "Royal Collage",
-  //     schoolRide: "R106",
-  //     startTime: "7.10",
-  //     type: "notreg",
-  //     address: "No 79, Daramapala road, Pannipitya",
-  //     schoolAddress: "Maradana Rd, Colombo 01000",
-  //     contactnum: "0776438543",
-  //     image: require("../../images/child3.png"),
-  //   },
-  // ];
 
   return (
     <div>
@@ -314,11 +249,12 @@ function Children() {
                               {child.ride_id}
                               
                             </div>
+                            {child.request_status}
                           </div>
                         </div>
                       </div>
                       <div className="w-[420px] ml-40 flex justify-end pt-9">
-                        {child.status === "ride" && (
+                        {child.ride_status === "ride" && (
                           <div className=" flex gap-5">
                             <div className="font-bold text-[#16a34a] text-lg">
                               <h1>On Ride</h1>
@@ -355,14 +291,15 @@ function Children() {
                             </div>
                           </div>
                         )}
-                        {child.status === "notride" && (
+                        {child.ride_status === "notride" && (
                           <div className=" mr-24">
                             <h1 className=" text-xl font-bold text-slate-600">
                               Next Ride: 7.10 AM{" "}
                             </h1>
                           </div>
                         )}
-                        {child.status === "notreg" && (
+
+                        {child.ride_status === "notreg"  && (
                           <div className=" flex gap-5">
                             {/*---------------------Buttons-----------------------------*/}
                             <div className="">
@@ -374,6 +311,22 @@ function Children() {
                                   </div>
                                 </button>
                               </NavLink>
+                            </div>
+                            {child.request_status}
+                          </div>
+                        )}
+                        
+                        {child.ride_status === "notreg" && child.request_status === "pending" &&(
+                          <div className=" flex gap-5">
+                            {/*---------------------Buttons-----------------------------*/}
+                            <div className="">
+                              
+                                <button className="flex justify-center w-48 h-10  bg-orange hover:bg-[#b3913b] rounded-md cursor-pointer">
+                                  <div className="flex mt-2 gap-3 font-semibold">
+                                    Pending
+                                  </div>
+                                </button>
+                           
                             </div>
                           </div>
                         )}

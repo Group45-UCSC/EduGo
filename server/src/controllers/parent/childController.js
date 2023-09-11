@@ -11,6 +11,7 @@ const viewChildDashboard = async (req, res) => {
       "SELECT * FROM children WHERE parent_id =  '" + userId + "'"
     );
 
+    // console.log(childrenData.rows);
     return res.json(childrenData.rows);
   } catch (err) {
     console.error(err.massage);
@@ -18,7 +19,7 @@ const viewChildDashboard = async (req, res) => {
   }
 };
 
-//view child details for dashboard -> GET method
+//view child details for children page -> GET method
 const viewChildChildren = async (req, res) => {
   try {
     const userId = req.params.userId;
@@ -27,6 +28,9 @@ const viewChildChildren = async (req, res) => {
     const childrenData = await pool.query(
       "SELECT * FROM children WHERE parent_id =  '" + userId + "'"
     );
+    // const childrenData = await pool.query(
+    //   "SELECT rr.request_status, c.* FROM ride_request rr RIGHT JOIN children c ON rr.child_id = c.child_id WHERE C.parent_id = '"+userId+"'"
+    // );
 
     return res.json(childrenData.rows);
   } catch (err) {
@@ -91,7 +95,7 @@ const viewDriverReview = async (req, res) => {
 const addRideRequest = async (req, res) => {
   try {
     const userId = req.params.userId;
-    const { ride_id, driver_id, child_location, school, child_id } = req.body;
+    const { ride_id, driver_id, child_location, school, child_id, selectedShift } = req.body;
     
     //genarate request id
     const lastRequestData = await pool.query(
@@ -108,8 +112,8 @@ const addRideRequest = async (req, res) => {
 
     //Insert into ride request table
     const newRideRequest = await pool.query(
-      "INSERT INTO ride_request (request_id,pickup_location, school_name, ride_id, request_status, driver_id, child_id , parent_id) VALUES ($1,$2,$3,$4,$5,$6,$7,$8) RETURNING * ",
-      [newRequestId, child_location, school, ride_id, 'pending', driver_id, child_id, userId]
+      "INSERT INTO ride_request (request_id,pickup_location, school_name, ride_id, request_status, driver_id, child_id , parent_id, ride_shift_type) VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9) RETURNING * ",
+      [newRequestId, child_location, school, ride_id, 'pending', driver_id, child_id, userId, selectedShift]
     );
 
     //Create notification id
@@ -117,25 +121,25 @@ const addRideRequest = async (req, res) => {
       "SELECT * FROM notification ORDER BY notification_id DESC LIMIT 1"
     );
 
-    const lastNotifiId = lastNotifyData.rows[0]?.request_id || "NOT000"; // Default to NOT000 if no user_id found
+    const lastNotifiId = lastNotifyData.rows[0]?.notification_id || "NOT000"; // Default to NOT000 if no user_id found
 
     const numericPartNotify = parseInt(lastNotifiId.replace("NOT", ""), 10); // Extract numeric part and convert to integer
     const newNumericPartNotifi = numericPartNotify + 1;
     const newNotifiId = `NOT${newNumericPartNotifi.toString().padStart(3, "0")}`; // Generate new Notification ID
-    
+
     const newNotification = await pool.query(
       "INSERT INTO notification (notification_id,sender_id, receiver_id, message, type, status ) VALUES ($1,$2,$3,$4,$5,$6) RETURNING * ",
       [newNotifiId, userId, driver_id, 'ride request', 'parent', 'delivered']
     );
 
-    //Update children table with ride_id and status
-    // const updateChildrenQuery = `
-    //     UPDATE children
-    //     SET ride_id = $1, status = 'notride'
-    //     WHERE child_id = $2
-    //   `;
+    //Update children table with request_status
+    const updateChildrenQuery = `
+        UPDATE children
+        SET request_status = 'pending', ride_shift_type = $1
+        WHERE child_id = $2
+      `;
 
-    // await pool.query(updateChildrenQuery, [ride_id, child_id]);
+    await pool.query(updateChildrenQuery, [selectedShift,child_id]);
 
     //Prepare the response object including both newRideRequest and newNotification
     const response = {
