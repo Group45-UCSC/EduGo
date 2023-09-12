@@ -6,7 +6,7 @@ const vehiList = async (req, res) => {
     try{
     //db query
     const vehiData = await pool.query(
-      "SELECT * FROM vehicle",
+      "SELECT v.vehicle_id, v.vehicle_no, u.user_name, u.contact_number, u.address FROM vehicle v INNER JOIN registered_users u ON u.user_id = v.driver_id",
     );
   
     return res.json(vehiData.rows);
