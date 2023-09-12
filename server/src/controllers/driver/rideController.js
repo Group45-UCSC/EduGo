@@ -23,7 +23,9 @@ const viewRideDetails = async (req, res) => {
 
     //to get all ride children data
     const rideChildrenData = await pool.query(
-      "SELECT * FROM children WHERE driver_id = '" + userId + "' ORDER BY child_id ASC  "
+      "SELECT * FROM children WHERE driver_id = '" +
+        userId +
+        "' ORDER BY child_id ASC  "
     );
 
     // console.log(rideChildrenData.rows);
@@ -38,5 +40,7 @@ const viewRideDetails = async (req, res) => {
     return res.status(500).send("Server Error");
   }
 };
+
+
 
 module.exports = { viewRideDetails };

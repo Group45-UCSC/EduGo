@@ -6,6 +6,7 @@ import { NavLink } from "react-router-dom";
 // import ChildDetails from "./ChildDetails";
 import user from "../../images/user.png";
 import { MdLocationOn } from "react-icons/md";
+import { CiRead, CiShare1 } from "react-icons/ci";
 import { GoogleMap, LoadScript, Marker } from "@react-google-maps/api";
 import { AiFillDashboard, AiOutlinePlus } from "react-icons/ai";
 import {
@@ -27,129 +28,6 @@ const sideNavBarLinks = [
   },
 ];
 
-// const childDetails = [
-//   {
-//     id: "C10005",
-//     name: "R.B.S.Udayanga",
-//     schoolName: "Royal Collage",
-//     tab: 1,
-//   },
-//   {
-//     id: "C10009",
-//     name: "L.L.A. Hansani",
-//     schoolName: "Sujatha collage",
-//     tab: 2,
-//   },
-//   {
-//     id: "C10011",
-//     name: "K.S.T. Gunawardhana ",
-//     schoolName: "Royal Collage",
-//     tab: 1,
-//   },
-//   {
-//     id: "C10011",
-//     name: "A.W.K.S. Jayasiri ",
-//     schoolName: "Royal Collage",
-//     tab: 2,
-//   },
-//   {
-//     id: "C10005",
-//     name: "R.B.S.Udayanga",
-//     schoolName: "Royal Collage",
-//     tab: 1,
-//   },
-//   {
-//     id: "C10009",
-//     name: "L.L.A. Hansani",
-//     schoolName: "Sujatha collage",
-//     tab: 2,
-//   },
-//   {
-//     id: "C10011",
-//     name: "K.S.T. Gunawardhana ",
-//     schoolName: "Royal Collage",
-//     tab: 1,
-//   },
-//   {
-//     id: "C10011",
-//     name: "A.W.K.S. Jayasiri ",
-//     schoolName: "Royal Collage",
-//     tab: 2,
-//   },
-//   {
-//     id: "C10005",
-//     name: "R.B.S.Udayanga",
-//     schoolName: "Royal Collage",
-//     tab: 1,
-//   },
-//   {
-//     id: "C10009",
-//     name: "L.L.A. Hansani",
-//     schoolName: "Sujatha collage",
-//     tab: 2,
-//   },
-//   {
-//     id: "C10011",
-//     name: "K.S.T. Gunawardhana ",
-//     schoolName: "Royal Collage",
-//     tab: 1,
-//   },
-//   {
-//     id: "C10011",
-//     name: "A.W.K.S. Jayasiri ",
-//     schoolName: "Royal Collage",
-//     tab: 1,
-//   },
-// ];
-
-// const schools = [
-//   {
-//     id: "sch009",
-//     schoolName: "Royal Collage",
-//   },
-//   {
-//     id: "sch004",
-//     schoolName: "Sujatha collage",
-//   },
-//   {
-//     id: "sch108",
-//     schoolName: "Royal Collage",
-//   },
-//   {
-//     id: "sch002",
-//     schoolName: "Royal Collage",
-//   },
-//   {
-//     id: "sch041",
-//     schoolName: "Royal Collage",
-//   },
-//   {
-//     id: "sch008",
-//     schoolName: "Sujatha collage",
-//   },
-//   {
-//     id: "sch010",
-//     schoolName: "Royal Collage",
-//   },
-//   {
-//     id: "sch082",
-//     schoolName: "Royal Collage",
-//   },
-// ];
-
-// const rideDetails = [
-//   {
-//     id: "Rd001",
-//     type: "double-shifts",
-//     startTime1: "5.45 a.m.",
-//     startLocation1: "Pannipitiya",
-//     startTime2: "12.45 p.m.",
-//     startLocation2: "Kirulapone",
-//     paymentRate: "RS. 380/KM",
-//     distance: "35Km",
-//   },
-// ];
-
 function Ride() {
   //userID
   const userId = localStorage.getItem("userId");
@@ -157,48 +35,48 @@ function Ride() {
   const [activeTab, setActiveTab] = useState("shift1"); // Default active tab is "Shift 1"
 
   //add new school modal
-  const [modalOpen1, setModalOpen1] = useState(false);
-  function Modal1({ setModalOpen1 }) {
-    return (
-      <div className="fixed top-0 left-0 w-screen h-screen bg-stone-900/75 flex justify-center items-center">
-        <div className="w-[55%] h-[75%] z-20 rounded-lg bg-white shadow-md flex flex-col p-5 ">
-          <div className="flex justify-between items-center p-4">
-            <div className="ml-auto">
-              <button
-                className="text-2xl cursor-pointer "
-                onClick={() => {
-                  setModalOpen1(false);
-                }}
-              >
-                X
-              </button>
-            </div>
-          </div>
-          <div>content</div>
-          <div className="flex justify-center items-center mt-5">
-            <button
-              className="w-36 h-12 mr-2 bg-orange rounded-lg text-xl cursor-pointer"
-              onClick={() => {
-                setModalOpen1(false);
-              }}
-              id="addBtn"
-            >
-              Add
-            </button>
-            <button
-              className="w-36 h-12 mr-2 bg-orange rounded-lg text-xl cursor-pointer"
-              onClick={() => {
-                setModalOpen1(false);
-              }}
-              id="cancelBtn"
-            >
-              Cancel
-            </button>
-          </div>
-        </div>
-      </div>
-    );
-  }
+  // const [modalOpen1, setModalOpen1] = useState(false);
+  // function Modal1({ setModalOpen1 }) {
+  //   return (
+  //     <div className="fixed top-0 left-0 w-screen h-screen bg-stone-900/75 flex justify-center items-center">
+  //       <div className="w-[55%] h-[75%] z-20 rounded-lg bg-white shadow-md flex flex-col p-5 ">
+  //         <div className="flex justify-between items-center p-4">
+  //           <div className="ml-auto">
+  //             <button
+  //               className="text-2xl cursor-pointer "
+  //               onClick={() => {
+  //                 setModalOpen1(false);
+  //               }}
+  //             >
+  //               X
+  //             </button>
+  //           </div>
+  //         </div>
+  //         <div>content</div>
+  //         <div className="flex justify-center items-center mt-5">
+  //           <button
+  //             className="w-36 h-12 mr-2 bg-orange rounded-lg text-xl cursor-pointer"
+  //             onClick={() => {
+  //               setModalOpen1(false);
+  //             }}
+  //             id="addBtn"
+  //           >
+  //             Add
+  //           </button>
+  //           <button
+  //             className="w-36 h-12 mr-2 bg-orange rounded-lg text-xl cursor-pointer"
+  //             onClick={() => {
+  //               setModalOpen1(false);
+  //             }}
+  //             id="cancelBtn"
+  //           >
+  //             Cancel
+  //           </button>
+  //         </div>
+  //       </div>
+  //     </div>
+  //   );
+  // }
 
   // school location popup modal
   const [modalOpen2, setModalOpen2] = useState(false);
@@ -258,7 +136,7 @@ function Ride() {
 
   //get total ride details----------------------------------------
   const [rideDataList, setRideDataList] = useState([]);
-  const [schoolList, sestSchoolList] = useState([]);
+  const [schoolList, setSchoolList] = useState([]);
   const [childrenList, setChildrenList] = useState([]);
 
   useEffect(() => {
@@ -269,7 +147,7 @@ function Ride() {
         );
         const data = await response.json();
         setRideDataList(data.rideDataList);
-        sestSchoolList(data.schoolList);
+        setSchoolList(data.schoolList);
         setChildrenList(data.childrenList);
       } catch (err) {
         console.error(err.message);
@@ -365,23 +243,27 @@ function Ride() {
                 <div className="row-span-4 mt-5 overflow-y-auto p-5 ">
                   <div className="bg-slate-300 h-8 flex mt-0 mb-4 items-center justify-between">
                     <h1 className="text-xl font-bold text-center flex-1">
-                      Reaching Schools : 8
+                      Reaching Schools :
+                      {schoolList.filter((ride) => ride.school_id).length}
                     </h1>
-                    <button
+                    <NavLink to="/driver/ride/schools">
+                      {/* <button
                       onClick={() => {
                         setModalOpen1(true);
                       }}
-                    >
-                      <AiOutlinePlus className="text-2xl ml-0 mr-1 text-orange font-extrabold hover:text-black hover:cursor-pointer" />
-                    </button>
-                    {modalOpen1 && <Modal1 setModalOpen1={setModalOpen1} />}
+                    > */}
+                      <button>
+                        <CiShare1 className="text-2xl ml-0 mr-1 mt-1 text-black font-extrabold hover:text-orange hover:cursor-pointer" />
+                      </button>
+                    </NavLink>
+                    {/* {modalOpen1 && <Modal1 setModalOpen1={setModalOpen1} />} */}
                   </div>
                   {/* school list */}
                   <div className="flex flex-col h-12 gap-4">
                     {schoolList.map((school, index) => (
                       <div
                         key={index}
-                        className="z-0 w-[100%] rounded-[8px] bg-slate-200 border-l-[4px] border-orange flex items-center justify-between px-[30px] cursor-pointer hover:shadow-lg transform hover:scale-[103%] transition duration-300 ease-out"
+                        className="z-0 w-[100%] rounded-[8px] bg-slate-200 border-l-[4px] border-orange flex items-center justify-between py-3 px-[30px] cursor-pointer hover:shadow-lg transform hover:scale-[103%] transition duration-300 ease-out"
                       >
                         <div className=" px-5 flex gap-1 w-1/3 leading-4">
                           <div className="text-[12px] font-semibold">
@@ -393,7 +275,7 @@ function Ride() {
                             {school.school_name}
                           </div>
                         </div>
-                        <div className="flex gap-1 w-1/3 leading-4">
+                        {/* <div className="flex gap-1 w-1/3 leading-4">
                           <button
                             onClick={() => {
                               setModalOpen2(true);
@@ -407,7 +289,7 @@ function Ride() {
                           {modalOpen2 && (
                             <Modal2 setModalOpen2={setModalOpen2} />
                           )}
-                        </div>
+                        </div> */}
                       </div>
                     ))}
                   </div>
@@ -563,24 +445,23 @@ function Ride() {
                 <AiOutlinePlus/>
               </div> */}
                   <div className="bg-slate-300 h-8 flex mt-0 mb-4 items-center justify-between">
-                    <h1 className="text-xl font-bold text-center flex-1">
-                      Reaching Schools : 8
+                  <h1 className="text-xl font-bold text-center flex-1">
+                      Reaching Schools :
+                      {schoolList.filter((ride) => ride.school_id).length}
                     </h1>
-                    <button
-                      onClick={() => {
-                        setModalOpen1(true);
-                      }}
-                    >
-                      <AiOutlinePlus className="text-2xl ml-0 mr-1 text-orange font-extrabold hover:text-black hover:cursor-pointer" />
-                    </button>
-                    {modalOpen1 && <Modal1 setModalOpen1={setModalOpen1} />}
+                    <NavLink to="/driver/ride/schools">
+                      <button>
+                        <CiShare1 className="text-2xl ml-0 mr-1 text-black font-extrabold hover:text-orange hover:cursor-pointer" />
+                      </button>
+                    </NavLink>
+                    {/* {modalOpen1 && <Modal1 setModalOpen1={setModalOpen1} />} */}
                   </div>
                   {/* school list */}
                   <div className="flex flex-col h-12 gap-4">
                     {schoolList.map((school, index) => (
                       <div
                         key={index}
-                        className="z-0 w-[100%] rounded-[8px] bg-slate-200 border-l-[4px] border-orange flex items-center justify-between px-[30px] cursor-pointer hover:shadow-lg transform hover:scale-[103%] transition duration-300 ease-out"
+                        className="z-0 w-[100%] rounded-[8px] bg-slate-200 border-l-[4px] border-orange flex items-center justify-between py-3 px-[30px] cursor-pointer hover:shadow-lg transform hover:scale-[103%] transition duration-300 ease-out"
                       >
                         <div className=" px-5 flex gap-1 w-1/3 leading-4">
                           <div className="text-[12px] font-semibold">
@@ -592,7 +473,7 @@ function Ride() {
                             {school.school_name}
                           </div>
                         </div>
-                        <div className="flex gap-1 w-1/3 leading-4">
+                        {/* <div className="flex gap-1 w-1/3 leading-4">
                           <button
                             onClick={() => {
                               setModalOpen2(true);
@@ -606,7 +487,7 @@ function Ride() {
                           {modalOpen2 && (
                             <Modal2 setModalOpen2={setModalOpen2} />
                           )}
-                        </div>
+                        </div> */}
                       </div>
                     ))}
                   </div>
