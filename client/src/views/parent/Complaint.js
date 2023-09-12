@@ -4,8 +4,7 @@ import "react-datepicker/dist/react-datepicker.css";
 import swal from "sweetalert";
 
 function Complaint() {
-
-  const [complaintType, setComplaintType] = useState("");
+  const [complaintType, setComplaintType] = useState('');
   const [complaintDetails, setComplaintDetails] = useState("");
   const [dateOfOccurrence, setDateOfOccurrence] = useState(null);
   const [attachments, setAttachments] = useState([]);
@@ -14,20 +13,31 @@ function Complaint() {
     e.preventDefault();
 
     try {
+      const formData = new FormData();
+      formData.append("attachments", attachments[0]); // Use FormData for files
+
       const body = {
         complaintType,
         complaintDetails,
         dateOfOccurrence,
-        attachments,
       };
-      const response = await fetch(`http://localhost:5000/edugo/parent/complaint/add/${userId}`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(body),
-      });
-      if (response.status===200) {
+      // Combine FormData for files and JSON data for other fields
+      for (const key in body) {
+        formData.append(key, body[key]);
+      }
+
+      const response = await fetch(
+        `http://localhost:5000/edugo/parent/complaint/add/${userId}`,
+        {
+          method: "POST",
+          // headers: {
+          //   "Content-Type": "application/json",
+          // },
+          // body: JSON.stringify(body),
+          body: formData, // Send the combined data
+        }
+      );
+      if (response.status === 200) {
         swal({
           title: "Your Complaint Submitted!",
           icon: "success",
@@ -39,19 +49,24 @@ function Complaint() {
           },
         }).then(() => {
           console.log(response);
+          // Clear the input fields after successful submission
+          setComplaintType('');
+          setComplaintDetails("");
+          setDateOfOccurrence(null);
+          setAttachments([]);
         });
       } else {
         swal({
-          icon: 'error',
-          title: 'Oops...',
-          text: 'Something went wrong. Try again!',
+          icon: "error",
+          title: "Oops...",
+          text: "Something went wrong. Try again!",
           buttons: {
             confirm: {
               className:
                 "bg-orange text-white px-10 py-2 rounded-lg items-center hover:bg-gray ",
             },
           },
-        })
+        });
       }
     } catch (error) {
       console.error("Error:", error);
@@ -81,7 +96,7 @@ function Complaint() {
         "Are you sure you want to cancel? Your changes will be discarded."
       )
     ) {
-      setComplaintType(null); // Reset the complaint type to null
+      setComplaintType(''); // Reset the complaint type to null
       setComplaintDetails("");
       setDateOfOccurrence(null);
       setAttachments([]);
@@ -96,7 +111,7 @@ function Complaint() {
   };
   const handleDateChange = (e) => {
     const selectedDate = e.target.value;
-    setDateOfOccurrence(selectedDate);
+    setDateOfOccurrence(selectedDate || null);
     if (selectedDate && !isValidDate(selectedDate)) {
       e.target.setCustomValidity(
         "Please enter a valid date in the format YYYY-MM-DD."
@@ -136,7 +151,7 @@ function Complaint() {
               id="complaintType"
               options={options}
               value={options.find((option) => option.value === complaintType)}
-              onChange={{ handleComplaintTypeChange }}
+              onChange={handleComplaintTypeChange}
               required
               styles={customStyles}
               placeholder="Select Complaint Type"
@@ -148,6 +163,7 @@ function Complaint() {
               id="complaintDetails"
               value={complaintDetails}
               onChange={handleComplaintDetailsChange}
+              maxLength={255}
               className="pl-2 rounded"
               required
             />

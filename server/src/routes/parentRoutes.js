@@ -7,6 +7,7 @@ const {  viewChildDashboard, viewChildChildren,ViewVehicle,viewSchool,viewDriver
 const { addFeedback , addEdugoFeedback, getDrivers} = require("../controllers/parent/feedbackController");
 const { viewPayment, viewPastPayment } = require("../controllers/parent/paymentController");
 const {addComplaint} = require("../controllers/parent/complaintController");
+const upload = require("../utils/multer");
 //create routes
 router.route("/feedback/add/:userId").post(addFeedback);
 router.route("/edugofeedback/add/:userId").post(addEdugoFeedback);
@@ -19,6 +20,6 @@ router.route("/children/viewVehicle/rideRequest/:userId").post(addRideRequest);
 router.route("/feedback/driverlist/:userId").get(getDrivers);
 router.route("/payment/viewprice/:userId").get(viewPayment);
 router.route("/payment/pastpayment/:userId").get(viewPastPayment)
-router.route("/complaint/add/:userId").post(addComplaint);
+router.route("/complaint/add/:userId").post(upload.array("attachments"),addComplaint);
 
 module.exports = router;
