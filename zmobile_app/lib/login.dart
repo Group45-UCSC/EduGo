@@ -1,6 +1,8 @@
-// ignore_for_file: library_private_types_in_public_api, prefer_const_constructors
+// ignore_for_file: library_private_types_in_public_api, prefer_const_constructors, use_build_context_synchronously
 
+import 'dart:convert';
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
 
 class Login extends StatefulWidget {
   const Login({super.key});
@@ -10,8 +12,58 @@ class Login extends StatefulWidget {
 }
 
 class _LoginState extends State<Login> {
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
+
   bool _passwordVisible = false;
-  String _selectedRole = 'Driver'; // Default selected role
+  // String _selectedRole = 'Driver'; // Default selected role
+
+  Future<void> _login(BuildContext context) async {
+  final Map<String, dynamic> loginData = {
+    'email': _emailController.text,
+    'password': _passwordController.text,
+  };
+
+  final Uri loginUrl = Uri.parse('http://localhost:5000/edugo/user/login');
+  try {
+    final http.Response response = await http.post(
+      loginUrl,
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+      },
+      body: jsonEncode(loginData),
+    );
+
+    if (response.statusCode == 500) {
+      // Login successful, handle the response here
+      final Map<String, dynamic> responseBody = jsonDecode(response.body);
+      final String userRole = responseBody['role'];
+
+      if (userRole == 'Driver') {
+        Navigator.of(context).pushReplacementNamed('/home_d');
+      } else if (userRole == 'Parent') {
+        Navigator.of(context).pushReplacementNamed('/home_p');
+      }
+    } else {
+      // Login failed, show an error message or handle it accordingly
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        content: Text('Login failed. Please check your credentials.'),
+      ));
+    }
+  } catch (error) {
+    // Handle any network-related errors here
+    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+      content: Text('An error occurred: $error'),
+    ));
+  }
+}
+
+  @override
+  void dispose() {
+    _emailController.dispose();
+    _passwordController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -42,26 +94,27 @@ class _LoginState extends State<Login> {
               SizedBox(height: 20),
 
               // Role Dropdown
-              DropdownButton<String>(
-                value: _selectedRole,
-                onChanged: (newValue) {
-                  setState(() {
-                    _selectedRole = newValue!;
-                  });
-                },
-                items: <String>['Driver', 'Parent']
-                    .map<DropdownMenuItem<String>>((String value) {
-                  return DropdownMenuItem<String>(
-                    value: value,
-                    child: Text(value),
-                  );
-                }).toList(),
-              ),
+              // DropdownButton<String>(
+              //   value: _selectedRole,
+              //   onChanged: (newValue) {
+              //     setState(() {
+              //       _selectedRole = newValue!;
+              //     });
+              //   },
+              //   items: <String>['Driver', 'Parent']
+              //       .map<DropdownMenuItem<String>>((String value) {
+              //     return DropdownMenuItem<String>(
+              //       value: value,
+              //       child: Text(value),
+              //     );
+              //   }).toList(),
+              // ),
 
-              SizedBox(height: 20),
+              // SizedBox(height: 20),
 
               // LOGIN FORM
               TextField(
+                controller: _emailController,
                 decoration: InputDecoration(
                   prefixIcon: Icon(Icons.person, color: Colors.black),
                   hintText: 'Username',
@@ -80,6 +133,7 @@ class _LoginState extends State<Login> {
               ),
               SizedBox(height: 16),
               TextField(
+                controller: _passwordController,
                 decoration: InputDecoration(
                   prefixIcon: Icon(Icons.lock, color: Colors.black),
                   hintText: 'Password',
@@ -95,7 +149,9 @@ class _LoginState extends State<Login> {
                   fillColor: Colors.white.withOpacity(0.5),
                   suffixIcon: IconButton(
                     icon: Icon(
-                      _passwordVisible ? Icons.visibility : Icons.visibility_off,
+                      _passwordVisible
+                          ? Icons.visibility
+                          : Icons.visibility_off,
                       color: Colors.black,
                     ),
                     onPressed: () {
@@ -122,13 +178,7 @@ class _LoginState extends State<Login> {
               ),
               SizedBox(height: 16),
               ElevatedButton(
-                onPressed: () {
-                  if (_selectedRole == 'Driver') {
-                    Navigator.of(context).pushReplacementNamed('/home_d');
-                  } else if (_selectedRole == 'Parent') {
-                    Navigator.of(context).pushReplacementNamed('/home_p');
-                  }
-                },
+                onPressed: () => _login(context),
                 style: ElevatedButton.styleFrom(
                   foregroundColor: Colors.black,
                   backgroundColor: Colors.white,

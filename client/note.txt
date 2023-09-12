@@ -45,6 +45,10 @@ npm start
 cd server
 npm run server
 
+--mobile--
+cd zmobile_app
+flutter run
+
 #postgresql db
 \l => list all dbs in pg
 \c <dbName> => move inside to a db   
