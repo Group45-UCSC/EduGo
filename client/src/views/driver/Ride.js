@@ -6,7 +6,7 @@ import { NavLink } from "react-router-dom";
 // import ChildDetails from "./ChildDetails";
 import user from "../../images/user.png";
 import { MdLocationOn } from "react-icons/md";
-import { CiRead,CiShare1 } from "react-icons/ci";
+import { CiRead, CiShare1 } from "react-icons/ci";
 import { GoogleMap, LoadScript, Marker } from "@react-google-maps/api";
 import { AiFillDashboard, AiOutlinePlus } from "react-icons/ai";
 import {
@@ -243,7 +243,8 @@ function Ride() {
                 <div className="row-span-4 mt-5 overflow-y-auto p-5 ">
                   <div className="bg-slate-300 h-8 flex mt-0 mb-4 items-center justify-between">
                     <h1 className="text-xl font-bold text-center flex-1">
-                      Reaching Schools : 8
+                      Reaching Schools :
+                      {schoolList.filter((ride) => ride.school_id).length}
                     </h1>
                     <NavLink to="/driver/ride/schools">
                       {/* <button
@@ -252,7 +253,7 @@ function Ride() {
                       }}
                     > */}
                       <button>
-                        <AiOutlinePlus className="text-2xl ml-0 mr-1 text-orange font-extrabold hover:text-black hover:cursor-pointer" />
+                        <CiShare1 className="text-2xl ml-0 mr-1 mt-1 text-black font-extrabold hover:text-orange hover:cursor-pointer" />
                       </button>
                     </NavLink>
                     {/* {modalOpen1 && <Modal1 setModalOpen1={setModalOpen1} />} */}
@@ -262,7 +263,7 @@ function Ride() {
                     {schoolList.map((school, index) => (
                       <div
                         key={index}
-                        className="z-0 w-[100%] rounded-[8px] bg-slate-200 border-l-[4px] border-orange flex items-center justify-between px-[30px] cursor-pointer hover:shadow-lg transform hover:scale-[103%] transition duration-300 ease-out"
+                        className="z-0 w-[100%] rounded-[8px] bg-slate-200 border-l-[4px] border-orange flex items-center justify-between py-3 px-[30px] cursor-pointer hover:shadow-lg transform hover:scale-[103%] transition duration-300 ease-out"
                       >
                         <div className=" px-5 flex gap-1 w-1/3 leading-4">
                           <div className="text-[12px] font-semibold">
@@ -274,7 +275,7 @@ function Ride() {
                             {school.school_name}
                           </div>
                         </div>
-                        <div className="flex gap-1 w-1/3 leading-4">
+                        {/* <div className="flex gap-1 w-1/3 leading-4">
                           <button
                             onClick={() => {
                               setModalOpen2(true);
@@ -288,7 +289,7 @@ function Ride() {
                           {modalOpen2 && (
                             <Modal2 setModalOpen2={setModalOpen2} />
                           )}
-                        </div>
+                        </div> */}
                       </div>
                     ))}
                   </div>
@@ -444,12 +445,13 @@ function Ride() {
                 <AiOutlinePlus/>
               </div> */}
                   <div className="bg-slate-300 h-8 flex mt-0 mb-4 items-center justify-between">
-                    <h1 className="text-xl font-bold text-center flex-1">
-                      Reaching Schools : 8
+                  <h1 className="text-xl font-bold text-center flex-1">
+                      Reaching Schools :
+                      {schoolList.filter((ride) => ride.school_id).length}
                     </h1>
                     <NavLink to="/driver/ride/schools">
                       <button>
-                        <AiOutlinePlus className="text-2xl ml-0 mr-1 text-orange font-extrabold hover:text-black hover:cursor-pointer" />
+                        <CiShare1 className="text-2xl ml-0 mr-1 text-black font-extrabold hover:text-orange hover:cursor-pointer" />
                       </button>
                     </NavLink>
                     {/* {modalOpen1 && <Modal1 setModalOpen1={setModalOpen1} />} */}
@@ -459,7 +461,7 @@ function Ride() {
                     {schoolList.map((school, index) => (
                       <div
                         key={index}
-                        className="z-0 w-[100%] rounded-[8px] bg-slate-200 border-l-[4px] border-orange flex items-center justify-between px-[30px] cursor-pointer hover:shadow-lg transform hover:scale-[103%] transition duration-300 ease-out"
+                        className="z-0 w-[100%] rounded-[8px] bg-slate-200 border-l-[4px] border-orange flex items-center justify-between py-3 px-[30px] cursor-pointer hover:shadow-lg transform hover:scale-[103%] transition duration-300 ease-out"
                       >
                         <div className=" px-5 flex gap-1 w-1/3 leading-4">
                           <div className="text-[12px] font-semibold">
@@ -471,7 +473,7 @@ function Ride() {
                             {school.school_name}
                           </div>
                         </div>
-                        <div className="flex gap-1 w-1/3 leading-4">
+                        {/* <div className="flex gap-1 w-1/3 leading-4">
                           <button
                             onClick={() => {
                               setModalOpen2(true);
@@ -485,7 +487,7 @@ function Ride() {
                           {modalOpen2 && (
                             <Modal2 setModalOpen2={setModalOpen2} />
                           )}
-                        </div>
+                        </div> */}
                       </div>
                     ))}
                   </div>
