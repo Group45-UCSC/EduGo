@@ -8,7 +8,7 @@ const { vehiList } = require("../controllers/admin/vehiController");
 const { driverList } = require("../controllers/admin/driverController");
 
 //create routes
-router.route("/employees/addEmployee").post(addEmployee);
+router.route("/addEmployee").post(addEmployee);
 router.route("/employees/agent").get(viewSupList);
 router.route("/employees/vc").get(viewVCList);
 router.route("/drivers/vehi").get(vehiList);
