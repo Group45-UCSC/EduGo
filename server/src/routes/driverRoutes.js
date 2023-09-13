@@ -33,7 +33,7 @@ const {
   viewChildFees,
 } = require("../controllers/driver/financeController");
 
-const { viewRideDetails } = require("../controllers/driver/rideController");
+const { viewRideDetails, viewRideRequests } = require("../controllers/driver/rideController");
 const {
   viewSchoolDetails,
   selectSchool,
@@ -53,6 +53,7 @@ router.route("/vehicle/viewImg/:userId").get(viewVehicleImg);
 
 //ride page
 router.route("/ride/view/details/:userId").get(viewRideDetails);
+router.route("/ride/requests/view/:userId").get(viewRideRequests);
 
 //school page
 router.route("/ride/view/school/:userId").get(viewSchoolDetails);

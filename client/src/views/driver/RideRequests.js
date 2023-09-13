@@ -6,6 +6,8 @@ import {
   MdSupportAgent,
   MdOutlineRateReview,
 } from "react-icons/md";
+import { useState, useEffect } from "react";
+
 import { GoogleMap, useJsApiLoader, Marker } from "@react-google-maps/api"; // Import the Google Maps components
 
 const containerStyle = {
@@ -29,27 +31,30 @@ const sideNavBarLinks = [
     icon: <MdOutlineRateReview />,
   },
 ];
-const rideRequest = [
-  {
-    id: 1,
-    parentName: "K.L. Hasindu",
-    location: "No 45, Darmapala road, Maharagama",
-    image: require("../../images/child1.png"),
-    school: "Royal Collage",
-    lat: 6.851556,
-    lng: 79.919038,
-  },
-  {
-    id: 2,
-    parentName: "H.P. Hasini",
-    location: "No 25/1, Darmapala road, Pannipitya",
-    image: require("../../images/child2.png"),
-    school: "Anula Collage",
-    lat: 6.847198496442547,
-    lng: 79.94801407997109,
-  },
-];
+// const rideRequest = [
+//   {
+//     id: 1,
+//     parentName: "K.L. Hasindu",
+//     location: "No 45, Darmapala road, Maharagama",
+//     image: require("../../images/child1.png"),
+//     school: "Royal Collage",
+//     lat: 6.851556,
+//     lng: 79.919038,
+//   },
+//   {
+//     id: 2,
+//     parentName: "H.P. Hasini",
+//     location: "No 25/1, Darmapala road, Pannipitya",
+//     image: require("../../images/child2.png"),
+//     school: "Anula Collage",
+//     lat: 6.847198496442547,
+//     lng: 79.94801407997109,
+//   },
+// ];
 function RideRequests(props) {
+  //userID
+  const userId = localStorage.getItem("userId");
+
   const { isLoaded } = useJsApiLoader({
     id: "google-map-script",
     googleMapsApiKey: "AIzaSyBSRpk2O7ZkVtqQknrlERKR-DwpiRi8Z_U",
@@ -69,16 +74,37 @@ function RideRequests(props) {
     setMap(null);
   }, []);
 
+  //get ride request data------------------------------------------------------------------------------------------------------------
+  const [rideRequestData, setRideRequestData] = useState([]);
+
+  useEffect(() => {
+    async function viewRideRequests() {
+      try {
+        const response = await fetch(
+          `http://localhost:5000/edugo/driver/ride/requests/view/${userId}`
+        );
+        const data = await response.json();
+        setRideRequestData(data);
+      } catch (err) {
+        console.error(err.message);
+      }
+    }
+
+    viewRideRequests();
+  }, [userId]);
+
+  //----------------------------------------------------------------------------------------------------------------------------------
+
   return (
     <div>
       <MainLayout data={sideNavBarLinks}>
         <div className="px-[25px] ">
           <h1 className="text-[#5a5c69] text-[28px]  leading-8 font-normal cursor-pointer">
-            Ride Requests (2)
+            Ride Requests {rideRequestData.filter((ride) => ride.request_id).length}
           </h1>
           <div className="mt-3">
             <div className=" w-full gap-3">
-              {rideRequest.map((request, id) => (
+              {rideRequestData.map((request, id) => (
                 <div
                   key={id}
                   className=" h-[300px]  flex bg-slate-200 mb-3 rounded-md"
@@ -86,15 +112,15 @@ function RideRequests(props) {
                   <div className="flex-col items-center justify-center">
                     <div className="flex justify-center py-3">
                       <img
-                        src={request.image}
-                        alt={request.id}
+                        // src={request.image}
+                        alt={request.request_id}
                         className="bg-slate-300 w-32 h-[120px] cursor-pointer rounded-full p-1"
                       ></img>
                     </div>
                     <div className="mt-3 ml-3 px-2 text-slate-600">
-                      <div className="">{request.parentName}</div>
-                      <div className="">{request.location}</div>
-                      <div className="">{request.school}</div>
+                      <div className="">{request.child_name}</div>
+                      <div className="">{request.pickup_location}</div>
+                      <div className="">{request.school_name}</div>
                       <div className=" flex justify-center gap-4 mt-3">
                         <button className="flex justify-center w-28 h-10 bg-green-600 rounded-md cursor-pointer hover:shadow-lg transform hover:scale-[103%] transition duration-300 ease-out">
                           <div className="flex mt-2 gap-3 font-semibold text-white">

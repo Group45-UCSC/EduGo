@@ -41,6 +41,26 @@ const viewRideDetails = async (req, res) => {
   }
 };
 
+//---------------------------------Ride Requests Handling------------------------------------
 
+const viewRideRequests = async (req, res) => {
+  try {
+    const userId = req.params.userId;
 
-module.exports = { viewRideDetails };
+    //get ride request data
+    const rideData = await pool.query(
+      "SELECT * FROM ride_request INNER JOIN children ON ride_request.child_id = children.child_id WHERE ride_request.driver_id = '" +
+        userId +
+        "' "
+    );
+
+    console.log(rideData.rows);
+
+    return res.json(rideData.rows);
+  } catch (err) {
+    console.error(err.massage);
+    return res.status(500).send("Server Error");
+  }
+};
+
+module.exports = { viewRideDetails, viewRideRequests };
