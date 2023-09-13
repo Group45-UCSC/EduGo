@@ -7,6 +7,7 @@ import {
   MdOutlineRateReview,
 } from "react-icons/md";
 import { useState, useEffect } from "react";
+import swal from "sweetalert";
 
 import { GoogleMap, useJsApiLoader, Marker } from "@react-google-maps/api"; // Import the Google Maps components
 
@@ -55,6 +56,7 @@ function RideRequests(props) {
   //userID
   const userId = localStorage.getItem("userId");
 
+  //google map handling------------------------------------------------------------------------------------------------------------------------------
   const { isLoaded } = useJsApiLoader({
     id: "google-map-script",
     googleMapsApiKey: "AIzaSyBSRpk2O7ZkVtqQknrlERKR-DwpiRi8Z_U",
@@ -74,33 +76,89 @@ function RideRequests(props) {
     setMap(null);
   }, []);
 
+  //handle request reject option------------------------------------------------------------------------------------------------------
+  const handleReject = async (childId, requestId) => {
+    try {
+      const response = await fetch(
+        `http://localhost:5000/edugo/driver/ride/request/reject/${childId},${requestId}`,
+        {
+          method: "PUT", // Use the update HTTP method
+          headers: { "Content-Type": "application/json" },
+        }
+      );
+      if (response.status === 200) {
+        swal({
+          title: "Selected ride request is rejected!",
+          icon: "success",
+          buttons: {
+            confirm: {
+              className:
+                "bg-orange text-white px-10 py-2 rounded-lg items-center hover:bg-gray ",
+            },
+          },
+        }).then(() => {
+          recallData();
+        });
+      } else {
+        // console.log(response);
+        swal(
+          "Error Occurred!",
+          "Please try again or contact support agent",
+          "warning"
+        );
+      }
+    } catch (err) {
+      console.error(err.message);
+    }
+  };
+
+  //reject button click---------------------------------------------------------------------------------------------------------------
+  const handleRejectClick = (childId, requestId) => {
+    swal({
+      title: "Do you want to reject this request?",
+      icon: "warning",
+      buttons: ["No, cancel!", "Yes, reject it!"],
+      dangerMode: true,
+    }).then((confirmed) => {
+      if (confirmed) {
+        handleReject(childId, requestId);
+      } else {
+      }
+    });
+  };
+
   //get ride request data------------------------------------------------------------------------------------------------------------
   const [rideRequestData, setRideRequestData] = useState([]);
 
-  useEffect(() => {
-    async function viewRideRequests() {
-      try {
-        const response = await fetch(
-          `http://localhost:5000/edugo/driver/ride/requests/view/${userId}`
-        );
-        const data = await response.json();
-        setRideRequestData(data);
-      } catch (err) {
-        console.error(err.message);
-      }
+  async function viewRideRequests(setRideRequestData, userId) {
+    try {
+      const response = await fetch(
+        `http://localhost:5000/edugo/driver/ride/requests/view/${userId}`
+      );
+      const data = await response.json();
+      setRideRequestData(data);
+    } catch (err) {
+      console.error(err.message);
     }
+  }
 
-    viewRideRequests();
+  useEffect(() => {
+    viewRideRequests(setRideRequestData, userId);
   }, [userId]);
 
-  //----------------------------------------------------------------------------------------------------------------------------------
+  // recall the get ride request data ----------------------------------------------------------------------------------
+  const recallData = async () => {
+    await viewRideRequests(setRideRequestData, userId);
+  };
 
+  //-----------------------------------------------------------------------------------------------------------------------------------
   return (
     <div>
       <MainLayout data={sideNavBarLinks}>
         <div className="px-[25px] ">
           <h1 className="text-[#5a5c69] text-[28px]  leading-8 font-normal cursor-pointer">
-            Ride Requests {rideRequestData.filter((ride) => ride.request_id).length}
+            Ride Requests{" "}
+            {rideRequestData.filter((ride) => ride.request_id).length}
           </h1>
           <div className="mt-3">
             <div className=" w-full gap-3">
@@ -114,21 +172,40 @@ function RideRequests(props) {
                       <img
                         // src={request.image}
                         alt={request.request_id}
-                        className="bg-slate-300 w-32 h-[120px] cursor-pointer rounded-full p-1"
+                        className="bg-slate-300 w-32 h-[100px] cursor-pointer rounded-full p-1"
                       ></img>
                     </div>
                     <div className="mt-3 ml-3 px-2 text-slate-600">
                       <div className="">{request.child_name}</div>
                       <div className="">{request.pickup_location}</div>
                       <div className="">{request.school_name}</div>
+                      <div className="">
+                        {request.ride_shift_type === "both"
+                          ? "Both Morning and Afternoon shifts"
+                          : request.ride_shift_type === "morning"
+                          ? "Morning shift only"
+                          : "Afternoon Shift only"}
+                      </div>
+
                       <div className=" flex justify-center gap-4 mt-3">
-                        <button className="flex justify-center w-28 h-10 bg-green-600 rounded-md cursor-pointer hover:shadow-lg transform hover:scale-[103%] transition duration-300 ease-out">
+                        <button
+                          // onClick={() => handleRemoveClick(school.school_id)}
+                          className="flex justify-center w-28 h-10 bg-green-600 rounded-md cursor-pointer hover:shadow-lg transform hover:scale-[103%] transition duration-300 ease-out"
+                        >
                           <div className="flex mt-2 gap-3 font-semibold text-white">
                             Accept
                           </div>
                         </button>
                         <button className="flex justify-center w-28 h-10 bg-red-600 rounded-md cursor-pointer hover:shadow-lg transform hover:scale-[103%] transition duration-300 ease-out">
-                          <div className="flex mt-2 gap-3 font-semibold text-white">
+                          <div
+                            onClick={() =>
+                              handleRejectClick(
+                                request.child_id,
+                                request.request_id
+                              )
+                            }
+                            className="flex mt-2 gap-3 font-semibold text-white"
+                          >
                             Reject
                           </div>
                         </button>

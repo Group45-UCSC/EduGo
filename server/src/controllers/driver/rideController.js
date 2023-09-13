@@ -43,6 +43,7 @@ const viewRideDetails = async (req, res) => {
 
 //---------------------------------Ride Requests Handling------------------------------------
 
+//view ride requests -> GET method
 const viewRideRequests = async (req, res) => {
   try {
     const userId = req.params.userId;
@@ -51,10 +52,10 @@ const viewRideRequests = async (req, res) => {
     const rideData = await pool.query(
       "SELECT * FROM ride_request INNER JOIN children ON ride_request.child_id = children.child_id WHERE ride_request.driver_id = '" +
         userId +
-        "' "
+        "' AND ride_request.request_status = 'pending' ORDER BY ride_request.request_id ASC "
     );
 
-    console.log(rideData.rows);
+    // console.log(rideData.rows);
 
     return res.json(rideData.rows);
   } catch (err) {
@@ -63,4 +64,36 @@ const viewRideRequests = async (req, res) => {
   }
 };
 
-module.exports = { viewRideDetails, viewRideRequests };
+//reject ride request  -> PUT method
+const rejectRideRequest = async (req, res) => {
+  try {
+    const childId = req.params.childId;
+    const requestId = req.params.requestId;
+
+    //update ride request table
+    const result1 = await pool.query(
+      " UPDATE ride_request SET request_status = 'rejected' WHERE request_id = '" +
+        requestId +
+        "' "
+    );
+
+    //update children table
+    const result2 = await pool.query(
+      " UPDATE children SET request_status = 'rejected' WHERE child_id = '" +
+        childId +
+        "' "
+    );
+
+    // console.log(rideData.rows);
+
+    return res.json({
+      data1: result1.rows,
+      data2: result2.rows,
+    });
+  } catch (err) {
+    console.error(err.massage);
+    return res.status(500).send("Server Error");
+  }
+};
+
+module.exports = { viewRideDetails, viewRideRequests, rejectRideRequest };
