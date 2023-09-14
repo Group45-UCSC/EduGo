@@ -79,9 +79,285 @@ function RideRequests(props) {
   }, []);
 
   //popup modal for set times
+  const [modalOpen, setModalOpen] = useState(false);
+  const [requestShiftType, setRequestShiftType] = useState("");
+
+  // function Modal({ setModalOpen, notification }) {
+  //   return (
+  //     <div>
+  //       <div className="bg-white p-0 px-60 rounded-lg ">
+  //         <div className="fixed top-0 left-0 w-screen  bg-stone-900/75 flex justify-center items-center  h-screen bg-gradient-to-b from-opacity-70 to-opacity-30">
+  //           <div className="w-1/3  rounded-lg bg-white shadow-md flex flex-col p-5 ">
+  //             <div className="flex justify-end">
+  //               <button
+  //                 className="text-2xl cursor-pointer "
+  //                 onClick={() => {
+  //                   setModalOpen(false);
+  //                 }}
+  //               >
+  //                 X
+  //               </button>
+  //             </div>
+  //             {/* content */}
+  //             <div className="">
+  //               <div className="flex justify-center items-center mt-5"></div>
+  //               <button className="w-36 h-12 bg-orange rounded-lg text-xl cursor-pointer">
+  //                 Submit
+  //               </button>
+  //             </div>
+  //             {/* end of content */}
+  //           </div>
+  //         </div>
+  //       </div>
+  //     </div>
+  //   );
+  // }
 
   //handle request accept option------------------------------------------------------------------------------------------------------
-  const handleAccept = async (childId, requestId, schoolId, rideId) => {
+
+  function Modal({ setModalOpen, requestShiftType }) {
+    // State to store input values
+    const [pickupTime, setPickupTime] = useState("");
+    const [dropTime, setDropTime] = useState("");
+    const [pickupTime2, setPickupTime2] = useState("");
+    const [dropTime2, setDropTime2] = useState("");
+
+    // Function to handle form submission
+    const handleSubmit = async () => {
+      try {
+        // Create a request body with the input values
+        const body = {
+          pickupTime,
+          dropTime,
+          pickupTime2,
+          dropTime2,
+        };
+
+        // Send the data to the backend
+        const response = await fetch(
+          `http://localhost:5000/edugo/driver/ride/set/time`,
+          {
+            method: "POST", // Use the appropriate HTTP method
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(body),
+          }
+        );
+
+        if (response.status === 200) {
+          // Handle success, e.g., close the modal and show a success message
+          setModalOpen(false);
+          // You can also trigger any other actions you want on success
+        } else {
+          // Handle error, e.g., show an error message
+        }
+      } catch (err) {
+        console.error(err.message);
+      }
+    };
+
+    return (
+      <div>
+        <div className="bg-white p-0 px-60 rounded-lg">
+          <div className="fixed top-0 left-0 w-screen  bg-stone-900/75 flex justify-center items-center  h-screen bg-gradient-to-b from-opacity-70 to-opacity-30">
+            <div className="w-2/5  rounded-lg bg-white shadow-md flex flex-col p-5 px-8 ">
+              <div className="flex justify-end">
+                <button
+                  className="text-2xl cursor-pointer "
+                  onClick={() => {
+                    setModalOpen(false);
+                    setRequestShiftType("");
+                  }}
+                >
+                  X
+                </button>
+              </div>
+              {/* content */}
+              <div className="">
+                {requestShiftType === "both" ? (
+                  <>
+                    <form action="" onSubmit={handleSubmit}>
+                      <div className="">
+                        {" "}
+                        <div className="border-yellow-400 border-2 py-1 my-5 flex justify-center items-center text-gray ">
+                          Morning Shift
+                        </div>
+                        <div className="flex justify-center items-center mt-5">
+                          <label htmlFor="pickupTime" className="w-[400px]">
+                            Pickup Time:
+                          </label>
+                          <input
+                            className="w-full px-3 py-1 border-b bg-[#f0f0f0] border-orange focus:border-gray outline-none"
+                            type="time"
+                            id="pickupTime"
+                            name="pickupTime"
+                            value={pickupTime}
+                            onChange={(e) => setPickupTime(e.target.value)}
+                          />
+                        </div>
+                        <div className="flex justify-center items-center mt-2">
+                          <label htmlFor="dropTime" className="w-[400px]">
+                            Estimate Drop Time at school:
+                          </label>
+                          <input
+                            className="w-full px-3 py-1 border-b bg-[#f0f0f0] border-orange focus:border-gray outline-none"
+                            type="time"
+                            id="dropTime"
+                            name="dropTime"
+                            value={dropTime}
+                            onChange={(e) => setDropTime(e.target.value)}
+                          />
+                        </div>
+                      </div>
+                      <div className="">
+                        {" "}
+                        <div className="border-yellow-400 border-2 py-1 my-5 mt-10 flex justify-center items-center text-gray ">
+                          Afternoon Shift
+                        </div>
+                        <div className="flex justify-center items-center mt-2">
+                          <label htmlFor="pickupTime2" className="w-[400px]">
+                            Pickup Time from school:
+                          </label>
+                          <input
+                            className="w-full px-3 py-1 border-b bg-[#f0f0f0] border-orange focus:border-gray outline-none"
+                            type="time"
+                            id="pickupTime2"
+                            name="pickupTime2"
+                            value={pickupTime2}
+                            onChange={(e) => setPickupTime2(e.target.value)}
+                          />
+                        </div>
+                        <div className="flex justify-center items-center mt-2">
+                          <label htmlFor="dropTime2" className="w-[400px]">
+                            Estimate Drop Time:
+                          </label>
+                          <input
+                            className="w-full px-3 py-1 border-b bg-[#f0f0f0] border-orange focus:border-gray outline-none"
+                            type="time"
+                            id="dropTime2"
+                            name="dropTime2"
+                            value={dropTime2}
+                            onChange={(e) => setDropTime2(e.target.value)}
+                          />
+                        </div>
+                      </div>
+                      <div className="flex justify-center items-center mt-10">
+                        <button
+                          type="submit"
+                          className="w-36 h-12 bg-orange rounded-lg text-xl cursor-pointer"
+                        >
+                          Submit
+                        </button>
+                      </div>
+                    </form>
+                  </>
+                ) : requestShiftType === "morning" ? (
+                  <>
+                    <form action="" onSubmit={handleSubmit}>
+                      <div className="">
+                        <div className="border-yellow-400 border-2 py-1 my-5 flex justify-center items-center text-gray ">
+                          Morning Shift
+                        </div>
+                        <div className="flex justify-center items-center mt-5">
+                          <label htmlFor="pickupTime" className="w-[400px]">
+                            Pickup Time:
+                          </label>
+                          <input
+                            className="w-full px-3 py-1 border-b bg-[#f0f0f0] border-orange focus:border-gray outline-none"
+                            type="time"
+                            id="pickupTime"
+                            name="pickupTime"
+                            value={pickupTime}
+                            onChange={(e) => setPickupTime(e.target.value)}
+                          />
+                        </div>
+
+                        <div className="flex justify-center items-center mt-2">
+                          <label htmlFor="dropTime" className="w-[400px]">
+                            Estimate Drop Time at school:
+                          </label>
+                          <input
+                            className="w-full px-3 py-1 border-b bg-[#f0f0f0] border-orange focus:border-gray outline-none"
+                            type="time"
+                            id="dropTime"
+                            name="dropTime"
+                            value={dropTime}
+                            onChange={(e) => setDropTime(e.target.value)}
+                          />
+                        </div>
+                      </div>
+                      <div className="flex justify-center items-center mt-10">
+                        <button
+                          type="submit"
+                          className="w-36 h-12 bg-orange rounded-lg text-xl cursor-pointer"
+                        >
+                          Submit
+                        </button>
+                      </div>
+                    </form>
+                  </>
+                ) : requestShiftType === "afternoon" ? (
+                  <>
+                    <form action="" onSubmit={handleSubmit}>
+                      <div className="">
+                        <div className="border-yellow-400 border-2 py-1 my-5 flex justify-center items-center text-gray ">
+                          Afternoon Shift
+                        </div>
+                        <div className="flex justify-center items-center mt-5">
+                          <label htmlFor="pickupTime" className="w-[400px]">
+                            Pickup Time at school:
+                          </label>
+                          <input
+                            className="w-full px-3 py-1 border-b bg-[#f0f0f0] border-orange focus:border-gray outline-none"
+                            type="time"
+                            id="pickupTime"
+                            name="pickupTime"
+                            value={pickupTime}
+                            onChange={(e) => setPickupTime(e.target.value)}
+                          />
+                        </div>
+                        <div className="flex justify-center items-center mt-2">
+                          <label htmlFor="dropTime" className="w-[400px]">
+                            Estimate Drop Time:
+                          </label>
+                          <input
+                            className="w-full px-3 py-1 border-b bg-[#f0f0f0] border-orange focus:border-gray outline-none"
+                            type="time"
+                            id="dropTime"
+                            name="dropTime"
+                            value={dropTime}
+                            onChange={(e) => setDropTime(e.target.value)}
+                          />
+                        </div>
+                      </div>
+                      <div className="flex justify-center items-center mt-10">
+                        <button
+                          type="submit"
+                          className="w-36 h-12 bg-orange rounded-lg text-xl cursor-pointer"
+                        >
+                          Submit
+                        </button>
+                      </div>
+                    </form>
+                  </>
+                ) : (
+                  <></>
+                )}
+              </div>
+              {/* ...end of modal content */}
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  const handleAccept = async (
+    childId,
+    requestId,
+    schoolId,
+    rideId,
+    shiftType
+  ) => {
     try {
       const body = {
         childId: childId,
@@ -123,7 +399,8 @@ function RideRequests(props) {
           },
         }).then(() => {
           recallData();
-          // setTimeForChild();
+          // setRequestShiftType(shiftType);
+          // setModalOpen(true);
         });
       } else {
         const errorData = await response.json();
@@ -141,7 +418,13 @@ function RideRequests(props) {
 
   //check school is reached or not before accepting---------------------------------------------------------------------------------------------------------------
 
-  const handleRequestCheck = async (childId, requestId, schoolId, rideId) => {
+  const handleRequestCheck = async (
+    childId,
+    requestId,
+    schoolId,
+    rideId,
+    shiftType
+  ) => {
     try {
       const response = await fetch(
         `http://localhost:5000/edugo/driver/ride/request/school/check/${userId},${schoolId}`
@@ -150,7 +433,7 @@ function RideRequests(props) {
 
       //check whether related school has reached by this driver
       if (data === "yes") {
-        handleAccept(childId, requestId, schoolId, rideId);
+        handleAccept(childId, requestId, schoolId, rideId, shiftType);
       } else {
         swal({
           title: "Your ride is not reached to requested school!",
@@ -171,7 +454,13 @@ function RideRequests(props) {
   };
 
   //accept button click---------------------------------------------------------------------------------------------------------------
-  const handleAcceptClick = (childId, requestId, schoolId, rideId) => {
+  const handleAcceptClick = (
+    childId,
+    requestId,
+    schoolId,
+    rideId,
+    shiftType
+  ) => {
     swal({
       title: "Do you want to accept this request?",
       icon: "warning",
@@ -179,8 +468,10 @@ function RideRequests(props) {
       dangerMode: true,
     }).then((confirmed) => {
       if (confirmed) {
-        handleRequestCheck(childId, requestId, schoolId, rideId);
+        handleRequestCheck(childId, requestId, schoolId, rideId, shiftType);
       } else {
+        setRequestShiftType(shiftType);
+        setModalOpen(true);
       }
     });
   };
@@ -304,7 +595,8 @@ function RideRequests(props) {
                               request.child_id,
                               request.request_id,
                               request.school_id,
-                              request.ride_id
+                              request.ride_id,
+                              request.ride_shift_type
                             )
                           }
                           className="flex justify-center w-28 h-10 bg-green-600 rounded-md cursor-pointer hover:shadow-lg transform hover:scale-[103%] transition duration-300 ease-out"
@@ -357,6 +649,12 @@ function RideRequests(props) {
               ))}
             </div>
           </div>
+          {modalOpen && (
+            <Modal
+              setModalOpen={setModalOpen}
+              requestShiftType={requestShiftType}
+            />
+          )}
         </div>
       </MainLayout>
     </div>
