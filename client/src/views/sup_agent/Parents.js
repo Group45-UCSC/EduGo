@@ -1,8 +1,9 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import MainLayout from "../../components/layout/MainLayout";
 import { FaHome, FaBus, FaUsers, FaSearch } from "react-icons/fa";
 import {BsFillChatDotsFill} from "react-icons/bs";
 import ParentChildDetails from "./ParentChildDetails";
+// import axios from "axios";
 
 const sideNavBarLinks = [
   { title: "Dashboard", path: "/sup_agent/dashboard", icon: <FaHome /> },
@@ -10,49 +11,49 @@ const sideNavBarLinks = [
   { title: "Parents", path: "/sup_agent/parents", icon: <FaUsers /> },
   { title: "Drivers", path: "/sup_agent/drivers", icon: <FaBus /> },
 ];
-const initialParentData = [
-  {
-    id: 1,
-    name: "S.N.Ramanayake",
-    nicNumber: "997542770V",
-    contact: "0332250444",
-    address: "192 Old Moor Street, Colombo",
-    img: "https://image.shutterstock.com/image-photo/portrait-handsome-caucasian-man-formal-260nw-2142820441.jpg",
-  },
-  {
-    id: 2,
-    name: "John Doe",
-    nicNumber: "910123456V",
-    contact: "0112345678",
-    address: "Rosmead Place, Colombo 7",
-    img: "https://tecdn.b-cdn.net/img/new/avatars/2.webp",
-  },
+// const initialParentData = [
+//   {
+//     id: 1,
+//     name: "S.N.Ramanayake",
+//     nicNumber: "997542770V",
+//     contact: "0332250444",
+//     address: "192 Old Moor Street, Colombo",
+//     img: "https://image.shutterstock.com/image-photo/portrait-handsome-caucasian-man-formal-260nw-2142820441.jpg",
+//   },
+//   {
+//     id: 2,
+//     name: "John Doe",
+//     nicNumber: "910123456V",
+//     contact: "0112345678",
+//     address: "Rosmead Place, Colombo 7",
+//     img: "https://tecdn.b-cdn.net/img/new/avatars/2.webp",
+//   },
   
-  {
-    id: 3,
-    name: "Jagath Perera",
-    nicNumber: "657542770V",
-    contact: "0332250444",
-    address: "92/1 Main Street, Colombo",
-    img: "https://tecdn.b-cdn.net/img/new/avatars/7.webp",
-  },
-  {
-    id: 4,
-    name: "Deepika Samarawickrama",
-    nicNumber: "797542770V",
-    contact: "0332250444",
-    address: "264/1 B Messenger Street, Maharagama",
-    img: "https://tecdn.b-cdn.net/img/new/avatars/20.webp",
-  },
-  {
-    id: 5,
-    name: "Kasun Abeykoon",
-    nicNumber: "897542770V",
-    contact: "0332250444",
-    address: "1st Flr 74 Union Place, Colombo",
-    img: "https://tecdn.b-cdn.net/img/new/avatars/1.webp",
-  },
-];
+//   {
+//     id: 3,
+//     name: "Jagath Perera",
+//     nicNumber: "657542770V",
+//     contact: "0332250444",
+//     address: "92/1 Main Street, Colombo",
+//     img: "https://tecdn.b-cdn.net/img/new/avatars/7.webp",
+//   },
+//   {
+//     id: 4,
+//     name: "Deepika Samarawickrama",
+//     nicNumber: "797542770V",
+//     contact: "0332250444",
+//     address: "264/1 B Messenger Street, Maharagama",
+//     img: "https://tecdn.b-cdn.net/img/new/avatars/20.webp",
+//   },
+//   {
+//     id: 5,
+//     name: "Kasun Abeykoon",
+//     nicNumber: "897542770V",
+//     contact: "0332250444",
+//     address: "1st Flr 74 Union Place, Colombo",
+//     img: "https://tecdn.b-cdn.net/img/new/avatars/1.webp",
+//   },
+// ];
 const initialChildrenData = [
   {
     id: 1,
@@ -120,11 +121,30 @@ const VehicleData = [
 
 function Parents() {
   const [activeTab, setActiveTab] = useState("parents");
-  const [parentData] = useState(initialParentData);
+  const [parentData, setParentData] = useState([]);
   // const [parentData, setParentData] = useState(initialParentData);
   const [childrenData] = useState(initialChildrenData);
   // const [childrenData,setChildrenData] = useState(initialChildrenData);
   const [selectedRow, setSelectedRow] = useState(null);
+  const [searchQuery, setSearchQuery] = useState("");
+
+  useEffect(() => {
+    async function viewParentDetails() {
+      try {
+        const response = await fetch(`http://localhost:5000/edugo/supAgent/parents/viewParent`);
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+        const data = await response.json();
+        setParentData(data)
+      } catch (error) {
+        console.error("Error fetching parent details", error);
+      }
+    };
+    viewParentDetails();
+  });
+
+  
 
   const handleRowClick = (rowData) => {
     setSelectedRow(rowData);
@@ -138,7 +158,6 @@ function Parents() {
     );
     return { ...parent, children };
   });
-  const [searchQuery, setSearchQuery] = useState("");
 
   return (
     <div>
@@ -164,6 +183,7 @@ function Parents() {
               onClick={() => setActiveTab("children")}
             >
               Children
+
             </button>
           </div>
           {/* -------------------------- parent details-------------------------------------------- */}
@@ -207,22 +227,22 @@ function Parents() {
                 <tbody className="">
                   {parentData
                     .filter((parent) =>
-                    parent.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-                    parent.nicNumber.toLowerCase().includes(searchQuery.toLowerCase())
+                    parent.user_name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+                    parent.nic.toLowerCase().includes(searchQuery.toLowerCase())
                     )
                     .map((parent) => (
                       <tr
-                        key={parent.id}
+                        key={parent.user_id}
                         className="bg-[#D9D9D9] bg-opacity-60 hover:cursor-pointer hover:bg-[#eaeaea] drop-shadow-md"
                         onClick={() => handleRowClick(parent)}
                       >
-                        <td className="text-left px-4 py-4">{parent.id}</td>
-                        <td className="text-left px-4 py-4">{parent.name}</td>
+                        <td className="text-left px-4 py-4">{parent.user_id}</td>
+                        <td className="text-left px-4 py-4">{parent.user_name}</td>
                         <td className="text-left px-4 py-4">
-                          {parent.nicNumber}
+                          {parent.nic}
                         </td>
                         <td className="text-left px-4 py-4">
-                          {parent.contact}
+                          {parent.contact_number}
                         </td>
                         <td className="text-left px-4 py-4">
                           {parent.address}
@@ -328,20 +348,20 @@ function Parents() {
                         />
                       </div>
                       <h2 className="font-bold text-xl ml mt-4">
-                        {selectedRow.name}
+                        {selectedRow.user_name}
                       </h2>
                     </div>
                     <div className="bg-gradient-to-tl from-[#f6ad55] to-[#fbd38d] w-full h-auto p-5 rounded-xl">
                       <p>
-                        <strong className="mr-2">ID:</strong> {selectedRow.id}
+                        <strong className="mr-2">ID:</strong> {selectedRow.user_id}
                       </p>
                       <p>
                         <strong className="mr-2">NIC Number:</strong>{" "}
-                        {selectedRow.nicNumber}
+                        {selectedRow.nic}
                       </p>
                       <p>
                         <strong className="mr-2">Contact No:</strong>{" "}
-                        {selectedRow.contact}
+                        {selectedRow.contact_number}
                       </p>
                       <p>
                         <strong className="mr-2">Address:</strong>{" "}
