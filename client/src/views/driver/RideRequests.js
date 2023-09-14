@@ -1,4 +1,5 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import MainLayout from "../../components/layout/MainLayout";
 import { AiFillDashboard, AiFillCar } from "react-icons/ai";
 import {
@@ -55,6 +56,7 @@ const sideNavBarLinks = [
 function RideRequests(props) {
   //userID
   const userId = localStorage.getItem("userId");
+  const navigate = useNavigate();
 
   //google map handling------------------------------------------------------------------------------------------------------------------------------
   const { isLoaded } = useJsApiLoader({
@@ -75,6 +77,113 @@ function RideRequests(props) {
   const onUnmount = React.useCallback(function callback(map) {
     setMap(null);
   }, []);
+
+  //popup modal for set times
+
+  //handle request accept option------------------------------------------------------------------------------------------------------
+  const handleAccept = async (childId, requestId, schoolId, rideId) => {
+    try {
+      const body = {
+        childId: childId,
+        requestId: requestId,
+        schoolId: schoolId,
+        rideId: rideId,
+      };
+      const response = await fetch(
+        `http://localhost:5000/edugo/driver/ride/request/accept/${userId}`,
+        {
+          method: "PUT",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(body),
+        }
+      );
+      if (response.status === 200) {
+        const data = await response.json();
+        // swal({
+        //   title: "Sucessfully added this children to your ride!",
+        //   icon: "success",
+        //   buttons: ["Okay", "View"],
+        //   dangerMode: true,
+        // }).then((confirmed) => {
+        //   if (confirmed) {
+        //     //navigate to view ride page
+        //     // navigate("/driver/ride/schools");
+        //   } else {
+        //     recallData();
+        //   }
+        // });
+        swal({
+          title: "Sucessfully added this children to your ride!",
+          icon: "success",
+          buttons: {
+            confirm: {
+              className:
+                "bg-orange text-white px-10 py-2 rounded-lg items-center hover:bg-gray ",
+            },
+          },
+        }).then(() => {
+          recallData();
+          // setTimeForChild();
+        });
+      } else {
+        const errorData = await response.json();
+        swal(
+          "Error Occurred!",
+          `Error: ${errorData.error}`,
+          "Please try again or contact support agent",
+          "warning"
+        );
+      }
+    } catch (err) {
+      console.error(err.message);
+    }
+  };
+
+  //check school is reached or not before accepting---------------------------------------------------------------------------------------------------------------
+
+  const handleRequestCheck = async (childId, requestId, schoolId, rideId) => {
+    try {
+      const response = await fetch(
+        `http://localhost:5000/edugo/driver/ride/request/school/check/${userId},${schoolId}`
+      );
+      const data = await response.json();
+
+      //check whether related school has reached by this driver
+      if (data === "yes") {
+        handleAccept(childId, requestId, schoolId, rideId);
+      } else {
+        swal({
+          title: "Your ride is not reached to requested school!",
+          icon: "warning",
+          buttons: ["Cancel!", "Add requested school!"],
+          dangerMode: true,
+        }).then((confirmed) => {
+          if (confirmed) {
+            //navigate to add school page
+            navigate("/driver/ride/schools");
+          } else {
+          }
+        });
+      }
+    } catch (err) {
+      console.error(err.message);
+    }
+  };
+
+  //accept button click---------------------------------------------------------------------------------------------------------------
+  const handleAcceptClick = (childId, requestId, schoolId, rideId) => {
+    swal({
+      title: "Do you want to accept this request?",
+      icon: "warning",
+      buttons: ["No, cancel!", "Yes, accept it!"],
+      dangerMode: true,
+    }).then((confirmed) => {
+      if (confirmed) {
+        handleRequestCheck(childId, requestId, schoolId, rideId);
+      } else {
+      }
+    });
+  };
 
   //handle request reject option------------------------------------------------------------------------------------------------------
   const handleReject = async (childId, requestId) => {
@@ -100,9 +209,10 @@ function RideRequests(props) {
           recallData();
         });
       } else {
-        // console.log(response);
+        const errorData = await response.json();
         swal(
           "Error Occurred!",
+          `Error: ${errorData.error}`,
           "Please try again or contact support agent",
           "warning"
         );
@@ -189,7 +299,14 @@ function RideRequests(props) {
 
                       <div className=" flex justify-center gap-4 mt-3">
                         <button
-                          // onClick={() => handleRemoveClick(school.school_id)}
+                          onClick={() =>
+                            handleAcceptClick(
+                              request.child_id,
+                              request.request_id,
+                              request.school_id,
+                              request.ride_id
+                            )
+                          }
                           className="flex justify-center w-28 h-10 bg-green-600 rounded-md cursor-pointer hover:shadow-lg transform hover:scale-[103%] transition duration-300 ease-out"
                         >
                           <div className="flex mt-2 gap-3 font-semibold text-white">

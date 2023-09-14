@@ -37,6 +37,8 @@ const {
   viewRideDetails,
   viewRideRequests,
   rejectRideRequest,
+  checkReachingSchool,
+  acceptRideRequest,
 } = require("../controllers/driver/rideController");
 const {
   viewSchoolDetails,
@@ -59,6 +61,10 @@ router.route("/vehicle/viewImg/:userId").get(viewVehicleImg);
 router.route("/ride/view/details/:userId").get(viewRideDetails);
 router.route("/ride/requests/view/:userId").get(viewRideRequests);
 router.route("/ride/request/reject/:childId,:requestId").put(rejectRideRequest);
+router
+  .route("/ride/request/school/check/:userId,:schoolId")
+  .get(checkReachingSchool);
+router.route("/ride/request/accept/:userId").put(acceptRideRequest);
 
 //school page
 router.route("/ride/view/school/:userId").get(viewSchoolDetails);
