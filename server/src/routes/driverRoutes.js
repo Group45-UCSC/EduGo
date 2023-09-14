@@ -39,6 +39,7 @@ const {
   rejectRideRequest,
   checkReachingSchool,
   acceptRideRequest,
+  setChildRideTime,
 } = require("../controllers/driver/rideController");
 const {
   viewSchoolDetails,
@@ -65,6 +66,7 @@ router
   .route("/ride/request/school/check/:userId,:schoolId")
   .get(checkReachingSchool);
 router.route("/ride/request/accept/:userId").put(acceptRideRequest);
+router.route("/ride/set/ridetime/:rideId,:childId").post(setChildRideTime);
 
 //school page
 router.route("/ride/view/school/:userId").get(viewSchoolDetails);

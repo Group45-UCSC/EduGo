@@ -178,10 +178,28 @@ const acceptRideRequest = async (req, res) => {
   }
 };
 
+//accept ride request  -> PUT method
+const setChildRideTime = async (req, res) => {
+  try {
+    const rideId = req.params.userId;
+    const childId = req.params.userId;
+
+    const { pickupTime, dropTime, pickupTime2, dropTime2 } = req.body;
+
+    //insert into the ride_children table
+
+    // Return a success response to the frontend
+  } catch (err) {
+    console.error(err.massage);
+    return res.status(500).send("Server Error");
+  }
+};
+
 module.exports = {
   viewRideDetails,
   viewRideRequests,
   rejectRideRequest,
   checkReachingSchool,
   acceptRideRequest,
+  setChildRideTime,
 };

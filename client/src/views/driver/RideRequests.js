@@ -81,6 +81,8 @@ function RideRequests(props) {
   //popup modal for set times
   const [modalOpen, setModalOpen] = useState(false);
   const [requestShiftType, setRequestShiftType] = useState("");
+  const [requestRideId, setRequestRideId] = useState("");
+  const [requestChildId, setRequestChildId] = useState("");
 
   // function Modal({ setModalOpen, notification }) {
   //   return (
@@ -115,7 +117,12 @@ function RideRequests(props) {
 
   //handle request accept option------------------------------------------------------------------------------------------------------
 
-  function Modal({ setModalOpen, requestShiftType }) {
+  function Modal({
+    setModalOpen,
+    requestShiftType,
+    requestRideId,
+    requestChildId,
+  }) {
     // State to store input values
     const [pickupTime, setPickupTime] = useState("");
     const [dropTime, setDropTime] = useState("");
@@ -135,7 +142,7 @@ function RideRequests(props) {
 
         // Send the data to the backend
         const response = await fetch(
-          `http://localhost:5000/edugo/driver/ride/set/time`,
+          `http://localhost:5000/edugo/driver/ride/set/ridetime${requestRideId},${requestChildId}`,
           {
             method: "POST", // Use the appropriate HTTP method
             headers: { "Content-Type": "application/json" },
@@ -144,11 +151,32 @@ function RideRequests(props) {
         );
 
         if (response.status === 200) {
-          // Handle success, e.g., close the modal and show a success message
           setModalOpen(false);
-          // You can also trigger any other actions you want on success
+          setRequestShiftType("");
+          setRequestRideId("");
+          setRequestChildId("");
+
+          swal({
+            title: "Successfully set the times and notified parent!",
+            icon: "success",
+            buttons: ["Okay", "View"],
+            dangerMode: true,
+          }).then((confirmed) => {
+            if (confirmed) {
+              //navigate to view ride page
+              navigate("/driver/ride/schools");
+            } else {
+              recallData();
+            }
+          });
         } else {
-          // Handle error, e.g., show an error message
+          const errorData = await response.json();
+          swal(
+            "Error Occurred!",
+            `Error: ${errorData.error}`,
+            "Please try again or contact support agent",
+            "warning"
+          );
         }
       } catch (err) {
         console.error(err.message);
@@ -166,6 +194,8 @@ function RideRequests(props) {
                   onClick={() => {
                     setModalOpen(false);
                     setRequestShiftType("");
+                    setRequestChildId("");
+                    setRequestRideId("");
                   }}
                 >
                   X
@@ -400,6 +430,8 @@ function RideRequests(props) {
         }).then(() => {
           recallData();
           // setRequestShiftType(shiftType);
+          // setRequestRideId(rideId);
+          // setRequestChildId(childId);
           // setModalOpen(true);
         });
       } else {
@@ -471,6 +503,8 @@ function RideRequests(props) {
         handleRequestCheck(childId, requestId, schoolId, rideId, shiftType);
       } else {
         setRequestShiftType(shiftType);
+        setRequestRideId(rideId);
+        setRequestChildId(childId);
         setModalOpen(true);
       }
     });
@@ -653,6 +687,8 @@ function RideRequests(props) {
             <Modal
               setModalOpen={setModalOpen}
               requestShiftType={requestShiftType}
+              requestRideId={requestRideId}
+              requestChildId={requestChildId}
             />
           )}
         </div>
