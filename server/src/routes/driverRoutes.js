@@ -66,7 +66,7 @@ router
   .route("/ride/request/school/check/:userId,:schoolId")
   .get(checkReachingSchool);
 router.route("/ride/request/accept/:userId").put(acceptRideRequest);
-router.route("/ride/set/ridetime/:rideId,:childId").post(setChildRideTime);
+router.route("/ride/set/ridetime/").post(setChildRideTime);
 
 //school page
 router.route("/ride/view/school/:userId").get(viewSchoolDetails);

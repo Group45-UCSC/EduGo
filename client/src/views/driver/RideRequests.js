@@ -33,26 +33,7 @@ const sideNavBarLinks = [
     icon: <MdOutlineRateReview />,
   },
 ];
-// const rideRequest = [
-//   {
-//     id: 1,
-//     parentName: "K.L. Hasindu",
-//     location: "No 45, Darmapala road, Maharagama",
-//     image: require("../../images/child1.png"),
-//     school: "Royal Collage",
-//     lat: 6.851556,
-//     lng: 79.919038,
-//   },
-//   {
-//     id: 2,
-//     parentName: "H.P. Hasini",
-//     location: "No 25/1, Darmapala road, Pannipitya",
-//     image: require("../../images/child2.png"),
-//     school: "Anula Collage",
-//     lat: 6.847198496442547,
-//     lng: 79.94801407997109,
-//   },
-// ];
+
 function RideRequests(props) {
   //userID
   const userId = localStorage.getItem("userId");
@@ -84,39 +65,6 @@ function RideRequests(props) {
   const [requestRideId, setRequestRideId] = useState("");
   const [requestChildId, setRequestChildId] = useState("");
 
-  // function Modal({ setModalOpen, notification }) {
-  //   return (
-  //     <div>
-  //       <div className="bg-white p-0 px-60 rounded-lg ">
-  //         <div className="fixed top-0 left-0 w-screen  bg-stone-900/75 flex justify-center items-center  h-screen bg-gradient-to-b from-opacity-70 to-opacity-30">
-  //           <div className="w-1/3  rounded-lg bg-white shadow-md flex flex-col p-5 ">
-  //             <div className="flex justify-end">
-  //               <button
-  //                 className="text-2xl cursor-pointer "
-  //                 onClick={() => {
-  //                   setModalOpen(false);
-  //                 }}
-  //               >
-  //                 X
-  //               </button>
-  //             </div>
-  //             {/* content */}
-  //             <div className="">
-  //               <div className="flex justify-center items-center mt-5"></div>
-  //               <button className="w-36 h-12 bg-orange rounded-lg text-xl cursor-pointer">
-  //                 Submit
-  //               </button>
-  //             </div>
-  //             {/* end of content */}
-  //           </div>
-  //         </div>
-  //       </div>
-  //     </div>
-  //   );
-  // }
-
-  //handle request accept option------------------------------------------------------------------------------------------------------
-
   function Modal({
     setModalOpen,
     requestShiftType,
@@ -130,7 +78,9 @@ function RideRequests(props) {
     const [dropTime2, setDropTime2] = useState("");
 
     // Function to handle form submission
-    const handleSubmit = async () => {
+    const handleSubmit = async (event) => {
+      event.preventDefault();
+
       try {
         // Create a request body with the input values
         const body = {
@@ -138,19 +88,21 @@ function RideRequests(props) {
           dropTime,
           pickupTime2,
           dropTime2,
+          requestRideId,
+          requestChildId,
         };
 
         // Send the data to the backend
         const response = await fetch(
-          `http://localhost:5000/edugo/driver/ride/set/ridetime${requestRideId},${requestChildId}`,
+          `http://localhost:5000/edugo/driver/ride/set/ridetime/`,
           {
-            method: "POST", // Use the appropriate HTTP method
+            method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(body),
           }
         );
 
-        if (response.status === 200) {
+        if (response.ok) {
           setModalOpen(false);
           setRequestShiftType("");
           setRequestRideId("");
@@ -166,7 +118,7 @@ function RideRequests(props) {
               //navigate to view ride page
               navigate("/driver/ride/schools");
             } else {
-              recallData();
+              // recallData();
             }
           });
         } else {
@@ -180,6 +132,7 @@ function RideRequests(props) {
         }
       } catch (err) {
         console.error(err.message);
+        swal("Error!", "Please try again or contact support agent", "warning");
       }
     };
 
@@ -205,7 +158,8 @@ function RideRequests(props) {
               <div className="">
                 {requestShiftType === "both" ? (
                   <>
-                    <form action="" onSubmit={handleSubmit}>
+                    <form action="">
+                      {/* onSubmit={handleSubmit} */}
                       <div className="">
                         {" "}
                         <div className="border-yellow-400 border-2 py-1 my-5 flex justify-center items-center text-gray ">
@@ -273,6 +227,7 @@ function RideRequests(props) {
                       <div className="flex justify-center items-center mt-10">
                         <button
                           type="submit"
+                          onClick={handleSubmit}
                           className="w-36 h-12 bg-orange rounded-lg text-xl cursor-pointer"
                         >
                           Submit
@@ -318,6 +273,7 @@ function RideRequests(props) {
                       <div className="flex justify-center items-center mt-10">
                         <button
                           type="submit"
+                          onClick={handleSubmit}
                           className="w-36 h-12 bg-orange rounded-lg text-xl cursor-pointer"
                         >
                           Submit
@@ -362,6 +318,7 @@ function RideRequests(props) {
                       <div className="flex justify-center items-center mt-10">
                         <button
                           type="submit"
+                          onClick={handleSubmit}
                           className="w-36 h-12 bg-orange rounded-lg text-xl cursor-pointer"
                         >
                           Submit
@@ -405,19 +362,6 @@ function RideRequests(props) {
       );
       if (response.status === 200) {
         const data = await response.json();
-        // swal({
-        //   title: "Sucessfully added this children to your ride!",
-        //   icon: "success",
-        //   buttons: ["Okay", "View"],
-        //   dangerMode: true,
-        // }).then((confirmed) => {
-        //   if (confirmed) {
-        //     //navigate to view ride page
-        //     // navigate("/driver/ride/schools");
-        //   } else {
-        //     recallData();
-        //   }
-        // });
         swal({
           title: "Sucessfully added this children to your ride!",
           icon: "success",
@@ -429,10 +373,10 @@ function RideRequests(props) {
           },
         }).then(() => {
           recallData();
-          // setRequestShiftType(shiftType);
-          // setRequestRideId(rideId);
-          // setRequestChildId(childId);
-          // setModalOpen(true);
+          setRequestShiftType(shiftType);
+          setRequestRideId(rideId);
+          setRequestChildId(childId);
+          setModalOpen(true);
         });
       } else {
         const errorData = await response.json();
@@ -502,10 +446,10 @@ function RideRequests(props) {
       if (confirmed) {
         handleRequestCheck(childId, requestId, schoolId, rideId, shiftType);
       } else {
-        setRequestShiftType(shiftType);
-        setRequestRideId(rideId);
-        setRequestChildId(childId);
-        setModalOpen(true);
+        // setRequestShiftType(shiftType);
+        // setRequestRideId(rideId);
+        // setRequestChildId(childId);
+        // setModalOpen(true);
       }
     });
   };

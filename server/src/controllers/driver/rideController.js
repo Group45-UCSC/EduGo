@@ -181,14 +181,36 @@ const acceptRideRequest = async (req, res) => {
 //accept ride request  -> PUT method
 const setChildRideTime = async (req, res) => {
   try {
-    const rideId = req.params.userId;
-    const childId = req.params.userId;
+    // const rideId = req.params.rideId;
+    // const childId = req.params.childId;
 
-    const { pickupTime, dropTime, pickupTime2, dropTime2 } = req.body;
+    const {
+      pickupTime,
+      dropTime,
+      pickupTime2,
+      dropTime2,
+      requestRideId,
+      requestChildId,
+    } = req.body;
 
     //insert into the ride_children table
+    const setTime = await pool.query(
+      "INSERT INTO ride_children (ride_id, child_id, pickup_time1, drop_time1, pickup_time2, drop_time2) VALUES ($1, $2, TO_TIMESTAMP($3, 'HH24:MI:SS'), TO_TIMESTAMP($4, 'HH24:MI:SS'), TO_TIMESTAMP($5, 'HH24:MI:SS'), TO_TIMESTAMP($6, 'HH24:MI:SS')) RETURNING *",
+      [
+        requestRideId,
+        requestChildId,
+        pickupTime,
+        dropTime,
+        pickupTime2,
+        dropTime2,
+      ]
+    );
 
-    // Return a success response to the frontend
+    //insert into notification table
+
+    console.log(setTime.rows);
+
+    return res.status(200).json(setTime.rows);
   } catch (err) {
     console.error(err.massage);
     return res.status(500).send("Server Error");
