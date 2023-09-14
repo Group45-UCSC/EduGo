@@ -117,7 +117,7 @@ const viewCashPaymentData = async (req, res) => {
 
 // --------------------------------- INCOME PAGE-----------------------------------------------------//
 
-//to get last month income total
+//to get last month income total -> GET method
 const viewLastIncome = async (req, res) => {
   try {
     const userId = req.params.userId;
@@ -139,30 +139,77 @@ const viewLastIncome = async (req, res) => {
   }
 };
 
-//to get last 6 months income details for the chart
+//to get last 6 months income details for the chart -> GET method
+// const viewIncomeChart = async (req, res) => {
+//   try {
+//     const userId = req.params.userId;
+//   } catch (err) {
+//     console.error(err.massage);
+//     return res.status(500).send("Server Error");
+//   }
+// };
+
 const viewIncomeChart = async (req, res) => {
   try {
     const userId = req.params.userId;
+
+    // Fetch data for the last 6 months
+    const lastSixMonthsIncome = await pool.query(
+      "SELECT month,SUM(amount) AS total_income FROM income WHERE driver_id = '" +
+        userId +
+        "' AND month >= EXTRACT(MONTH FROM CURRENT_DATE)-6 GROUP BY month ORDER BY month ASC "
+
+      // "SELECT EXTRACT(MONTH FROM date) AS month, SUM(amount) AS total_income
+      // FROM income
+      // WHERE driver_id = $1
+      // AND date >= (CURRENT_DATE - interval '6 months')
+      // GROUP BY month
+      // ORDER BY month",
+      // [userId]
+    );
+
+    // console.log(lastSixMonthsIncome.rows);
+    return res.json(lastSixMonthsIncome.rows);
   } catch (err) {
-    console.error(err.massage);
+    console.error(err.message);
     return res.status(500).send("Server Error");
   }
 };
 
-//to get total income details for the table
+//to get total income details for the table -> GET method
 const viewTotalIncome = async (req, res) => {
   try {
     const userId = req.params.userId;
+
+    const incomeData = await pool.query(
+      "SELECT income_id, date, amount, month FROM income WHERE driver_id = '" +
+        userId +
+        "' ORDER BY income_id ASC "
+    );
+
+    return res.json(incomeData.rows);
   } catch (err) {
     console.error(err.massage);
     return res.status(500).send("Server Error");
   }
 };
 
-//to get total children list with payment status
+//to get total children list with payment status -> GET method
 const viewChildFees = async (req, res) => {
   try {
     const userId = req.params.userId;
+
+    //to get all child list
+    const childFeeList = await pool.query(
+      "SELECT child_id,child_name,last_payment_status FROM children WHERE driver_id = '" +
+        userId +
+        "' "
+    );
+
+    // console.log(childFeeList.rows);
+
+    return res.json(childFeeList.rows);
+
   } catch (err) {
     console.error(err.massage);
     return res.status(500).send("Server Error");
@@ -179,7 +226,6 @@ module.exports = {
   viewTotalIncome,
   viewChildFees,
 };
-
 
 //EXTRACT(MONTH FROM NOW()) would return 9 for september
 

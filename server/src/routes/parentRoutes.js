@@ -3,12 +3,13 @@ const express = require("express");
 const router = express.Router();
 
 //import functions
-const {  viewChildDashboard, viewChildChildren,ViewVehicle,viewSchool,viewDriverReview, addRideRequest} = require("../controllers/parent/childController");
+const {  viewChildDashboard, viewChildChildren,ViewVehicle,viewSchool,viewDriverReview, addRideRequest,addChildren} = require("../controllers/parent/childController");
 const { addFeedback , addEdugoFeedback, getDrivers} = require("../controllers/parent/feedbackController");
 const { viewPayment, viewPastPayment } = require("../controllers/parent/paymentController");
 const {addComplaint} = require("../controllers/parent/complaintController");
 const upload = require("../utils/multer");
 //create routes
+router.route("/children/addride/:userId").post(addChildren);
 router.route("/feedback/add/:userId").post(addFeedback);
 router.route("/edugofeedback/add/:userId").post(addEdugoFeedback);
 router.route("/dashboard/children/:userId").get(viewChildDashboard);
