@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from "react";
 import MainLayout from "../../components/layout/MainLayout";
 import { FaHome, FaBus, FaUsers, FaSearch } from "react-icons/fa";
-import {BsFillChatDotsFill} from "react-icons/bs";
+import { BsFillChatDotsFill } from "react-icons/bs";
 import ParentChildDetails from "./ParentChildDetails";
 // import axios from "axios";
 
 const sideNavBarLinks = [
   { title: "Dashboard", path: "/sup_agent/dashboard", icon: <FaHome /> },
-  { title: "Chat", path:"/sup_agent/chat", icon:<BsFillChatDotsFill/>},
+  { title: "Chat", path: "/sup_agent/chat", icon: <BsFillChatDotsFill /> },
   { title: "Parents", path: "/sup_agent/parents", icon: <FaUsers /> },
   { title: "Drivers", path: "/sup_agent/drivers", icon: <FaBus /> },
 ];
@@ -28,7 +28,7 @@ const sideNavBarLinks = [
 //     address: "Rosmead Place, Colombo 7",
 //     img: "https://tecdn.b-cdn.net/img/new/avatars/2.webp",
 //   },
-  
+
 //   {
 //     id: 3,
 //     name: "Jagath Perera",
@@ -55,46 +55,46 @@ const sideNavBarLinks = [
 //   },
 // ];
 const initialChildrenData = [
-  {
-    id: 1,
-    name: "Ravin Abeykoon",
-    school: "Royal College",
-    address: "1st Flr 74 Union Place, Colombo",
-    contact: "0752345678",
-    vnum: "V12345",
-    img: "https://pbs.twimg.com/media/ErR3xMUVEAEdPUF.jpg:large",
-    parentId: 5,
-  },
-  {
-    id: 2,
-    name: "Nethmini Ramanayake",
-    school: "Visakha Vidyalaya",
-    address: "192 Old Moor Street, Colombo",
-    contact: "0705012458",
-    vnum: "V98765",
-    img: "https://www.miltonscene.com/wp-content/uploads/2020/05/outschool-kid-drawing-0520.jpg",
-    parentId: 1,
-  },
-  {
-    id: 3,
-    name: "Hiruni Devindi",
-    school: "Devi Balika Vidyalaya",
-    address: "92/1 Main Street, Colombo",
-    contact: "0782577381",
-    vnum: "V12345",
-    img: "https://kidscountry.kidscountrynetwork.com/wp-content/uploads/sites/3/2018/03/smiling-happy-preschool-girl.jpg",
-    parentId: 4,
-  },
-  {
-    id: 4,
-    name: "Sahan Ramanayake",
-    school: "Thurstan College",
-    address: "192 Old Moor Street, Colombo",
-    contact: "0712345678",
-    vnum: "V98765",
-    img: "https://cdn.forumcomm.com/dims4/default/91338c5/2147483647/strip/true/crop/3456x2304+0+740/resize/840x560!/quality/90/?url=https%3A%2F%2Fforum-communications-production-web.s3.us-west-2.amazonaws.com%2Fbrightspot%2F49%2F82%2F74ae8fd64e72bd14630ee55e6287%2F090322.OP.PRE.JacksonBrann5776.JPG",
-    parentId: 1,
-  },
+  // {
+  //   id: 1,
+  //   name: "Ravin Abeykoon",
+  //   school: "Royal College",
+  //   address: "1st Flr 74 Union Place, Colombo",
+  //   contact: "0752345678",
+  //   vnum: "V12345",
+  //   img: "https://pbs.twimg.com/media/ErR3xMUVEAEdPUF.jpg:large",
+  //   parentId: 5,
+  // },
+  // {
+  //   id: 2,
+  //   name: "Nethmini Ramanayake",
+  //   school: "Visakha Vidyalaya",
+  //   address: "192 Old Moor Street, Colombo",
+  //   contact: "0705012458",
+  //   vnum: "V98765",
+  //   img: "https://www.miltonscene.com/wp-content/uploads/2020/05/outschool-kid-drawing-0520.jpg",
+  //   parentId: 1,
+  // },
+  // {
+  //   id: 3,
+  //   name: "Hiruni Devindi",
+  //   school: "Devi Balika Vidyalaya",
+  //   address: "92/1 Main Street, Colombo",
+  //   contact: "0782577381",
+  //   vnum: "V12345",
+  //   img: "https://kidscountry.kidscountrynetwork.com/wp-content/uploads/sites/3/2018/03/smiling-happy-preschool-girl.jpg",
+  //   parentId: 4,
+  // },
+  // {
+  //   id: 4,
+  //   name: "Sahan Ramanayake",
+  //   school: "Thurstan College",
+  //   address: "192 Old Moor Street, Colombo",
+  //   contact: "0712345678",
+  //   vnum: "V98765",
+  //   img: "https://cdn.forumcomm.com/dims4/default/91338c5/2147483647/strip/true/crop/3456x2304+0+740/resize/840x560!/quality/90/?url=https%3A%2F%2Fforum-communications-production-web.s3.us-west-2.amazonaws.com%2Fbrightspot%2F49%2F82%2F74ae8fd64e72bd14630ee55e6287%2F090322.OP.PRE.JacksonBrann5776.JPG",
+  //   parentId: 1,
+  // },
 ];
 const VehicleData = [
   {
@@ -131,20 +131,20 @@ function Parents() {
   useEffect(() => {
     async function viewParentDetails() {
       try {
-        const response = await fetch(`http://localhost:5000/edugo/supAgent/parents/viewParent`);
+        const response = await fetch(
+          `http://localhost:5000/edugo/supAgent/parents/viewParent`
+        );
         if (!response.ok) {
-          throw new Error('Network response was not ok');
+          throw new Error("Network response was not ok");
         }
         const data = await response.json();
-        setParentData(data)
+        setParentData(data);
       } catch (error) {
         console.error("Error fetching parent details", error);
       }
-    };
+    }
     viewParentDetails();
   });
-
-  
 
   const handleRowClick = (rowData) => {
     setSelectedRow(rowData);
@@ -154,10 +154,10 @@ function Parents() {
   };
   const parentWithChildren = parentData.map((parent) => {
     const children = childrenData.filter(
-      (child) => child.parentId === parent.id
+      (child) => child.parentId === parent.user_id
     );
     return { ...parent, children };
-  });
+  }, []);
 
   return (
     <div>
@@ -183,7 +183,6 @@ function Parents() {
               onClick={() => setActiveTab("children")}
             >
               Children
-
             </button>
           </div>
           {/* -------------------------- parent details-------------------------------------------- */}
@@ -226,9 +225,14 @@ function Parents() {
 
                 <tbody className="">
                   {parentData
-                    .filter((parent) =>
-                    parent.user_name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-                    parent.nic.toLowerCase().includes(searchQuery.toLowerCase())
+                    .filter(
+                      (parent) =>
+                        parent.user_name
+                          .toLowerCase()
+                          .includes(searchQuery.toLowerCase()) ||
+                        parent.nic
+                          .toLowerCase()
+                          .includes(searchQuery.toLowerCase())
                     )
                     .map((parent) => (
                       <tr
@@ -236,11 +240,13 @@ function Parents() {
                         className="bg-[#D9D9D9] bg-opacity-60 hover:cursor-pointer hover:bg-[#eaeaea] drop-shadow-md"
                         onClick={() => handleRowClick(parent)}
                       >
-                        <td className="text-left px-4 py-4">{parent.user_id}</td>
-                        <td className="text-left px-4 py-4">{parent.user_name}</td>
                         <td className="text-left px-4 py-4">
-                          {parent.nic}
+                          {parent.user_id}
                         </td>
+                        <td className="text-left px-4 py-4">
+                          {parent.user_name}
+                        </td>
+                        <td className="text-left px-4 py-4">{parent.nic}</td>
                         <td className="text-left px-4 py-4">
                           {parent.contact_number}
                         </td>
@@ -342,7 +348,7 @@ function Parents() {
                     <div className="flex flex-col gap-2">
                       <div className="w-[8rem] h-[8rem] rounded-full overflow-hidden">
                         <img
-                          src={selectedRow.img}
+                          src={selectedRow.profile_image}
                           className="w-full h-full object-cover"
                           alt="Avatar"
                         />
@@ -353,7 +359,8 @@ function Parents() {
                     </div>
                     <div className="bg-gradient-to-tl from-[#f6ad55] to-[#fbd38d] w-full h-auto p-5 rounded-xl">
                       <p>
-                        <strong className="mr-2">ID:</strong> {selectedRow.user_id}
+                        <strong className="mr-2">ID:</strong>{" "}
+                        {selectedRow.user_id}
                       </p>
                       <p>
                         <strong className="mr-2">NIC Number:</strong>{" "}
@@ -373,28 +380,29 @@ function Parents() {
                   <div className="bg-[#EEEEEE] w-full h-[15rem] mt-5 rounded-xl p-3">
                     <p className="text-xl font-semibold">Children Details</p>
                     <div className="flex flex-1 gap-20 p-2">
-                      {selectedRow &&
-                        parentWithChildren
-                          .find((parent) => parent.id === selectedRow.id)
-                          .children.map((child) => (
-                            <div
-                              key={child.id}
-                              className="bg-[#F9F9F9] w-2/5  p-5 border-orange border-2 rounded-lg"
-                            >
-                              <h3 className="font-semibold text-xl pb-1">{child.name}</h3>
-                              <p>
-                                <strong className="mr-2">School:</strong>{" "}
-                                {child.school}
-                              </p>
+                    {/* {selectedRow?.children?.map((child) => ( */}
+                          <div
+                            key={selectedRow.child_id}
+                            className="bg-[#F9F9F9] w-2/5  p-5 border-orange border-2 rounded-lg"
+                          >
+                            <h3 className="font-semibold text-xl pb-1">
+                              {selectedRow.child_name}
+                            </h3>
+                            <p>
+                              <strong className="mr-2">School:</strong>{" "}
+                              {selectedRow.school_id}
+                            </p>
 
-                              <p>
-                                <strong className="mr-2">
-                                  Vehicle Number:
-                                </strong>{" "}
-                                {child.vnum}
-                              </p>
-                            </div>
-                          ))}
+                            <p>
+                              <strong className="mr-2">Vehicle Number:</strong>{" "}
+                              {selectedRow.vnum}
+                            </p>
+                            <p>
+                              <strong className="mr-2">Driver name:</strong>{" "}
+                              {selectedRow.driver_id}
+                            </p>
+                          </div>
+                        {/* ))} */}
                       {/* <div className="bg-[#F9F9F9] w-2/5 h-5"> </div> */}
                     </div>
                   </div>
@@ -484,26 +492,28 @@ function Parents() {
                       <div className="bg-[#F9F9F9] w-2/5  px-5 py-2 border-orange border-2 rounded-lg">
                         <p className="text-xl font-bold">
                           <u>Vehicle Details</u>
-
                         </p>
                         {selectedRow &&
-    VehicleData.filter((vehicle) => vehicle.vnum === selectedRow.vnum).map(
-      (vehicle) => (
-        <div key={vehicle.Vid} className="py-1">
-          <p>
-            <strong className="mr-2">DriverName:</strong> {vehicle.drivername}
-          </p>
-          <p>
-            <strong className="mr-2">Vehicle Number:</strong> {vehicle.vnum}
-          </p>
-          <p>
-            <strong className="mr-2">Model:</strong> {vehicle.model}
-          </p>
-          
-          
-        </div>
-      )
-    )}
+                          VehicleData.filter(
+                            (vehicle) => vehicle.vnum === selectedRow.vnum
+                          ).map((vehicle) => (
+                            <div key={vehicle.Vid} className="py-1">
+                              <p>
+                                <strong className="mr-2">DriverName:</strong>{" "}
+                                {vehicle.drivername}
+                              </p>
+                              <p>
+                                <strong className="mr-2">
+                                  Vehicle Number:
+                                </strong>{" "}
+                                {vehicle.vnum}
+                              </p>
+                              <p>
+                                <strong className="mr-2">Model:</strong>{" "}
+                                {vehicle.model}
+                              </p>
+                            </div>
+                          ))}
                       </div>
                     </div>
                   </div>
