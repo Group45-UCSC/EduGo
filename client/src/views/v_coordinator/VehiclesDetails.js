@@ -73,10 +73,10 @@ function VehiclesDetails(onClose) {
 
 
         {/* details container */}
-        <div className=" mt-8 mb-10 grid grid-cols-2 gap-1">
+        <div className=" mt-8 mb-10 grid grid-cols-3 gap-1">
 
             {/* vehicle details container */}
-            <div className='bg-slate-200 h-[480px] ml-40 w-[380px] mt-8 rounded-lg shadow-md drop-shadow-md'>
+            <div className='bg-slate-200 h-[480px] ml-10 w-[350px] mt-8 rounded-lg shadow-md drop-shadow-md'>
             
                 <div className='mt-4 ml-8 leading-8 font-semibold'>
                   <div className='font-bold text-[19px] pt-3 pb-2'>
@@ -100,8 +100,27 @@ function VehiclesDetails(onClose) {
             </div>
 
 
+            {/* owner details container */}
+            <div className='bg-slate-200 h-[480px] ml-8 w-[350px] mt-8 rounded-lg shadow-md drop-shadow-md'>
+            
+                <div className='mt-4 ml-8 leading-8 font-semibold'>
+                  <div className='font-bold text-[19px] pt-3 pb-2'>
+                    <h1>
+                      Owner Details
+                    </h1>
+                  </div>
+
+                <p className='mb-1'>Name: Rasindu Vimanga</p>
+                <p className='mb-1'>NIC: 948897724V</p>
+                <p className='mb-1'>Contact: 071-1231234</p>
+                <p className='mb-1'>Address: No:08, Baseline Road, Colombo</p>
+                <p className='mb-1'>Birthday: 1998-01-01</p>
+                </div>
+            </div>
+
+
             {/* driver details container */}
-            <div className='bg-slate-200 h-[480px] ml-8 w-[380px] mt-8 rounded-lg shadow-md drop-shadow-md'>
+            <div className='bg-slate-200 h-[480px] ml-5 w-[350px] mt-8 rounded-lg shadow-md drop-shadow-md'>
             
                 <div className='mt-4 ml-8 leading-8 font-semibold'>
                 <div className='font-bold text-[19px] pt-3 pb-2'>
