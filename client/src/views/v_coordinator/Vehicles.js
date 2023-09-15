@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import MainLayout from "../../components/layout/MainLayout";
 import { AiFillDashboard } from "react-icons/ai";
 import { BsFillCarFrontFill } from "react-icons/bs";
@@ -15,82 +15,100 @@ const sideNavBarLinks = [
 function Vehicles() {
 
 
+  //frombackend
+
+  const [vehiclels, setVehiclels] = useState([]);
+  useEffect(() => {
+    async function vehicleList() {
+      try {
+        const response = await fetch(
+          `http://localhost:5000/edugo/vc/vehicles/vehicle`
+        );
+        const data = await response.json();
+        setVehiclels(data);
+      } catch (err) {
+        console.error(err.message);
+      }
+    }
+    vehicleList();
+  });
+
 
   // all vehicle details
 
-  const vehicle = [
-    {
-      id: "001",
-      type: "van",
-      make: "Toyota",
-      model: "Hiace Dolphin 2001",
-      contact: "0711234567",
-      departure:"Homagama",
-    },
+  // const vehicle = [
+  //   {
+  //     id: "001",
+  //     type: "van",
+  //     make: "Toyota",
+  //     model: "Hiace Dolphin 2001",
+  //     contact: "0711234567",
+  //     departure:"Homagama",
+  //   },
 
-    {
-      id: "002",
-      type: "van",
-      make: "Toyota",
-      model: "Hiace Dolphin 2001",
-      contact: "0711234567",
-      departure:"Homagama",
-    },
+  //   {
+  //     id: "002",
+  //     type: "van",
+  //     make: "Toyota",
+  //     model: "Hiace Dolphin 2001",
+  //     contact: "0711234567",
+  //     departure:"Homagama",
+  //   },
 
-    {
-      id: "003",
-      type: "van",
-      make: "Toyota",
-      model: "Hiace Dolphin 2001",
-      contact: "0711234567",
-      departure:"Homagama",
-    },
+  //   {
+  //     id: "003",
+  //     type: "van",
+  //     make: "Toyota",
+  //     model: "Hiace Dolphin 2001",
+  //     contact: "0711234567",
+  //     departure:"Homagama",
+  //   },
 
-    {
-      id: "004",
-      type: "van",
-      make: "Toyota",
-      model: "Hiace Dolphin 2001",
-      contact: "0711234567",
-      departure:"Homagama",
-    },
+  //   {
+  //     id: "004",
+  //     type: "van",
+  //     make: "Toyota",
+  //     model: "Hiace Dolphin 2001",
+  //     contact: "0711234567",
+  //     departure:"Homagama",
+  //   },
 
-    {
-      id: "005",
-      type: "van",
-      make: "Toyota",
-      model: "Hiace Dolphin 2001",
-      contact: "0711234567",
-      departure:"Homagama",
-    },
+  //   {
+  //     id: "005",
+  //     type: "van",
+  //     make: "Toyota",
+  //     model: "Hiace Dolphin 2001",
+  //     contact: "0711234567",
+  //     departure:"Homagama",
+  //   },
 
-    {
-      id: "006",
-      type: "van",
-      make: "Toyota",
-      model: "Hiace Dolphin 2001",
-      contact: "0711234567",
-      departure:"Homagama",
-    },
+  //   {
+  //     id: "006",
+  //     type: "van",
+  //     make: "Toyota",
+  //     model: "Hiace Dolphin 2001",
+  //     contact: "0711234567",
+  //     departure:"Homagama",
+  //   },
 
-    {
-      id: "007",
-      type: "van",
-      make: "Toyota",
-      model: "Hiace Dolphin 2001",
-      contact: "0711234567",
-      departure:"Homagama",
-    },
+  //   {
+  //     id: "007",
+  //     type: "van",
+  //     make: "Toyota",
+  //     model: "Hiace Dolphin 2001",
+  //     contact: "0711234567",
+  //     departure:"Homagama",
+  //   },
 
-    {
-      id: "008",
-      type: "van",
-      make: "Toyota",
-      model: "Hiace Dolphin 2001",
-      contact: "0711234567",
-      departure:"Homagama",
-    }
-  ];
+  //   {
+  //     id: "008",
+  //     type: "van",
+  //     make: "Toyota",
+  //     model: "Hiace Dolphin 2001",
+  //     contact: "0711234567",
+  //     departure:"Homagama",
+  //   }
+  // ];
 
 
 
@@ -104,7 +122,7 @@ function Vehicles() {
     <MainLayout data={sideNavBarLinks}>
 
           {/* topic */} 
-          <div>
+          <div className="h-screen">
             <h1 className='text-[26px] font-bold ml-32 mt-8'> 
               Vehicle Details 
             </h1>
@@ -142,7 +160,7 @@ function Vehicles() {
 
 
           {/* vehicle table */}
-          <div className='ml-32  mb-12  mt-16 mr-32 shadow-md overflow-auto '>
+          <div className='ml-32  mt-16 mr-32 shadow-md overflow-auto '>
 
             <table className='w-full border-separate border-spacing-y-2 border border-slate-50 '>
               <thead className='border-y-4 border-white drop-shadow '>
@@ -157,13 +175,13 @@ function Vehicles() {
               </thead>
 
               <tbody className=''>
-              {vehicle.map((item) => ( 
+              {vehiclels.map((item) => ( 
                 <tr onClick={handleClick} className=' bg-[#D9D9D9] bg-opacity-60 hover:cursor-pointer hover:bg-[#eaeaea] drop-shadow-md'>
-                    <td className='text-center  p-3'> {item.id}</td>
-                    <td className='text-center'>{item.type} </td>
-                    <td className='text-center'> {item.make} </td>
-                    <td className='text-center'> {item.model} </td>
-                    <td className='text-center'> {item.contact}</td>
+                    <td className='text-center  p-3'> {item.vehicle_id} </td>
+                    <td className='text-center'>{item.vehicle_no} </td>
+                    <td className='text-center'> {item.vehicle_type} </td>
+                    <td className='text-center'> {item.vehicle_model} </td>
+                    <td className='text-center'> {item.contact_number}</td>
                     <td className='text-center'> {item.departure} </td>
                 </tr>
                 ))}

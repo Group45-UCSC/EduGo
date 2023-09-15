@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, { useState, useEffect } from "react";
 import MainLayout from "../../components/layout/MainLayout";
 import { AiFillDashboard } from "react-icons/ai";
 import { BsFillCarFrontFill } from "react-icons/bs";
@@ -15,84 +15,103 @@ const sideNavBarLinks = [
 function VcRides() {
 
 
+  //frombackend
+
+  const [allride, setallride] = useState([]);
+  useEffect(() => {
+    async function allrideList() {
+      try {
+        const response = await fetch(
+          `http://localhost:5000/edugo/vc/rides/ridetbl`
+        );
+        const data = await response.json();
+        setallride(data);
+      } catch (err) {
+        console.error(err.message);
+      }
+      }
+    allrideList();
+  });
+
+
   // all rides details
 
-  const allride = [
-    {
-      id: "001",
-      v_no: "PI - 1111",
-      departure:"Homagama",
-      destination: "Colombo 5",
-      contact: "0711234567",
-      status: "ongoing"
-    },
+  // const allride = [
+  //   {
+  //     id: "001",
+  //     v_no: "PI - 1111",
+  //     departure:"Homagama",
+  //     destination: "Colombo 5",
+  //     contact: "0711234567",
+  //     status: "ongoing"
+  //   },
 
-    {
-      id: "002",
-      v_no: "PX - 2222",
-      departure:"Homagama",
-      destination: "Colombo 5",
-      contact: "0711234567",
-      status: "complete"
-    },
+  //   {
+  //     id: "002",
+  //     v_no: "PX - 2222",
+  //     departure:"Homagama",
+  //     destination: "Colombo 5",
+  //     contact: "0711234567",
+  //     status: "complete"
+  //   },
 
-    {
-      id: "003",
-      v_no: "PI - 3333",
-      departure:"Homagama",
-      destination: "Colombo 5",
-      contact: "0711234567",
-      status: "complete"
-    },
+  //   {
+  //     id: "003",
+  //     v_no: "PI - 3333",
+  //     departure:"Homagama",
+  //     destination: "Colombo 5",
+  //     contact: "0711234567",
+  //     status: "complete"
+  //   },
 
-    {
-      id: "004",
-      v_no: "PX - 4444",
-      departure:"Homagama",
-      destination: "Colombo 5",
-      contact: "0711234567",
-      status: "complete"
-    },
+  //   {
+  //     id: "004",
+  //     v_no: "PX - 4444",
+  //     departure:"Homagama",
+  //     destination: "Colombo 5",
+  //     contact: "0711234567",
+  //     status: "complete"
+  //   },
 
-    {
-      id: "005",
-      v_no: "PI - 5555",
-      departure:"Homagama",
-      destination: "Colombo 5",
-      contact: "0711234567",
-      status: "ongoing"
-    },
+  //   {
+  //     id: "005",
+  //     v_no: "PI - 5555",
+  //     departure:"Homagama",
+  //     destination: "Colombo 5",
+  //     contact: "0711234567",
+  //     status: "ongoing"
+  //   },
 
-    {
-      id: "006",
-      v_no: "PI - 6666",
-      departure:"Homagama",
-      destination: "Colombo 5",
-      contact: "0711234567",
-      status: "complete"
-    },
+  //   {
+  //     id: "006",
+  //     v_no: "PI - 6666",
+  //     departure:"Homagama",
+  //     destination: "Colombo 5",
+  //     contact: "0711234567",
+  //     status: "complete"
+  //   },
 
-    {
-      id: "007",
-      v_no: "PX - 7777",
-      departure:"Homagama",
-      destination: "Colombo 5",
-      contact: "0711234567",
-      status: "complete"
-    },
+  //   {
+  //     id: "007",
+  //     v_no: "PX - 7777",
+  //     departure:"Homagama",
+  //     destination: "Colombo 5",
+  //     contact: "0711234567",
+  //     status: "complete"
+  //   },
 
-    {
-      id: "008",
-      v_no: "PI - 8888",
-      departure:"Homagama",
-      destination: "Colombo 5",
-      contact: "0711234567",
-      status: "ongoing"
-    }
-  ];
+  //   {
+  //     id: "008",
+  //     v_no: "PI - 8888",
+  //     departure:"Homagama",
+  //     destination: "Colombo 5",
+  //     contact: "0711234567",
+  //     status: "ongoing"
+  //   }
+  // ];
 
 
-  // ongoing rides details
+   // ongoing rides details
 
 
   const ongoingrides = [
@@ -140,15 +159,17 @@ function VcRides() {
 
     return (
 
-      <div>
+      <div className="h-screen">
         <MainLayout data={sideNavBarLinks}>
   
         {/* topic */}
-        <div>
-          <h1 className='text-[26px] font-bold ml-32 mt-8'> 
-            School Services 
-          </h1>
-        </div>
+
+        
+          <div className="">
+            <h1 className='text-[26px] font-bold ml-32 mt-8'> 
+              School Services 
+            </h1>
+          </div>
 
         {/* search and filter */}
             <div>
@@ -224,12 +245,12 @@ function VcRides() {
             <tbody className=''>
             {allride.map((item) => ( 
               <tr onClick={handleClick} className=' bg-[#D9D9D9] bg-opacity-60 hover:cursor-pointer hover:bg-[#eaeaea] drop-shadow-md'>
-                  <td className='text-center  p-3'>{item.id}</td>
-                  <td>{item.v_no}</td>
-                  <td>{item.departure}</td>
-                  <td>{item.destination}</td>
-                  <td>{item.contact}</td>
-                  <td>{item.status}</td>
+                  <td className='text-center  p-3'>{item.ride_id}</td>
+                  <td>{item.vehicle_number}</td>
+                  <td>{item.location_morning_ride}</td>
+                  <td>{item.location_noon_ride}</td>
+                  <td>{item.contact_number}</td>
+                  <td>{item.ride_type}</td>
               </tr>
               ))}
             </tbody>
@@ -271,7 +292,7 @@ function VcRides() {
             </table>
           </div>
           </div>
-    
+      
         </MainLayout>
       </div>
     );
