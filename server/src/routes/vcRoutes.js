@@ -3,11 +3,13 @@ const express = require("express");
 const router = express.Router();
 
 //import functions
-const {viewAllRides} = require("../controllers/v_coordinator/vehicleController");
-const {viewEmergency} = require("../controllers/v_coordinator/emergencyController");
+const {vehicleList} = require("../controllers/v_coordinator/vehicleController");
+const {emergencyls} = require("../controllers/v_coordinator/emergencyController");
+const {ridealllist} = require("../controllers/v_coordinator/rideController");
 
 //create routes
-router.route("/rideDetails/all").get(viewAllRides);
-router.route("/emergency/:rideId").get(viewEmergency);
+router.route("/vehicles/vehicle").get(vehicleList);
+router.route("/emergency/emergencytbl").get(emergencyls);
+router.route("/rides/ridetbl").get(ridealllist);
 
 module.exports = router;

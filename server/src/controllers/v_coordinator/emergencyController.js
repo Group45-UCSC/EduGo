@@ -1,16 +1,21 @@
-const query = require("../../models/vcModel");
+const pool = require("../../dbConnection");
 
-//view emergency details -> GET
-const viewEmergency = (req, res) => {
+//view emergency details 
+const emergencyls = async (req, res) => {
+
     try {
-      res.status(200).Json({
-        tatus: "success",
-        data: "It is working",
-      });
+      //db query
+      const emergencylist = await pool.query(
+        "SELECT emergency.emergency_id, emergency.situation, emergency.date, emergency.status, registered_users.contact_number, registered_users.user_name FROM emergency INNER JOIN registered_users ON registered_users.user_id = emergency.user_id;",
+
+      );
+
+    return res.json(emergencylist.rows);
     } catch (err) {
       console.log(err.message);
+      return res.status(500).send("Server Error");
     }
   };
   
-  module.exports = { viewEmergency };
+  module.exports = { emergencyls };
   
