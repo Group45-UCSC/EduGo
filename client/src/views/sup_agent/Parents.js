@@ -170,7 +170,7 @@ function Parents() {
   const handleClosePopup = () => {
     setSelectedRow(null);
   };
-  
+
   return (
     <div>
       <MainLayout data={sideNavBarLinks}>
@@ -314,10 +314,14 @@ function Parents() {
 
                 <tbody className="">
                   {childrenData
-                    .filter((children) =>
-                      children.child_name
-                        .toLowerCase()
-                        .includes(searchQuery.toLowerCase())
+                    .filter(
+                      (children) =>
+                        children.child_name
+                          .toLowerCase()
+                          .includes(searchQuery.toLowerCase()) ||
+                        children.child_id
+                          .toLowerCase()
+                          .includes(searchQuery.toLowerCase())
                     )
                     .map((children) => (
                       <tr
@@ -325,8 +329,12 @@ function Parents() {
                         className="bg-[#D9D9D9] bg-opacity-60 hover:cursor-pointer hover:bg-[#eaeaea] drop-shadow-md"
                         onClick={() => handleRowClick(children)}
                       >
-                        <td className="text-left px-4 py-4">{children.child_id}</td>
-                        <td className="text-left px-4 py-4">{children.child_name}</td>
+                        <td className="text-left px-4 py-4">
+                          {children.child_id}
+                        </td>
+                        <td className="text-left px-4 py-4">
+                          {children.child_name}
+                        </td>
                         <td className="text-left px-4 py-4">
                           {children.school_id}
                         </td>
@@ -393,30 +401,29 @@ function Parents() {
                     <p className="text-xl font-semibold">Children Details</p>
                     <div className="flex flex-1 gap-20 p-2">
                       {selectedRow &&
-                      selectedRow.children.map((child) => (
-                        
-                      <div
-                        key={child.child_id}
-                        className="bg-[#F9F9F9] w-2/5  p-5 border-orange border-2 rounded-lg"
-                      >
-                        <h3 className="font-semibold text-xl pb-1">
-                          {child.child_name}
-                        </h3>
-                        <p>
-                          <strong className="mr-2">School:</strong>{" "}
-                          {child.school_id}
-                        </p>
+                        selectedRow.children.map((child) => (
+                          <div
+                            key={child.child_id}
+                            className="bg-[#F9F9F9] w-2/5  p-5 border-orange border-2 rounded-lg"
+                          >
+                            <h3 className="font-semibold text-xl pb-1">
+                              {child.child_name}
+                            </h3>
+                            <p>
+                              <strong className="mr-2">School:</strong>{" "}
+                              {child.school_id}
+                            </p>
 
-                        <p>
-                          <strong className="mr-2">Vehicle Number:</strong>{" "}
-                          {child.vnum}
-                        </p>
-                        <p>
-                          <strong className="mr-2">Driver name:</strong>{" "}
-                          {child.driver_id}
-                        </p>
-                      </div>
-                      ))} 
+                            <p>
+                              <strong className="mr-2">Vehicle Number:</strong>{" "}
+                              {child.vnum}
+                            </p>
+                            <p>
+                              <strong className="mr-2">Driver name:</strong>{" "}
+                              {child.driver_id}
+                            </p>
+                          </div>
+                        ))}
                       {/* <div className="bg-[#F9F9F9] w-2/5 h-5"> </div> */}
                     </div>
                   </div>
@@ -446,16 +453,17 @@ function Parents() {
                         />
                       </div>
                       <h2 className="font-bold text-xl ml mt-4">
-                        {selectedRow.name}
+                        {selectedRow.child_name}
                       </h2>
                     </div>
                     <div className="bg-gradient-to-tl from-[#f6ad55] to-[#fbd38d] w-full h-auto p-5 rounded-xl">
                       <p>
-                        <strong className="mr-2">ID:</strong> {selectedRow.id}
+                        <strong className="mr-2">ID:</strong>{" "}
+                        {selectedRow.child_id}
                       </p>
                       <p>
                         <strong className="mr-2">NIC Number:</strong>{" "}
-                        {selectedRow.school}
+                        {selectedRow.school_id}
                       </p>
                       <p>
                         <strong className="mr-2">Vehicle Number:</strong>{" "}
@@ -470,32 +478,32 @@ function Parents() {
 
                   <div className="bg-[#EEEEEE] w-full h-[15rem] mt-5 rounded-xl p-3">
                     <div className="flex flex-1 gap-20 p-2">
-                    {selectedRow &&
-                      selectedRow.parent.map((parent) => (
-                            <div
-                              key={parent.id}
-                              className="bg-[#F9F9F9] w-2/5  px-5 py-2 border-orange border-2 rounded-lg"
-                            >
-                              <p className="text-xl font-bold">
-                                <u>Parent's Details</u>
-                              </p>
-                              <h3 className="font-semibold text-xl py-1">
-                                {parent.name}
-                              </h3>
-                              <p>
-                                <strong className="mr-2">NIC Number:</strong>{" "}
-                                {parent.nicNumber}
-                              </p>
-                              <p>
-                                <strong className="mr-2">Contact No:</strong>{" "}
-                                {parent.contact}
-                              </p>
-                              <p>
-                                <strong className="mr-2">Address:</strong>{" "}
-                                {parent.address}
-                              </p>
-                            </div>
-                          ))}
+                      {selectedRow &&
+                        selectedRow.parent.map((parent) => (
+                          <div
+                            key={parent.user_id}
+                            className="bg-[#F9F9F9] w-2/5  px-5 py-2 border-orange border-2 rounded-lg"
+                          >
+                            <p className="text-xl font-bold">
+                              <u>Parent's Details</u>
+                            </p>
+                            <h3 className="font-semibold text-xl py-1">
+                              {parent.user_name}
+                            </h3>
+                            <p>
+                              <strong className="mr-2">NIC Number:</strong>{" "}
+                              {parent.nic}
+                            </p>
+                            <p>
+                              <strong className="mr-2">Contact No:</strong>{" "}
+                              {parent.contact_number}
+                            </p>
+                            <p>
+                              <strong className="mr-2">Address:</strong>{" "}
+                              {parent.address}
+                            </p>
+                          </div>
+                        ))}
 
                       <div className="bg-[#F9F9F9] w-2/5  px-5 py-2 border-orange border-2 rounded-lg">
                         <p className="text-xl font-bold">
