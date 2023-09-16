@@ -123,7 +123,7 @@ function Parents() {
   const [activeTab, setActiveTab] = useState("parents");
   const [parentData, setParentData] = useState([]);
   // const [parentData, setParentData] = useState(initialParentData);
-  const [childrenData] = useState(initialChildrenData);
+  const [childrenData, setChildrenData] = useState([]);
   // const [childrenData,setChildrenData] = useState(initialChildrenData);
   const [selectedRow, setSelectedRow] = useState(null);
   const [searchQuery, setSearchQuery] = useState("");
@@ -146,19 +146,31 @@ function Parents() {
     viewParentDetails();
   });
 
+  useEffect(() => {
+    async function viewChildrenDetails() {
+      try {
+        const response = await fetch(
+          `http://localhost:5000/edugo/supAgent/parents/viewChildren`
+        );
+        if (!response.ok) {
+          throw new Error("Network response was not ok");
+        }
+        const data = await response.json();
+        setChildrenData(data);
+      } catch (error) {
+        console.error("Error fetching parent details", error);
+      }
+    }
+    viewChildrenDetails();
+  });
+
   const handleRowClick = (rowData) => {
     setSelectedRow(rowData);
   };
   const handleClosePopup = () => {
     setSelectedRow(null);
   };
-  const parentWithChildren = parentData.map((parent) => {
-    const children = childrenData.filter(
-      (child) => child.parentId === parent.user_id
-    );
-    return { ...parent, children };
-  }, []);
-
+  
   return (
     <div>
       <MainLayout data={sideNavBarLinks}>
@@ -303,20 +315,20 @@ function Parents() {
                 <tbody className="">
                   {childrenData
                     .filter((children) =>
-                      children.name
+                      children.child_name
                         .toLowerCase()
                         .includes(searchQuery.toLowerCase())
                     )
                     .map((children) => (
                       <tr
-                        key={children.id}
+                        key={children.child_id}
                         className="bg-[#D9D9D9] bg-opacity-60 hover:cursor-pointer hover:bg-[#eaeaea] drop-shadow-md"
                         onClick={() => handleRowClick(children)}
                       >
-                        <td className="text-left px-4 py-4">{children.id}</td>
-                        <td className="text-left px-4 py-4">{children.name}</td>
+                        <td className="text-left px-4 py-4">{children.child_id}</td>
+                        <td className="text-left px-4 py-4">{children.child_name}</td>
                         <td className="text-left px-4 py-4">
-                          {children.school}
+                          {children.school_id}
                         </td>
                         <td className="text-left px-4 py-4">
                           {children.address}
@@ -380,29 +392,31 @@ function Parents() {
                   <div className="bg-[#EEEEEE] w-full h-[15rem] mt-5 rounded-xl p-3">
                     <p className="text-xl font-semibold">Children Details</p>
                     <div className="flex flex-1 gap-20 p-2">
-                    {/* {selectedRow?.children?.map((child) => ( */}
-                          <div
-                            key={selectedRow.child_id}
-                            className="bg-[#F9F9F9] w-2/5  p-5 border-orange border-2 rounded-lg"
-                          >
-                            <h3 className="font-semibold text-xl pb-1">
-                              {selectedRow.child_name}
-                            </h3>
-                            <p>
-                              <strong className="mr-2">School:</strong>{" "}
-                              {selectedRow.school_id}
-                            </p>
+                      {selectedRow &&
+                      selectedRow.children.map((child) => (
+                        
+                      <div
+                        key={child.child_id}
+                        className="bg-[#F9F9F9] w-2/5  p-5 border-orange border-2 rounded-lg"
+                      >
+                        <h3 className="font-semibold text-xl pb-1">
+                          {child.child_name}
+                        </h3>
+                        <p>
+                          <strong className="mr-2">School:</strong>{" "}
+                          {child.school_id}
+                        </p>
 
-                            <p>
-                              <strong className="mr-2">Vehicle Number:</strong>{" "}
-                              {selectedRow.vnum}
-                            </p>
-                            <p>
-                              <strong className="mr-2">Driver name:</strong>{" "}
-                              {selectedRow.driver_id}
-                            </p>
-                          </div>
-                        {/* ))} */}
+                        <p>
+                          <strong className="mr-2">Vehicle Number:</strong>{" "}
+                          {child.vnum}
+                        </p>
+                        <p>
+                          <strong className="mr-2">Driver name:</strong>{" "}
+                          {child.driver_id}
+                        </p>
+                      </div>
+                      ))} 
                       {/* <div className="bg-[#F9F9F9] w-2/5 h-5"> </div> */}
                     </div>
                   </div>
@@ -456,14 +470,8 @@ function Parents() {
 
                   <div className="bg-[#EEEEEE] w-full h-[15rem] mt-5 rounded-xl p-3">
                     <div className="flex flex-1 gap-20 p-2">
-                      {selectedRow &&
-                        parentWithChildren
-                          .filter((parent) =>
-                            parent.children.some(
-                              (child) => child.id === selectedRow.id
-                            )
-                          )
-                          .map((parent) => (
+                    {selectedRow &&
+                      selectedRow.parent.map((parent) => (
                             <div
                               key={parent.id}
                               className="bg-[#F9F9F9] w-2/5  px-5 py-2 border-orange border-2 rounded-lg"
