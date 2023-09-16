@@ -1,5 +1,21 @@
 const pool = require("../../dbConnection");
 
+// dashboard ongoing rides count
+const rideCount = async (req, res) => {
+
+  try{
+  //db query
+  const rideCountData = await pool.query(
+    "SELECT COUNT(*) FROM (SELECT * FROM school_ride WHERE ride_type = 'ongoing') AS ongoing_rides_count",
+  );
+
+  return res.json(rideCountData.rows);
+  } catch (err) {
+  console.error(err.message);
+  return res.status(500).send("Server Error");
+}
+};
+
 //view all rides list
 const allrideList = async (req, res) => {
 
@@ -32,4 +48,4 @@ const allrideList = async (req, res) => {
   }
   };
   
-  module.exports = { allrideList, ongoingList };
+  module.exports = { rideCount, allrideList, ongoingList };

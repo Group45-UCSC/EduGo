@@ -1,5 +1,37 @@
 const pool = require("../../dbConnection");
 
+// dashboard vehicle count
+const vehiCount = async (req, res) => {
+
+  try{
+  //db query
+  const vehiCountData = await pool.query(
+    "SELECT COUNT(*) FROM vehicle",
+  );
+
+  return res.json(vehiCountData.rows);
+  } catch (err) {
+  console.error(err.message);
+  return res.status(500).send("Server Error");
+}
+};
+
+// dashboard vehicle condition count
+const conditionCount = async (req, res) => {
+
+  try{
+  //db query
+  const conditionData = await pool.query(
+    "SELECT COUNT(*) FROM check_vehicle_condition",
+  );
+
+  return res.json(conditionData.rows);
+  } catch (err) {
+  console.error(err.message);
+  return res.status(500).send("Server Error");
+}
+};
+
 //view vehicle list in vehicles and drivers page
 const vehiList = async (req, res) => {
 
@@ -16,4 +48,4 @@ const vehiList = async (req, res) => {
   }
   };
   
-  module.exports = { vehiList };
+  module.exports = { conditionCount, vehiCount, vehiList };

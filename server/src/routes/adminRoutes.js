@@ -4,11 +4,11 @@ const router = express.Router();
 
 //import functions
 const { addEmployee, viewSupList, viewVCList } = require("../controllers/admin/empController");
-const { vehiList } = require("../controllers/admin/vehiController");
+const { conditionCount, vehiCount, vehiList } = require("../controllers/admin/vehiController");
 const { driverList } = require("../controllers/admin/driverController");
-const { childList } = require("../controllers/admin/childController");
+const { childCount, childList } = require("../controllers/admin/childController");
 const { parentList } = require("../controllers/admin/parentController");
-const { allrideList, ongoingList } = require("../controllers/admin/rideController");
+const { rideCount, allrideList, ongoingList } = require("../controllers/admin/rideController");
 
 //create routes
 router.route("/addEmployee").post(addEmployee);
@@ -20,5 +20,9 @@ router.route("/childrenlist/children").get(childList);
 router.route("/childrenlist/parent").get(parentList);
 router.route("/rides/all").get(allrideList);
 router.route("/rides/ongoing").get(ongoingList);
+router.route("/dashboard/vcount").get(vehiCount);
+router.route("/dashboard/rcount").get(rideCount);
+router.route("/dashboard/childcount").get(childCount);
+router.route("/dashboard/conditioncount").get(conditionCount);
 
 module.exports = router;

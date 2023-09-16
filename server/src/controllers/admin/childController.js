@@ -1,5 +1,21 @@
 const pool = require("../../dbConnection");
 
+// dashboard children count
+const childCount = async (req, res) => {
+
+  try{
+  //db query
+  const childCountData = await pool.query(
+    "SELECT COUNT(*) FROM children",
+  );
+
+  return res.json(childCountData.rows);
+  } catch (err) {
+  console.error(err.message);
+  return res.status(500).send("Server Error");
+}
+};
+
 //view vehicle list in vehicles and drivers page
 const childList = async (req, res) => {
 
@@ -16,4 +32,4 @@ const childList = async (req, res) => {
   }
   };
   
-  module.exports = { childList };
+  module.exports = { childCount, childList };
