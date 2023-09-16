@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import MainLayout from "../../components/layout/MainLayout";
 import { BsStar, BsStarFill } from "react-icons/bs";
 import { AiOutlineClose } from "react-icons/ai";
@@ -24,6 +24,82 @@ const sideNavBarLinks = [
 ];
 
 function AdminDashboardPg() {
+
+  //vehicle count
+  const [vcount, setVcount] = useState([]);
+
+  useEffect(() => {
+    async function vehiCount() {
+      try {
+        const response = await fetch(
+          `http://localhost:5000/edugo/admin/dashboard/vcount`
+        );
+        const data = await response.json();
+        setVcount(data);
+      } catch (err) {
+        console.error(err.message);
+      }
+    }
+
+    vehiCount();
+  });
+
+  //children
+  const [childcount, setChildcount] = useState([]);
+
+  useEffect(() => {
+    async function childCount() {
+      try {
+        const response = await fetch(
+          `http://localhost:5000/edugo/admin/dashboard/childcount`
+        );
+        const data = await response.json();
+        setChildcount(data);
+      } catch (err) {
+        console.error(err.message);
+      }
+    }
+
+    childCount();
+  });
+
+  //vehicle condition checks count
+  const [conditioncount, setConditioncount] = useState([]);
+
+  useEffect(() => {
+    async function conditionCount() {
+      try {
+        const response = await fetch(
+          `http://localhost:5000/edugo/admin/dashboard/conditioncount`
+        );
+        const data = await response.json();
+        setConditioncount(data);
+      } catch (err) {
+        console.error(err.message);
+      }
+    }
+
+    conditionCount();
+  });
+
+  //ongoing ride count
+  const [rcount, setRcount] = useState([]);
+
+  useEffect(() => {
+    async function rideCount() {
+      try {
+        const response = await fetch(
+          `http://localhost:5000/edugo/admin/dashboard/rcount`
+        );
+        const data = await response.json();
+        setRcount(data);
+      } catch (err) {
+        console.error(err.message);
+      }
+    }
+
+    rideCount();
+  });
 
   const [viewPopup, setViewPopup] = useState(false);
 
@@ -151,7 +227,9 @@ function AdminDashboardPg() {
                 <div className='w-24 ml-4 mt-2 h-16 font-bold'>Total Vehicles</div>
                 <div className='ml-16 mt-4 w-8 h-8'><FaBusAlt className='h-6 w-6' /></div>
               </div>
-              <span className='font-bold ml-24 text-xl'>34</span>
+              {vcount.map((item, index) => (
+              <span className='font-bold ml-24 text-xl'>{item.count}</span>
+              ))}
             </div>
           </div>
 
@@ -167,7 +245,9 @@ function AdminDashboardPg() {
                 <div className='w-24 ml-4 mt-2 h-16 font-bold'>Total Children</div>
                 <div className='ml-16 mt-4 w-8 h-8'><FaChild className='h-6 w-6' /></div>
               </div>
-              <span className='font-bold ml-24 text-xl'>415</span>
+              {childcount.map((item, index) => (
+              <span className='font-bold ml-24 text-xl'>{item.count}</span>
+              ))}
             </div>
           </div>
 
@@ -183,7 +263,9 @@ function AdminDashboardPg() {
                 <div className='w-24 ml-4 mt-2 h-16 font-bold'>Condition Checks</div>
                 <div className='ml-16 mt-4 w-8 h-8'><FaWrench className='h-6 w-6' /></div>
               </div>
-              <span className='font-bold ml-24 text-xl'>4</span>
+              {conditioncount.map((item, index) => (
+              <span className='font-bold ml-24 text-xl'>{item.count}</span>
+              ))}
             </div>
           </div>
 
@@ -199,7 +281,9 @@ function AdminDashboardPg() {
                 <div className='w-24 ml-4 mt-2 h-16 font-bold'>Ongoing Rides</div>
                 <div className='ml-16 mt-4 w-8 h-8'><FaShippingFast className='h-6 w-6' /></div>
               </div>
-              <span className='font-bold ml-24 text-xl'>10</span>
+              {rcount.map((item, index) => (
+              <span className='font-bold ml-24 text-xl'>{item.count}</span>
+              ))}
             </div>
           </div>
         </div>

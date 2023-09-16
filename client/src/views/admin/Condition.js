@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import MainLayout from "../../components/layout/MainLayout";
 import { AiOutlineClose } from "react-icons/ai";
 import VehiCarousel from "../../components/carousel/VehiCarousel";
@@ -46,6 +46,25 @@ function AdminCondition() {
     setViewPopup(false);
   }
 
+  //conditiion check list
+  const [checks, setChecks] = useState([]);
+
+  useEffect(() => {
+    async function conditionList() {
+      try {
+        const response = await fetch(
+          `http://localhost:5000/edugo/admin/condition/list`
+        );
+        const data = await response.json();
+        setChecks(data);
+      } catch (err) {
+        console.error(err.message);
+      }
+    }
+
+    conditionList();
+  });
+
   const CAROUSEL_DATA = [
     {
       image:vcv1,
@@ -73,36 +92,6 @@ function AdminCondition() {
     }
   ]
 
-  const checks = [
-    {
-      type: "Van",
-      name: "Ishan Jayasekara",
-      nic: "993321123V",
-      contact: "0771234567",
-      date: "2023/08/15",
-    },
-    {
-      type: "Van",
-      name: "Supun Thilakshana",
-      nic: "993218313V",
-      contact: "0743213567",
-      date: "2023/08/16",
-    },
-    {
-      type: "Bus",
-      name: "Rashmika Anuradha",
-      nic: "973456534V",
-      contact: "0769898789",
-      date: "2023/08/16",
-    },
-    {
-      type: "Bus",
-      name: "Gimahan Rajapaksha",
-      nic: "979983346V",
-      contact: "0712341239",
-      date: "2023/08/17",
-    },
-  ];
 
   return (
     <div>
@@ -130,10 +119,10 @@ function AdminCondition() {
                   onClick={showPopup}
                   className=" bg-[#D9D9D9] bg-opacity-60 hover:cursor-pointer  hover:bg-[#eaeaea] drop-shadow-md"
                 >
-                  <td className="text-center  p-3 ">{item.type}</td>
-                  <td>{item.name}</td>
+                  <td className="text-center  p-3 ">{item.vehicle_type}</td>
+                  <td>{item.user_name}</td>
                   <td>{item.nic}</td>
-                  <td>{item.contact}</td>
+                  <td>{item.contact_number}</td>
                   <td>{item.date}</td>
                 </tr>
               ))}

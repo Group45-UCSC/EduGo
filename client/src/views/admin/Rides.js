@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import MainLayout from "../../components/layout/MainLayout";
 import { AiFillDashboard } from "react-icons/ai";
 import { BsCoin } from "react-icons/bs";
@@ -20,91 +20,42 @@ const sideNavBarLinks = [
 
 function AdminRides() {
 
-  const all = [
-    {
-      id: "001",
-      v_no: "PI - 1111",
-      start: "Arawwala",
-      end: "Borella",
-      contact: "0711234567",
-      status: "Completed"
-    },
-    {
-      id: "002",
-      v_no: "NA - 2222",
-      start: "Kadawatha",
-      end: "Pannipitiya",
-      contact: "0768956423",
-      status: "Completed"
-    },
-    {
-      id: "003",
-      v_no: "NA - 3333",
-      start: "Wellampitiya",
-      end: "Borella",
-      contact: "0762222223",
-      status: "Ongoing"
-    },
-    {
-      id: "004",
-      v_no: "NA - 4444",
-      start: "Hokandara",
-      end: "Rajagiriya",
-      contact: "0711936423",
-      status: "Completed"
-    },
-    {
-      id: "005",
-      v_no: "NA - 5555",
-      start: "Kaduwela",
-      end: "Nugegoda",
-      contact: "0768123456",
-      status: "Completed"
-    },
-    {
-      id: "006",
-      v_no: "NA - 6666",
-      start: "Hanwella",
-      end: "Thimbirigasyaya",
-      contact: "0768123456",
-      status: "Ongoing"
-    },
-    {
-      id: "007",
-      v_no: "NA - 7777",
-      start: "Kesbewa",
-      end: "Nugegoda",
-      contact: "0712318987",
-      status: "Completed"
-    },
-    {
-      id: "008",
-      v_no: "NA - 8888",
-      start: "Piliyandala",
-      end: "Maharagama",
-      contact: "0776745432",
-      status: "Completed"
-    }
-  ];
+  const [all, setAll] = useState([]);
 
-  const ongoing = [
-    {
-      id: "003",
-      v_no: "NA - 3333",
-      start: "Wellampitiya",
-      end: "Borella",
-      contact: "0762222223",
-      status: "Ongoing"
-    },
-    {
-      id: "006",
-      v_no: "NA - 6666",
-      start: "Hanwella",
-      end: "Thimbirigasyaya",
-      contact: "0768123456",
-      status: "Ongoing"
+  useEffect(() => {
+    async function allrideList() {
+      try {
+        const response = await fetch(
+          `http://localhost:5000/edugo/admin/rides/all`
+        );
+        const data = await response.json();
+        setAll(data);
+      } catch (err) {
+        console.error(err.message);
+      }
     }
-  ];
+
+    allrideList();
+  });
+
+  const [ongoing, setOngoing] = useState([]);
+
+  useEffect(() => {
+    async function ongoingList() {
+      try {
+        const response = await fetch(
+          `http://localhost:5000/edugo/admin/rides/ongoing`
+        );
+        const data = await response.json();
+        setOngoing(data);
+      } catch (err) {
+        console.error(err.message);
+      }
+    }
+
+    ongoingList();
+  });
+
 
   const [toggle, setToggle] = useState(1);
 
@@ -172,8 +123,8 @@ function AdminRides() {
                 <tr className=' bg-[#999999] text-white border-b-2 text-[18px] drop-shadow-md '>
                   <th className='px-3.5 p-1 w-24 '>ID</th>
                   <th className='px-3.5 w-30'>License plate</th>
-                  <th className='px-3.5 w-30'>Departure</th>
-                  <th className='px-3.5 w-30'>Destination</th>
+                  <th className='px-3.5 w-30'>Morning Departure</th>
+                  <th className='px-3.5 w-30'>Evening Departure</th>
                   <th className='px-3.5 w-30'>Contact</th>
                   <th className='px-3.5 w-30'>Status</th>
                 </tr>
@@ -183,12 +134,12 @@ function AdminRides() {
 
               {ongoing.map((item) => (
                 <tr onClick={handleClick} className=' bg-[#D9D9D9] bg-opacity-60 hover:cursor-pointer hover:bg-[#eaeaea] drop-shadow-md'>
-                  <td className='text-center  p-3'>{item.id}</td>
-                  <td>{item.v_no}</td>
-                  <td>{item.start}</td>
-                  <td>{item.end}</td>
-                  <td>{item.contact}</td>
-                  <td>{item.status}</td>
+                  <td className='text-center  p-3'>{item.ride_id}</td>
+                  <td>{item.vehicle_no}</td>
+                  <td>{item.location_morning_ride}</td>
+                  <td>{item.location_noon_ride}</td>
+                  <td>{item.contact_number}</td>
+                  <td>{item.ride_type}</td>
                 </tr>
                 ))}
               </tbody>
@@ -204,8 +155,8 @@ function AdminRides() {
                 <tr className=' bg-[#999999] text-white border-b-2 text-[18px] drop-shadow-md '>
                   <th className='px-3.5 p-1 w-24 '>ID</th>
                   <th className='px-3.5 w-30'>License plate</th>
-                  <th className='px-3.5 w-30'>Departure</th>
-                  <th className='px-3.5 w-30'>Destination</th>
+                  <th className='px-3.5 w-30'>Morning departure</th>
+                  <th className='px-3.5 w-30'>Evening departure</th>
                   <th className='px-3.5 w-30'>Contact</th>
                   <th className='px-3.5 w-30'>Status</th>
                 </tr>
@@ -214,12 +165,12 @@ function AdminRides() {
               <tbody className=''>
               {all.map((item) => (
                 <tr onClick={handleClick} className=' bg-[#D9D9D9] bg-opacity-60 hover:cursor-pointer hover:bg-[#eaeaea] drop-shadow-md'>
-                  <td className='text-center  p-3'>{item.id}</td>
-                  <td>{item.v_no}</td>
-                  <td>{item.start}</td>
-                  <td>{item.end}</td>
-                  <td>{item.contact}</td>
-                  <td>{item.status}</td>
+                  <td className='text-center  p-3'>{item.ride_id}</td>
+                  <td>{item.vehicle_no}</td>
+                  <td>{item.location_morning_ride}</td>
+                  <td>{item.location_noon_ride}</td>
+                  <td>{item.contact_number}</td>
+                  <td>{item.ride_type}</td>
                 </tr>
                 ))}
               </tbody>
