@@ -22,7 +22,7 @@ const conditionCount = async (req, res) => {
   try{
   //db query
   const conditionData = await pool.query(
-    "SELECT COUNT(*) FROM check_vehicle_condition",
+    "SELECT COUNT(*) FROM check_vehicle_condition WHERE status = 'pending'",
   );
 
   return res.json(conditionData.rows);
@@ -47,5 +47,20 @@ const vehiList = async (req, res) => {
     return res.status(500).send("Server Error");
   }
   };
+
+  const conditionList = async (req, res) => {
+
+    try{
+    //db query
+    const condListData = await pool.query(
+      "SELECT * FROM check_vehicle_condition cvc INNER JOIN vehicle v ON v.vehicle_id = cvc.vehicle_id INNER JOIN registered_users u ON u.user_id = v.driver_id WHERE status = 'pending'",
+    );
   
-  module.exports = { conditionCount, vehiCount, vehiList };
+    return res.json(condListData.rows);
+    } catch (err) {
+    console.error(err.massage);
+    return res.status(500).send("Server Error");
+  }
+  };
+  
+  module.exports = { conditionCount, vehiCount, vehiList, conditionList };
