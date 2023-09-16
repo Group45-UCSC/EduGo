@@ -7,6 +7,7 @@ const { addEmployee, viewSupList, viewVCList } = require("../controllers/admin/e
 const { vehiList } = require("../controllers/admin/vehiController");
 const { driverList } = require("../controllers/admin/driverController");
 const { childList } = require("../controllers/admin/childController");
+const { parentList } = require("../controllers/admin/parentController");
 
 //create routes
 router.route("/addEmployee").post(addEmployee);
@@ -15,5 +16,6 @@ router.route("/employees/vc").get(viewVCList);
 router.route("/drivers/vehi").get(vehiList);
 router.route("/drivers/driver").get(driverList);
 router.route("/childrenlist/children").get(childList);
+router.route("/childrenlist/parent").get(parentList);
 
 module.exports = router;
