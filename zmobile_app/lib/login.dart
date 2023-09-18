@@ -31,12 +31,10 @@ class _LoginState extends State<Login> {
         'password': password,
       }),
     );
-    print(response.statusCode);
 
     if (response.statusCode == 200) {
       // Successfully logged in
       final Map<String, dynamic> data = jsonDecode(response.body);
-      print(data);
 
       final bool loggedIn = data['Login'];
       final String role = data['role'];
@@ -46,9 +44,9 @@ class _LoginState extends State<Login> {
         if (role == 'driver') {
           // Navigate to the driver dashboard
           Navigator.pushNamed(context, '/home_d');
-        } else if (role == 'Parent') {
+        } else if (role == 'parent') {
           // Navigate to the parent dashboard
-          Navigator.pushNamed(context, '/parent_dashboard');
+          Navigator.pushNamed(context, '/home_p');
         }
       } else {
         // Handle login failure
