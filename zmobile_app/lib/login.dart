@@ -1,4 +1,4 @@
-// ignore_for_file: library_private_types_in_public_api, prefer_const_constructors, use_build_context_synchronously
+// ignore_for_file: library_private_types_in_public_api, use_build_context_synchronously, prefer_const_constructors
 
 import 'dart:convert';
 import 'package:flutter/material.dart';
@@ -12,57 +12,84 @@ class Login extends StatefulWidget {
 }
 
 class _LoginState extends State<Login> {
-  final TextEditingController _emailController = TextEditingController();
-  final TextEditingController _passwordController = TextEditingController();
-
   bool _passwordVisible = false;
-  // String _selectedRole = 'Driver'; // Default selected role
+  TextEditingController emailController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
 
   Future<void> _login(BuildContext context) async {
-  final Map<String, dynamic> loginData = {
-    'email': _emailController.text,
-    'password': _passwordController.text,
-  };
+    final String email = emailController.text;
+    final String password = passwordController.text;
 
-  final Uri loginUrl = Uri.parse('http://localhost:5000/edugo/user/login');
-  try {
-    final http.Response response = await http.post(
-      loginUrl,
+    // Make a POST request to login API
+    final response = await http.post(
+      Uri.parse('http://10.0.2.2:5000/edugo/user/login'),
       headers: <String, String>{
         'Content-Type': 'application/json; charset=UTF-8',
       },
-      body: jsonEncode(loginData),
+      body: jsonEncode(<String, String>{
+        'email': email,
+        'password': password,
+      }),
     );
+    print(response.statusCode);
 
-    if (response.statusCode == 500) {
-      // Login successful, handle the response here
-      final Map<String, dynamic> responseBody = jsonDecode(response.body);
-      final String userRole = responseBody['role'];
+    if (response.statusCode == 200) {
+      // Successfully logged in
+      final Map<String, dynamic> data = jsonDecode(response.body);
+      print(data);
 
-      if (userRole == 'Driver') {
-        Navigator.of(context).pushReplacementNamed('/home_d');
-      } else if (userRole == 'Parent') {
-        Navigator.of(context).pushReplacementNamed('/home_p');
+      final bool loggedIn = data['Login'];
+      final String role = data['role'];
+
+      if (loggedIn) {
+        // Navigate to the next screen or perform actions based on the user role
+        if (role == 'driver') {
+          // Navigate to the driver dashboard
+          Navigator.pushNamed(context, '/home_d');
+        } else if (role == 'Parent') {
+          // Navigate to the parent dashboard
+          Navigator.pushNamed(context, '/parent_dashboard');
+        }
+      } else {
+        // Handle login failure
+        showDialog(
+          context: context,
+          builder: (context) {
+            return AlertDialog(
+              title: Text('Login Failed'),
+              content: Text('Invalid email or password. Please try again.'),
+              actions: [
+                TextButton(
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                  child: Text('OK'),
+                ),
+              ],
+            );
+          },
+        );
       }
     } else {
-      // Login failed, show an error message or handle it accordingly
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-        content: Text('Login failed. Please check your credentials.'),
-      ));
+      // Handle errors
+      showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            title: Text('Error'),
+            content: Text('An error occurred while logging in.'),
+            actions: [
+              TextButton(
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+                child: Text('OK'),
+              ),
+            ],
+          );
+        },
+      );
     }
-  } catch (error) {
-    // Handle any network-related errors here
-    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-      content: Text('An error occurred: $error'),
-    ));
-  }
-}
-
-  @override
-  void dispose() {
-    _emailController.dispose();
-    _passwordController.dispose();
-    super.dispose();
   }
 
   @override
@@ -93,31 +120,12 @@ class _LoginState extends State<Login> {
               ),
               SizedBox(height: 20),
 
-              // Role Dropdown
-              // DropdownButton<String>(
-              //   value: _selectedRole,
-              //   onChanged: (newValue) {
-              //     setState(() {
-              //       _selectedRole = newValue!;
-              //     });
-              //   },
-              //   items: <String>['Driver', 'Parent']
-              //       .map<DropdownMenuItem<String>>((String value) {
-              //     return DropdownMenuItem<String>(
-              //       value: value,
-              //       child: Text(value),
-              //     );
-              //   }).toList(),
-              // ),
-
-              // SizedBox(height: 20),
-
               // LOGIN FORM
               TextField(
-                controller: _emailController,
+                controller: emailController,
                 decoration: InputDecoration(
                   prefixIcon: Icon(Icons.person, color: Colors.black),
-                  hintText: 'Username',
+                  hintText: 'Email',
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.all(Radius.circular(12)),
                     borderSide: BorderSide(color: Colors.black),
@@ -133,7 +141,7 @@ class _LoginState extends State<Login> {
               ),
               SizedBox(height: 16),
               TextField(
-                controller: _passwordController,
+                controller: passwordController,
                 decoration: InputDecoration(
                   prefixIcon: Icon(Icons.lock, color: Colors.black),
                   hintText: 'Password',
