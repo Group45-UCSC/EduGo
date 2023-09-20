@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import MainLayout from "../../components/layout/MainLayout";
 import { FaHome, FaBus, FaUsers, FaSearch } from "react-icons/fa";
 import { BsFillChatDotsFill } from "react-icons/bs";
@@ -80,34 +80,51 @@ const VehicleCarouselData = [
     imageAlt: "v2 img3",
   },
 ];
-const initialDriverData = [
-  {
-    id: 1,
-    vid: 1,
-    name: "H.A.Priyantha Perera",
-    contact: "0332250444",
-    address: "Rosmead Place, Colombo 7",
-    vnum: "V12345",
-    img: "https://image.shutterstock.com/image-photo/portrait-handsome-caucasian-man-formal-260nw-2142820441.jpg",
-  },
-  {
-    id: 2,
-    vid: 2,
-    name: "Saman Hettiarachchi",
-    contact: "0332250444",
-    address: "Flower Rd, Rajagiriya",
-    vnum: "V98765",
-    img: "https://image.shutterstock.com/image-photo/portrait-happy-mid-adult-man-260nw-1812937819.jpg",
-  },
-];
+// const initialDriverData = [
+//   {
+//     id: 1,
+//     vid: 1,
+//     name: "H.A.Priyantha Perera",
+//     contact: "0332250444",
+//     address: "Rosmead Place, Colombo 7",
+//     vnum: "V12345",
+//     img: "https://image.shutterstock.com/image-photo/portrait-handsome-caucasian-man-formal-260nw-2142820441.jpg",
+//   },
+//   {
+//     id: 2,
+//     vid: 2,
+//     name: "Saman Hettiarachchi",
+//     contact: "0332250444",
+//     address: "Flower Rd, Rajagiriya",
+//     vnum: "V98765",
+//     img: "https://image.shutterstock.com/image-photo/portrait-happy-mid-adult-man-260nw-1812937819.jpg",
+//   },
+// ];
 
 function Drivers() {
   const [activeTab, setActiveTab] = useState("drivers");
-  const [driverData] = useState(initialDriverData);
-  // const [parentData, setParentData] = useState(initialParentData);
+  const [driverData, setDriverData] = useState([]);
   const [vehicleDriverData] = useState(VehicleDriverData);
-  // const [childrenData,setChildrenData] = useState(initialChildrenData);
   const [selectedRow, setSelectedRow] = useState(null);
+  const [searchQuery, setSearchQuery] = useState("");
+
+  useEffect(() => {
+    async function viewDriverDetails() {
+      try {
+        const response = await fetch(
+          `http://localhost:5000/edugo/supAgent/drivers/viewDriver`
+        );
+        if (!response.ok) {
+          throw new Error(" Nework response was not ok");
+        }
+        const data = await response.json();
+        setDriverData(data);
+      } catch (error) {
+        console.error(" Error fetching driver details" , error);
+      }
+    }
+    viewDriverDetails();
+  })
 
   const handleRowClick = (rowData) => {
     setSelectedRow(rowData);
@@ -115,7 +132,6 @@ function Drivers() {
   const handleClosePopup = () => {
     setSelectedRow(null);
   };
-  const [searchQuery, setSearchQuery] = useState("");
   return (
     <div>
       <MainLayout data={sideNavBarLinks}>
@@ -176,26 +192,26 @@ function Drivers() {
                     <th className="px-4 py-4 text-left">Name</th>
                     <th className="px-4 py-4 text-left">Contact</th>
                     <th className="px-4 py-4 text-left">Address</th>
-                    <th className="px-4 py-4 text-left">Vehicle Number</th>
+                    <th className="px-4 py-4 text-left">NIC number</th>
                   </tr>
                 </thead>
 
                 <tbody className="">
                   {driverData
                   .filter((driver) =>
-                  driver.name.toLowerCase().includes(searchQuery.toLowerCase()) 
+                  driver.user_name.toLowerCase().includes(searchQuery.toLowerCase()) 
                   )
                   .map((driver) => (
                     <tr
-                      key={initialDriverData.id}
+                      key={driver.user_id}
                       className="bg-[#D9D9D9] bg-opacity-60 hover:cursor-pointer hover:bg-[#eaeaea] drop-shadow-md"
                       onClick={() => handleRowClick(driver)}
                     >
-                      <td className="text-left px-4 py-4">{driver.id}</td>
-                      <td className="text-left px-4 py-4">{driver.name}</td>
-                      <td className="text-left px-4 py-4">{driver.contact}</td>
+                      <td className="text-left px-4 py-4">{driver.user_id}</td>
+                      <td className="text-left px-4 py-4">{driver.user_name}</td>
+                      <td className="text-left px-4 py-4">{driver.contact_number}</td>
                       <td className="text-left px-4 py-4">{driver.address}</td>
-                      <td className="text-left px-4 py-4">{driver.vnum}</td>
+                      <td className="text-left px-4 py-4">{driver.nic}</td>
                     </tr>
                   ))}
                 </tbody>
@@ -286,13 +302,13 @@ function Drivers() {
                     <div className="col-span-1 flex flex-col gap-2">
                       <div className="w-[8rem] h-[8rem] rounded-full overflow-hidden">
                         <img
-                          src={selectedRow.img}
+                          src={selectedRow.profile_image}
                           className="w-full h-full object-cover"
                           alt="Avatar"
                         />
                       </div>
                       <h2 className="font-bold text-xl ml mt-4">
-                        {selectedRow.name}
+                        {selectedRow.user_name}
                       </h2>
                       <h2 className="text-xl ml mt-4 flex flex-row">
                         <p className="font-bold">Ride Status :</p>
@@ -309,15 +325,15 @@ function Drivers() {
                           <u>Driver's Details</u>
                         </h>
                         <p>
-                          <strong className="mr-2">ID:</strong> {selectedRow.id}
+                          <strong className="mr-2">ID:</strong> {selectedRow.user_id}
                         </p>
                         <p>
                           <strong className="mr-2">NIC Number:</strong>{" "}
-                          {selectedRow.nicNumber}
+                          {selectedRow.nic}
                         </p>
                         <p>
                           <strong className="mr-2">Contact No:</strong>{" "}
-                          {selectedRow.contact}
+                          {selectedRow.contact_number}
                         </p>
                         <p>
                           <strong className="mr-2">Address:</strong>{" "}
@@ -328,16 +344,15 @@ function Drivers() {
                         <h className="text-xl font-semibold">
                           <u>Vehicle Details</u>
                         </h>
-                        {VehicleData.filter(
-                      (vehicle) => vehicle.Vid === selectedRow.id
-                    ).map((vehicle, index) => (
-                      <div key={index} className="mt-3">
+                        {selectedRow &&
+                        selectedRow.vehicle.map((vehicle) => (
+                      <div key={vehicle.vehicle_id} className="mt-3">
                         <h2 className="text-lg font-semibold">
-                          {vehicle.vnum}
+                          {vehicle.vehicle_no}
                         </h2>
                         <p>
                           <strong className="mr-2">Model:</strong>
-                          {vehicle.model}
+                          {vehicle.vehicle_model}
                         </p>
                         <p>
                           <strong className="mr-2">
@@ -356,28 +371,20 @@ function Drivers() {
                         </p>
                         <div className="mt-1">
                           <strong className="mr-2">Options:</strong>
-                          {vehicle.options.map((option, index) => (
+                          {/* {vehicle.options.map((option, index) => (
                             <span
                               key={index}
                               className="bg-gray-200 text-gray-600 px-2 py-1 rounded-full mr-2"
                             >
                               {option}
                             </span>
-                          ))}
+                          ))} */}
                         </div>
                       </div>
                     ))}
                       </div>
                     </div>
                   </div>
-
-                  {/* <div className="bg-[#EEEEEE] w-full h-[15rem] mt-5 rounded-xl p-3">
-                    <p className="text-xl font-semibold">Dependent's Details</p>
-                    <div className="flex flex-1 gap-20 p-2">
-                      <div className="bg-[#F9F9F9] w-2/5 h-5"></div>
-                      <div className="bg-[#F9F9F9] w-2/5 h-5"> </div>
-                    </div>
-                  </div> */}
                 </div>
               </div>
             }

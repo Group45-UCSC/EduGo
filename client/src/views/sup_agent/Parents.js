@@ -54,48 +54,48 @@ const sideNavBarLinks = [
 //     img: "https://tecdn.b-cdn.net/img/new/avatars/1.webp",
 //   },
 // ];
-const initialChildrenData = [
-  // {
-  //   id: 1,
-  //   name: "Ravin Abeykoon",
-  //   school: "Royal College",
-  //   address: "1st Flr 74 Union Place, Colombo",
-  //   contact: "0752345678",
-  //   vnum: "V12345",
-  //   img: "https://pbs.twimg.com/media/ErR3xMUVEAEdPUF.jpg:large",
-  //   parentId: 5,
-  // },
-  // {
-  //   id: 2,
-  //   name: "Nethmini Ramanayake",
-  //   school: "Visakha Vidyalaya",
-  //   address: "192 Old Moor Street, Colombo",
-  //   contact: "0705012458",
-  //   vnum: "V98765",
-  //   img: "https://www.miltonscene.com/wp-content/uploads/2020/05/outschool-kid-drawing-0520.jpg",
-  //   parentId: 1,
-  // },
-  // {
-  //   id: 3,
-  //   name: "Hiruni Devindi",
-  //   school: "Devi Balika Vidyalaya",
-  //   address: "92/1 Main Street, Colombo",
-  //   contact: "0782577381",
-  //   vnum: "V12345",
-  //   img: "https://kidscountry.kidscountrynetwork.com/wp-content/uploads/sites/3/2018/03/smiling-happy-preschool-girl.jpg",
-  //   parentId: 4,
-  // },
-  // {
-  //   id: 4,
-  //   name: "Sahan Ramanayake",
-  //   school: "Thurstan College",
-  //   address: "192 Old Moor Street, Colombo",
-  //   contact: "0712345678",
-  //   vnum: "V98765",
-  //   img: "https://cdn.forumcomm.com/dims4/default/91338c5/2147483647/strip/true/crop/3456x2304+0+740/resize/840x560!/quality/90/?url=https%3A%2F%2Fforum-communications-production-web.s3.us-west-2.amazonaws.com%2Fbrightspot%2F49%2F82%2F74ae8fd64e72bd14630ee55e6287%2F090322.OP.PRE.JacksonBrann5776.JPG",
-  //   parentId: 1,
-  // },
-];
+// const initialChildrenData = [
+//   {
+//     id: 1,
+//     name: "Ravin Abeykoon",
+//     school: "Royal College",
+//     address: "1st Flr 74 Union Place, Colombo",
+//     contact: "0752345678",
+//     vnum: "V12345",
+//     img: "https://pbs.twimg.com/media/ErR3xMUVEAEdPUF.jpg:large",
+//     parentId: 5,
+//   },
+//   {
+//     id: 2,
+//     name: "Nethmini Ramanayake",
+//     school: "Visakha Vidyalaya",
+//     address: "192 Old Moor Street, Colombo",
+//     contact: "0705012458",
+//     vnum: "V98765",
+//     img: "https://www.miltonscene.com/wp-content/uploads/2020/05/outschool-kid-drawing-0520.jpg",
+//     parentId: 1,
+//   },
+//   {
+//     id: 3,
+//     name: "Hiruni Devindi",
+//     school: "Devi Balika Vidyalaya",
+//     address: "92/1 Main Street, Colombo",
+//     contact: "0782577381",
+//     vnum: "V12345",
+//     img: "https://kidscountry.kidscountrynetwork.com/wp-content/uploads/sites/3/2018/03/smiling-happy-preschool-girl.jpg",
+//     parentId: 4,
+//   },
+//   {
+//     id: 4,
+//     name: "Sahan Ramanayake",
+//     school: "Thurstan College",
+//     address: "192 Old Moor Street, Colombo",
+//     contact: "0712345678",
+//     vnum: "V98765",
+//     img: "https://cdn.forumcomm.com/dims4/default/91338c5/2147483647/strip/true/crop/3456x2304+0+740/resize/840x560!/quality/90/?url=https%3A%2F%2Fforum-communications-production-web.s3.us-west-2.amazonaws.com%2Fbrightspot%2F49%2F82%2F74ae8fd64e72bd14630ee55e6287%2F090322.OP.PRE.JacksonBrann5776.JPG",
+//     parentId: 1,
+//   },
+// ];
 const VehicleData = [
   {
     Vid: 1,
@@ -122,9 +122,7 @@ const VehicleData = [
 function Parents() {
   const [activeTab, setActiveTab] = useState("parents");
   const [parentData, setParentData] = useState([]);
-  // const [parentData, setParentData] = useState(initialParentData);
   const [childrenData, setChildrenData] = useState([]);
-  // const [childrenData,setChildrenData] = useState(initialChildrenData);
   const [selectedRow, setSelectedRow] = useState(null);
   const [searchQuery, setSearchQuery] = useState("");
 

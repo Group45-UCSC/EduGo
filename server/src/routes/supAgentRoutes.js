@@ -16,6 +16,6 @@ const {
 router.route("/complaints/all").get(viewAllComplaints);
 router.route("/parents/viewParent").get(viewParentDetails);
 router.route("/parents/viewChildren").get(viewChildrenDetails);
-router.route("/parents/viewDriver").get(viewDriverDetails);
+router.route("/drivers/viewDriver").get(viewDriverDetails);
 
 module.exports = router;
