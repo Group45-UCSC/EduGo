@@ -1,6 +1,5 @@
 const pool = require("../../dbConnection");
 
-
 const viewParentDetails = async (req, res) => {
   try {
     const query = await pool.query(`
@@ -26,19 +25,19 @@ const viewParentDetails = async (req, res) => {
         school_id,
         driver_id,
       } = row;
-    
+
       if (!user_id) {
-        console.error('Missing user_id:', row);
+        console.error("Missing user_id:", row);
         return; // Skip this row if user_id is missing
       }
-    
+
       const childData = {
         child_id,
         child_name,
         school_id,
         driver_id,
       };
-    
+
       if (!parentMap.has(user_id)) {
         parentMap.set(user_id, {
           user_id,
@@ -50,15 +49,14 @@ const viewParentDetails = async (req, res) => {
           children: [],
         });
       }
-    
+
       parentMap.get(user_id).children.push(childData);
     });
-    
+
     const parentsWithChildren = Array.from(parentMap.values());
-    console.log('parentsWithChildren:', parentsWithChildren);
-    
+    console.log("parentsWithChildren:", parentsWithChildren);
+
     return res.json(parentsWithChildren);
-    
   } catch (err) {
     console.log(err);
     res.status(500).json({
@@ -67,7 +65,7 @@ const viewParentDetails = async (req, res) => {
     });
   }
 };
-const viewChildrenDetails = async(req,res) =>{
+const viewChildrenDetails = async (req, res) => {
   try {
     const query = await pool.query(`
     SELECT c.* , ru.user_name, ru.user_email, ru.contact_number, ru.nic 
@@ -86,7 +84,7 @@ const viewChildrenDetails = async(req,res) =>{
         school_id,
         driver_id,
         image,
-        pickup_location,  
+        pickup_location,
         user_name,
         user_email,
         contact_number,
@@ -94,11 +92,11 @@ const viewChildrenDetails = async(req,res) =>{
       } = row;
 
       if (!child_id) {
-        console.error('Missing child_id', row);
+        console.error("Missing child_id", row);
         return;
       }
 
-      if(!childMap.has(child_id)) {
+      if (!childMap.has(child_id)) {
         childMap.set(child_id, {
           child_id,
           parent_id,
@@ -122,16 +120,80 @@ const viewChildrenDetails = async(req,res) =>{
     });
 
     const childWithParent = Array.from(childMap.values());
-    console.log('childWithParent:', childWithParent);
+    console.log("childWithParent:", childWithParent);
 
     return res.json(childWithParent);
-
-  }catch (err) {
+  } catch (err) {
     console.log(err);
     res.status(500).json({
       status: "error",
       message: "internal server error",
     });
   }
-}
-module.exports = { viewParentDetails, viewChildrenDetails};
+};
+
+const viewDriverDetails = async (req, res) => {
+  try {
+    const query = await pool.query(`
+      SELECT ru.*, v.vehicle_id, v.vehicle_no, v.vehicle_model, v.registration_no
+      FROM registered_users ru
+      LEFT JOIN vehicle v ON ru.user_id = v.driver_id
+      WHERE ru.user_role = 'driver' 
+    `);
+
+    const driverMap = new Map();
+
+    query.rows.forEach((row) => {
+      const {
+        user_id,
+        user_name,
+        nic,
+        contact_number,
+        address,
+        profile_image,
+        vehicle_id,
+        vehicle_no,
+        vehicle_model,
+        registration_no,
+      } = row;
+
+      if (!user_id) {
+        console.error(" Missing user_id:", row);
+        return;
+      }
+
+      const vehicleData = {
+        vehicle_id,
+        vehicle_no,
+        vehicle_model,
+        registration_no,
+      };
+
+      if (!driverMap.has(user_id)) {
+        driverMap.set(user_id, {
+          user_id,
+          user_name,
+          nic,
+          contact_number,
+          address,
+          profile_image,
+          vehicle: [],
+        });
+      }
+
+      driverMap.get(user_id).vehicle.push(vehicleData);
+    });
+
+    const driverWithVehicle = Array.from(driverMap.values());
+    console.log("driverWithVehicle:", driverWithVehicle);
+
+    return res.json(driverWithVehicle);
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({
+      status: " error",
+      message: "Internal sever error",
+    });
+  }
+};
+module.exports = { viewParentDetails, viewChildrenDetails, viewDriverDetails };
