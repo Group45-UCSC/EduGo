@@ -104,7 +104,7 @@ const VehicleCarouselData = [
 function Drivers() {
   const [activeTab, setActiveTab] = useState("drivers");
   const [driverData, setDriverData] = useState([]);
-  const [vehicleDriverData] = useState(VehicleDriverData);
+  const [vehicleData, setVehicleData] = useState([]);
   const [selectedRow, setSelectedRow] = useState(null);
   const [searchQuery, setSearchQuery] = useState("");
 
@@ -124,7 +124,25 @@ function Drivers() {
       }
     }
     viewDriverDetails();
-  })
+  });
+
+  useEffect(() => {
+    async function viewVehicleDetails() {
+      try {
+        const response = await fetch(
+          `http://localhost:5000/edugo/supAgent/drivers/viewVehicle`
+        );
+        if (!response.ok) {
+          throw new Error(" Nework response was not ok");
+        }
+        const data = await response.json();
+        setVehicleData(data);
+      } catch (error) {
+        console.error(" Error fetching vehicle details" , error);
+      }
+    }
+    viewVehicleDetails();
+  });
 
   const handleRowClick = (rowData) => {
     setSelectedRow(rowData);
@@ -259,24 +277,24 @@ function Drivers() {
                 </thead>
 
                 <tbody className="">
-                  {vehicleDriverData
+                  {vehicleData
                   .filter((vehicle) =>
-                  vehicle.vnum
+                  vehicle.vehicle_no
                     .toLowerCase()
                     .includes(searchQuery.toLowerCase())
                 )
                   .map((vehicle) => (
                     <tr
-                      key={vehicle.Vid}
+                      key={vehicle.vehicle_id}
                       className="bg-[#D9D9D9] bg-opacity-60 hover:cursor-pointer hover:bg-[#eaeaea] drop-shadow-md"
                       onClick={() => handleRowClick(vehicle)}
                     >
-                      <td className="text-left px-4 py-4">{vehicle.Vid}</td>
-                      <td className="text-left px-4 py-4">{vehicle.vnum}</td>
+                      <td className="text-left px-4 py-4">{vehicle.vehicle_id}</td>
+                      <td className="text-left px-4 py-4">{vehicle.vehicle_no}</td>
                       <td className="text-left px-4 py-4">
-                        {vehicle.drivername}
+                        {vehicle.driver[0].user_name}
                       </td>
-                      <td className="text-left px-4 py-4">{vehicle.contact}</td>
+                      <td className="text-left px-4 py-4">{vehicle.driver[0].contact_number}</td>
                       <td className="text-left px-4 py-4">
                         {vehicle.sLocation}
                       </td>
@@ -402,7 +420,7 @@ function Drivers() {
               <div className="">
                 <CarouselLayout
                   data={VehicleCarouselData}
-                  vid={selectedRow.Vid}
+                  vid={selectedRow.vehicle_id}
                 />
 
                 <div className="grid grid-cols-2  gap-5">
@@ -410,69 +428,64 @@ function Drivers() {
                     <h className="text-xl font-semibold">
                       <u>Vehicle Details</u>
                     </h>
-                    {VehicleData.filter(
-                      (vehicle) => vehicle.Vid === selectedRow.Vid
-                    ).map((vehicle, index) => (
-                      <div key={index} className="mt-3">
+                    {/* {VehicleData.filter(
+                      (vehicle) => vehicle.vehicle_id === selectedRow.vehicle_id
+                    ).map((vehicle, index) => ( */}
+                      <div key={selectedRow.vehicle_id} className="mt-3">
                         <h2 className="text-lg font-semibold">
-                          {vehicle.vnum}
+                          {selectedRow.vehicle_no}
                         </h2>
                         <p>
                           <strong className="mr-2">Model:</strong>
-                          {vehicle.model}
+                          {selectedRow.vehicle_model}
                         </p>
                         <p>
                           <strong className="mr-2">
                             {" "}
                             Year of Manufacture:{" "}
                           </strong>
-                          {vehicle.YOM}
+                          {selectedRow.YOM}
                         </p>
                         <p>
-                          <strong className="mr-2">Gear:</strong>
-                          {vehicle.Gear}
+                          <strong className="mr-2">Registration Number:</strong>
+                          {selectedRow.registration_no}
                         </p>
                         <p>
                           <strong className="mr-2">Engine Capacity:</strong>
-                          {vehicle.Engine}
+                          {selectedRow.Engine}
                         </p>
                         <div className="mt-1">
                           <strong className="mr-2">Options:</strong>
-                          {vehicle.options.map((option, index) => (
+                          {/* {selectedRow.options.map((option, index) => (
                             <span
                               key={index}
                               className="bg-gray-200 text-gray-600 px-2 py-1 rounded-full mr-2"
                             >
                               {option}
                             </span>
-                          ))}
+                          ))} */}
                         </div>
                       </div>
-                    ))}
+                    {/* ))} */}
                   </div>
-                  {/* <div className="bg-[#EEEE] border-orange border-2 w-full h-auto p-5 rounded-xl">
-                    <h className="text-xl font-semibold">
-                      <u>Owner Details</u>
-                    </h>
-                  </div> */}
+                  
                   <div className="bg-[#EEEE] border-orange border-2 w-full h-auto p-5 rounded-xl">
                     <h className="text-xl font-semibold">
                       <u>Driver Details</u>
                     </h>
-                    {VehicleDriverData.filter(
-                      (vehicle) => vehicle.Vid === selectedRow.Vid
-                    ).map((driver, index) => (
-                      <div key={index} className="mt-3">
+                    {selectedRow &&
+                        selectedRow.driver.map((driver) => (
+                      <div key={driver.user_id} className="mt-3">
                         <h2 className="text-lg font-semibold">
-                          {driver.drivername}
+                          {driver.user_name}
                         </h2>
                         <p>
-                          <strong className="mr-2">Vehicle Number:</strong>
-                          {driver.vnum}
+                          <strong className="mr-2"> Contact:</strong>
+                          {driver.contact_number}
                         </p>
                         <p>
-                          <strong className="mr-2"> Contact:</strong>
-                          {driver.contact}
+                          <strong className="mr-2">NIC Number:</strong>
+                          {driver.nic}
                         </p>
                         <p>
                           <strong className="mr-2">Starting Location:</strong>

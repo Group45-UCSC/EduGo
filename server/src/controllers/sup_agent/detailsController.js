@@ -196,4 +196,71 @@ const viewDriverDetails = async (req, res) => {
     });
   }
 };
-module.exports = { viewParentDetails, viewChildrenDetails, viewDriverDetails };
+
+const viewVehicleDetails = async (req, res) => {
+  try {
+    const query = await pool.query(`
+      SELECT v.* ,ru.user_name, ru.user_id, ru.contact_number, ru.nic
+      FROM vehicle v
+      LEFT JOIN registered_users ru ON v.driver_id = ru.user_id
+      ORDER BY v.vehicle_id ASC
+    `);
+
+    const vehicleMap = new Map();
+
+    query.rows.forEach((row) => {
+      const {
+        vehicle_id,
+        driver_id,
+        vehicle_no,
+        vehicle_type,
+        vehicle_model,
+        num_of_seats,
+        registration_no,
+        user_name,
+        user_id,
+        contact_number,
+        nic,
+      } = row;
+
+      if (!vehicle_id) {
+        console.error("Missing vehicle_id", row);
+        return;
+      }
+
+      if (!vehicleMap.has(vehicle_id)) {
+        vehicleMap.set(vehicle_id, {
+          vehicle_id,
+          driver_id,
+          vehicle_no,
+          vehicle_type,
+          vehicle_model,
+          num_of_seats,
+          registration_no,
+          driver: [],
+        });
+      }
+
+      const driverData = {
+        user_name,
+        user_id,
+        contact_number,
+        nic,
+      };
+
+      vehicleMap.get(vehicle_id).driver.push(driverData);
+    });
+
+    const vehicleWithDriver = Array.from(vehicleMap.values());
+    console.log("vehicleWithDriver:", vehicleWithDriver);
+
+    return res.json(vehicleWithDriver);
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({
+      status: "error",
+      message: "internal server error",
+    });
+  }
+};
+module.exports = { viewParentDetails, viewChildrenDetails, viewDriverDetails, viewVehicleDetails };
