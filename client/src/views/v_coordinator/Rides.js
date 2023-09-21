@@ -34,6 +34,26 @@ function VcRides() {
   });
 
 
+  const [ongoing, setOngoing] = useState([]);
+
+  useEffect(() => {
+    async function ongoingList() {
+      try {
+        const response = await fetch(
+          `http://localhost:5000/edugo/vc/rides/ongoingtbl`
+        );
+        const data = await response.json();
+        setOngoing(data);
+      } catch (err) {
+        console.error(err.message);
+      }
+    }
+
+    ongoingList();
+  });
+
+
+
   // all rides details
 
   // const allride = [
@@ -114,34 +134,34 @@ function VcRides() {
    // ongoing rides details
 
 
-  const ongoingrides = [
-    {
-      id: "001",
-      v_no: "PI - 1111",
-      departure:"Homagama",
-      destination: "Colombo 5",
-      contact: "0711234567",
-      status: "ongoing"
-    },
+  // const ongoingrides = [
+  //   {
+  //     id: "001",
+  //     v_no: "PI - 1111",
+  //     departure:"Homagama",
+  //     destination: "Colombo 5",
+  //     contact: "0711234567",
+  //     status: "ongoing"
+  //   },
 
-    {
-      id: "005",
-      v_no: "PI - 5555",
-      departure:"Homagama",
-      destination: "Colombo 5",
-      contact: "0711234567",
-      status: "ongoing"
-    },
+  //   {
+  //     id: "005",
+  //     v_no: "PI - 5555",
+  //     departure:"Homagama",
+  //     destination: "Colombo 5",
+  //     contact: "0711234567",
+  //     status: "ongoing"
+  //   },
 
-    {
-      id: "008",
-      v_no: "PI - 8888",
-      departure:"Homagama",
-      destination: "Colombo 5",
-      contact: "0711234567",
-      status: "ongoing"
-    }
-  ];
+  //   {
+  //     id: "008",
+  //     v_no: "PI - 8888",
+  //     departure:"Homagama",
+  //     destination: "Colombo 5",
+  //     contact: "0711234567",
+  //     status: "ongoing"
+  //   }
+  // ];
 
   // switch the tabes
 
@@ -164,39 +184,43 @@ function VcRides() {
   
         {/* topic */}
 
-        
+        <div className="">
           <div className="">
             <h1 className='text-[26px] font-bold ml-32 mt-8'> 
               School Services 
             </h1>
           </div>
 
-        {/* search and filter */}
-            <div>
+            {/* search and filter */}
+              <div>
+                    {/* search */}
+                    <div className='float-right '>
+                        <form action=''>
+                          <input type="text" placeholder='Search..' className=' mt-1 overflow-auto w-40 mr-32  border border-slate-400 pl-2 rounded-md'> 
+                          </input>
+                          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-10 stroke-slate-500 absolute -mt-8 ml-32 hover:cursor-pointer">
+                              <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
+                          </svg>
+                        </form>
+                    </div>
 
-              {/* search */}
-              <div className='float-right '>
-                  <form action=''>
-                    <input type="text" placeholder='Search..' className=' mt-1 overflow-auto w-40 mr-32  border border-slate-400 pl-2 rounded-md'> 
-                    </input>
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-10 stroke-slate-500 absolute -mt-8 ml-32 hover:cursor-pointer">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
-                    </svg>
-                  </form>
+                    {/* filter */}
+                    <div className='float-right '>
+                        <form action=''>
+                          <input type="text" placeholder='Filter here' className=' mt-1 overflow-auto w-40 mr-8  border border-slate-400 pl-2 rounded-md '> 
+                          </input>
+                          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-10 stroke-slate-500 absolute -mt-8 ml-32 hover:cursor-pointer">
+                              <path stroke-linecap="round" stroke-linejoin="round" d="M12 3c2.755 0 5.455.232 8.083.678.533.09.917.556.917 1.096v1.044a2.25 2.25 0 01-.659 1.591l-5.432 5.432a2.25 2.25 0 00-.659 1.591v2.927a2.25 2.25 0 01-1.244 2.013L9.75 21v-6.568a2.25 2.25 0 00-.659-1.591L3.659 7.409A2.25 2.25 0 013 5.818V4.774c0-.54.384-1.006.917-1.096A48.32 48.32 0 0112 3z  " />
+                          </svg>
+                        </form>
+                    </div>
               </div>
+
               
-              {/* filter */}
-              <div className='float-right '>
-                  <form action=''>
-                    <input type="text" placeholder='Filter here' className=' mt-1 overflow-auto w-40 mr-8  border border-slate-400 pl-2 rounded-md '> 
-                    </input>
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-10 stroke-slate-500 absolute -mt-8 ml-32 hover:cursor-pointer">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 3c2.755 0 5.455.232 8.083.678.533.09.917.556.917 1.096v1.044a2.25 2.25 0 01-.659 1.591l-5.432 5.432a2.25 2.25 0 00-.659 1.591v2.927a2.25 2.25 0 01-1.244 2.013L9.75 21v-6.568a2.25 2.25 0 00-.659-1.591L3.659 7.409A2.25 2.25 0 013 5.818V4.774c0-.54.384-1.006.917-1.096A48.32 48.32 0 0112 3z  " />
-                    </svg>
-                  </form>
-              </div>
+      
+        </div>
 
-            </div>
+
   
         {/*employees button container */}
         <div className="flex text-center ml-32 mt-12">
@@ -224,7 +248,6 @@ function VcRides() {
               All rides
             </div>
           </div>
-  
   
         {/* allrides table */}
         <div className={toggle === 2 ? "details" : "details hidden"}>
@@ -277,14 +300,14 @@ function VcRides() {
               </thead>
     
               <tbody className=''>
-                {ongoingrides.map((item) => (
+                {ongoing.map((item) => (
                 <tr onClick={handleClick} className=' bg-[#D9D9D9] bg-opacity-60 hover:cursor-pointer  hover:bg-[#eaeaea] drop-shadow-md'>
-                    <td className='text-center  p-3'>{item.id}</td>
-                    <td>{item.v_no}</td>
-                    <td>{item.departure}</td>
-                    <td>{item.destination}</td>
-                    <td>{item.contact}</td>
-                    <td>{item.status}</td>
+                    <td className='text-center  p-3'>{item.ride_id}</td>
+                    <td>{item.vehicle_number}</td>
+                    <td>{item.location_morning_ride}</td>
+                    <td>{item.location_noon_ride}</td>
+                    <td>{item.contact_number}</td>
+                    <td>{item.ride_type}</td>
                 </tr>
               ))}
               </tbody>
