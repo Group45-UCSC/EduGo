@@ -32,5 +32,25 @@ const ridealllist = async (req, res) => {
     return res.status(500).send("Server Error");
   }
   };
+
+
+
+  // dashboard OngoingRideCount count
+  const OngoingRideCount = async (req, res) => {
+
+  try{
+  //db query
+  const OngoingData = await pool.query(
+    "SELECT COUNT(*) FROM (SELECT * FROM school_ride WHERE ride_type = 'Ongoing') AS ongoing_rides_count",
+  );
+
+  return res.json(OngoingData.rows);
+  } catch (err) {
+  console.error(err.message);
+  return res.status(500).send("Server Error");
+}
+};
+
+
   
-  module.exports = { ridealllist, ongoingList};
+  module.exports = { ridealllist, ongoingList, OngoingRideCount};
