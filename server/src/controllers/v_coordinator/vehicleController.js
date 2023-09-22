@@ -1,6 +1,6 @@
 const pool = require("../../dbConnection");
 
-//view all rvechicle list
+//view all vechicle list
 const vehicleList = async (req, res) => {
 
   try {
