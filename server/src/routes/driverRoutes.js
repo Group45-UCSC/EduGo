@@ -33,7 +33,20 @@ const {
   viewChildFees,
 } = require("../controllers/driver/financeController");
 
-const { viewRideDetails } = require("../controllers/driver/rideController");
+const {
+  viewRideDetails,
+  viewRideRequests,
+  rejectRideRequest,
+  checkReachingSchool,
+  acceptRideRequest,
+  setChildRideTime,
+} = require("../controllers/driver/rideController");
+const {
+  viewSchoolDetails,
+  selectSchool,
+  checkRideBeforeRemove,
+  removeSchoolFromRide,
+} = require("../controllers/driver/schoolController");
 
 //create routes
 router.route("/dashboard/hasride/:userId").get(hasRide);
@@ -47,6 +60,23 @@ router.route("/vehicle/viewImg/:userId").get(viewVehicleImg);
 
 //ride page
 router.route("/ride/view/details/:userId").get(viewRideDetails);
+router.route("/ride/requests/view/:userId").get(viewRideRequests);
+router.route("/ride/request/reject/:childId,:requestId").put(rejectRideRequest);
+router
+  .route("/ride/request/school/check/:userId,:schoolId")
+  .get(checkReachingSchool);
+router.route("/ride/request/accept/:userId").put(acceptRideRequest);
+router.route("/ride/set/ridetime/").post(setChildRideTime);
+
+//school page
+router.route("/ride/view/school/:userId").get(viewSchoolDetails);
+router.route("/ride/select/school/:userId").post(selectSchool);
+router
+  .route("/ride/checkBeforeRemove/school/:userId,:schoolId")
+  .get(checkRideBeforeRemove);
+router
+  .route("/ride/remove/school/:userId,:schoolId")
+  .delete(removeSchoolFromRide);
 
 //income page
 router.route("/income/view/lastmonth/:userId").get(viewLastIncome);
