@@ -8,6 +8,7 @@ import { FaChild } from "react-icons/fa";
 import { FaUserGroup } from "react-icons/fa6";
 import { BsFillCarFrontFill } from "react-icons/bs";
 import { FaShippingFast } from "react-icons/fa";
+import { NavLink } from "react-router-dom";
 
 const sideNavBarLinks = [
   { title: "Dashboard", path: "/admin/dashboard", icon: <AiFillDashboard /> },
@@ -65,13 +66,6 @@ function Drivers() {
     setToggle(id);
   }
 
-  const handleClickD = () => {
-    window.location.href = `/admin/driverinfo`;
-  };
-  const handleClickV = () => {
-    window.location.href = `/admin/vehicleinfo`;
-  };
-
   return (
     <div>
       <MainLayout data={sideNavBarLinks}>
@@ -116,17 +110,30 @@ function Drivers() {
                   <th className='px-3.5 w-30'>Driver's Name</th>
                   <th className='px-3.5 w-30'>Contact</th>
                   <th className='px-3.5 w-30'>Start Location</th>
+                  <th className='px-3.5 w-30'> </th>
                 </tr>
               </thead>
 
               <tbody className=''>
                 {vehicle.map((item) => (
-                <tr onClick={handleClickV} className=' bg-[#D9D9D9] bg-opacity-60 hover:cursor-pointer hover:bg-[#eaeaea] drop-shadow-md'>
+                  
+                <tr className=' bg-[#D9D9D9] bg-opacity-60 hover:cursor-pointer hover:bg-[#eaeaea] drop-shadow-md'>
                   <td className='text-center  p-3'>{item.vehicle_id}</td>
                   <td>{item.vehicle_no}</td>
                   <td>{item.user_name}</td>
                   <td>{item.contact_number}</td>
                   <td>{item.address}</td>
+
+                  <NavLink
+                  to={`/admin/drivers/vehicleinfo/${
+                    item.vehicle_id
+                  }?data=${encodeURIComponent(
+                    JSON.stringify(item)
+                  )}`}
+                >
+                  <td><button className="bg-amber-600 h-8 w-16 rounded-md hover:bg-amber-400">View</button></td>
+                  </NavLink>
+
                 </tr>
                 ))}
               </tbody>
@@ -148,18 +155,30 @@ function Drivers() {
                   <th className='px-3.5 w-30'>Name</th>
                   <th className='px-3.5 w-30'>Address</th>
                   <th className='px-3.5 w-30'>Vehicle No</th>
+                  <th className='px-3.5 w-30'> </th>
                 </tr>
               </thead>
 
               <tbody className=''>
                 {driver.map((item) => (
-                <tr onClick={handleClickD} className=' bg-[#D9D9D9] bg-opacity-60 hover:cursor-pointer hover:bg-[#eaeaea] drop-shadow-md'>
+                <tr className=' bg-[#D9D9D9] bg-opacity-60 hover:cursor-pointer hover:bg-[#eaeaea] drop-shadow-md'>
                   <td className='text-center  p-3'>{item.user_id}</td>
                   <td>{item.user_name}</td>
                   <td>{item.address}</td>
                   <td>{item.vehicle_no}</td>
+
+                  <NavLink
+                  to={`/admin/drivers/driverinfo/${
+                    item.user_id
+                  }?data=${encodeURIComponent(
+                    JSON.stringify(item)
+                  )}`}
+                >
+                  <td><button className="bg-amber-600 h-8 w-16 rounded-md hover:bg-amber-400">View</button></td>
+                  </NavLink>
                 </tr>
                 ))}
+
               </tbody>
 
             </table>

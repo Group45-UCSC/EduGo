@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import MainLayout from "../../components/layout/MainLayout";
 import { AiOutlineClose } from "react-icons/ai";
 import { FaMapMarkerAlt } from "react-icons/fa";
+import { useLocation } from "react-router-dom";
 
 import dlcard from "../../images/dlcard.jpg";
 import VehiCarousel from "../../components/carousel/VehiCarousel";
@@ -60,6 +61,11 @@ const sideNavBarLinks = [
 
 function AdminVehicleInfo() {
 
+    const location = useLocation();
+    const dataParam = new URLSearchParams(location.search).get("data");
+    const item = JSON.parse(decodeURIComponent(dataParam));
+
+
     const [viewPopup, setViewPopup] = useState(false);
 
     function showPopup() {
@@ -94,55 +100,44 @@ function AdminVehicleInfo() {
                 <div className="flex mt-8">
 
                     {/* vehicle details container */}
-                    <div className='bg-slate-200 h-[480px] ml-8 w-[370px] mt-8 rounded-lg shadow-md'>
-
+                    <div className='bg-slate-200 h-[480px] ml-16 w-[500px] mt-8 rounded-lg shadow-md'>
+                    
                         <div className='mt-4 ml-8 leading-8 font-semibold'>
+                            
                             <div className='font-bold text-[19px] pt-4 pb-2'>
                                 Vehicle details
                             </div>
-                            <p className='mb-1'>Type: van</p>
+                            <p className='mb-1'>Type: {item.vehicle_type}</p>
                             <p className='mb-1'>Make: Toyota</p>
-                            <p className='mb-1'>Model: Hiace Dolphin 2001</p>
+                            <p className='mb-1'>Model: {item.vehicle_model}</p>
                             <p className='mb-1'>Year: 2001</p>
-                            <p className='mb-1'>License number: NA - 6111</p>
+                            <p className='mb-1'>License number: {item.vehicle_no}</p>
+                            <p className='mb-1'>No. of seats: {item.num_of_seats}</p>
                             <p className='mb-1'>Engine Number: LH 1989</p>
                             <p className='mb-1'>Chassis Number: 1ABCD2EFGH14JKL</p>
                             <p className='mb-1'>Starting: Homagama</p>
                             <p className='mb-1'>Destination: Maharagama</p>
                             <p className='mb-1'>Start time: 06.00 AM</p>
                         </div>
+                    
                     </div>
 
-                    {/* owner details container */}
-                    <div className='bg-slate-200 cursor-pointer h-[480px] ml-8 w-[370px] mt-8 rounded-lg shadow-md'>
-
-                        <div className='mt-4 ml-8 leading-8 font-semibold'>
-                            <div className='font-bold text-[19px] pt-4 pb-2'>
-                                Owner's details
-                            </div>
-                            <p className='mb-1'>Name: Rasindu Vimanga</p>
-                            <p className='mb-1'>NIC: 948897724V</p>
-                            <p className='mb-1'>Contact: 071-1231234</p>
-                            <p className='mb-1'>Address: No:08, Baseline Road, Colombo</p>
-                            <p className='mb-1'>Birthday: 1998-01-01</p>
-
-                        </div>
-                    </div>
+                    
 
                     {/* driver details container */}
-                    <div onClick={driver} className='bg-slate-200 cursor-pointer h-[480px] ml-8 w-[370px] mt-8 rounded-lg shadow-md'>
+                    <div onClick={driver} className='bg-slate-200 cursor-pointer h-[480px] ml-8 w-[500px] mt-8 rounded-lg shadow-md'>
 
                         <div className='mt-4 ml-8 leading-8 font-semibold'>
                             <div className='font-bold text-[19px] pt-4 pb-2'>
                                 Driver's details
                             </div>
-                            <p className='mb-1'>Name: Rasindu Vimanga</p>
-                            <p className='mb-1'>Email: rasindu@gmail.com</p>
-                            <p className='mb-1'>NIC: 980011234V</p>
-                            <p className='mb-1'>Contact: 077-1231234</p>
-                            <p className='mb-1'>Address: No:10, Queens Road, Colombo 03</p>
+                            <p className='mb-1'>Name: {item.user_name}</p>
+                            <p className='mb-1'>Email: {item.user_email}</p>
+                            <p className='mb-1'>NIC: {item.nic}</p>
+                            <p className='mb-1'>Contact: {item.contact_no}</p>
+                            <p className='mb-1'>Address: {item.address}</p>
                             <p className='mb-1'>Birthday: 1998-01-01</p>
-                            <p className='mb-1'>Service Registration: XXXXXX</p>
+                            <p className='mb-1'>Service Registration: {item.registration_no}</p>
                             <p className='mb-1'>License Photo:</p>
                             <img src={dlcard} alt="school van" className="ml-[25%] h-[100px]"></img>
 
