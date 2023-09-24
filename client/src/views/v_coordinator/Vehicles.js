@@ -4,6 +4,7 @@ import { AiFillDashboard } from "react-icons/ai";
 import { BsFillCarFrontFill } from "react-icons/bs";
 import { FaShippingFast } from "react-icons/fa";
 import { FaCarCrash } from "react-icons/fa";
+import { NavLink } from "react-router-dom";
 
 const sideNavBarLinks = [
   { title: "Dashboard", path: "/vc/dashboard", icon: <AiFillDashboard /> },
@@ -34,89 +35,10 @@ function Vehicles() {
   });
 
 
-  // all vehicle details
-
-  // const vehicle = [
-  //   {
-  //     id: "001",
-  //     type: "van",
-  //     make: "Toyota",
-  //     model: "Hiace Dolphin 2001",
-  //     contact: "0711234567",
-  //     departure:"Homagama",
-  //   },
-
-  //   {
-  //     id: "002",
-  //     type: "van",
-  //     make: "Toyota",
-  //     model: "Hiace Dolphin 2001",
-  //     contact: "0711234567",
-  //     departure:"Homagama",
-  //   },
-
-  //   {
-  //     id: "003",
-  //     type: "van",
-  //     make: "Toyota",
-  //     model: "Hiace Dolphin 2001",
-  //     contact: "0711234567",
-  //     departure:"Homagama",
-  //   },
-
-  //   {
-  //     id: "004",
-  //     type: "van",
-  //     make: "Toyota",
-  //     model: "Hiace Dolphin 2001",
-  //     contact: "0711234567",
-  //     departure:"Homagama",
-  //   },
-
-  //   {
-  //     id: "005",
-  //     type: "van",
-  //     make: "Toyota",
-  //     model: "Hiace Dolphin 2001",
-  //     contact: "0711234567",
-  //     departure:"Homagama",
-  //   },
-
-  //   {
-  //     id: "006",
-  //     type: "van",
-  //     make: "Toyota",
-  //     model: "Hiace Dolphin 2001",
-  //     contact: "0711234567",
-  //     departure:"Homagama",
-  //   },
-
-  //   {
-  //     id: "007",
-  //     type: "van",
-  //     make: "Toyota",
-  //     model: "Hiace Dolphin 2001",
-  //     contact: "0711234567",
-  //     departure:"Homagama",
-  //   },
-
-  //   {
-  //     id: "008",
-  //     type: "van",
-  //     make: "Toyota",
-  //     model: "Hiace Dolphin 2001",
-  //     contact: "0711234567",
-  //     departure:"Homagama",
-  //   }
-  // ];
-
-
-
-
   // redirect the page
-  const handleClick = () => {
-    window.location.href = `/vc/vehiclesdetails`;
-  };
+  // const handleClick = () => {
+  //   window.location.href = `/vc/vehiclesdetails`;
+  // };
 
   return (
     <MainLayout data={sideNavBarLinks}>
@@ -170,19 +92,31 @@ function Vehicles() {
                   <th className='px-3.5 w-30'>Make</th>
                   <th className='px-3.5 w-30'>Model</th>
                   <th className='px-3.5 w-30'>Contact</th>
-                  <th className='px-3.5 w-30'>Departure</th>  
+                  <th className='px-3.5 w-30'>Departure</th>
+                  <th className='px-3.5 w-30'>View more</th>   
                 </tr>
               </thead>
 
               <tbody className=''>
               {vehiclels.map((item) => ( 
-                <tr onClick={handleClick} className=' bg-[#D9D9D9] bg-opacity-60 hover:cursor-pointer hover:bg-[#eaeaea] drop-shadow-md'>
+                <tr className=' bg-[#D9D9D9] bg-opacity-60 hover:cursor-pointer hover:bg-[#eaeaea] drop-shadow-md'>
                     <td className='text-center  p-3'> {item.vehicle_id} </td>
                     <td className='text-center'>{item.vehicle_no} </td>
                     <td className='text-center'> {item.vehicle_type} </td>
                     <td className='text-center'> {item.vehicle_model} </td>
                     <td className='text-center'> {item.contact_number}</td>
-                    <td className='text-center'> {item.departure} </td>
+                    <td className='text-center'> {item.contact_number}</td>
+
+                    <NavLink
+                      to={`/vc/vehiclesdetails/${
+                        item.vehicle_id
+                      }?data=${encodeURIComponent(
+                        JSON.stringify(item)
+                      )}`}
+                    >
+                    <td className='text-center'> <button  className="bg-amber-600 h-8 w-32 rounded-md hover:bg-amber-400"> View more..</button></td>
+                    </NavLink>
+
                 </tr>
                 ))}
               </tbody>

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import MainLayout from "../../components/layout/MainLayout";
 import { AiFillDashboard } from "react-icons/ai";
 import { BsFillCarFrontFill } from "react-icons/bs";
@@ -13,6 +13,27 @@ const sideNavBarLinks = [
 ];
 
 function VcoordinatorDashboardPg() {
+
+
+   //vehicle ongoing count
+   const [ongoingridecount, setongoingridecount] = useState([]);
+   useEffect(() => {
+     async function ongoingridecount() {
+       try {
+         const response = await fetch(
+           `http://localhost:5000/edugo/vc/dashboard/ongoingridecount`
+         );
+         const data = await response.json();
+         setongoingridecount(data);
+       } catch (err) {
+         console.error(err.message);
+       }
+     }
+     ongoingridecount();
+   });
+
+
+
 
   const handleClick = () => {
     window.location.href = `/vc/vrrequest`;
@@ -67,9 +88,9 @@ function VcoordinatorDashboardPg() {
               Ongoing transports
             </h2>
 
-            <h1 className='text-[20px] leading-[24px] font-bold mt-[15px] ml-3'> 
-              10 
-            </h1>
+            {ongoingridecount.map((item) => (
+              <h1 className='text-[20px] leading-[24px] font-bold mt-[15px] ml-3'>{item.count}</h1>
+              ))}
 
           </div>
           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
