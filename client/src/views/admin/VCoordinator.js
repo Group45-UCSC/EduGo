@@ -10,6 +10,7 @@ import { FaChild } from "react-icons/fa";
 import { FaUserGroup } from "react-icons/fa6";
 import { BsFillCarFrontFill } from "react-icons/bs";
 import { FaShippingFast } from "react-icons/fa";
+import { useLocation } from "react-router-dom";
 
 // Carouselimage
 import vcv1 from"../../images/vcv1.jpg";
@@ -29,6 +30,10 @@ const sideNavBarLinks = [
 ];
 
 function AdminVCoordinator() {
+
+    const location = useLocation();
+    const dataParam = new URLSearchParams(location.search).get("data");
+    const coordinator = JSON.parse(decodeURIComponent(dataParam));
 
   const [viewPopup, setViewPopup] = useState(false);
 
@@ -88,12 +93,12 @@ function AdminVCoordinator() {
                   <div className='bg-slate-200 h-64 ml-12 w-[750px] mt-8 rounded-lg shadow-md'>
 
                       <div className='mt-4 ml-8 leading-8 font-semibold'>
-                          <p className='mb-1'>ID: 002</p>
-                          <p className='mb-1'>Name: Sachithra Dissanayake</p>
-                          <p className='mb-1'>Email: Sachithra@gmail.com</p>
-                          <p className='mb-1'>NIC: 951234678V</p>
-                          <p className='mb-1'>Contact: 071-xxxxxxx</p>
-                          <p className='mb-1'>Address: Pitipana, Homagama</p>
+                        <p className='mb-1'>ID: {coordinator.user_id}</p>
+                        <p className='mb-1'>Name: {coordinator.user_name}</p>
+                        <p className='mb-1'>Email: {coordinator.user_email}</p>
+                        <p className='mb-1'>NIC: {coordinator.nic}</p>
+                        <p className='mb-1'>Contact: {coordinator.contact_no}</p>
+                        <p className='mb-1'>Address: {coordinator.address}</p>
                       </div>
                   </div>
           </div>

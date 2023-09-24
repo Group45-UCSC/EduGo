@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, NavLink } from "react-router-dom";
 import MainLayout from "../../components/layout/MainLayout";
 import driverpic from "../../images/driver1.png";
 import { FaMapMarkerAlt } from "react-icons/fa";
@@ -36,9 +36,6 @@ function AdminDriverInfo() {
         setViewPopup(false);
     }
 
-    const vehicle = () => {
-        window.location.href = `/admin/VehicleInfo`;
-    };
     return (
         <div>
             <MainLayout data={sideNavBarLinks}>
@@ -86,7 +83,14 @@ function AdminDriverInfo() {
                             </div>
 
                             {/* Vehicle details container */}
-                            <div onClick={vehicle} className='bg-slate-200 cursor-pointer h-80 ml-12 w-[750px] mt-8 rounded-lg shadow-md'>
+                            <NavLink
+                  to={`/admin/vehicleinfo/${
+                    item.vehicle_id
+                  }?data=${encodeURIComponent(
+                    JSON.stringify(item)
+                  )}`}
+                >
+                            <div className='bg-slate-200 cursor-pointer h-80 ml-12 w-[750px] mt-8 rounded-lg shadow-md'>
 
                                 <div className='mt-4 ml-8 leading-8 font-semibold'>
                                     <div className='font-bold text-[19px] pt-4 pb-2'>
@@ -101,6 +105,7 @@ function AdminDriverInfo() {
                                     <p className='mb-1'>Start time: 06.00 AM</p>
                                 </div>
                             </div>
+                            </NavLink>
                         </div>
                     </div>
 

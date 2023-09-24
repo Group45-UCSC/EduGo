@@ -125,7 +125,7 @@ function Drivers() {
                   <td>{item.address}</td>
 
                   <NavLink
-                  to={`/admin/drivers/vehicleinfo/${
+                  to={`/admin/vehicleinfo/${
                     item.vehicle_id
                   }?data=${encodeURIComponent(
                     JSON.stringify(item)
@@ -168,7 +168,7 @@ function Drivers() {
                   <td>{item.vehicle_no}</td>
 
                   <NavLink
-                  to={`/admin/drivers/driverinfo/${
+                  to={`/admin/driverinfo/${
                     item.user_id
                   }?data=${encodeURIComponent(
                     JSON.stringify(item)

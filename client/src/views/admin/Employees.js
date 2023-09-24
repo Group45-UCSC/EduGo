@@ -3,14 +3,13 @@ import MainLayout from "../../components/layout/MainLayout";
 import { BsPlusCircleFill } from "react-icons/bs";
 import { AiOutlineSearch } from "react-icons/ai";
 import { BiFilterAlt } from "react-icons/bi";
-import { BsPencilFill } from "react-icons/bs";
-import { BsTrashFill } from "react-icons/bs";
 import { AiFillDashboard } from "react-icons/ai";
 import { BsCoin } from "react-icons/bs";
 import { FaChild } from "react-icons/fa";
 import { FaUserGroup } from "react-icons/fa6";
 import { BsFillCarFrontFill } from "react-icons/bs";
 import { FaShippingFast } from "react-icons/fa";
+import { NavLink } from "react-router-dom";
 
 const sideNavBarLinks = [
   { title: "Dashboard", path: "/admin/dashboard", icon: <AiFillDashboard /> },
@@ -30,13 +29,6 @@ function Employees() {
 
   const addEmp = () => {
     window.location.href = `/admin/addemployee`;
-  };
-
-  const handleClick = () => {
-    window.location.href = `/admin/supportagent`;
-  };
-  const handleClickVC = () => {
-    window.location.href = `/admin/VCoordinator`;
   };
 
   const [supAgent, setsupAgent] = useState([]);
@@ -148,14 +140,13 @@ function Employees() {
                   <th className="px-3.5 w-30">Email</th>
                   <th className="px-3.5 w-30">Address</th>
                   <th className="px-3.5 w-30">Contact</th>
-                  <th className="px-3.5 w-30"></th>
+                  <th className="px-3.5 w-30"> </th>
                 </tr>
               </thead>
 
               <tbody className="">
               {supAgent.map((agent) => (
                 <tr
-                  onClick={handleClick}
                   className=" bg-[#D9D9D9] bg-opacity-60 hover:cursor-pointer hover:bg-[#eaeaea] drop-shadow-md"
                 >
                   <td className="text-center  p-3">{agent.user_id}</td>
@@ -163,12 +154,17 @@ function Employees() {
                   <td>{agent.user_email}</td>
                   <td>{agent.address}</td>
                   <td>{agent.contact_number}</td>
-                  <td>
-                    <div className="flex ml-2 h-8 w-20 bg-orange rounded-md shadow-md">
-                      <BsPencilFill className="mt-2 ml-4 hover:scale-[110%] transition-transform ease-in-out" />
-                      <BsTrashFill className="mt-2 ml-4 hover:scale-[110%] transition-transform ease-in-out" />
-                    </div>
-                  </td>
+                  
+                  <NavLink
+                  to={`/admin/supportagent/${
+                    agent.user_id
+                  }?data=${encodeURIComponent(
+                    JSON.stringify(agent)
+                  )}`}
+                >
+                  <td><button className="bg-amber-600 h-8 w-16 rounded-md hover:bg-amber-400">View</button></td>
+                  </NavLink>
+
                 </tr>
                 ))}
               </tbody>
@@ -188,14 +184,13 @@ function Employees() {
                   <th className="px-3.5 w-30">Email</th>
                   <th className="px-3.5 w-30">Address</th>
                   <th className="px-3.5 w-30">Contact</th>
-                  <th className="px-3.5 w-30"></th>
+                  <th className="px-3.5 w-30"> </th>
                 </tr>
               </thead>
 
               <tbody className="">
               {vehiCo.map((coordinator) => (
                 <tr
-                  onClick={handleClickVC}
                   className=" bg-[#D9D9D9] bg-opacity-60 hover:cursor-pointer hover:bg-[#eaeaea] drop-shadow-md"
                 >
                   <td className="text-center  p-3">{coordinator.user_id}</td>
@@ -203,12 +198,17 @@ function Employees() {
                   <td>{coordinator.user_email}</td>
                   <td>{coordinator.address}</td>
                   <td>{coordinator.contact_number}</td>
-                  <td>
-                    <div className="flex ml-2 h-8 w-20 bg-orange rounded-md shadow-md">
-                      <BsPencilFill className="mt-2 ml-4 hover:scale-[110%] transition-transform ease-in-out" />
-                      <BsTrashFill className="mt-2 ml-4 hover:scale-[110%] transition-transform ease-in-out" />
-                    </div>
-                  </td>
+                  
+                  <NavLink
+                  to={`/admin/vcoordinator/${
+                    coordinator.user_id
+                  }?data=${encodeURIComponent(
+                    JSON.stringify(coordinator)
+                  )}`}
+                >
+                  <td><button className="bg-amber-600 h-8 w-16 rounded-md hover:bg-amber-400">View</button></td>
+                  </NavLink>
+
                 </tr>
                 ))}
               </tbody>

@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import MainLayout from "../../components/layout/MainLayout";
 import { AiOutlineClose } from "react-icons/ai";
 import { FaMapMarkerAlt } from "react-icons/fa";
-import { useLocation } from "react-router-dom";
+import { useLocation, NavLink } from "react-router-dom";
 
 import dlcard from "../../images/dlcard.jpg";
 import VehiCarousel from "../../components/carousel/VehiCarousel";
@@ -76,9 +76,6 @@ function AdminVehicleInfo() {
         setViewPopup(false);
     }
 
-    const driver = () => {
-        window.location.href = `/admin/driverinfo`;
-    };
     return (
         <div>
             <MainLayout data={sideNavBarLinks}>
@@ -125,7 +122,14 @@ function AdminVehicleInfo() {
                     
 
                     {/* driver details container */}
-                    <div onClick={driver} className='bg-slate-200 cursor-pointer h-[480px] ml-8 w-[500px] mt-8 rounded-lg shadow-md'>
+                    <NavLink
+                  to={`/admin/driverinfo/${
+                    item.user_id
+                  }?data=${encodeURIComponent(
+                    JSON.stringify(item)
+                  )}`}
+                >
+                    <div className='bg-slate-200 cursor-pointer h-[480px] ml-8 w-[500px] mt-8 rounded-lg shadow-md'>
 
                         <div className='mt-4 ml-8 leading-8 font-semibold'>
                             <div className='font-bold text-[19px] pt-4 pb-2'>
@@ -143,6 +147,7 @@ function AdminVehicleInfo() {
 
                         </div>
                     </div>
+                    </NavLink>
 
                 </div>
 
