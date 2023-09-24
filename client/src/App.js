@@ -139,7 +139,7 @@ function App() {
           <Route exact path="/admin/drivers" element={<AdminDrivers />} />
           <Route exact path="/admin/rides" element={<AdminRides />} />
           <Route exact path="/admin/ridedetails/:ride_id" element={<AdminRideDetails />} />
-          <Route exact path="/admin/children" element={<AdminChildren />} />
+          <Route exact path="/admin/children/:child_id" element={<AdminChildren />} />
           <Route exact path="/admin/childrenlist" element={<AdminChildrenList />} />
           <Route exact path="/admin/finance" element={<AdminFinance />} />
           <Route exact path="/admin/supportagent/:user_id" element={<AdminSupportAgent />} />

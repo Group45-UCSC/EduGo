@@ -8,6 +8,7 @@ import { FaChild } from "react-icons/fa";
 import { FaUserGroup } from "react-icons/fa6";
 import { BsFillCarFrontFill } from "react-icons/bs";
 import { FaShippingFast } from "react-icons/fa";
+import { NavLink } from "react-router-dom";
 
 const sideNavBarLinks = [
   { title: "Dashboard", path: "/admin/dashboard", icon: <AiFillDashboard /> },
@@ -62,10 +63,6 @@ function AdminChildrenList() {
   function updateToggle(id) {
     setToggle(id);
   }
-
-  const handleClick = () => {
-    window.location.href = `/admin/children`;
-  };
   const handleClickP = () => {
     window.location.href = `/admin/parentsinfo`;
   };
@@ -112,18 +109,29 @@ function AdminChildrenList() {
                   <th className='px-3.5 w-30'>Address</th>
                   <th className='px-3.5 w-30'>Contact</th>
                   <th className='px-3.5 w-30'>Vehicle No</th>
+                  <th className='px-3.5 w-30'> </th>
                 </tr>
               </thead>
 
               <tbody className=''>
                 {child.map((item) => (
-                  <tr onClick={handleClick} className=' bg-[#D9D9D9] bg-opacity-60 hover:cursor-pointer hover:bg-[#eaeaea] drop-shadow-md'>
+                  <tr className=' bg-[#D9D9D9] bg-opacity-60 hover:cursor-pointer hover:bg-[#eaeaea] drop-shadow-md'>
                     <td className='text-center  p-3'>{item.child_id}</td>
                     <td>{item.child_name}</td>
                     <td>{item.school_name}</td>
                     <td>{item.address}</td>
                     <td>{item.contact_number}</td>
                     <td>{item.vehicle_no}</td>
+
+                    <NavLink
+                  to={`/admin/children/${
+                    item.child_id
+                  }?data=${encodeURIComponent(
+                    JSON.stringify(item)
+                  )}`}
+                >
+                  <td><button className="bg-amber-600 h-8 w-16 rounded-md hover:bg-amber-400">View</button></td>
+                  </NavLink>
                   </tr>
                 ))}
               </tbody>
