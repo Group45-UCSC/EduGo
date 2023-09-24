@@ -8,6 +8,7 @@ import { BsFillCarFrontFill } from "react-icons/bs";
 import { FaShippingFast } from "react-icons/fa";
 import { AiOutlineSearch } from "react-icons/ai";
 import { BiFilterAlt } from "react-icons/bi";
+import { NavLink } from "react-router-dom";
 
 const sideNavBarLinks = [
   { title: "Dashboard", path: "/admin/dashboard", icon: <AiFillDashboard /> },
@@ -63,9 +64,6 @@ function AdminRides() {
     setToggle(id);
   }
 
-  const handleClick = () => {
-    window.location.href = `/admin/ridedetails`;
-  };
   return (
     <div>
       <MainLayout data={sideNavBarLinks}>
@@ -127,19 +125,31 @@ function AdminRides() {
                   <th className='px-3.5 w-30'>Evening Departure</th>
                   <th className='px-3.5 w-30'>Contact</th>
                   <th className='px-3.5 w-30'>Status</th>
+                  <th className='px-3.5 w-30'> </th>
                 </tr>
               </thead>
 
               <tbody className=''>
 
               {ongoing.map((item) => (
-                <tr onClick={handleClick} className=' bg-[#D9D9D9] bg-opacity-60 hover:cursor-pointer hover:bg-[#eaeaea] drop-shadow-md'>
+                <tr className=' bg-[#D9D9D9] bg-opacity-60 hover:cursor-pointer hover:bg-[#eaeaea] drop-shadow-md'>
                   <td className='text-center  p-3'>{item.ride_id}</td>
                   <td>{item.vehicle_no}</td>
                   <td>{item.location_morning_ride}</td>
                   <td>{item.location_noon_ride}</td>
                   <td>{item.contact_number}</td>
                   <td>{item.ride_type}</td>
+
+                  <NavLink
+                  to={`/admin/ridedetails/${
+                    item.ride_id
+                  }?data=${encodeURIComponent(
+                    JSON.stringify(item)
+                  )}`}
+                >
+                  <td><button className="bg-amber-600 h-8 w-16 rounded-md hover:bg-amber-400">View</button></td>
+                  </NavLink>
+
                 </tr>
                 ))}
               </tbody>
@@ -159,18 +169,30 @@ function AdminRides() {
                   <th className='px-3.5 w-30'>Evening departure</th>
                   <th className='px-3.5 w-30'>Contact</th>
                   <th className='px-3.5 w-30'>Status</th>
+                  <th className='px-3.5 w-30'> </th>
                 </tr>
               </thead>
 
               <tbody className=''>
               {all.map((item) => (
-                <tr onClick={handleClick} className=' bg-[#D9D9D9] bg-opacity-60 hover:cursor-pointer hover:bg-[#eaeaea] drop-shadow-md'>
+                <tr className=' bg-[#D9D9D9] bg-opacity-60 hover:cursor-pointer hover:bg-[#eaeaea] drop-shadow-md'>
                   <td className='text-center  p-3'>{item.ride_id}</td>
                   <td>{item.vehicle_no}</td>
                   <td>{item.location_morning_ride}</td>
                   <td>{item.location_noon_ride}</td>
                   <td>{item.contact_number}</td>
                   <td>{item.ride_type}</td>
+                  
+                  <NavLink
+                  to={`/admin/ridedetails/${
+                    item.ride_id
+                  }?data=${encodeURIComponent(
+                    JSON.stringify(item)
+                  )}`}
+                >
+                  <td><button className="bg-amber-600 h-8 w-16 rounded-md hover:bg-amber-400">View</button></td>
+                  </NavLink>
+
                 </tr>
                 ))}
               </tbody>
