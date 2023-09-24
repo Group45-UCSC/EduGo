@@ -155,7 +155,7 @@ function App() {
 
           <Route exact path="/vc/dashboard" element={<VcoordinatorDashboardPg />} />
           <Route exact path="/vc/vehicles" element={<VcVehicles />} />
-          <Route exact path="/vc/vehiclesdetails" element={<VcVehiclesDetails />} />
+          <Route exact path="/vc/vehiclesdetails/:id" element={<VcVehiclesDetails />} />
           <Route exact path="/vc/rides" element={<VcRides />} />
           <Route exact path="/vc/ridesdetails" element={<VcRidesDetails />} />
           <Route exact path="/vc/track" element={<VcTrack />} />
