@@ -77,7 +77,7 @@ function AdminDriverInfo() {
                                     <p className='mb-1'>Name: {item.user_name}</p>
                                     <p className='mb-1'>Email: {item.user_email}</p>
                                     <p className='mb-1'>NIC: {item.nic}</p>
-                                    <p className='mb-1'>Contact: {item.contact_no}</p>
+                                    <p className='mb-1'>Contact: {item.contact_number}</p>
                                     <p className='mb-1'>Address: {item.address}</p>
                                 </div>
                             </div>
@@ -97,7 +97,7 @@ function AdminDriverInfo() {
                                         Vehicle details
                                     </div>
                                     <p className='mb-1'>Type: {item.vehicle_type}</p>
-                                    <p className='mb-1'>Make: Toyota</p>
+                                    <p className='mb-1'>Make: {item.make}</p>
                                     <p className='mb-1'>Model: {item.vehicle_model}</p>
                                     <p className='mb-1'>License number: {item.vehicle_no}</p>
                                     <p className='mb-1'>Starting: Homagama</p>

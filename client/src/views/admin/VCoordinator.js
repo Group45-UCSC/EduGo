@@ -97,7 +97,7 @@ function AdminVCoordinator() {
                         <p className='mb-1'>Name: {coordinator.user_name}</p>
                         <p className='mb-1'>Email: {coordinator.user_email}</p>
                         <p className='mb-1'>NIC: {coordinator.nic}</p>
-                        <p className='mb-1'>Contact: {coordinator.contact_no}</p>
+                        <p className='mb-1'>Contact: {coordinator.contact_number}</p>
                         <p className='mb-1'>Address: {coordinator.address}</p>
                       </div>
                   </div>

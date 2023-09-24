@@ -105,13 +105,13 @@ function AdminVehicleInfo() {
                                 Vehicle details
                             </div>
                             <p className='mb-1'>Type: {item.vehicle_type}</p>
-                            <p className='mb-1'>Make: Toyota</p>
+                            <p className='mb-1'>Make: {item.make}</p>
                             <p className='mb-1'>Model: {item.vehicle_model}</p>
-                            <p className='mb-1'>Year: 2001</p>
+                            <p className='mb-1'>Year: {item.manufacture_year}</p>
                             <p className='mb-1'>License number: {item.vehicle_no}</p>
                             <p className='mb-1'>No. of seats: {item.num_of_seats}</p>
-                            <p className='mb-1'>Engine Number: LH 1989</p>
-                            <p className='mb-1'>Chassis Number: 1ABCD2EFGH14JKL</p>
+                            <p className='mb-1'>Engine Number: {item.engine_no}</p>
+                            <p className='mb-1'>Chassis Number: {item.chassis_no}</p>
                             <p className='mb-1'>Starting: Homagama</p>
                             <p className='mb-1'>Destination: Maharagama</p>
                             <p className='mb-1'>Start time: 06.00 AM</p>
@@ -138,7 +138,7 @@ function AdminVehicleInfo() {
                             <p className='mb-1'>Name: {item.user_name}</p>
                             <p className='mb-1'>Email: {item.user_email}</p>
                             <p className='mb-1'>NIC: {item.nic}</p>
-                            <p className='mb-1'>Contact: {item.contact_no}</p>
+                            <p className='mb-1'>Contact: {item.contact_number}</p>
                             <p className='mb-1'>Address: {item.address}</p>
                             <p className='mb-1'>Birthday: 1998-01-01</p>
                             <p className='mb-1'>Service Registration: {item.registration_no}</p>

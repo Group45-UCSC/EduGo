@@ -45,7 +45,7 @@ function AdminSupportAgent() {
                         <p className='mb-1'>Name: {agent.user_name}</p>
                         <p className='mb-1'>Email: {agent.user_email}</p>
                         <p className='mb-1'>NIC: {agent.nic}</p>
-                        <p className='mb-1'>Contact: {agent.contact_no}</p>
+                        <p className='mb-1'>Contact: {agent.contact_number}</p>
                         <p className='mb-1'>Address: {agent.address}</p>
                     </div>
                 </div>
