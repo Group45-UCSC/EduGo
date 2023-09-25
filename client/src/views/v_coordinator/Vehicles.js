@@ -35,11 +35,6 @@ function Vehicles() {
   });
 
 
-  // redirect the page
-  // const handleClick = () => {
-  //   window.location.href = `/vc/vehiclesdetails`;
-  // };
-
   return (
     <MainLayout data={sideNavBarLinks}>
 
@@ -82,18 +77,18 @@ function Vehicles() {
 
 
           {/* vehicle table */}
-          <div className='ml-32  mt-16 mr-32 shadow-md overflow-auto '>
+          <div className='ml-20  mt-16 mr-20 shadow-md overflow-auto '>
 
             <table className='w-full border-separate border-spacing-y-2 border border-slate-50 '>
               <thead className='border-y-4 border-white drop-shadow '>
                 <tr className=' bg-[#999999] text-white border-b-2 text-[18px] drop-shadow-md '>
                   <th className='px-3.5 p-1 w-24 '>ID</th>
-                  <th className='px-3.5 w-30'>Type</th>
+                  <th className='px-3.5 w-30'>Vehicle number</th>
                   <th className='px-3.5 w-30'>Make</th>
                   <th className='px-3.5 w-30'>Model</th>
                   <th className='px-3.5 w-30'>Contact</th>
                   <th className='px-3.5 w-30'>Departure</th>
-                  <th className='px-3.5 w-30'>View more</th>   
+                  <th className='px-3.5 w-30'></th>   
                 </tr>
               </thead>
 
