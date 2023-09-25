@@ -1,4 +1,4 @@
-// ignore_for_file: library_private_types_in_public_api, use_build_context_synchronously, prefer_const_constructors
+// ignore_for_file: library_private_types_in_public_api, use_build_context_synchronously, prefer_const_constructors, avoid_unnecessary_containers
 
 import 'dart:convert';
 import 'package:flutter/material.dart';
@@ -99,14 +99,21 @@ class _LoginState extends State<Login> {
         child: SingleChildScrollView(
           child: Column(
             children: [
-              SizedBox(height: 20),
-              loginImg(),
-              SizedBox(height: 50),      
-              // LOGIN FORM
+              Container(
+                child: Text(
+                  'Welcome to Edugo',
+                  style: TextStyle(
+                    color: Color(0xFFFF9900),
+                    fontSize: 25,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ),
+              loginImg(),      
               textFieldEmail(),
               SizedBox(height: 16),
               textFieldPassword(),
-              SizedBox(height: 8),
+              SizedBox(height: 2),
               changePassword(),
               SizedBox(height: 16),
               loginBtn(context),
