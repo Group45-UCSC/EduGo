@@ -5,6 +5,7 @@ import { BsFillCarFrontFill } from "react-icons/bs";
 import { FaShippingFast } from "react-icons/fa";
 import { FaCarCrash } from "react-icons/fa";
 
+
 const sideNavBarLinks = [
   { title: "Dashboard", path: "/vc/dashboard", icon: <AiFillDashboard /> },
   { title: "Vehicles", path: "/vc/vehicles", icon: <BsFillCarFrontFill /> },
@@ -33,6 +34,22 @@ function VcoordinatorDashboardPg() {
    });
 
 
+      //vehicle emergency count
+      const [emergencycount, setemergencycount] = useState([]);
+      useEffect(() => {
+        async function emergencycount() {
+          try {
+            const response = await fetch(
+              `http://localhost:5000/edugo/vc/dashboard/emergencycount`
+            );
+            const data = await response.json();
+            setemergencycount(data);
+          } catch (err) {
+            console.error(err.message);
+          }
+        }
+        emergencycount();
+      });
 
 
   const handleClick = () => {
@@ -71,9 +88,9 @@ function VcoordinatorDashboardPg() {
               Emergency
             </h2>
 
-            <h1 className='text-[20px] leading-[24px] font-bold mt-[15px] ml-3'> 
-              4 
-            </h1>
+            {emergencycount.map((items) => (
+              <h1 className='text-[20px] leading-[24px] font-bold mt-[15px] ml-3'>{items.count}</h1>
+              ))}
 
           </div>
           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6  ">

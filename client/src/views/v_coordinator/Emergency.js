@@ -4,6 +4,7 @@ import { AiFillDashboard } from "react-icons/ai";
 import { BsFillCarFrontFill } from "react-icons/bs";
 import { FaShippingFast } from "react-icons/fa";
 import { FaCarCrash } from "react-icons/fa";
+import { NavLink } from "react-router-dom";
 
 const sideNavBarLinks = [
   { title: "Dashboard", path: "/vc/dashboard", icon: <AiFillDashboard /> },
@@ -34,99 +35,10 @@ function Emergency() {
    });
 
 
-
-  // all rides details
-
-  // const emergency = [
-  //   {
-  //     id: "001",
-  //     v_no: "PI - 1111",
-  //     situation:"breackdown",
-  //     driver: "Amal perera",
-  //     contact: "0711234567",
-  //     date:"2023.05.13",
-  //     status: "complete"
-  //   },
-
-  //   {
-  //     id: "002",
-  //     v_no: "PX - 2222",
-  //     situation:"breackdown",
-  //     driver: "Amal perera",
-  //     contact: "0711234567",
-  //     date:"2023.05.13",
-  //     status: "complete"
-  //   },
-
-  //   {
-  //     id: "003",
-  //     v_no: "PI - 3333",
-  //     situation:"breackdown",
-  //     driver: "Amal perera",
-  //     contact: "0711234567",
-  //     date:"2023.05.13",
-  //     status: "complete"
-  //   },
-
-  //   {
-  //     id: "004",
-  //     v_no: "PX - 4444",
-  //     situation:"breackdown",
-  //     driver: "Amal perera",
-  //     contact: "0711234567",
-  //     date:"2023.05.13",
-  //     status: "complete"
-  //   },
-
-  //   {
-  //     id: "005",
-  //     v_no: "PI - 5555",
-  //     situation:"breackdown",
-  //     driver: "Amal perera",
-  //     contact: "0711234567",
-  //     date:"2023.05.13",
-  //     status: "complete"
-  //   },
-
-  //   {
-  //     id: "006",
-  //     v_no: "PI - 6666",
-  //     situation:"breackdown",
-  //     driver: "Amal perera",
-  //     contact: "0711234567",
-  //     date:"2023.05.13",
-  //     status: "complete"
-  //   },
-
-  //   {
-  //     id: "007",
-  //     v_no: "PX - 7777",
-  //     situation:"breackdown",
-  //     driver: "Amal perera",
-  //     contact: "0711234567",
-  //     date:"2023.05.13",
-  //     status: "complete"
-  //   },
-
-  //   {
-  //     id: "008",
-  //     v_no: "PI - 8888",
-  //     situation:"breackdown",
-  //     driver: "Amal perera",
-  //     contact: "0711234567",
-  //     date:"2023.05.13",
-  //     status: "complete"
-  //   }
-  // ];
-
-
-
-
   // redirect the page
-
-  const handleClick = () => {
-    window.location.href = `/vc/emergencyDetails`;
-  };
+  // const handleClick = () => {
+  //   window.location.href = `/vc/emergencyDetails`;
+  // };
 
 
   return (
@@ -167,7 +79,7 @@ function Emergency() {
 
 
       {/* emergency table */}
-      <div className='ml-28 mt-16 mr-28 shadow-md overflow-auto '>
+      <div className='ml-6 mt-16 mr-6 shadow-md overflow-auto '>
 
         <table className='w-full text-center border-separate border-spacing-y-2 border border-slate-50 '>
           <thead className='border-y-4 border-white drop-shadow '>
@@ -178,13 +90,14 @@ function Emergency() {
               <th className='px-3.5 w-30'>Driver</th>
               <th className='px-3.5 w-30'>Contact</th>
               <th className='px-3.5 w-30'>Date</th>
-              <th className='px-3.5 w-30'>Status</th>  
+              <th className='px-3.5 w-30'>Status</th>
+              <th className='px-3.5 w-30'></th> 
             </tr>
           </thead>
 
           <tbody className=''>
             {emergencylist.map((item) => ( 
-              <tr onClick={handleClick} className=' bg-[#D9D9D9] bg-opacity-60 hover:cursor-pointer hover:bg-[#eaeaea] drop-shadow-md'>
+              <tr className=' bg-[#D9D9D9] bg-opacity-60 hover:cursor-pointer hover:bg-[#eaeaea] drop-shadow-md'>
                   <td className='text-center  p-3'>{item.emergency_id}</td>
                   <td>{item.vehicle_no}</td>
                   <td>{item.situation}</td>
@@ -192,6 +105,17 @@ function Emergency() {
                   <td>{item.contact_number}</td>
                   <td>{item.date}</td>
                   <td>{item.status}</td>
+
+                  <NavLink
+                      to={`/vc/emergencydetails/${
+                        item.emergency_id
+                      }?data=${encodeURIComponent(
+                        JSON.stringify(item)
+                      )}`}
+                    >
+                    <td className='text-center'> <button  className="bg-amber-600 h-8 w-32 rounded-md hover:bg-amber-400"> View more..</button></td>
+                    </NavLink>
+
               </tr>
               ))}
             </tbody>

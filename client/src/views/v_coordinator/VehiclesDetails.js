@@ -63,7 +63,6 @@ function VehiclesDetails(onClose) {
     // calender
     const [isCalendarVisible, setCalendarVisibility] = useState(false); // Calendar initially invisible
 
-
     const handleToggle = () => {
     setCalendarVisibility(!isCalendarVisible); // Toggle calendar visibility
     }
