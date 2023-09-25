@@ -157,7 +157,7 @@ function App() {
           <Route exact path="/vc/vehicles" element={<VcVehicles />} />
           <Route exact path="/vc/vehiclesdetails/:id" element={<VcVehiclesDetails />} />
           <Route exact path="/vc/rides" element={<VcRides />} />
-          <Route exact path="/vc/ridesdetails" element={<VcRidesDetails />} />
+          <Route exact path="/vc/ridesdetails/:id" element={<VcRidesDetails />} />
           <Route exact path="/vc/track" element={<VcTrack />} />
           <Route exact path="/vc/emergency" element={<VcEmergency />} />
           <Route exact path="/vc/emergencydetails/:id" element={<VcEmergencyDetails />} />

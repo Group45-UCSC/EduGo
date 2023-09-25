@@ -5,6 +5,7 @@ import { BsFillCarFrontFill } from "react-icons/bs";
 import { FaShippingFast } from "react-icons/fa";
 import { FaCarCrash } from "react-icons/fa";
 import driverpic from "../../images/driver1.png";
+import { useLocation } from "react-router-dom";
 
 const sideNavBarLinks = [
   { title: "Dashboard", path: "/vc/dashboard", icon: <AiFillDashboard /> },
@@ -14,6 +15,10 @@ const sideNavBarLinks = [
 ];
 
 function RidesDetails() {
+
+  const location = useLocation();
+  const dataParam = new URLSearchParams(location.search).get("data");
+  const item = JSON.parse(decodeURIComponent(dataParam));
 
     const handleClick = () => {
         window.location.href = `/vc/track`;
@@ -44,12 +49,12 @@ function RidesDetails() {
                       Driver's details
                   </div>
                   <div className='mt-4 ml-8'>
-                      <p className='mb-1'>ID: 002</p>
-                      <p className='mb-1'>Name: Sachithra Dissanayake</p>
-                      <p className='mb-1'>Email: Sachithra@gmail.com</p>
-                      <p className='mb-1'>NIC: 951234678V</p>
-                      <p className='mb-1'>Contact: 071-xxxxxxx</p>
-                      <p className='mb-1'>Address: Pitipana, Homagama</p>
+                      <p className='mb-1'>ID:{item.user_id} </p>
+                      <p className='mb-1'>Name:{item.user_name} </p>
+                      <p className='mb-1'>Email:{item.user_email} </p>
+                      <p className='mb-1'>NIC:{item.nic}</p>
+                      <p className='mb-1'>Contact: {item.contact_number} </p>
+                      <p className='mb-1'>Address: {item.address} </p>
                   </div>
               </div>
 
@@ -59,13 +64,13 @@ function RidesDetails() {
                     Vehicle details
                 </div>
                 <div className='mt-4 ml-8'>
-                  <p className='mb-1'>Type: van</p>
-                  <p className='mb-1'>Make: Toyota</p>
-                  <p className='mb-1'>Model: Hiace Dolphin 2001</p>
-                  <p className='mb-1'>License number: NA - 6111</p>
-                  <p className='mb-1'>Starting: Homagama</p>
-                  <p className='mb-1'>Destination: Maharagama</p>
-                  <p className='mb-1'>Start time: 06.00 AM</p>
+                  <p className='mb-1'>Type:</p>
+                  <p className='mb-1'>Make: </p>
+                  <p className='mb-1'>Model: </p>
+                  <p className='mb-1'>License number:</p>
+                  <p className='mb-1'>Starting: {item.location_morning_ride} </p>
+                  <p className='mb-1'>Destination: {item.location_noon_ride} </p>
+                  <p className='mb-1'>Start time: {item.time_morning_ride}</p>
                 </div>
               </div>
             </div>
@@ -104,22 +109,7 @@ function RidesDetails() {
                 <td className='text-center'>royal College</td>
                 <td className='text-center'>Picked</td>
             </tr>
-            
-            <tr className=' bg-[#D9D9D9] bg-opacity-60 hover:cursor-pointer  hover:bg-[#eaeaea] drop-shadow-md' >
-              <td className='text-center  p-3 ' >002</td>
-              <td className='text-center'>Dewmini Rathnawardhana</td>
-              <td className='text-center'>0768956423</td>
-              <td className='text-center'>Meuseus College</td>
-              <td className='text-center'>Dropped</td>
-            </tr>
 
-            <tr className=' bg-[#D9D9D9] bg-opacity-60 hover:cursor-pointer  hover:bg-[#eaeaea] drop-shadow-md'>
-              <td className='text-center  p-3 ' >003</td>
-              <td className='text-center'>Apsara Liyanage</td>
-              <td className='text-center'>0762222223</td>
-              <td className='text-center'>Meuseus College</td>
-              <td className='text-center'>Absent</td>
-            </tr>
           </tbody>
 
         </table>
