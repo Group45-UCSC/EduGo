@@ -23,7 +23,7 @@ const ridealllist = async (req, res) => {
     try{
     //db query
     const ongoingData = await pool.query(
-      "SELECT school_ride.ride_id, school_ride.ride_type, school_ride.location_morning_ride, school_ride.location_noon_ride, registered_users.contact_number, vehicle.vehicle_no FROM school_ride INNER JOIN registered_users ON registered_users.user_id = school_ride.driver_id INNER JOIN vehicle ON school_ride.vehicle_id = vehicle.vehicle_id WHERE ride_type = 'Ongoing';" ,
+      "SELECT school_ride.ride_id, school_ride.ride_type, school_ride.location_morning_ride, school_ride.location_noon_ride, registered_users.contact_number, vehicle.vehicle_no FROM school_ride INNER JOIN registered_users ON registered_users.user_id = school_ride.driver_id INNER JOIN vehicle ON school_ride.vehicle_id = vehicle.vehicle_id WHERE ride_type = 'ongoing';" ,
     );
   
     return res.json(ongoingData.rows);
@@ -35,13 +35,13 @@ const ridealllist = async (req, res) => {
 
 
 
-  // dashboard OngoingRideCount count
+  // dashboard ongoingRideCount count
   const OngoingRideCount = async (req, res) => {
 
   try{
   //db query
   const OngoingData = await pool.query(
-    "SELECT COUNT(*) FROM (SELECT * FROM school_ride WHERE ride_type = 'Ongoing') AS ongoing_rides_count",
+    "SELECT COUNT(*) FROM (SELECT * FROM school_ride WHERE ride_type = 'ongoing') AS ongoing_rides_count",
   );
 
   return res.json(OngoingData.rows);
