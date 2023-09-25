@@ -1,15 +1,18 @@
-const query = require("../../models/supAgentModel");
+const pool = require("../../dbConnection");
 
 //view complaints function
-const viewAllComplaints = async (req, res) => {
+const viewChatItems = async (req, res) => {
   try {
-    res.status(200).Json({
-      tatus: "success",
-      data: "It is working",
-    });
+    const query = await pool.query(
+      "SELECT user_id, user_role, user_name from registered_users"
+    );
+
+    const data = query.rows;
+    res.status(200).json(data);
   } catch (err) {
-    console.log(err);
+    console.error(err);
+    res.status(500).json({ error: "Error retrieving data" });
   }
 };
 
-module.exports = { viewAllComplaints };
+module.exports = { viewChatItems };

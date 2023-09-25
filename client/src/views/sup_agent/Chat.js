@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import MainLayout from "../../components/layout/MainLayout";
 import { FaHome, FaBus, FaUsers, FaSearch } from "react-icons/fa";
 import { AiOutlinePaperClip, AiOutlineSend } from "react-icons/ai";
@@ -12,42 +12,61 @@ const sideNavBarLinks = [
   { title: "Parents", path: "/sup_agent/parents", icon: <FaUsers /> },
   { title: "Drivers", path: "/sup_agent/drivers", icon: <FaBus /> },
 ];
-const chatItems = [
-  {
-    id: 1,
-    name: "Nethmini Abeykoon",
-    avatar: "https://tecdn.b-cdn.net/img/new/avatars/5.webp",
-    messages: [
-      "Hi there!",
-      "I need help.",
-      "A parent named John Doe has not paid the monthly fee yet.",
-    ],
-    category: "driver",
-    unreadCount: 2,
-  },
-  {
-    id: 2,
-    name: "John Doe",
-    avatar: "https://tecdn.b-cdn.net/img/new/avatars/2.webp",
-    messages: ["Hello!", "Can you assist me with something?"],
-    category: "parent",
-    unreadCount: 1,
-  },
-  {
-    id: 3,
-    name: "S.N.Ramanayake",
-    avatar: "https://tecdn.b-cdn.net/img/new/avatars/12.webp",
-    messages: ["Hey there!", "I have a question about a student."],
-    category: "driver",
-  },
-];
+// const chatItems = [
+//   {
+//     id: 1,
+//     name: "Nethmini Abeykoon",
+//     avatar: "https://tecdn.b-cdn.net/img/new/avatars/5.webp",
+//     messages: [
+//       "Hi there!",
+//       "I need help.",
+//       "A parent named John Doe has not paid the monthly fee yet.",
+//     ],
+//     category: "driver",
+//     unreadCount: 2,
+//   },
+//   {
+//     id: 2,
+//     name: "John Doe",
+//     avatar: "https://tecdn.b-cdn.net/img/new/avatars/2.webp",
+//     messages: ["Hello!", "Can you assist me with something?"],
+//     category: "parent",
+//     unreadCount: 1,
+//   },
+//   {
+//     id: 3,
+//     name: "S.N.Ramanayake",
+//     avatar: "https://tecdn.b-cdn.net/img/new/avatars/12.webp",
+//     messages: ["Hey there!", "I have a question about a student."],
+//     category: "driver",
+//   },
+// ];
 function Chat() {
   const [inputValue, setInputValue] = useState("");
   const [sentMessages, setSentMessages] = useState([]);
   const [selectedChatId, setSelectedChatId] = useState(null);
   const [searchQuery, setSearchQuery] = useState("");
   const [isFileSelected, setIsFileSelected] = useState(false);
-  const [chatItemsState, setChatItemsState] = useState(chatItems);
+  const [chatItemsState, setChatItemsState] = useState([]);
+  const [chatItems, setChatItems] = useState([]);
+
+  useEffect(() => {
+    async function viewChatItems() {
+      try {
+        const response = await fetch("http://localhost:5000/edugo/supAgent/chat/viewChat");
+
+        if (!response.ok) {
+          throw new Error("Network response was not ok");
+        }
+
+        const data = await response.json();
+        setChatItems(data);
+      } catch (error) {
+        console.error("Error fetching chat data:", error);
+      }
+    }
+    viewChatItems();
+  }, []); 
 
   const handleNewMessage = (chatId) => {
     setChatItemsState((prevChatItems) =>
@@ -108,10 +127,10 @@ function Chat() {
   };
 
   const parentChatItems = chatItems.filter(
-    (item) => item.category === "parent"
+    (item) => item.user_role === "parent"
   );
   const driverChatItems = chatItems.filter(
-    (item) => item.category === "driver"
+    (item) => item.user_role === "driver"
   );
 
   return (
@@ -139,17 +158,17 @@ function Chat() {
                 </div>
                 {parentChatItems
                   .filter((item) =>
-                    item.name.toLowerCase().includes(searchQuery.toLowerCase())
+                    item.user_name.toLowerCase().includes(searchQuery.toLowerCase())
                   )
                   .map((item, index) => (
                     <div
                       key={index}
                       className={`${
-                        selectedChatId === item.id
+                        selectedChatId === item.user_id
                           ? "bg-[#4b5563] shadow-inner text-white"
                           : "bg-orange transform border-b border-transparent hover:scale-[103%] transition duration-300 ease-out"
                       } w-full h-14 rounded-xl border-b border-black flex items-center px-4 hover:border-black `}
-                      onClick={() => handleChatItemClick(item.id)}
+                      onClick={() => handleChatItemClick(item.user_id)}
                     >
                       <img
                         src={item.avatar}
@@ -157,7 +176,7 @@ function Chat() {
                         className="w-10 h-10 rounded-full mr-3"
                       />
                       <p className="font-semibold">
-                        {item.name}
+                        {item.user_name}
                         {item.unreadCount > 0 && (
                           <span className="ml-8 bg-[#435874] text-white  rounded-full px-2 py-1">
                             {item.unreadCount}
@@ -171,17 +190,17 @@ function Chat() {
                 </div>
                 {driverChatItems
                   .filter((item) =>
-                    item.name.toLowerCase().includes(searchQuery.toLowerCase())
+                    item.user_name.toLowerCase().includes(searchQuery.toLowerCase())
                   )
                   .map((item, index) => (
                     <div
                       key={index}
                       className={`${
-                        selectedChatId === item.id
+                        selectedChatId === item.user_id
                           ? "bg-[#4b5563] shadow-inner text-white"
                           : "bg-orange transform border-b border-transparent hover:scale-[103%] transition duration-300 ease-out"
                       } w-full h-14 rounded-xl border-b border-black flex items-center  px-4 hover:border-black `}
-                      onClick={() => handleChatItemClick(item.id)}
+                      onClick={() => handleChatItemClick(item.user_id)}
                     >
                       <img
                         src={item.avatar}
@@ -189,7 +208,7 @@ function Chat() {
                         className="w-10 h-10 rounded-full mr-3"
                       />
                       <p className="font-semibold">
-                        {item.name}
+                        {item.user_name}
                         {item.unreadCount > 0 && (
                           <span className="ml-8 bg-[#435874] text-white  rounded-full px-2 py-1">
                             {item.unreadCount}
@@ -214,7 +233,7 @@ function Chat() {
                     className="w-8 h-8 rounded-full mr-3"
                   />
                   <p className="text-gray-800 font-semibold">
-                    {chatItems.find((item) => item.id === selectedChatId)?.name}
+                    {chatItems.find((item) => item.user_id === selectedChatId)?.user_name}
                   </p>
                 </div>
               ) : (
