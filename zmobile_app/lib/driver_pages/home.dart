@@ -19,15 +19,15 @@ class _DriverHomePageState extends State<DriverHomePage> {
   final Completer<GoogleMapController> _controller = Completer();
 
   static const CameraPosition _kGooglePlex = CameraPosition(
-    target: LatLng(7, 80),
-    zoom: 10,
+    target: LatLng(6.9022172,79.8612785),
+    zoom: 15,
   );
 
-  final List<Marker> _markers = <Marker>[
+  final List<Marker> _markers = const <Marker>[
     Marker(
         markerId: MarkerId('1'),
-        position: LatLng(7, 80),
-        infoWindow: InfoWindow(title: 'My Location'))
+        position: LatLng(6.9022172,79.8612785),
+        infoWindow: InfoWindow(title: 'UCSC'))
   ];
 
   Future<void> loadData() async{
@@ -41,7 +41,7 @@ class _DriverHomePageState extends State<DriverHomePage> {
           infoWindow: InfoWindow(title: 'My Current')));
 
       final CameraPosition cameraPosition = CameraPosition(
-        zoom: 10,
+        zoom: 15,
         target: LatLng(value.latitude, value.longitude)
       );
 
@@ -54,8 +54,9 @@ class _DriverHomePageState extends State<DriverHomePage> {
 
   Future<Position> getUserCurrentLocation() async {
     await Geolocator.requestPermission()
-        .then((value) {})
-        .onError((error, stackTrace) {
+        .then((value) {
+
+        }).onError((error, stackTrace) {
       print("error" + error.toString());
     });
 
@@ -103,6 +104,7 @@ class _DriverHomePageState extends State<DriverHomePage> {
     );
   }
 
+//  --------------------------------------------
   @override
   Widget build(BuildContext context) {
     return Navbar(
@@ -221,6 +223,7 @@ class _DriverHomePageState extends State<DriverHomePage> {
     );
   }
 
+  
   Widget _buildPaymentsCard(BuildContext context) {
     return GestureDetector(
       onTap: () {

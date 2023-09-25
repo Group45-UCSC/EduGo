@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useLocation, NavLink } from "react-router-dom";
 import MainLayout from "../../components/layout/MainLayout";
 import driverpic from "../../images/driver1.png";
 import { FaMapMarkerAlt } from "react-icons/fa";
@@ -21,6 +22,10 @@ const sideNavBarLinks = [
 
 function AdminDriverInfo() {
 
+    const location = useLocation();
+    const dataParam = new URLSearchParams(location.search).get("data");
+    const item = JSON.parse(decodeURIComponent(dataParam));
+
     const [viewPopup, setViewPopup] = useState(false);
 
     function showPopup() {
@@ -31,9 +36,6 @@ function AdminDriverInfo() {
         setViewPopup(false);
     }
 
-    const vehicle = () => {
-        window.location.href = `/admin/VehicleInfo`;
-    };
     return (
         <div>
             <MainLayout data={sideNavBarLinks}>
@@ -71,31 +73,39 @@ function AdminDriverInfo() {
                                     <div className='font-bold text-[19px] pt-4 pb-2'>
                                         Driver details
                                     </div>
-                                    <p className='mb-1'>ID: 002</p>
-                                    <p className='mb-1'>Name: Sachithra Dissanayake</p>
-                                    <p className='mb-1'>Email: Sachithra@gmail.com</p>
-                                    <p className='mb-1'>NIC: 951234678V</p>
-                                    <p className='mb-1'>Contact: 071-xxxxxxx</p>
-                                    <p className='mb-1'>Address: Pitipana, Homagama</p>
+                                    <p className='mb-1'>ID: {item.user_id}</p>
+                                    <p className='mb-1'>Name: {item.user_name}</p>
+                                    <p className='mb-1'>Email: {item.user_email}</p>
+                                    <p className='mb-1'>NIC: {item.nic}</p>
+                                    <p className='mb-1'>Contact: {item.contact_number}</p>
+                                    <p className='mb-1'>Address: {item.address}</p>
                                 </div>
                             </div>
 
                             {/* Vehicle details container */}
-                            <div onClick={vehicle} className='bg-slate-200 cursor-pointer h-80 ml-12 w-[750px] mt-8 rounded-lg shadow-md'>
+                            <NavLink
+                  to={`/admin/vehicleinfo/${
+                    item.vehicle_id
+                  }?data=${encodeURIComponent(
+                    JSON.stringify(item)
+                  )}`}
+                >
+                            <div className='bg-slate-200 cursor-pointer h-80 ml-12 w-[750px] mt-8 rounded-lg shadow-md'>
 
                                 <div className='mt-4 ml-8 leading-8 font-semibold'>
                                     <div className='font-bold text-[19px] pt-4 pb-2'>
                                         Vehicle details
                                     </div>
-                                    <p className='mb-1'>Type: van</p>
-                                    <p className='mb-1'>Make: Toyota</p>
-                                    <p className='mb-1'>Model: Hiace Dolphin 2001</p>
-                                    <p className='mb-1'>License number: NA - 6111</p>
+                                    <p className='mb-1'>Type: {item.vehicle_type}</p>
+                                    <p className='mb-1'>Make: {item.make}</p>
+                                    <p className='mb-1'>Model: {item.vehicle_model}</p>
+                                    <p className='mb-1'>License number: {item.vehicle_no}</p>
                                     <p className='mb-1'>Starting: Homagama</p>
                                     <p className='mb-1'>Destination: Maharagama</p>
                                     <p className='mb-1'>Start time: 06.00 AM</p>
                                 </div>
                             </div>
+                            </NavLink>
                         </div>
                     </div>
 
