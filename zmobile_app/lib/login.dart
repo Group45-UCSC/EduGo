@@ -1,4 +1,4 @@
-// ignore_for_file: library_private_types_in_public_api, use_build_context_synchronously, prefer_const_constructors
+// ignore_for_file: library_private_types_in_public_api, use_build_context_synchronously, prefer_const_constructors, avoid_unnecessary_containers
 
 import 'dart:convert';
 import 'package:flutter/material.dart';
@@ -93,112 +93,186 @@ class _LoginState extends State<Login> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xFFFF9900),
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.all(32.0),
+      // backgroundColor: Color(0xFFFF9900),
+      backgroundColor: Colors.grey.shade200,
+      body: SafeArea(
+        child: SingleChildScrollView(
           child: Column(
             children: [
-              SizedBox(height: 60),
-              Text(
-                'Hello, welcome to Edugo!',
-                style: TextStyle(
-                  fontSize: 25,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.white,
+              Container(
+                child: Text(
+                  'Welcome to Edugo',
+                  style: TextStyle(
+                    color: Color(0xFFFF9900),
+                    fontSize: 25,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
               ),
+              loginImg(),      
+              textFieldEmail(),
               SizedBox(height: 16),
-              Text(
-                'Login to continue...',
-                style: TextStyle(
-                  color: const Color.fromARGB(165, 255, 255, 255),
-                  fontSize: 24,
-                ),
-              ),
-              SizedBox(height: 20),
-
-              // LOGIN FORM
-              TextField(
-                controller: emailController,
-                decoration: InputDecoration(
-                  prefixIcon: Icon(Icons.person, color: Colors.black),
-                  hintText: 'Email',
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(12)),
-                    borderSide: BorderSide(color: Colors.black),
-                  ),
-                  focusedBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(12)),
-                    borderSide: BorderSide(color: Colors.black),
-                  ),
-                  filled: true,
-                  fillColor: Colors.white.withOpacity(0.5),
-                ),
-                cursorColor: Colors.black,
-              ),
+              textFieldPassword(),
+              SizedBox(height: 2),
+              changePassword(),
               SizedBox(height: 16),
-              TextField(
-                controller: passwordController,
-                decoration: InputDecoration(
-                  prefixIcon: Icon(Icons.lock, color: Colors.black),
-                  hintText: 'Password',
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(12)),
-                    borderSide: BorderSide(color: Colors.black),
-                  ),
-                  focusedBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(12)),
-                    borderSide: BorderSide(color: Colors.black),
-                  ),
-                  filled: true,
-                  fillColor: Colors.white.withOpacity(0.5),
-                  suffixIcon: IconButton(
-                    icon: Icon(
-                      _passwordVisible
-                          ? Icons.visibility
-                          : Icons.visibility_off,
-                      color: Colors.black,
-                    ),
-                    onPressed: () {
-                      setState(() {
-                        _passwordVisible = !_passwordVisible;
-                      });
-                    },
-                  ),
-                ),
-                obscureText: !_passwordVisible,
-                cursorColor: Colors.black,
-              ),
-              Align(
-                alignment: Alignment.centerRight,
-                child: TextButton(
-                  onPressed: () {
-                    Navigator.pushNamed(context, '/change_password');
-                  },
-                  style: TextButton.styleFrom(
-                    foregroundColor: Colors.white,
-                  ),
-                  child: Text('Forgot Password?'),
-                ),
-              ),
-              SizedBox(height: 16),
-              ElevatedButton(
-                onPressed: () => _login(context),
-                style: ElevatedButton.styleFrom(
-                  foregroundColor: Colors.black,
-                  backgroundColor: Colors.white,
-                  minimumSize: Size(300, 50),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(12),
-                  ),
-                ),
-                child: Text('Login'),
-              ),
+              loginBtn(context),
             ],
           ),
         ),
       ),
     );
+  }
+
+  Padding loginBtn(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 15),
+      child: GestureDetector(
+        onTap: () => _login(context),
+        child: Container(
+          alignment: Alignment.center,
+          width: double.infinity,
+          height: 50,
+          decoration: BoxDecoration(
+            color: Color(0xFFFF9900),
+            borderRadius: BorderRadius.circular(10),
+          ),
+          child: Text(
+            'Login',
+            style: TextStyle(
+              color: Colors.white,
+              fontSize: 18,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget changePassword() {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 15),
+      child: Align(
+        alignment: Alignment.centerRight,
+        child: TextButton(
+          onPressed: () {
+            Navigator.pushNamed(context, '/change_password');
+          },
+          style: TextButton.styleFrom(
+            foregroundColor: Color(0xFFFF9900),
+          ),
+          child: Text('Forgot Password?'),
+        ),
+      ),
+    );
+  }
+
+  Widget textFieldPassword() {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 15),
+      child: Container(
+        decoration: BoxDecoration(
+          color: Color(0xFFFF9900),
+          borderRadius: BorderRadius.circular(15),
+        ),
+        child: TextField(
+          controller: passwordController,
+          style: TextStyle(fontSize: 18, color: Colors.black),
+          decoration: InputDecoration(
+            prefixIcon: Icon(
+              Icons.lock, 
+              color: Colors.black
+            ),
+            contentPadding: EdgeInsets.symmetric(horizontal: 15, vertical: 15),
+              hintText: 'Password',
+              enabledBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(10),
+                borderSide: BorderSide(
+                  color: Color(0xffc5c5c5),
+                  width: 2.0,
+                ),
+              ),
+            focusedBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(10),
+              borderSide: BorderSide(
+                color: Color(0xFFFF9900)
+              ),
+            ),
+            filled: true,
+            fillColor: Colors.white.withOpacity(0.5),
+            suffixIcon: IconButton(
+              icon: Icon(
+                _passwordVisible ? Icons.visibility: Icons.visibility_off,
+                color: Colors.black,
+              ),
+              onPressed: () {
+                setState(() {
+                  _passwordVisible = !_passwordVisible;
+                });
+              },
+            ),
+          ),
+          obscureText: !_passwordVisible,
+          cursorColor: Colors.black,
+        ),
+      ),
+    );
+  }
+
+  Widget textFieldEmail() {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 15),
+      child: Container(
+        decoration: BoxDecoration(
+          color: Color(0xFFFF9900),
+          borderRadius: BorderRadius.circular(15),
+        ),
+        child: TextField(
+          controller: emailController,
+          style: TextStyle(fontSize: 18, color: Colors.black),
+          decoration: InputDecoration(
+            prefixIcon: Icon(
+              Icons.email, 
+              color: Colors.black
+            ),
+            contentPadding: EdgeInsets.symmetric(horizontal: 15, vertical: 15),
+            hintText: 'Email',
+            enabledBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(10),
+              borderSide: BorderSide(
+                color: Color(0xffc5c5c5),
+                width: 2.0,
+              ),
+            ),
+            focusedBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(10),
+              borderSide: BorderSide(
+                color: Color(0xFFFF9900)
+              ),
+            ),
+            filled: true,
+            fillColor: Colors.white.withOpacity(0.5),
+          ),
+          cursorColor: Colors.black,
+        ),
+      ),
+    );
+  }
+
+  Padding loginImg() {
+    return Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 15),
+              child: Container(
+                width: double.infinity,
+                height: 300,
+                decoration: BoxDecoration(
+                image: DecorationImage(
+                  image: AssetImage('assets/images/loginImage.jpg'),
+                  fit: BoxFit.cover,
+                ),
+                ),
+              ),
+            );
   }
 }
