@@ -49,6 +49,23 @@ const vehiclerequest = async (req, res) => {
   }
 };
 
+
+//view vehicle condition check table
+const ccrequestList = async (req, res) => {
+
+  try {
+    //db query
+    const ccrequestData = await pool.query(
+      "SELECT * FROM check_vehicle_condition cc INNER JOIN vehicle v ON cc.vehicle_id = v.vehicle_id INNER JOIN registered_users u ON u.user_id = v.driver_id;",
+    );
+  return res.json(ccrequestData.rows);
+  } catch (err) {
+    console.log(err.message);
+    return res.status(500).send("Server Error");
+  }
+};
+
+
   // dashboard verifyrequestCount 
   const VerifyrequstCount = async (req, res) => {
 
@@ -66,4 +83,21 @@ const vehiclerequest = async (req, res) => {
   };
 
 
-module.exports = { vehicleList, vehicledetails, vehiclerequest, VerifyrequstCount };
+    // dashboard CCrequestCount 
+    const ccrequestCount = async (req, res) => {
+
+      try{
+      //db query
+      const ccrequestData = await pool.query(
+        "SELECT COUNT(*) FROM (SELECT * FROM check_vehicle_condition) AS check_vehicle_condition_count",
+      );
+    
+      return res.json(ccrequestData.rows);
+      } catch (err) {
+      console.error(err.message);
+      return res.status(500).send("Server Error");
+    }
+    };
+
+
+module.exports = { vehicleList, vehicledetails, vehiclerequest,ccrequestList,VerifyrequstCount, ccrequestCount };

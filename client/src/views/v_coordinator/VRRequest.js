@@ -5,6 +5,7 @@ import { AiFillDashboard } from "react-icons/ai";
 import { BsFillCarFrontFill } from "react-icons/bs";
 import { FaShippingFast } from "react-icons/fa";
 import { FaCarCrash } from "react-icons/fa";
+// import { NavLink } from "react-router-dom";
 
 const sideNavBarLinks = [
   { title: "Dashboard", path: "/vc/dashboard", icon: <AiFillDashboard /> },
@@ -66,9 +67,18 @@ function VRRequest() {
                     <td className='text-center pt-2 pb-2 '>{item.user_name}</td>
                     <td className='text-center'>{item.nic}</td>
                     <td className='text-center'>{item.contact_number}</td>
+
+                    {/* <NavLink
+                      to={`../components/model/vrmodal/${
+                        item.driver_id
+                      }?data=${encodeURIComponent(
+                        JSON.stringify(item)
+                      )}`} */}
+                    {/* > */}
                     <td className='text-center'>
                       <button onClick={() =>setshowVRmodal(true)} className="bg-gradient-to-b from-amber-500 to-amber-300  w-40 h-9 ml-4 mt-2 mb-2 rounded-lg shadow-md hover:shadow-lg transform hover:scale-[103%] trasition duration-300 ease-out  hover:cursor-pointer">Go to the form..</button>
                     </td> 
+                    {/* </NavLink> */}
                 </tr>
                 ))}
               </tbody>

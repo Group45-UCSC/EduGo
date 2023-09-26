@@ -14,7 +14,8 @@ const {srchildren} = require("../controllers/v_coordinator/rideController");
 const {vehicledetails} = require("../controllers/v_coordinator/vehicleController");
 const {vehiclerequest} = require("../controllers/v_coordinator/vehicleController");
 const {VerifyrequstCount} = require("../controllers/v_coordinator/vehicleController");
-
+const {ccrequestCount} = require("../controllers/v_coordinator/vehicleController");
+const {ccrequestList} = require("../controllers/v_coordinator/vehicleController");
 
 //create routes
 router.route("/vehicles/vehicle").get(vehicleList);
@@ -28,6 +29,7 @@ router.route("/dashboard/verifycount").get(VerifyrequstCount);
 router.route("/ridesdetails/ridechildren").get(srchildren);
 router.route("/vehiclesdetails/vehicledetails:vehicle_id").get(vehicledetails);
 router.route("/vrrequest/requestdetails").get(vehiclerequest);
-
+router.route("/dashboard/ccCount").get(ccrequestCount);
+router.route("/ccrequest/ccrequestls").get(ccrequestList);
 
 module.exports = router;

@@ -1,5 +1,7 @@
 import dlcard from"../../images/dlcard.jpg";
 import VehiCarousel from "../../components/carousel/VehiCarousel";
+// import { useLocation } from "react-router-dom";
+
 
 // Carouselimage
 import vcv1 from"../../images/vcv1.jpg";
@@ -38,6 +40,14 @@ const CAROUSEL_DATA = [
   ]
 
 function VRmodal({visible, onClose}) {
+
+  
+
+  // const location = useLocation();
+  // const dataParam = new URLSearchParams(location.search).get("data");
+  // const item = JSON.parse(decodeURIComponent(dataParam));
+
+
     if (!visible) return null;
 
   return (
@@ -65,12 +75,12 @@ function VRmodal({visible, onClose}) {
                     </div>
                     <div className="">
                         <h1 className="font-bold p-1 text-[19px] text-orange-500"> Driver's Details</h1> 
-                        <p className='mb-1'>Name: Rasindu Vimanga</p>
-                        <p className='mb-1'>Email: rasindu@gmail.com</p>
-                        <p className='mb-1'>NIC: 980011234V</p>
-                        <p className='mb-1'>Contact: 077-1231234</p>
-                        <p className='mb-1'>Address: No:10, Queens Road, Colombo 03</p>
-                        <p className='mb-1'>Birthday: 1998-01-01</p>
+                        <p className='mb-1'>Name: </p>
+                        <p className='mb-1'>Email: </p>
+                        <p className='mb-1'>NIC: </p>
+                        <p className='mb-1'>Contact: </p>
+                        <p className='mb-1'>Address: </p>
+                        <p className='mb-1'>Birthday: </p>
                         <p className='mb-1'>License Photo:</p>
                         <img src={dlcard} alt="dlcard" className="ml-[5%] w-[220px] h-[150px]"></img>
                     </div>

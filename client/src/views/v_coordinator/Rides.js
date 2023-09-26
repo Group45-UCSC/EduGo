@@ -136,7 +136,7 @@ function VcRides() {
   
         {/* allrides table */}
         <div className={toggle === 2 ? "details" : "details hidden"}>
-        <div className='ml-20 mr-20 shadow-md overflow-auto '>
+        <div className='ml-12 mr-12 mt-7 shadow-md overflow-auto '>
 
           <table className='w-full text-center mb-5 border-separate border-spacing-y-2 border border-slate-50 '>
             <thead className='border-y-4 border-white drop-shadow '>
@@ -168,7 +168,7 @@ function VcRides() {
                         JSON.stringify(item)
                       )}`}
                     >
-                    <td className='text-center'> <button  className="bg-amber-600 h-8 w-32 rounded-md hover:bg-amber-400"> View more..</button></td>
+                    <td className='text-center'> <button  className="bg-gradient-to-b from-amber-500 to-amber-300  w-40 h-9 ml-4 mt-[1px] mb-[1px] rounded-lg shadow-md hover:shadow-lg transform hover:scale-[103%] trasition duration-300 ease-out  hover:cursor-pointer"> View more..</button></td>
                     </NavLink>
 
               </tr>
@@ -182,7 +182,7 @@ function VcRides() {
           </div>
     
           <div className={toggle === 1 ? "details" : "details hidden"}>
-          <div className='ml-20 mr-20 shadow-md overflow-auto '>
+          <div className='ml-12 mr-12 mt-7 shadow-md overflow-auto '>
             
             <table className='w-full text-center mb-52 border-separate border-spacing-y-2 border border-slate-50 '>
               <thead className='border-y-4 border-white drop-shadow '>
@@ -214,7 +214,7 @@ function VcRides() {
                         JSON.stringify(item)
                       )}`}
                     >
-                    <td className='text-center'> <button  className="bg-amber-600 h-8 w-32 rounded-md hover:bg-amber-400"> View more..</button></td>
+                    <td className='text-center'> <button  className="bg-gradient-to-b from-amber-500 to-amber-300  w-40 h-9 ml-4 mt-[1px] mb-[1px] rounded-lg shadow-md hover:shadow-lg transform hover:scale-[103%] trasition duration-300 ease-out  hover:cursor-pointer"> View more..</button></td>
                     </NavLink>
 
                 </tr>
