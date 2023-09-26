@@ -52,6 +52,23 @@ function VcoordinatorDashboardPg() {
       });
 
 
+     //vehicle verify count
+      const [verifycount, setverifycount] = useState([]);
+      useEffect(() => {
+        async function VerifyrequstCount() {
+          try {
+            const response = await fetch(
+              `http://localhost:5000/edugo/vc/dashboard/verifycount`
+            );
+            const data = await response.json();
+            setverifycount(data);
+          } catch (err) {
+            console.error(err.message);
+          }
+        }
+        VerifyrequstCount();
+      });
+
   const handleClick = () => {
     window.location.href = `/vc/vrrequest`;
   };
@@ -124,9 +141,9 @@ function VcoordinatorDashboardPg() {
               Vehicle Register Requests
             </h2>
 
-            <h1 className='text-[20px] leading-[24px] font-bold mt-[15px] ml-3'> 
-              2 
-            </h1>
+            {verifycount.map((item) => (
+              <h1 className='text-[20px] leading-[24px] font-bold mt-[15px] ml-3'>{item.count}</h1>
+              ))}
 
           </div>
           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">

@@ -34,4 +34,36 @@ const vehicledetails = async (req, res) => {
 };
 
 
-module.exports = { vehicleList, vehicledetails };
+//view vehicle request table
+const vehiclerequest = async (req, res) => {
+
+  try {
+    //db query
+    const requestDatas = await pool.query(
+      "SELECT * FROM vehicle_verify vv INNER JOIN registered_users u ON u.user_id = vv.driver_id",
+    );
+  return res.json(requestDatas.rows);
+  } catch (err) {
+    console.log(err.message);
+    return res.status(500).send("Server Error");
+  }
+};
+
+  // dashboard verifyrequestCount 
+  const VerifyrequstCount = async (req, res) => {
+
+    try{
+    //db query
+    const requestData = await pool.query(
+      "SELECT COUNT(*) FROM (SELECT * FROM vehicle_verify) AS vehicle_verify_count",
+    );
+  
+    return res.json(requestData.rows);
+    } catch (err) {
+    console.error(err.message);
+    return res.status(500).send("Server Error");
+  }
+  };
+
+
+module.exports = { vehicleList, vehicledetails, vehiclerequest, VerifyrequstCount };
