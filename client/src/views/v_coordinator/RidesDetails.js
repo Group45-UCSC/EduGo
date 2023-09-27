@@ -71,6 +71,7 @@ function RidesDetails() {
                       <p className='mb-1'>NIC:  {item.nic}</p>
                       <p className='mb-1'>Contact:  {item.contact_number} </p>
                       <p className='mb-1'>Address:  {item.address} </p>
+
                   </div>
               </div>
 
@@ -127,6 +128,7 @@ function RidesDetails() {
                 <td className='text-center'>{item.status}</td>
             </tr>
             ))}
+
           </tbody>
          
         </table>
