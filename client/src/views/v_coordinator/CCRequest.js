@@ -1,10 +1,11 @@
+import React, { useState, useEffect } from "react";
 import VCmodal from "../../components/Model/VCmodal";
-import React,{useState} from "react";
 import MainLayout from "../../components/layout/MainLayout";
 import { AiFillDashboard } from "react-icons/ai";
 import { BsFillCarFrontFill } from "react-icons/bs";
 import { FaShippingFast } from "react-icons/fa";
 import { FaCarCrash } from "react-icons/fa";
+import { NavLink } from "react-router-dom";
 
 const sideNavBarLinks = [
   { title: "Dashboard", path: "/vc/dashboard", icon: <AiFillDashboard /> },
@@ -14,6 +15,23 @@ const sideNavBarLinks = [
 ];
 
 function CCRequest() {
+
+    //frombackend
+    const [ccrequestls, setccrequestls] = useState([]);
+    useEffect(() => {
+      async function ccrequestList() {
+        try {
+          const response = await fetch(
+            `http://localhost:5000/edugo/vc/ccrequest/ccrequestls`
+          );
+          const data = await response.json();
+          setccrequestls(data);
+        } catch (err) {
+          console.error(err.message);
+        }
+        }
+        ccrequestList();
+    });
 
   const [showVCmodal, setshowVCmodal] = useState (false);
 
@@ -36,50 +54,33 @@ function CCRequest() {
               <th className='px-3.5 w-40'>Type</th>
               <th className='px-3.5 pt-2 pb-2 w-52 '>Driver's Name</th>
               <th className='px-3.5 w-48'>NIC Number</th>
-              <th className='px-3.5 w-40'>Contact</th> 
+              <th className='px-3.5 w-40'>Contact</th>
+              <th className='px-3.5 w-30'></th>   
             </tr>
           </thead>
 
           <tbody className='shadow-md drop-shadow-md '>
+          {ccrequestls.map((item) => ( 
             <tr className=' bg-[#D9D9D9]  hover:cursor-pointer hover:bg-[#eaeaea] drop-shadow-md '>
-                <td className='text-center'>Van</td>
-                <td className='text-center pt-2 pb-2 '>Nishan Perera</td>
-                <td className='text-center'>976543442V</td>
-                <td className='text-center'>071-xxxxxxx</td>
+                <td className='text-center'> {item.vehicle_type} </td>
+                <td className='text-center pt-2 pb-2 '> {item.user_name} </td>
+                <td className='text-center'> {item.nic} </td>
+                <td className='text-center'> {item.contact_number}  </td>
+
+                <NavLink
+                      to={`../components/model/ccmodal/${
+                        item.ride_id
+                      }?data=${encodeURIComponent(
+                        JSON.stringify(item)
+                      )}`}
+                    >
+
                 <td className='text-center'>
                   <button  onClick={() =>setshowVCmodal(true)} className="bg-gradient-to-b from-amber-500 to-amber-300  w-40 h-9 ml-4 mt-2 mb-2 rounded-lg shadow-md hover:shadow-lg transform hover:scale-[103%] trasition duration-300 ease-out  hover:cursor-pointer">See more..</button>
                 </td>
+                </NavLink>
             </tr>
-            
-            <tr className=' bg-[#D9D9D9]  hover:cursor-pointer  hover:bg-[#eaeaea] drop-shadow-md' >
-              <td className='text-center'>Bus</td>
-              <td className='text-center pt-2 pb-2 '>Maduka Jayalath</td>
-              <td className='text-center'>954678922V</td>
-              <td className='text-center'>071-xxxxxxx</td>
-              <td className='text-center'>
-               <button  onClick={() =>setshowVCmodal(true)} className="bg-gradient-to-b from-amber-500 to-amber-300  w-40 h-9 ml-4 mt-2 mb-2 rounded-lg shadow-md hover:shadow-lg transform hover:scale-[103%] trasition duration-300 ease-out  hover:cursor-pointer">See more..</button>
-                </td>
-            </tr>
-
-            <tr className=' bg-[#D9D9D9]  hover:cursor-pointer  hover:bg-[#eaeaea] drop-shadow-md'>
-              <td className='text-center'>Van</td>
-              <td className='text-center pt-2 pb-2 '>Malshan Perera</td>
-              <td className='text-center'>998674555V</td>
-              <td className='text-center'>071-xxxxxxx</td>
-              <td className='text-center'>
-              <button  onClick={() =>setshowVCmodal(true)} className="bg-gradient-to-b from-amber-500 to-amber-300  w-40 h-9 ml-4 mt-2 mb-2 rounded-lg shadow-md hover:shadow-lg transform hover:scale-[103%] trasition duration-300 ease-out  hover:cursor-pointer">See more..</button>
-                </td>
-            </tr>
-
-            <tr className=' bg-[#D9D9D9]  hover:cursor-pointer  hover:bg-[#eaeaea] drop-shadow-md'>
-              <td className='text-center'>Van</td>
-              <td className='text-center pt-2 pb-2 '>Bhawantha de Silva</td>
-              <td className='text-center'>917865999V</td>
-              <td className='text-center'>071-xxxxxxx</td>
-              <td className='text-center'>
-              <button  onClick={() =>setshowVCmodal(true)} className="bg-gradient-to-b from-amber-500 to-amber-300  w-40 h-9 ml-4 mt-2 mb-2 rounded-lg shadow-md hover:shadow-lg transform hover:scale-[103%] trasition duration-300 ease-out  hover:cursor-pointer">See more..</button>
-                </td>
-            </tr>
+          ))}
           </tbody>
 
         </table>

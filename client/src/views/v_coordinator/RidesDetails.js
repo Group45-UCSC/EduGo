@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import MainLayout from "../../components/layout/MainLayout";
 import { AiFillDashboard } from "react-icons/ai";
 import { BsFillCarFrontFill } from "react-icons/bs";
@@ -23,6 +23,22 @@ function RidesDetails() {
     const handleClick = () => {
         window.location.href = `/vc/track`;
       };
+
+      const [ridechildren, setridechildren] = useState([]);
+      useEffect(() => {
+        async function srchildren() {
+          try {
+            const response = await fetch(
+              `http://localhost:5000/edugo/vc/ridesdetails/ridechildren`
+            );
+            const data = await response.json();
+              setridechildren(data);
+          } catch (err) {
+            console.error(err.message);
+          }
+          }
+        srchildren();
+      });
 
   return (
     <MainLayout data={sideNavBarLinks}>
@@ -49,12 +65,13 @@ function RidesDetails() {
                       Driver's details
                   </div>
                   <div className='mt-4 ml-8'>
-                      <p className='mb-1'>ID:{item.user_id} </p>
-                      <p className='mb-1'>Name:{item.user_name} </p>
-                      <p className='mb-1'>Email:{item.user_email} </p>
-                      <p className='mb-1'>NIC:{item.nic}</p>
-                      <p className='mb-1'>Contact: {item.contact_number} </p>
-                      <p className='mb-1'>Address: {item.address} </p>
+                      <p className='mb-1'>ID:  {item.user_id} </p>
+                      <p className='mb-1'>Name:  {item.user_name} </p>
+                      <p className='mb-1'>Email:  {item.user_email} </p>
+                      <p className='mb-1'>NIC:  {item.nic}</p>
+                      <p className='mb-1'>Contact:  {item.contact_number} </p>
+                      <p className='mb-1'>Address:  {item.address} </p>
+
                   </div>
               </div>
 
@@ -64,10 +81,10 @@ function RidesDetails() {
                     Vehicle details
                 </div>
                 <div className='mt-4 ml-8'>
-                  <p className='mb-1'>Type:</p>
-                  <p className='mb-1'>Make: </p>
-                  <p className='mb-1'>Model: </p>
-                  <p className='mb-1'>License number:</p>
+                  <p className='mb-1'>Type: {item.vehicle_type}</p>
+                  <p className='mb-1'>Make: {item.make} </p>
+                  <p className='mb-1'>Model: {item.vehicle_model} </p>
+                  <p className='mb-1'>License number: {item.vehicle_no}</p>
                   <p className='mb-1'>Starting: {item.location_morning_ride} </p>
                   <p className='mb-1'>Destination: {item.location_noon_ride} </p>
                   <p className='mb-1'>Start time: {item.time_morning_ride}</p>
@@ -96,22 +113,24 @@ function RidesDetails() {
               <th className='px-3.5 p-1 w-30  '>ID</th>
               <th className='px-3.5 w-30 pl-28 '>Name</th>
               <th className='px-3.5 w-30 pl-16'>Contact</th>
-              <th className='px-3.5 w-30 pl-20 '>Destination</th>
+              <th className='px-3.5 w-30 pl-20 '>School</th>
               <th className='px-3.5 w-30 pl-16'>Status</th>  
             </tr>
           </thead>
 
           <tbody className=''>
+          {ridechildren.map((item) => ( 
             <tr className=' bg-[#D9D9D9] bg-opacity-60 hover:cursor-pointer hover:bg-[#eaeaea] drop-shadow-md'>
-                <td className='text-center  p-3'> 001</td>
-                <td className='text-center'>Charitha Ruwindu</td>
-                <td className='text-center'>0711234567</td>
-                <td className='text-center'>royal College</td>
-                <td className='text-center'>Picked</td>
+                <td className='text-center  p-3'> {item.child_id}</td>
+                <td className='text-center'>{item.child_name}</td>
+                <td className='text-center'>{item.child_id}</td>
+                <td className='text-center'>{item.school_id}</td>
+                <td className='text-center'>{item.status}</td>
             </tr>
+            ))}
 
           </tbody>
-
+         
         </table>
       </div>
 

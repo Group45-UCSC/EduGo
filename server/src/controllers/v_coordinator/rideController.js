@@ -6,7 +6,7 @@ const ridealllist = async (req, res) => {
     try {
     //db query
     const allrideList = await pool.query(
-        "SELECT * FROM school_ride sr INNER JOIN registered_users u ON u.user_id = sr.driver_id;" ,
+        "SELECT * FROM school_ride sr INNER JOIN registered_users u ON u.user_id = sr.driver_id INNER JOIN vehicle v on v.vehicle_id = sr.vehicle_id;" ,
         );
 
     return res.json(allrideList.rows);
@@ -23,7 +23,7 @@ const ridealllist = async (req, res) => {
     try{
     //db query
     const ongoingData = await pool.query(
-      "SELECT * FROM school_ride sr INNER JOIN registered_users u ON u.user_id = sr.driver_id WHERE ride_type = 'ongoing';" ,
+      "SELECT * FROM school_ride sr INNER JOIN registered_users u ON u.user_id = sr.driver_id INNER JOIN vehicle v on v.vehicle_id = sr.vehicle_id WHERE ride_type = 'ongoing';" ,
     );
   
     return res.json(ongoingData.rows);
@@ -51,6 +51,22 @@ const ridealllist = async (req, res) => {
 }
 };
 
+//view school children inthe ride 
+const srchildren = async (req, res) => {
+    
+  try {
+  //db query
+  const ridechildrenList = await pool.query(
+      "SELECT * FROM children c INNER JOIN driver d ON c.driver_id = d.user_id",
+      );
+
+  return res.json(ridechildrenList.rows);
+  } catch (err) {
+    console.log(err.message);
+    return res.status(500).send("Server Error");
+  }
+};
+
 
   
-  module.exports = { ridealllist, ongoingList, OngoingRideCount};
+  module.exports = { ridealllist, ongoingList, OngoingRideCount, srchildren};
