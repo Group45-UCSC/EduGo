@@ -1,4 +1,6 @@
 const pool = require("../../dbConnection");
+const express = require('express');
+const app = express();
 
 //view all vechicle list
 const vehicleList = async (req, res) => {
@@ -114,4 +116,22 @@ const ccrequestList = async (req, res) => {
     return res.status(500).send("Server Error");
   }
   };
-module.exports = { vehicleList, vehicledetails, vehiclerequest,ccrequestList,VerifyrequstCount, ccrequestCount, requestform };
+
+
+//search vehicle
+// const searchTerm = ('/search', async (req, res) => {
+  
+//   try {
+//       const query = `
+//           SELECT * FROM vehicle WHERE name ILIKE $1 OR description ILIKE $1`;
+//       const result = await pool.query(query, [`%${searchTerm}%`]);
+//       res.json(result.rows);
+//   } catch (err) {
+//       console.error('Error executing search query:', error);
+//       res.status(500).json({ error: 'Internal server error' });
+//   }
+// });
+
+
+
+module.exports = { vehicleList, vehicledetails, vehiclerequest,ccrequestList,VerifyrequstCount, ccrequestCount, requestform,  };

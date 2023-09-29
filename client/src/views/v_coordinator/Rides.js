@@ -155,7 +155,7 @@ function VcRides() {
             {allride.map((item) => ( 
               <tr className=' bg-[#D9D9D9] bg-opacity-60 hover:cursor-pointer hover:bg-[#eaeaea] drop-shadow-md'>
                   <td className='text-center  p-3'>{item.ride_id}</td>
-                  <td>{item.vehicle_number}</td>
+                  <td>{item.vehicle_no}</td>
                   <td>{item.location_morning_ride}</td>
                   <td>{item.location_noon_ride}</td>
                   <td>{item.contact_number}</td>
@@ -200,7 +200,7 @@ function VcRides() {
                 {ongoing.map((item) => (
                 <tr className=' bg-[#D9D9D9] bg-opacity-60 hover:cursor-pointer  hover:bg-[#eaeaea] drop-shadow-md'>
                     <td className='text-center  p-3'>{item.ride_id}</td>
-                    <td>{item.vehicle_number}</td>
+                    <td>{item.vehicle_no}</td>
                     <td>{item.location_morning_ride}</td>
                     <td>{item.location_noon_ride}</td>
                     <td>{item.contact_number}</td>
