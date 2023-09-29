@@ -1,11 +1,10 @@
 import React, { useState, useEffect } from "react";
-import VRmodal from "../../components/Model/VRmodal";
 import MainLayout from "../../components/layout/MainLayout";
 import { AiFillDashboard } from "react-icons/ai";
 import { BsFillCarFrontFill } from "react-icons/bs";
 import { FaShippingFast } from "react-icons/fa";
 import { FaCarCrash } from "react-icons/fa";
-// import { NavLink } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 
 const sideNavBarLinks = [
   { title: "Dashboard", path: "/vc/dashboard", icon: <AiFillDashboard /> },
@@ -14,8 +13,10 @@ const sideNavBarLinks = [
   { title: "Emergency", path: "/vc/emergency", icon: <FaCarCrash/> },
 ];
 
+
 function VRRequest() {
 
+  
   //frombackend
   const [vrequest, setvrequest] = useState([]);
   useEffect(() => {
@@ -31,10 +32,10 @@ function VRRequest() {
       }
       }
       vehiclerequest();
-  });
+      });
 
-  const [showVRmodal, setshowVRmodal] = useState (false);
-  const handleOnClose =() => setshowVRmodal(false)
+  // const [showVRmodal, setshowVRmodal] = useState (false);
+  // const handleOnClose =() => setshowVRmodal(false)
 
   return (
 
@@ -68,17 +69,17 @@ function VRRequest() {
                     <td className='text-center'>{item.nic}</td>
                     <td className='text-center'>{item.contact_number}</td>
 
-                    {/* <NavLink
-                      to={`../components/model/vrmodal/${
+                    <NavLink
+                      to={`/vc/vrmodal/${
                         item.driver_id
                       }?data=${encodeURIComponent(
                         JSON.stringify(item)
-                      )}`} */}
-                    {/* > */}
+                      )}`} 
+                     > 
                     <td className='text-center'>
-                      <button onClick={() =>setshowVRmodal(true)} className="bg-gradient-to-b from-amber-500 to-amber-300  w-40 h-9 ml-4 mt-2 mb-2 rounded-lg shadow-md hover:shadow-lg transform hover:scale-[103%] trasition duration-300 ease-out  hover:cursor-pointer">Go to the form..</button>
+                      <button className="bg-gradient-to-b from-amber-500 to-amber-300  w-40 h-9 ml-4 mt-2 mb-2 rounded-lg shadow-md hover:shadow-lg transform hover:scale-[103%] trasition duration-300 ease-out  hover:cursor-pointer">Go to the form..</button>
                     </td> 
-                    {/* </NavLink> */}
+                    </NavLink>
                 </tr>
                 ))}
               </tbody>
@@ -86,7 +87,10 @@ function VRRequest() {
             </table>
       </div>
 
-      <VRmodal onClose={handleOnClose} visible={showVRmodal}/>
+      
+
+       
+
 </div> 
 </MainLayout>
   )

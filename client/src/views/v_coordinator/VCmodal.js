@@ -6,6 +6,7 @@ import { AiFillDashboard } from "react-icons/ai";
 import { BsFillCarFrontFill } from "react-icons/bs";
 import { FaShippingFast } from "react-icons/fa";
 import { FaCarCrash } from "react-icons/fa";
+import { useLocation } from "react-router-dom";
 
 // Carouselimage
 import vcv1 from"../../images/vcv1.jpg";
@@ -52,6 +53,12 @@ const CAROUSEL_DATA = [
 
 
 function VCmodal() {
+
+    const location = useLocation();
+    const dataParam = new URLSearchParams(location.search).get("data");
+    const item = JSON.parse(decodeURIComponent(dataParam)); 
+
+
     const [showPrReports, setshowPrReports] = useState (false);
     const handleOnClose =() => setshowPrReports(false);
 
@@ -64,11 +71,11 @@ function VCmodal() {
     
   return (
    
-    <div className="fixed inset-0 bg-black bg-opacity-9 backdrop-blur-sm overflow-y-scroll ">
+    <div>
       <MainLayout data={sideNavBarLinks}>
-        <div className="ml-[380px] mt-8 mb-6 pt-4 bg-[#F4F4F4] w-[970px] h-[1320px] rounded-lg shadow-lg drop-shadow-lg">
+        <div className="ml-[100px] mt-8 mb-6 pt-4 bg-[#F4F4F4] w-[970px] h-[1320px] rounded-lg shadow-lg drop-shadow-lg">
         {/* topic */}
-        <div className='font-bold ml-12 mt-4 text-2xl'>Condition Check</div>
+        <div className='font-bold ml-12 mt-4 text-2xl'>Condition Check Form</div>
 
         <div className="-ml-[180px]">
             <VehiCarousel data={CAROUSEL_DATA} />
@@ -78,19 +85,18 @@ function VCmodal() {
         <div className="mt-4 ml-10 pl-8 pt-4 pb-3 grid grid-cols-2 gap-[250px] bg-[#F4F4F4] w-[900px] rounded-lg shadow-md drop-shadow-md">
             <div className="">
                 <h1 className="font-bold p-1 text-[19px]"> Vehicle Details</h1> 
-                <p className="p-1"> Type : van</p>
-                <p className="p-1"> Make : Nissan</p>
-                <p className="p-1"> Model : Hiace</p>
-                <p className="p-1"> Year : 1981</p>
-                <p className="p-1"> Contact : 071-xxxxxxx</p>
+                <p className="p-1"> Type : {item.vehicle_type}</p>
+                <p className="p-1"> Make : {item.make}</p>
+                <p className="p-1"> Model : {item.vehicle_model}</p>
+                <p className="p-1"> Year : {item.manufacture_year}</p>
+                <p className="p-1"> Contact : {item.contact_number}</p>
             </div>
             <div className="">
                 <button onClick={() =>setshowPrReports(true)} className=" p-2 mb-3 font-semibold bg-gradient-to-b from-amber-500 to-amber-300 w-40  rounded-lg shadow-md hover:shadow-lg transform hover:scale-[102%] trasition duration-300 ease-out  hover:cursor-pointer" >Previous Reports</button>
-                <p  className="p-1" > License Plate : 50 - 0591</p> 
-                <p  className="p-1"> License Plate : 50 - 0591</p> 
-                <p  className="p-1">Engine Number : LH 1989</p>
-                <p  className="p-1">Chassis Number : xxxxxxxxx</p>
-                <p  className="p-1">Address : 23/4, Pannipitiya</p>
+                <p  className="p-1" > License Plate : {item.vehicle_no}</p> 
+                <p  className="p-1">Engine Number : {item.engine_no}</p>
+                <p  className="p-1">Chassis Number : {item.chassis_no}</p>
+                <p  className="p-1">Address : {item.address}</p>
                 <p  className="p-1">Last checked : 2023/ 03 / 26</p> 
             </div>
         </div>

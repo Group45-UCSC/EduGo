@@ -16,6 +16,8 @@ const {vehiclerequest} = require("../controllers/v_coordinator/vehicleController
 const {VerifyrequstCount} = require("../controllers/v_coordinator/vehicleController");
 const {ccrequestCount} = require("../controllers/v_coordinator/vehicleController");
 const {ccrequestList} = require("../controllers/v_coordinator/vehicleController");
+const {requestform} = require("../controllers/v_coordinator/vehicleController");
+
 
 //create routes
 router.route("/vehicles/vehicle").get(vehicleList);
@@ -31,5 +33,6 @@ router.route("/vehiclesdetails/vehicledetails:vehicle_id").get(vehicledetails);
 router.route("/vrrequest/requestdetails").get(vehiclerequest);
 router.route("/dashboard/ccCount").get(ccrequestCount);
 router.route("/ccrequest/ccrequestls").get(ccrequestList);
+router.route("/vrrequest/requestform").get(requestform);
 
 module.exports = router;
