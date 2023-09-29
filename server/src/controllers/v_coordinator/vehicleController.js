@@ -99,5 +99,19 @@ const ccrequestList = async (req, res) => {
     }
     };
 
+  //view request forms
+  const requestform = async (req, res) => {
 
-module.exports = { vehicleList, vehicledetails, vehiclerequest,ccrequestList,VerifyrequstCount, ccrequestCount };
+    try{
+    //db query
+    const reviewData = await pool.query(
+      "SELECT * FROM vehicle",
+    );
+
+    return res.json(reviewData.rows);
+    } catch (err) {
+    console.error(err.massage);
+    return res.status(500).send("Server Error");
+  }
+  };
+module.exports = { vehicleList, vehicledetails, vehiclerequest,ccrequestList,VerifyrequstCount, ccrequestCount, requestform };

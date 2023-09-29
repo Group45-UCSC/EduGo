@@ -75,6 +75,7 @@ import VRRequest from "./views/v_coordinator/VRRequest";
 import CCRequest from "./views/v_coordinator/CCRequest";
 import VcProfile from "./views/v_coordinator/VcProfile";
 import VCmodal from "./views/v_coordinator/VCmodal";
+import VRmodal from "./views/v_coordinator/VRmodal";
 
 
 import SupAgentDashboardPg from "./views/sup_agent/SupAgentDashboardPg";
@@ -165,10 +166,10 @@ function App() {
           <Route exact path="/vc/emergencydetails/:id" element={<VcEmergencyDetails />} />
           <Route exact path="/vc/conditioncheck" element={<VcConditionCheck />} />
           <Route exact path="/vc/feedback" element={<VcFeedback />} />
-          <Route exact path="/vc/vrrequest" element={<VRRequest />} />
+          <Route exact path="/vc/vrrequest/" element={<VRRequest />} />
           <Route exact path="/vc/ccrequest" element={<CCRequest />} />
           <Route exact path="/vc/vcmodal/:id" element={<VCmodal/>} />
-
+          <Route exact path="/vc/vrmodal/:id" element={<VRmodal/>} />
 
           <Route exact path="/sup_agent/dashboard" element={<SupAgentDashboardPg />} />
           <Route exact path="/sup_agent/parents" element={<SupParents />} />
