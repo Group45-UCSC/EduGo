@@ -135,7 +135,7 @@ function VcoordinatorDashboardPg() {
         <div onClick={handleClick4} className='h-[100px] rounded-[8px] bg-[#EEEEEE] border-l-8 border-[#FF9900] pl-6 flex items-center justify-between px-[30px] cursor-pointer hover:shadow-lg transform hover:scale-[103%] trasition duration-300 ease-out shadow-md'>
           <div>
 
-            <h2 className='text-[#000000] text-[18px] leading-[17px] font-bold'> 
+            <h2 className='text-[#2f6d21] text-[18px] leading-[17px] font-bold'> 
               Ongoing transports
             </h2>
 

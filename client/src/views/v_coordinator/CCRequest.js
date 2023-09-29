@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import VCmodal from "../../components/Model/VCmodal";
 import MainLayout from "../../components/layout/MainLayout";
 import { AiFillDashboard } from "react-icons/ai";
 import { BsFillCarFrontFill } from "react-icons/bs";
@@ -33,9 +32,9 @@ function CCRequest() {
         ccrequestList();
     });
 
-  const [showVCmodal, setshowVCmodal] = useState (false);
+  // const [showVCmodal, setshowVCmodal] = useState (false);
 
-  const handleOnClose =() => setshowVCmodal(false)
+  // const handleOnClose =() => setshowVCmodal(false)
 
 
   return (
@@ -68,7 +67,7 @@ function CCRequest() {
                 <td className='text-center'> {item.contact_number}  </td>
 
                 <NavLink
-                      to={`../components/model/ccmodal/${
+                      to={`/vc/vcmodal/${
                         item.ride_id
                       }?data=${encodeURIComponent(
                         JSON.stringify(item)
@@ -76,7 +75,7 @@ function CCRequest() {
                     >
 
                 <td className='text-center'>
-                  <button  onClick={() =>setshowVCmodal(true)} className="bg-gradient-to-b from-amber-500 to-amber-300  w-40 h-9 ml-4 mt-2 mb-2 rounded-lg shadow-md hover:shadow-lg transform hover:scale-[103%] trasition duration-300 ease-out  hover:cursor-pointer">See more..</button>
+                  <button  className="bg-gradient-to-b from-amber-500 to-amber-300  w-40 h-9 ml-4 mt-2 mb-2 rounded-lg shadow-md hover:shadow-lg transform hover:scale-[103%] trasition duration-300 ease-out  hover:cursor-pointer">See more..</button>
                 </td>
                 </NavLink>
             </tr>
@@ -86,7 +85,7 @@ function CCRequest() {
         </table>
     </div>
 
-    <VCmodal onClose={handleOnClose} visible={showVCmodal}/>
+    
     </div>
 
     </MainLayout>
