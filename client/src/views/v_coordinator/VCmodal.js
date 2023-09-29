@@ -1,6 +1,11 @@
-import VehiCarousel from "../../components/carousel/VehiCarousel";
-import PrReports from "./PrReports";
 import React,{useState} from "react";
+import VehiCarousel from "../../components/carousel/VehiCarousel";
+import PrReports from "../../components/Model/PrReports";
+import MainLayout from "../../components/layout/MainLayout";
+import { AiFillDashboard } from "react-icons/ai";
+import { BsFillCarFrontFill } from "react-icons/bs";
+import { FaShippingFast } from "react-icons/fa";
+import { FaCarCrash } from "react-icons/fa";
 
 // Carouselimage
 import vcv1 from"../../images/vcv1.jpg";
@@ -9,6 +14,13 @@ import vcv3 from"../../images/vcv3.jpg";
 import vcv4 from"../../images/vcv4.jpg";
 import vcv5 from"../../images/vcv5.jpg";
 import vcv6 from"../../images/vcv6.jpg";
+
+const sideNavBarLinks = [
+  { title: "Dashboard", path: "/vc/dashboard", icon: <AiFillDashboard /> },
+  { title: "Vehicles", path: "/vc/vehicles", icon: <BsFillCarFrontFill /> },
+  { title: "School Rides", path: "/vc/rides", icon: <FaShippingFast /> },
+  { title: "Emergency", path: "/vc/emergency", icon: <FaCarCrash /> },
+];
 
 
 const CAROUSEL_DATA = [
@@ -39,23 +51,21 @@ const CAROUSEL_DATA = [
   ]
 
 
-function VCmodal({visible, onClose}) {
-
+function VCmodal() {
     const [showPrReports, setshowPrReports] = useState (false);
     const handleOnClose =() => setshowPrReports(false);
 
     // calender
     const [isCalendarVisible, setCalendarVisibility] = useState(false); // Calendar initially invisible
-
-
     const handleToggle = () => {
     setCalendarVisibility(!isCalendarVisible); // Toggle calendar visibility
     }
 
-    if (!visible) return null;
+    
   return (
    
     <div className="fixed inset-0 bg-black bg-opacity-9 backdrop-blur-sm overflow-y-scroll ">
+      <MainLayout data={sideNavBarLinks}>
         <div className="ml-[380px] mt-8 mb-6 pt-4 bg-[#F4F4F4] w-[970px] h-[1320px] rounded-lg shadow-lg drop-shadow-lg">
         {/* topic */}
         <div className='font-bold ml-12 mt-4 text-2xl'>Condition Check</div>
@@ -131,12 +141,13 @@ function VCmodal({visible, onClose}) {
                     </div>
 
                     {/* switchtwo */}
-                    <button onClick={onClose}  className="ml-[710px] fixed p-2 mb-2 font-semibold bg-gradient-to-b from-amber-500 to-amber-300 w-32  rounded-lg shadow-md hover:shadow-lg transform hover:scale-[102%] trasition duration-300 ease-out  hover:cursor-pointer" >Submit</button><br/>
+                    <button className="ml-[710px] fixed p-2 mb-2 font-semibold bg-gradient-to-b from-amber-500 to-amber-300 w-32  rounded-lg shadow-md hover:shadow-lg transform hover:scale-[102%] trasition duration-300 ease-out  hover:cursor-pointer" >Submit</button><br/>
                 </div>
             </form>
         </div>
         <PrReports onClose={handleOnClose} visible={showPrReports}/>
     </div>
+    </MainLayout>
     </div>
   )
 }

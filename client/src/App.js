@@ -74,6 +74,7 @@ import VcFeedback from "./views/v_coordinator/Feedback";
 import VRRequest from "./views/v_coordinator/VRRequest";
 import CCRequest from "./views/v_coordinator/CCRequest";
 import VcProfile from "./views/v_coordinator/VcProfile";
+import VCmodal from "./views/v_coordinator/VCmodal";
 
 
 import SupAgentDashboardPg from "./views/sup_agent/SupAgentDashboardPg";
@@ -82,6 +83,7 @@ import SupParents from "./views/sup_agent/Parents";
 import SupDrivers from "./views/sup_agent/Drivers";
 import SupAgentProfile from "./views/sup_agent/SupAgentProfile";
 import Complaints from "./views/sup_agent/Complaints";
+
 // import DriverVehicleDetails from "./views/sup_agent/DriverVehicleDetails";
 // import ParentChildDetails from "./views/sup_agent/ParentChildDetails";
 
@@ -165,6 +167,7 @@ function App() {
           <Route exact path="/vc/feedback" element={<VcFeedback />} />
           <Route exact path="/vc/vrrequest" element={<VRRequest />} />
           <Route exact path="/vc/ccrequest" element={<CCRequest />} />
+          <Route exact path="/vc/vcmodal/:id" element={<VCmodal/>} />
 
 
           <Route exact path="/sup_agent/dashboard" element={<SupAgentDashboardPg />} />
