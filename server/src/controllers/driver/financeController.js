@@ -89,6 +89,8 @@ const viewTotalCash = async (req, res) => {
   }
 };
 
+// --------------------------------- CASH PAYMENT-----------------------------------------------------//
+
 //view cash payments data table -> GET method
 const viewCashPaymentData = async (req, res) => {
   try {
@@ -111,6 +113,22 @@ const viewCashPaymentData = async (req, res) => {
     return res.json(cashpaymentData.rows);
   } catch (err) {
     console.error(err.massage);
+    return res.status(500).send("Server Error");
+  }
+};
+
+// MOBILE PHONE,
+const viewRidePayment = async (req, res) => {
+  try {
+    const driverId = req.params.driverId;
+    console.log(driverId);
+    const ridePaymentData = await pool.query(
+      "SELECT ride_payment.related_month, ride_payment.year, ride_payment.pay_status, ride_payment.amount, children.child_name FROM ride_payment INNER JOIN children ON ride_payment.child_id = children.child_id WHERE ride_payment.driver_id = '" + driverId + "'"
+    );
+    
+
+    return res.json(ridePaymentData.rows);
+  } catch (err) {
     return res.status(500).send("Server Error");
   }
 };
@@ -225,6 +243,9 @@ module.exports = {
   viewIncomeChart,
   viewTotalIncome,
   viewChildFees,
+
+  // MOBILE
+  viewRidePayment,
 };
 
 //EXTRACT(MONTH FROM NOW()) would return 9 for september
