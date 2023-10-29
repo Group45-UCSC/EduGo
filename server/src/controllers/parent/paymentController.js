@@ -39,4 +39,18 @@ const viewPastPayment = async (req, res) => {
   }
 };
 
-module.exports = { viewPayment, viewPastPayment };
+const viewRidePayment = async (req, res) => {
+  try {
+    const parentId = req.params.parentId;
+    console.log(parentId);
+    const ridePaymentData = await pool.query(
+      "SELECT ride_payment.related_month, ride_payment.year, ride_payment.pay_status, ride_payment.amount, children.child_name FROM ride_payment INNER JOIN children ON ride_payment.child_id = children.child_id WHERE ride_payment.parent_id = '" + parentId + "'"
+    );
+
+    return res.json(ridePaymentData.rows);
+  } catch (err) {
+    return res.status(500).send("Server Error");
+  }
+};
+
+module.exports = { viewPayment, viewPastPayment, viewRidePayment};
