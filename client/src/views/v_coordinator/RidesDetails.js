@@ -1,10 +1,11 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import MainLayout from "../../components/layout/MainLayout";
 import { AiFillDashboard } from "react-icons/ai";
 import { BsFillCarFrontFill } from "react-icons/bs";
 import { FaShippingFast } from "react-icons/fa";
 import { FaCarCrash } from "react-icons/fa";
 import driverpic from "../../images/driver1.png";
+import { useLocation } from "react-router-dom";
 
 const sideNavBarLinks = [
   { title: "Dashboard", path: "/vc/dashboard", icon: <AiFillDashboard /> },
@@ -15,9 +16,29 @@ const sideNavBarLinks = [
 
 function RidesDetails() {
 
+  const location = useLocation();
+  const dataParam = new URLSearchParams(location.search).get("data");
+  const item = JSON.parse(decodeURIComponent(dataParam));
+
     const handleClick = () => {
         window.location.href = `/vc/track`;
       };
+
+      const [ridechildren, setridechildren] = useState([]);
+      useEffect(() => {
+        async function srchildren() {
+          try {
+            const response = await fetch(
+              `http://localhost:5000/edugo/vc/ridesdetails/ridechildren`
+            );
+            const data = await response.json();
+              setridechildren(data);
+          } catch (err) {
+            console.error(err.message);
+          }
+          }
+        srchildren();
+      });
 
   return (
     <MainLayout data={sideNavBarLinks}>
@@ -44,12 +65,13 @@ function RidesDetails() {
                       Driver's details
                   </div>
                   <div className='mt-4 ml-8'>
-                      <p className='mb-1'>ID: 002</p>
-                      <p className='mb-1'>Name: Sachithra Dissanayake</p>
-                      <p className='mb-1'>Email: Sachithra@gmail.com</p>
-                      <p className='mb-1'>NIC: 951234678V</p>
-                      <p className='mb-1'>Contact: 071-xxxxxxx</p>
-                      <p className='mb-1'>Address: Pitipana, Homagama</p>
+                      <p className='mb-1'>ID:  {item.user_id} </p>
+                      <p className='mb-1'>Name:  {item.user_name} </p>
+                      <p className='mb-1'>Email:  {item.user_email} </p>
+                      <p className='mb-1'>NIC:  {item.nic}</p>
+                      <p className='mb-1'>Contact:  {item.contact_number} </p>
+                      <p className='mb-1'>Address:  {item.address} </p>
+
                   </div>
               </div>
 
@@ -59,13 +81,13 @@ function RidesDetails() {
                     Vehicle details
                 </div>
                 <div className='mt-4 ml-8'>
-                  <p className='mb-1'>Type: van</p>
-                  <p className='mb-1'>Make: Toyota</p>
-                  <p className='mb-1'>Model: Hiace Dolphin 2001</p>
-                  <p className='mb-1'>License number: NA - 6111</p>
-                  <p className='mb-1'>Starting: Homagama</p>
-                  <p className='mb-1'>Destination: Maharagama</p>
-                  <p className='mb-1'>Start time: 06.00 AM</p>
+                  <p className='mb-1'>Type: {item.vehicle_type}</p>
+                  <p className='mb-1'>Make: {item.make} </p>
+                  <p className='mb-1'>Model: {item.vehicle_model} </p>
+                  <p className='mb-1'>License number: {item.vehicle_no}</p>
+                  <p className='mb-1'>Starting: {item.location_morning_ride} </p>
+                  <p className='mb-1'>Destination: {item.location_noon_ride} </p>
+                  <p className='mb-1'>Start time: {item.time_morning_ride}</p>
                 </div>
               </div>
             </div>
@@ -91,37 +113,24 @@ function RidesDetails() {
               <th className='px-3.5 p-1 w-30  '>ID</th>
               <th className='px-3.5 w-30 pl-28 '>Name</th>
               <th className='px-3.5 w-30 pl-16'>Contact</th>
-              <th className='px-3.5 w-30 pl-20 '>Destination</th>
+              <th className='px-3.5 w-30 pl-20 '>School</th>
               <th className='px-3.5 w-30 pl-16'>Status</th>  
             </tr>
           </thead>
 
           <tbody className=''>
+          {ridechildren.map((item) => ( 
             <tr className=' bg-[#D9D9D9] bg-opacity-60 hover:cursor-pointer hover:bg-[#eaeaea] drop-shadow-md'>
-                <td className='text-center  p-3'> 001</td>
-                <td className='text-center'>Charitha Ruwindu</td>
-                <td className='text-center'>0711234567</td>
-                <td className='text-center'>royal College</td>
-                <td className='text-center'>Picked</td>
+                <td className='text-center  p-3'> {item.child_id}</td>
+                <td className='text-center'>{item.child_name}</td>
+                <td className='text-center'>{item.child_id}</td>
+                <td className='text-center'>{item.school_id}</td>
+                <td className='text-center'>{item.status}</td>
             </tr>
-            
-            <tr className=' bg-[#D9D9D9] bg-opacity-60 hover:cursor-pointer  hover:bg-[#eaeaea] drop-shadow-md' >
-              <td className='text-center  p-3 ' >002</td>
-              <td className='text-center'>Dewmini Rathnawardhana</td>
-              <td className='text-center'>0768956423</td>
-              <td className='text-center'>Meuseus College</td>
-              <td className='text-center'>Dropped</td>
-            </tr>
+            ))}
 
-            <tr className=' bg-[#D9D9D9] bg-opacity-60 hover:cursor-pointer  hover:bg-[#eaeaea] drop-shadow-md'>
-              <td className='text-center  p-3 ' >003</td>
-              <td className='text-center'>Apsara Liyanage</td>
-              <td className='text-center'>0762222223</td>
-              <td className='text-center'>Meuseus College</td>
-              <td className='text-center'>Absent</td>
-            </tr>
           </tbody>
-
+         
         </table>
       </div>
 

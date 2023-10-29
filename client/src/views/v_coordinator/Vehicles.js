@@ -1,9 +1,10 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import MainLayout from "../../components/layout/MainLayout";
 import { AiFillDashboard } from "react-icons/ai";
 import { BsFillCarFrontFill } from "react-icons/bs";
 import { FaShippingFast } from "react-icons/fa";
 import { FaCarCrash } from "react-icons/fa";
+import { NavLink } from "react-router-dom";
 
 const sideNavBarLinks = [
   { title: "Dashboard", path: "/vc/dashboard", icon: <AiFillDashboard /> },
@@ -15,97 +16,31 @@ const sideNavBarLinks = [
 function Vehicles() {
 
 
+  //frombackend
 
-  // all vehicle details
-
-  const vehicle = [
-    {
-      id: "001",
-      type: "van",
-      make: "Toyota",
-      model: "Hiace Dolphin 2001",
-      contact: "0711234567",
-      departure:"Homagama",
-    },
-
-    {
-      id: "002",
-      type: "van",
-      make: "Toyota",
-      model: "Hiace Dolphin 2001",
-      contact: "0711234567",
-      departure:"Homagama",
-    },
-
-    {
-      id: "003",
-      type: "van",
-      make: "Toyota",
-      model: "Hiace Dolphin 2001",
-      contact: "0711234567",
-      departure:"Homagama",
-    },
-
-    {
-      id: "004",
-      type: "van",
-      make: "Toyota",
-      model: "Hiace Dolphin 2001",
-      contact: "0711234567",
-      departure:"Homagama",
-    },
-
-    {
-      id: "005",
-      type: "van",
-      make: "Toyota",
-      model: "Hiace Dolphin 2001",
-      contact: "0711234567",
-      departure:"Homagama",
-    },
-
-    {
-      id: "006",
-      type: "van",
-      make: "Toyota",
-      model: "Hiace Dolphin 2001",
-      contact: "0711234567",
-      departure:"Homagama",
-    },
-
-    {
-      id: "007",
-      type: "van",
-      make: "Toyota",
-      model: "Hiace Dolphin 2001",
-      contact: "0711234567",
-      departure:"Homagama",
-    },
-
-    {
-      id: "008",
-      type: "van",
-      make: "Toyota",
-      model: "Hiace Dolphin 2001",
-      contact: "0711234567",
-      departure:"Homagama",
+  const [vehiclels, setVehiclels] = useState([]);
+  useEffect(() => {
+    async function vehicleList() {
+      try {
+        const response = await fetch(
+          `http://localhost:5000/edugo/vc/vehicles/vehicle`
+        );
+        const data = await response.json();
+        setVehiclels(data);
+      } catch (err) {
+        console.error(err.message);
+      }
     }
-  ];
+    vehicleList();
+  });
 
-
-
-
-  // redirect the page
-  const handleClick = () => {
-    window.location.href = `/vc/vehiclesdetails`;
-  };
 
   return (
     <MainLayout data={sideNavBarLinks}>
 
           {/* topic */} 
-          <div>
-            <h1 className='text-[26px] font-bold ml-32 mt-8'> 
+          <div className="h-screen">
+            <h1 className='text-[26px] font-bold ml-20 mt-8'> 
               Vehicle Details 
             </h1>
 
@@ -142,29 +77,41 @@ function Vehicles() {
 
 
           {/* vehicle table */}
-          <div className='ml-32  mb-12  mt-16 mr-32 shadow-md overflow-auto '>
+          <div className='ml-20  mt-16 mr-12 shadow-md overflow-auto '>
 
             <table className='w-full border-separate border-spacing-y-2 border border-slate-50 '>
               <thead className='border-y-4 border-white drop-shadow '>
                 <tr className=' bg-[#999999] text-white border-b-2 text-[18px] drop-shadow-md '>
                   <th className='px-3.5 p-1 w-24 '>ID</th>
-                  <th className='px-3.5 w-30'>Type</th>
+                  <th className='px-3.5 w-30'>Vehicle number</th>
                   <th className='px-3.5 w-30'>Make</th>
                   <th className='px-3.5 w-30'>Model</th>
                   <th className='px-3.5 w-30'>Contact</th>
-                  <th className='px-3.5 w-30'>Departure</th>  
+                  <th className='px-3.5 w-30'>Departure</th>
+                  <th className='px-3.5 w-30'></th>   
                 </tr>
               </thead>
 
               <tbody className=''>
-              {vehicle.map((item) => ( 
-                <tr onClick={handleClick} className=' bg-[#D9D9D9] bg-opacity-60 hover:cursor-pointer hover:bg-[#eaeaea] drop-shadow-md'>
-                    <td className='text-center  p-3'> {item.id}</td>
-                    <td className='text-center'>{item.type} </td>
-                    <td className='text-center'> {item.make} </td>
-                    <td className='text-center'> {item.model} </td>
-                    <td className='text-center'> {item.contact}</td>
-                    <td className='text-center'> {item.departure} </td>
+              {vehiclels.map((item) => ( 
+                <tr className=' bg-[#D9D9D9] bg-opacity-60 hover:cursor-pointer hover:bg-[#eaeaea] drop-shadow-md'>
+                    <td className='text-center  p-3'> {item.vehicle_id} </td>
+                    <td className='text-center'>{item.vehicle_no} </td>
+                    <td className='text-center'> {item.vehicle_type} </td>
+                    <td className='text-center'> {item.vehicle_model} </td>
+                    <td className='text-center'> {item.contact_number}</td>
+                    <td className='text-center'> {item.contact_number}</td>
+
+                    <NavLink
+                      to={`/vc/vehiclesdetails/${
+                        item.vehicle_id
+                      }?data=${encodeURIComponent(
+                        JSON.stringify(item)
+                      )}`}
+                    >
+                    <td className='text-center'> <button  className="bg-gradient-to-b from-amber-500 to-amber-300  w-40 h-9 ml-4 mt-1 mb-1 rounded-lg shadow-md hover:shadow-lg transform hover:scale-[103%] trasition duration-300 ease-out  hover:cursor-pointer"> View more..</button></td>
+                    </NavLink>
+
                 </tr>
                 ))}
               </tbody>

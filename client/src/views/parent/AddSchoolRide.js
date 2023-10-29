@@ -208,7 +208,7 @@ function AddSchoolRide() {
         <div className="pt-6 px-6">
           <h1 className="text-[#5a5c69] text-[28px] leading-8 font-normal cursor-pointer">
             School Van <br></br>
-            {/* child id:{child.child_id} */}
+            child id:{child.child_id}
           </h1>
           <div className="App mb-7">
             <main>

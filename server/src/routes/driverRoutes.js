@@ -48,6 +48,10 @@ const {
   removeSchoolFromRide,
 } = require("../controllers/driver/schoolController");
 
+const { 
+  getChildrenDetails ,
+} = require("../controllers/driver/childrenController");
+
 //create routes
 router.route("/dashboard/hasride/:userId").get(hasRide);
 // router.route("/add/vehicle/:userId").post(addVehicle);
@@ -93,5 +97,8 @@ router.route("/deposit/cashpayments/view/:userId").get(viewCashPaymentData);
 //feedback page
 router.route("/feedback/add/:userId").post(addFeedback);
 router.route("/feedback/view/:userId").get(viewFeedback);
+
+// //get children details for a specific shift type
+router.route("/childrenDetails/:driverId").get(getChildrenDetails);
 
 module.exports = router;

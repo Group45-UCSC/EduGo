@@ -1,9 +1,10 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import MainLayout from "../../components/layout/MainLayout";
 import { AiFillDashboard } from "react-icons/ai";
 import { BsFillCarFrontFill } from "react-icons/bs";
 import { FaShippingFast } from "react-icons/fa";
 import { FaCarCrash } from "react-icons/fa";
+import { NavLink } from "react-router-dom";
 
 const sideNavBarLinks = [
   { title: "Dashboard", path: "/vc/dashboard", icon: <AiFillDashboard /> },
@@ -15,105 +16,36 @@ const sideNavBarLinks = [
 function Emergency() {
 
 
-  // all rides details
+   //frombackend
 
-  const emergency = [
-    {
-      id: "001",
-      v_no: "PI - 1111",
-      situation:"breackdown",
-      driver: "Amal perera",
-      contact: "0711234567",
-      date:"2023.05.13",
-      status: "complete"
-    },
-
-    {
-      id: "002",
-      v_no: "PX - 2222",
-      situation:"breackdown",
-      driver: "Amal perera",
-      contact: "0711234567",
-      date:"2023.05.13",
-      status: "complete"
-    },
-
-    {
-      id: "003",
-      v_no: "PI - 3333",
-      situation:"breackdown",
-      driver: "Amal perera",
-      contact: "0711234567",
-      date:"2023.05.13",
-      status: "complete"
-    },
-
-    {
-      id: "004",
-      v_no: "PX - 4444",
-      situation:"breackdown",
-      driver: "Amal perera",
-      contact: "0711234567",
-      date:"2023.05.13",
-      status: "complete"
-    },
-
-    {
-      id: "005",
-      v_no: "PI - 5555",
-      situation:"breackdown",
-      driver: "Amal perera",
-      contact: "0711234567",
-      date:"2023.05.13",
-      status: "complete"
-    },
-
-    {
-      id: "006",
-      v_no: "PI - 6666",
-      situation:"breackdown",
-      driver: "Amal perera",
-      contact: "0711234567",
-      date:"2023.05.13",
-      status: "complete"
-    },
-
-    {
-      id: "007",
-      v_no: "PX - 7777",
-      situation:"breackdown",
-      driver: "Amal perera",
-      contact: "0711234567",
-      date:"2023.05.13",
-      status: "complete"
-    },
-
-    {
-      id: "008",
-      v_no: "PI - 8888",
-      situation:"breackdown",
-      driver: "Amal perera",
-      contact: "0711234567",
-      date:"2023.05.13",
-      status: "complete"
-    }
-  ];
-
-
+   const [emergencylist, setemergencylist] = useState([]);
+   useEffect(() => {
+     async function emList() {
+       try {
+         const response = await fetch(
+           `http://localhost:5000/edugo/vc/emergency/emergencytbl`
+         );
+         const data = await response.json();
+         setemergencylist(data);
+       } catch (err) {
+         console.error(err.message);
+       }
+     }
+     emList();
+   });
 
 
   // redirect the page
-
-  const handleClick = () => {
-    window.location.href = `/vc/emergencyDetails`;
-  };
+  // const handleClick = () => {
+  //   window.location.href = `/vc/emergencyDetails`;
+  // };
 
 
   return (
     <MainLayout data={sideNavBarLinks}>
 
     {/* topic */} 
-    <div>
+    <div className="h-screen"> 
       <h1 className='text-[26px] font-bold ml-32 mt-8'> 
         Emergency List
       </h1>
@@ -147,7 +79,7 @@ function Emergency() {
 
 
       {/* emergency table */}
-      <div className='ml-28 mt-16 mr-28 mb-10 shadow-md overflow-auto '>
+      <div className='ml-6 mt-16 mr-6 shadow-md overflow-auto '>
 
         <table className='w-full text-center border-separate border-spacing-y-2 border border-slate-50 '>
           <thead className='border-y-4 border-white drop-shadow '>
@@ -158,20 +90,32 @@ function Emergency() {
               <th className='px-3.5 w-30'>Driver</th>
               <th className='px-3.5 w-30'>Contact</th>
               <th className='px-3.5 w-30'>Date</th>
-              <th className='px-3.5 w-30'>Status</th>  
+              <th className='px-3.5 w-30'>Status</th>
+              <th className='px-3.5 w-30'></th> 
             </tr>
           </thead>
 
           <tbody className=''>
-            {emergency.map((item) => ( 
-              <tr onClick={handleClick} className=' bg-[#D9D9D9] bg-opacity-60 hover:cursor-pointer hover:bg-[#eaeaea] drop-shadow-md'>
-                  <td className='text-center  p-3'>{item.id}</td>
-                  <td>{item.v_no}</td>
+            {emergencylist.map((item) => ( 
+              <tr className=' bg-[#D9D9D9] bg-opacity-60 hover:cursor-pointer hover:bg-[#eaeaea] drop-shadow-md'>
+                  <td className='text-center  p-3'>{item.emergency_id}</td>
+                  <td>{item.vehicle_no}</td>
                   <td>{item.situation}</td>
-                  <td>{item.driver}</td>
-                  <td>{item.contact}</td>
+                  <td>{item.user_name}</td>
+                  <td>{item.contact_number}</td>
                   <td>{item.date}</td>
                   <td>{item.status}</td>
+
+                  <NavLink
+                      to={`/vc/emergencydetails/${
+                        item.emergency_id
+                      }?data=${encodeURIComponent(
+                        JSON.stringify(item)
+                      )}`}
+                    >
+                    <td className='text-center'> <button  className="bg-gradient-to-b from-amber-500 to-amber-300  w-40 h-9 ml-4 mt-1 mb-1 rounded-lg shadow-md hover:shadow-lg transform hover:scale-[103%] trasition duration-300 ease-out  hover:cursor-pointer"> View more..</button></td>
+                    </NavLink>
+
               </tr>
               ))}
             </tbody>

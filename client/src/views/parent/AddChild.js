@@ -195,6 +195,7 @@ import {
 import MainLayout from "../../components/layout/MainLayout";
 import addchild from "../../images/addchild.png";
 import swal from "sweetalert";
+import LocationInput from "./LocationInput";
 
 const sideNavBarLinks = [
   {
@@ -278,7 +279,7 @@ function AddChild() {
   const userId = localStorage.getItem("userId");
 
   // Function to handle form submission
-  const handleSubmit =async(e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     try {
@@ -315,12 +316,14 @@ function AddChild() {
         });
       } else {
         // Handle the error here
-        console.error("Failed to upload children details:", response.statusText);
+        console.error(
+          "Failed to upload children details:",
+          response.statusText
+        );
       }
     } catch (err) {
       console.error("Error:", err.message);
     }
-    
   };
 
   return (
@@ -339,14 +342,25 @@ function AddChild() {
             <div className=" w-3/5 flex items-center justify-center">
               <form onSubmit={handleSubmit}>
                 <div className="p-3 w-[500px] h-[500px] ">
-                  {inputs.map((input) => (
-                    <FormInput
-                      key={input.id}
-                      {...input}
-                      value={values[input.name]}
-                      onChange={onChange}
-                    />
-                  ))}
+                  {/* Use the LocationInput component */}
+                  {inputs.map((input) =>
+                    input.name === "pickupLocation" ? (
+                      <LocationInput
+                        key={input.id}
+                        value={values.pickupLocation}
+                        onChange={(address) =>
+                          setValues({ ...values, pickupLocation: address })
+                        }
+                      />
+                    ) : (
+                      <FormInput
+                        key={input.id}
+                        {...input}
+                        value={values[input.name]}
+                        onChange={onChange}
+                      />
+                    )
+                  )}
                   {/* Submit button */}
                   <button
                     type="submit"
