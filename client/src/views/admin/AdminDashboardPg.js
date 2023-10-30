@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import MainLayout from "../../components/layout/MainLayout";
 import { BsStar, BsStarFill } from "react-icons/bs";
 import { AiOutlineClose } from "react-icons/ai";
@@ -24,6 +24,100 @@ const sideNavBarLinks = [
 ];
 
 function AdminDashboardPg() {
+
+  const [rev, setRev] = useState([]);
+
+  useEffect(() => {
+    async function reviewList() {
+      try {
+        const response = await fetch(
+          `http://localhost:5000/edugo/admin/dashboard/reviews`
+        );
+        const data = await response.json();
+        setRev(data);
+      } catch (err) {
+        console.error(err.message);
+      }
+    }
+
+    reviewList();
+  });
+
+  //vehicle count
+  const [vcount, setVcount] = useState([]);
+
+  useEffect(() => {
+    async function vehiCount() {
+      try {
+        const response = await fetch(
+          `http://localhost:5000/edugo/admin/dashboard/vcount`
+        );
+        const data = await response.json();
+        setVcount(data);
+      } catch (err) {
+        console.error(err.message);
+      }
+    }
+
+    vehiCount();
+  });
+
+  //children
+  const [childcount, setChildcount] = useState([]);
+
+  useEffect(() => {
+    async function childCount() {
+      try {
+        const response = await fetch(
+          `http://localhost:5000/edugo/admin/dashboard/childcount`
+        );
+        const data = await response.json();
+        setChildcount(data);
+      } catch (err) {
+        console.error(err.message);
+      }
+    }
+
+    childCount();
+  });
+
+  //vehicle condition checks count
+  const [conditioncount, setConditioncount] = useState([]);
+
+  useEffect(() => {
+    async function conditionCount() {
+      try {
+        const response = await fetch(
+          `http://localhost:5000/edugo/admin/dashboard/conditioncount`
+        );
+        const data = await response.json();
+        setConditioncount(data);
+      } catch (err) {
+        console.error(err.message);
+      }
+    }
+
+    conditionCount();
+  });
+
+  //ongoing ride count
+  const [rcount, setRcount] = useState([]);
+
+  useEffect(() => {
+    async function rideCount() {
+      try {
+        const response = await fetch(
+          `http://localhost:5000/edugo/admin/dashboard/rcount`
+        );
+        const data = await response.json();
+        setRcount(data);
+      } catch (err) {
+        console.error(err.message);
+      }
+    }
+
+    rideCount();
+  });
 
   const [viewPopup, setViewPopup] = useState(false);
 
@@ -82,35 +176,37 @@ function AdminDashboardPg() {
     );
   }
 
-  const reviews = [
-    {
-      id: 1,
-      u_image: require("../../images/user.png"),
-      u_name: "K.L Kumarasiri",
-      rating: 4.5,
-      review: "Saman is a very responsible and safe driver. My child enjoys the ride every day!",
-    },
-  ];
+  // const reviews = [
+  //   {
+  //     id: 1,
+  //     u_image: require("../../images/user.png"),
+  //     u_name: "K.L Kumarasiri",
+  //     rating: 4.5,
+  //     review: "Saman is a very responsible and safe driver. My child enjoys the ride every day!",
+  //   },
+  // ];
 
 
 
   // review list
-  const rev = [
-    {
-      id: "001",
-      v_no: "QX-1111",
-      p_id: "001",
-      date: "2023/08/09",
-      rate: "4.5"
-    },
-    {
-      id: "002",
-      v_no: "QX-2222",
-      p_id: "002",
-      date: "2023/08/09",
-      rate: "3.5"
-    },
-  ];
+  // const rev = [
+  //   {
+  //     id: "001",
+  //     v_no: "QX-1111",
+  //     p_id: "001",
+  //     date: "2023/08/09",
+  //     rate: "4.5"
+  //   },
+  //   {
+  //     id: "002",
+  //     v_no: "QX-2222",
+  //     p_id: "002",
+  //     date: "2023/08/09",
+  //     rate: "3.5"
+  //   },
+  // ];
+
+  
 
   const vehicle = () => {
     window.location.href = `/admin/drivers`;
@@ -151,7 +247,9 @@ function AdminDashboardPg() {
                 <div className='w-24 ml-4 mt-2 h-16 font-bold'>Total Vehicles</div>
                 <div className='ml-16 mt-4 w-8 h-8'><FaBusAlt className='h-6 w-6' /></div>
               </div>
-              <span className='font-bold ml-24 text-xl'>34</span>
+              {vcount.map((item, index) => (
+              <span className='font-bold ml-24 text-xl'>{item.count}</span>
+              ))}
             </div>
           </div>
 
@@ -167,7 +265,9 @@ function AdminDashboardPg() {
                 <div className='w-24 ml-4 mt-2 h-16 font-bold'>Total Children</div>
                 <div className='ml-16 mt-4 w-8 h-8'><FaChild className='h-6 w-6' /></div>
               </div>
-              <span className='font-bold ml-24 text-xl'>415</span>
+              {childcount.map((item, index) => (
+              <span className='font-bold ml-24 text-xl'>{item.count}</span>
+              ))}
             </div>
           </div>
 
@@ -183,7 +283,9 @@ function AdminDashboardPg() {
                 <div className='w-24 ml-4 mt-2 h-16 font-bold'>Condition Checks</div>
                 <div className='ml-16 mt-4 w-8 h-8'><FaWrench className='h-6 w-6' /></div>
               </div>
-              <span className='font-bold ml-24 text-xl'>4</span>
+              {conditioncount.map((item, index) => (
+              <span className='font-bold ml-24 text-xl'>{item.count}</span>
+              ))}
             </div>
           </div>
 
@@ -199,7 +301,9 @@ function AdminDashboardPg() {
                 <div className='w-24 ml-4 mt-2 h-16 font-bold'>Ongoing Rides</div>
                 <div className='ml-16 mt-4 w-8 h-8'><FaShippingFast className='h-6 w-6' /></div>
               </div>
-              <span className='font-bold ml-24 text-xl'>10</span>
+              {rcount.map((item, index) => (
+              <span className='font-bold ml-24 text-xl'>{item.count}</span>
+              ))}
             </div>
           </div>
         </div>
@@ -241,13 +345,15 @@ function AdminDashboardPg() {
 
             <tbody className=''>
               {rev.map((item) => (
+                
                 <tr onClick={showPopup} className=' bg-[#D9D9D9] bg-opacity-60 hover:cursor-pointer  hover:bg-[#eaeaea] drop-shadow-md'>
-                  <td className='text-center  p-3 ' >{item.id}</td>
-                  <td>{item.v_no}</td>
-                  <td>{item.p_id}</td>
+                  <td className='text-center  p-3 ' >{item.rating_id}</td>
+                  <td>{item.vehicle_no}</td>
+                  <td>{item.user_id}</td>
                   <td>{item.date}</td>
-                  <td>{item.rate}</td>
+                  <td>{item.rating}</td>
                 </tr>
+                
               ))}
             </tbody>
           </table>
@@ -265,25 +371,25 @@ function AdminDashboardPg() {
 
             {/* review container */}
             <div>
-              {reviews.map((review, index) => (
-                <div key={index} className="rounded-[8px] bg-slate-100 mb-3 mt-[15%] w-3/4 ml-80 border-[1px] border-orange  items-center justify-between px-[30px] py-3 cursor-pointer hover:shadow-lg transform hover:scale-[101%] transition duration-300 ease-out">
+              
+                <div className="rounded-[8px] bg-slate-100 mb-3 mt-[15%] w-3/4 ml-80 border-[1px] border-orange  items-center justify-between px-[30px] py-3 cursor-pointer hover:shadow-lg transform hover:scale-[101%] transition duration-300 ease-out">
                   <div className="flex  w-full mb-3">
                     <div className="flex justify-start gap-2 ">
-                      <img src={review.u_image} alt="user_image" className="bg-slate-300 w-8 cursor-pointer rounded-full p-1"></img>
-                      <h1 className="mt-1">{review.u_name}</h1>
+                      <img src={rev.u_image} alt="user_image" className="bg-slate-300 w-8 cursor-pointer rounded-full p-1"></img>
+                      <h1 className="mt-1">{rev.user_name}</h1>
 
                     </div>
                     <div className="flex justify-end mt-2  ml-auto">
-                      <RatingStars rating={review.rating} />
+                      <RatingStars rating={rev.rating} />
                     </div>
                   </div>
 
                   <div>
-                    {review.review}
+                    {rev.message}
                   </div>
 
                 </div>
-              ))}
+              
             </div>
           </div>
 

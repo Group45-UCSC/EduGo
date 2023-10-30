@@ -74,6 +74,8 @@ import VcFeedback from "./views/v_coordinator/Feedback";
 import VRRequest from "./views/v_coordinator/VRRequest";
 import CCRequest from "./views/v_coordinator/CCRequest";
 import VcProfile from "./views/v_coordinator/VcProfile";
+import VCmodal from "./views/v_coordinator/VCmodal";
+import VRmodal from "./views/v_coordinator/VRmodal";
 
 
 import SupAgentDashboardPg from "./views/sup_agent/SupAgentDashboardPg";
@@ -82,6 +84,7 @@ import SupParents from "./views/sup_agent/Parents";
 import SupDrivers from "./views/sup_agent/Drivers";
 import SupAgentProfile from "./views/sup_agent/SupAgentProfile";
 import Complaints from "./views/sup_agent/Complaints";
+
 // import DriverVehicleDetails from "./views/sup_agent/DriverVehicleDetails";
 // import ParentChildDetails from "./views/sup_agent/ParentChildDetails";
 
@@ -138,14 +141,14 @@ function App() {
           <Route exact path="/admin/employees" element={<AdminEmployees />} />
           <Route exact path="/admin/drivers" element={<AdminDrivers />} />
           <Route exact path="/admin/rides" element={<AdminRides />} />
-          <Route exact path="/admin/ridedetails" element={<AdminRideDetails />} />
-          <Route exact path="/admin/children" element={<AdminChildren />} />
+          <Route exact path="/admin/ridedetails/:ride_id" element={<AdminRideDetails />} />
+          <Route exact path="/admin/children/:child_id" element={<AdminChildren />} />
           <Route exact path="/admin/childrenlist" element={<AdminChildrenList />} />
           <Route exact path="/admin/finance" element={<AdminFinance />} />
-          <Route exact path="/admin/supportagent" element={<AdminSupportAgent />} />
-          <Route exact path="/admin/VCoordinator" element={<AdminVCoordinator />} />
-          <Route exact path="/admin/DriverInfo" element={<AdminDriverInfo />} />
-          <Route exact path="/admin/VehicleInfo" element={<AdminVehicleInfo />} />
+          <Route exact path="/admin/supportagent/:user_id" element={<AdminSupportAgent />} />
+          <Route exact path="/admin/VCoordinator/:user_id" element={<AdminVCoordinator />} />
+          <Route exact path="/admin/DriverInfo/:user_id" element={<AdminDriverInfo />} />
+          <Route exact path="/admin/VehicleInfo/:vehicle_id" element={<AdminVehicleInfo />} />
           <Route exact path="/admin/ParentsInfo" element={<AdminParentsInfo />} />
           <Route exact path="/admin/AddEmployee" element={<AdminAddEmployee />} />
           <Route exact path="/admin/Emergency" element={<AdminEmergency />} />
@@ -155,17 +158,18 @@ function App() {
 
           <Route exact path="/vc/dashboard" element={<VcoordinatorDashboardPg />} />
           <Route exact path="/vc/vehicles" element={<VcVehicles />} />
-          <Route exact path="/vc/vehiclesdetails" element={<VcVehiclesDetails />} />
+          <Route exact path="/vc/vehiclesdetails/:id" element={<VcVehiclesDetails />} />
           <Route exact path="/vc/rides" element={<VcRides />} />
-          <Route exact path="/vc/ridesdetails" element={<VcRidesDetails />} />
+          <Route exact path="/vc/ridesdetails/:id" element={<VcRidesDetails />} />
           <Route exact path="/vc/track" element={<VcTrack />} />
           <Route exact path="/vc/emergency" element={<VcEmergency />} />
-          <Route exact path="/vc/emergencydetails" element={<VcEmergencyDetails />} />
+          <Route exact path="/vc/emergencydetails/:id" element={<VcEmergencyDetails />} />
           <Route exact path="/vc/conditioncheck" element={<VcConditionCheck />} />
           <Route exact path="/vc/feedback" element={<VcFeedback />} />
-          <Route exact path="/vc/vrrequest" element={<VRRequest />} />
+          <Route exact path="/vc/vrrequest/" element={<VRRequest />} />
           <Route exact path="/vc/ccrequest" element={<CCRequest />} />
-
+          <Route exact path="/vc/vcmodal/:id" element={<VCmodal/>} />
+          <Route exact path="/vc/vrmodal/:id" element={<VRmodal/>} />
 
           <Route exact path="/sup_agent/dashboard" element={<SupAgentDashboardPg />} />
           <Route exact path="/sup_agent/parents" element={<SupParents />} />

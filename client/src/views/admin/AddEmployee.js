@@ -20,35 +20,43 @@ const sideNavBarLinks = [
 
 function AdminAddEmployee() {
 
-  const [values, setValues] = useState({
+  const [formData, setFormData] = useState({
     name: "",
     email: "",
     tpNum: "",
     nic: "",
+    address: "",
     password: "",
     role: "",
   });
 
-  const { name, email, tpNum, nic, password, role } = values;
+  // const { name, email, tpNum, nic, password, role } = values;
+
+  // const handleInput = (event) => {
+  //   setValues((prev) => ({
+  //     ...prev,
+  //     // [event.target.name]: [event.target.value],
+  //     [event.target.name]: event.target.value,
+  //   }));
+  // };
 
   const handleInput = (event) => {
-    setValues((prev) => ({
-      ...prev,
-      // [event.target.name]: [event.target.value],
-      [event.target.name]: event.target.value,
-    }));
+    const { name, value } = event.target;
+    setFormData({ ...formData, [name]: value });
   };
 
   const handleSubmit = async (event) => {
+    event.preventDefault();
+
       try {
-        const body = { name, email, tpNum, nic, password, role };
+        // const body = { name, email, tpNum, nic, password, role };
 
         const response = await fetch(
-          "http://localhost:5000/edugo/user/admin/addemployee",
+          "http://localhost:5000/edugo/admin/addemployee",
           {
             method: "POST",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(body),
+            body: JSON.stringify(formData),
           }
         );
         if (response.status === 201) {
@@ -78,22 +86,25 @@ function AdminAddEmployee() {
                 {/* form */}
                 <form action="" onSubmit={handleSubmit} className="w-full mr-8 mt-12 leading-8 text-md">
                     <label htmlFor="firstname">Name : </label>
-                    <input type="text" name="name" onChange={handleInput} className="ml-4 mb-4 bg-transparent border-2 w-full"></input><br />
+                    <input type="text" name="name" value={formData.name} onChange={handleInput} className="ml-4 mb-4 bg-transparent border-2 w-full"></input><br />
 
                     <label htmlFor="email">Email : </label>
-                    <input type="email" name="email" onChange={handleInput} className="ml-4 mb-4 bg-transparent border-2 w-full"></input><br />
+                    <input type="email" name="email" value={formData.email} onChange={handleInput} className="ml-4 mb-4 bg-transparent border-2 w-full"></input><br />
 
                     <label htmlFor="password">Password : </label>
-                    <input type="password" name="password" onChange={handleInput} className="ml-4 mb-4 bg-transparent border-2 w-full"></input><br />
+                    <input type="password" name="password" value={formData.password} onChange={handleInput} className="ml-4 mb-4 bg-transparent border-2 w-full"></input><br />
 
                     <label htmlFor="nic">NIC : </label>
-                    <input type="text" name="nic" onChange={handleInput} className="ml-4 mb-4 bg-transparent border-2 w-full"></input><br />
+                    <input type="text" name="nic" value={formData.nic} onChange={handleInput} className="ml-4 mb-4 bg-transparent border-2 w-full"></input><br />
+
+                    <label htmlFor="address">Address : </label>
+                    <input type="text" name="address" value={formData.address} onChange={handleInput} className="ml-4 mb-4 bg-transparent border-2 w-full"></input><br />
 
                     <label htmlFor="contact">Contact : </label>
-                    <input type="text" name="tpNum" onChange={handleInput} className="ml-4 mb-4 bg-transparent border-2"></input><br />
+                    <input type="text" name="tpNum" value={formData.tpNum} onChange={handleInput} className="ml-4 mb-4 bg-transparent border-2"></input><br />
 
                     <label htmlFor="role">Recruit as : </label>
-                    <select name="role" onChange={handleInput} className="ml-4 border-2" style={{backgroundColor:'#999999'}}>
+                    <select name="role" value={formData.role} onChange={handleInput} className="ml-4 border-2" style={{backgroundColor:'#999999'}}>
                         <option value="supAgent">Support Agent</option>
                         <option value="vc">Vehicle Coordinator</option>
                         
@@ -107,4 +118,4 @@ function AdminAddEmployee() {
   )
 }
 
-export default AdminAddEmployee
+export default AdminAddEmployee;

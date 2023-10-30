@@ -1,4 +1,5 @@
 import React from "react";
+import { useLocation } from "react-router-dom";
 import MainLayout from "../../components/layout/MainLayout";
 import childpic from "../../images/child3.png";
 import { AiFillDashboard } from "react-icons/ai";
@@ -18,6 +19,10 @@ const sideNavBarLinks = [
 ];
 
 function AdminChildren() {
+
+    const location = useLocation();
+    const dataParam = new URLSearchParams(location.search).get("data");
+    const item = JSON.parse(decodeURIComponent(dataParam));
 
     const parent = () => {
         window.location.href = `/admin/ParentsInfo`;
@@ -45,11 +50,11 @@ function AdminChildren() {
 
                 {/* detail container */}
                 <div className='ml-4 mt-4 text-lg'>
-                    <p>ID : 001</p>
-                    <p>Name : Charitha Bandaraadhikaram</p>
-                    <p>Age : 16</p>
-                    <p>School : Dharmapala College, Mahragama</p>
-                    <p>Address : Pitipana, Homagama</p>
+                    <p>ID : {item.child_id}</p>
+                    <p>Name : {item.child_name}</p>
+                    <p>Age : {item.age}</p>
+                    <p>School : {item.school_name}</p>
+                    <p>Address : {item.address}</p>
 
                 </div>
                 
@@ -70,11 +75,11 @@ function AdminChildren() {
 
                 {/* rest of details */}
                 <div className='mt-4 ml-3'>
-                    <p>Name: Gamini Pushpakumara</p>
-                    <p>Email: gamini@gmail.com</p>
-                    <p>NIC: 666666666V</p>
-                    <p>Contact: 071-xxxxxxx</p>
-                    <p>Address: Pitipana, Homagama</p>
+                    <p>Name: {item.user_name}</p>
+                    <p>Email: {item.user_email}</p>
+                    <p>NIC: {item.nic}</p>
+                    <p>Contact: {item.contact_number}</p>
+                    <p>Address: {item.address}</p>
                 </div>
             </div>
 
@@ -88,13 +93,13 @@ function AdminChildren() {
 
                 {/* rest of details */}
                 <div className='mt-4 ml-3'>
-                    <p>Type: van</p>
-                    <p>Make: Toyota</p>
-                    <p>Model: Hiace Dolphin 2001</p>
-                    <p>License number: NA - 6111</p>
-                    <p>Starting: Homagama</p>
-                    <p>Destination: Maharagama</p>
-                    <p>Ride status: Ongoing</p>
+                    <p>Type: {item.vehicle_type}</p>
+                    <p>Make: {item.make}</p>
+                    <p>Model: {item.vehicle_model}</p>
+                    <p>License number: {item.vehicle_no}</p>
+                    <p>Morning ride: {item.location_morning_ride}</p>
+                    <p>Noon ride: {item.location_noon_ride}</p>
+                    <p>Ride status: {item.ride_type}</p>
                     <p>Passenger status: Dropped</p>
                 </div>
             </div>

@@ -1,9 +1,10 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import MainLayout from "../../components/layout/MainLayout";
 import { AiFillDashboard } from "react-icons/ai";
 import { BsFillCarFrontFill } from "react-icons/bs";
 import { FaShippingFast } from "react-icons/fa";
 import { FaCarCrash } from "react-icons/fa";
+
 
 const sideNavBarLinks = [
   { title: "Dashboard", path: "/vc/dashboard", icon: <AiFillDashboard /> },
@@ -13,6 +14,77 @@ const sideNavBarLinks = [
 ];
 
 function VcoordinatorDashboardPg() {
+
+
+   //vehicle ongoing count
+   const [ongoingridecount, setongoingridecount] = useState([]);
+   useEffect(() => {
+     async function ongoingridecount() {
+       try {
+         const response = await fetch(
+           `http://localhost:5000/edugo/vc/dashboard/ongoingridecount`
+         );
+         const data = await response.json();
+         setongoingridecount(data);
+       } catch (err) {
+         console.error(err.message);
+       }
+     }
+     ongoingridecount();
+   });
+
+
+      //vehicle emergency count
+      const [emergencycount, setemergencycount] = useState([]);
+      useEffect(() => {
+        async function emergencycount() {
+          try {
+            const response = await fetch(
+              `http://localhost:5000/edugo/vc/dashboard/emergencycount`
+            );
+            const data = await response.json();
+            setemergencycount(data);
+          } catch (err) {
+            console.error(err.message);
+          }
+        }
+        emergencycount();
+      });
+
+
+     //vehicle verify count
+      const [verifycount, setverifycount] = useState([]);
+      useEffect(() => {
+        async function VerifyrequstCount() {
+          try {
+            const response = await fetch(
+              `http://localhost:5000/edugo/vc/dashboard/verifycount`
+            );
+            const data = await response.json();
+            setverifycount(data);
+          } catch (err) {
+            console.error(err.message);
+          }
+        }
+        VerifyrequstCount();
+      });
+
+      //vehicle cc reuest count
+      const [CCcount, setCCcount] = useState([]);
+      useEffect(() => {
+        async function ccrequestCount() {
+          try {
+            const response = await fetch(
+              `http://localhost:5000/edugo/vc/dashboard/ccCount`
+            );
+            const data = await response.json();
+            setCCcount(data);
+          } catch (err) {
+            console.error(err.message);
+          }
+        }
+        ccrequestCount();
+      });
 
   const handleClick = () => {
     window.location.href = `/vc/vrrequest`;
@@ -50,9 +122,9 @@ function VcoordinatorDashboardPg() {
               Emergency
             </h2>
 
-            <h1 className='text-[20px] leading-[24px] font-bold mt-[15px] ml-3'> 
-              4 
-            </h1>
+            {emergencycount.map((items) => (
+              <h1 className='text-[20px] leading-[24px] font-bold mt-[15px] ml-3'>{items.count}</h1>
+              ))}
 
           </div>
           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6  ">
@@ -63,13 +135,13 @@ function VcoordinatorDashboardPg() {
         <div onClick={handleClick4} className='h-[100px] rounded-[8px] bg-[#EEEEEE] border-l-8 border-[#FF9900] pl-6 flex items-center justify-between px-[30px] cursor-pointer hover:shadow-lg transform hover:scale-[103%] trasition duration-300 ease-out shadow-md'>
           <div>
 
-            <h2 className='text-[#000000] text-[18px] leading-[17px] font-bold'> 
+            <h2 className='text-[#2f6d21] text-[18px] leading-[17px] font-bold'> 
               Ongoing transports
             </h2>
 
-            <h1 className='text-[20px] leading-[24px] font-bold mt-[15px] ml-3'> 
-              10 
-            </h1>
+            {ongoingridecount.map((item) => (
+              <h1 className='text-[20px] leading-[24px] font-bold mt-[15px] ml-3'>{item.count}</h1>
+              ))}
 
           </div>
           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
@@ -86,9 +158,9 @@ function VcoordinatorDashboardPg() {
               Vehicle Register Requests
             </h2>
 
-            <h1 className='text-[20px] leading-[24px] font-bold mt-[15px] ml-3'> 
-              2 
-            </h1>
+            {verifycount.map((item) => (
+              <h1 className='text-[20px] leading-[24px] font-bold mt-[15px] ml-3'>{item.count}</h1>
+              ))}
 
           </div>
           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
@@ -106,9 +178,9 @@ function VcoordinatorDashboardPg() {
               Condition Check
             </h2>
 
-            <h1 className='text-[20px] leading-[24px] font-bold mt-[15px] ml-3'> 
-              4 
-            </h1>
+            {CCcount.map((item) => (
+              <h1 className='text-[20px] leading-[24px] font-bold mt-[15px] ml-3'>{item.count}</h1>
+              ))}
 
           </div>
           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">

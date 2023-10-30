@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import MainLayout from "../../components/layout/MainLayout";
 import { AiOutlineSearch } from "react-icons/ai";
 import { BiFilterAlt } from "react-icons/bi";
@@ -8,6 +8,7 @@ import { FaChild } from "react-icons/fa";
 import { FaUserGroup } from "react-icons/fa6";
 import { BsFillCarFrontFill } from "react-icons/bs";
 import { FaShippingFast } from "react-icons/fa";
+import { NavLink } from "react-router-dom";
 
 const sideNavBarLinks = [
   { title: "Dashboard", path: "/admin/dashboard", icon: <AiFillDashboard /> },
@@ -20,123 +21,41 @@ const sideNavBarLinks = [
 
 function AdminChildrenList() {
 
-  const child = [
-    {
-      id: "001",
-      name: "Sumudu Wijerathna",
-      school: "Arawwala Central College",
-      address: "No.23/4, Samagi Mawatha, Borella",
-      contact: "0711234567",
-      v_no: "NA - 1111"
-    },
-    {
-      id: "002",
-      name: "Buddhika Sachintha",
-      school: "Kadawatha Parakrama College",
-      address: "No.18 Good shed road, Pannipitiya",
-      contact: "0768956423",
-      v_no: "NA - 2222"
-    },
-    {
-      id: "003",
-      name: "Pawan Sachithra",
-      school: "D.S Senanayaka college",
-      address: "No.10, Sadaham Mawatha, Wellampitiya",
-      contact: "0762222223",
-      v_no: "NA - 3333"
-    },
-    {
-      id: "004",
-      name: "Kasuni Vimansa",
-      school: "Devi Balika Vidyalaya",
-      address: "No.12 main street, Piliyandala",
-      contact: "0711936423",
-      v_no: "NA - 4444"
-    },
-    {
-      id: "005",
-      name: "Harshi Sakunika",
-      school: "Anula Vidyalaya, Nugegoda",
-      address: "No.23/1,  Hokandara",
-      contact: "0768123456",
-      v_no: "NA - 5555"
-    },
-    {
-      id: "006",
-      name: "Kasun Jayalath",
-      school: "Colombo Royal College",
-      address: "N0.45/3, Mutuwal, Modara",
-      contact: "0768123456",
-      v_no: "NA - 6666"
-    },
-    {
-      id: "007",
-      name: "Rajith Hashan",
-      school: "Pannipitiya Dharmapala College",
-      address: "No.87 main street, Piliyandala",
-      contact: "0712318987",
-      v_no: "NA - 7777"
-    }
-  ];
+  const [child, setChild] = useState([]);
 
-  const parent = [
-    {
-      id: "008",
-      name: "Gamini Wijerathna",
-      email: "gamini@gmail.com",
-      address: "No.23/4, Samagi Mawatha, Borella",
-      contact: "0711234567",
-      children: "1"
-    },
-    {
-      id: "002",
-      name: "Sidath Jayantha",
-      email: "sidath@gmail.com",
-      address: "No.18 Good shed road, Pannipitiya",
-      contact: "0768956423",
-      children: "2"
-    },
-    {
-      id: "010",
-      name: "Pathum Udara",
-      email: "pathum@gmail.com",
-      address: "No.10, Sadaham Mawatha, Wellampitiya",
-      contact: "0762222223",
-      children: "1"
-    },
-    {
-      id: "011",
-      name: "Isuri Vimansa",
-      email: "isuri@gmail.com",
-      address: "No.12 main street, Piliyandala",
-      contact: "0711936423",
-      children: "1"
-    },
-    {
-      id: "012",
-      name: "Shantha Bandara",
-      email: "shantha@gmail.com",
-      address: "No.23/1,  Hokandara",
-      contact: "0768123456",
-      children: "3"
-    },
-    {
-      id: "013",
-      name: "Pradeep Jayalath",
-      email: "pradeep@gmail.com",
-      address: "N0.45/3, Mutuwal, Modara",
-      contact: "0768123456",
-      children: "2"
-    },
-    {
-      id: "014",
-      name: "Pramuka Darshana",
-      email: "pramuka@gmail.com",
-      address: "No.87 main street, Piliyandala",
-      contact: "0712318987",
-      children: "1"
+  useEffect(() => {
+    async function childList() {
+      try {
+        const response = await fetch(
+          `http://localhost:5000/edugo/admin/childrenlist/children`
+        );
+        const data = await response.json();
+        setChild(data);
+      } catch (err) {
+        console.error(err.message);
+      }
     }
-  ];
+
+    childList();
+  });
+
+  const [parent, setParent] = useState([]);
+
+  useEffect(() => {
+    async function parentList() {
+      try {
+        const response = await fetch(
+          `http://localhost:5000/edugo/admin/childrenlist/parent`
+        );
+        const data = await response.json();
+        setParent(data);
+      } catch (err) {
+        console.error(err.message);
+      }
+    }
+
+    parentList();
+  });
 
 
   const [toggle, setToggle] = useState(1);
@@ -144,10 +63,6 @@ function AdminChildrenList() {
   function updateToggle(id) {
     setToggle(id);
   }
-
-  const handleClick = () => {
-    window.location.href = `/admin/children`;
-  };
   const handleClickP = () => {
     window.location.href = `/admin/parentsinfo`;
   };
@@ -194,18 +109,29 @@ function AdminChildrenList() {
                   <th className='px-3.5 w-30'>Address</th>
                   <th className='px-3.5 w-30'>Contact</th>
                   <th className='px-3.5 w-30'>Vehicle No</th>
+                  <th className='px-3.5 w-30'> </th>
                 </tr>
               </thead>
 
               <tbody className=''>
                 {child.map((item) => (
-                  <tr onClick={handleClick} className=' bg-[#D9D9D9] bg-opacity-60 hover:cursor-pointer hover:bg-[#eaeaea] drop-shadow-md'>
-                    <td className='text-center  p-3'>{item.id}</td>
-                    <td>{item.name}</td>
-                    <td>{item.school}</td>
+                  <tr className=' bg-[#D9D9D9] bg-opacity-60 hover:cursor-pointer hover:bg-[#eaeaea] drop-shadow-md'>
+                    <td className='text-center  p-3'>{item.child_id}</td>
+                    <td>{item.child_name}</td>
+                    <td>{item.school_name}</td>
                     <td>{item.address}</td>
-                    <td>{item.contact}</td>
-                    <td>{item.v_no}</td>
+                    <td>{item.contact_number}</td>
+                    <td>{item.vehicle_no}</td>
+
+                    <NavLink
+                  to={`/admin/children/${
+                    item.child_id
+                  }?data=${encodeURIComponent(
+                    JSON.stringify(item)
+                  )}`}
+                >
+                  <td><button className="bg-amber-600 h-8 w-16 rounded-md hover:bg-amber-400">View</button></td>
+                  </NavLink>
                   </tr>
                 ))}
               </tbody>
@@ -233,12 +159,12 @@ function AdminChildrenList() {
               <tbody className=''>
                 {parent.map((item) => (
                   <tr onClick={handleClickP} className=' bg-[#D9D9D9] bg-opacity-60 hover:cursor-pointer hover:bg-[#eaeaea] drop-shadow-md'>
-                    <td className='text-center  p-3'>{item.id}</td>
-                    <td>{item.name}</td>
-                    <td>{item.email}</td>
+                    <td className='text-center  p-3'>{item.user_id}</td>
+                    <td>{item.user_name}</td>
+                    <td>{item.user_email}</td>
                     <td>{item.address}</td>
-                    <td>{item.contact}</td>
-                    <td>{item.children}</td>
+                    <td>{item.contact_number}</td>
+                    <td>{item.num_of_registered_children}</td>
                   </tr>
                 ))}
               </tbody>

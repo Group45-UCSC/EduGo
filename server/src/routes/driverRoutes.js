@@ -31,15 +31,34 @@ const {
   viewIncomeChart,
   viewTotalIncome,
   viewChildFees,
+
+  // MOBILE
+  viewRidePayment,
 } = require("../controllers/driver/financeController");
 
-const { viewRideDetails } = require("../controllers/driver/rideController");
+const {
+  viewRideDetails,
+  viewRideRequests,
+  rejectRideRequest,
+  checkReachingSchool,
+  acceptRideRequest,
+  setChildRideTime,
+} = require("../controllers/driver/rideController");
 const {
   viewSchoolDetails,
   selectSchool,
   checkRideBeforeRemove,
   removeSchoolFromRide,
 } = require("../controllers/driver/schoolController");
+
+// MOBILE
+// Children view
+const { 
+  getChildrenDetails ,
+} = require("../controllers/driver/childrenController");
+
+
+
 
 //create routes
 router.route("/dashboard/hasride/:userId").get(hasRide);
@@ -53,6 +72,13 @@ router.route("/vehicle/viewImg/:userId").get(viewVehicleImg);
 
 //ride page
 router.route("/ride/view/details/:userId").get(viewRideDetails);
+router.route("/ride/requests/view/:userId").get(viewRideRequests);
+router.route("/ride/request/reject/:childId,:requestId").put(rejectRideRequest);
+router
+  .route("/ride/request/school/check/:userId,:schoolId")
+  .get(checkReachingSchool);
+router.route("/ride/request/accept/:userId").put(acceptRideRequest);
+router.route("/ride/set/ridetime/").post(setChildRideTime);
 
 //school page
 router.route("/ride/view/school/:userId").get(viewSchoolDetails);
@@ -79,5 +105,13 @@ router.route("/deposit/cashpayments/view/:userId").get(viewCashPaymentData);
 //feedback page
 router.route("/feedback/add/:userId").post(addFeedback);
 router.route("/feedback/view/:userId").get(viewFeedback);
+
+// MOBILE
+// Children details page
+router.route("/childrenDetails/:driverId").get(getChildrenDetails);
+
+// ride cash payment
+router.route("/ridePayment/:driverId").get(viewRidePayment);
+
 
 module.exports = router;
