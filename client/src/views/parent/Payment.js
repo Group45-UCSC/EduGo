@@ -7,6 +7,7 @@ import {
   MdSupportAgent,
   MdOutlineRateReview,
 } from "react-icons/md";
+import md5 from 'crypto-js/md5';
 
 const sideNavBarLinks = [
   {
@@ -25,38 +26,105 @@ const sideNavBarLinks = [
 ];
 
 function Payment() {
-  // const data = [
-  //   {
-  //     amount: 2400,
-  //     for: "2023/04/01 - 2023/04/30",
-  //     payed: "2023/04/27",
-  //   },
-  //   {
-  //     amount: 2400,
-  //     for: "2023/04/01 - 2023/04/30",
-  //     payed: "2023/04/27",
-  //   },
-  //   {
-  //     amount: 2400,
-  //     for: "2023/04/01 - 2023/04/30",
-  //     payed: "2023/04/27",
-  //   },
-  //   {
-  //     amount: 2400,
-  //     for: "2023/04/01 - 2023/04/30",
-  //     payed: "2023/04/27",
-  //   },
-  //   {
-  //     amount: 2400,
-  //     for: "2023/04/01 - 2023/04/30",
-  //     payed: "2023/04/27",
-  //   },
-  //   {
-  //     amount: 2400,
-  //     for: "2023/04/01 - 2023/04/30",
-  //     payed: "2023/04/27",
-  //   },
-  // ];
+
+//   // Payhere function-----------------------------------//
+
+//   const handlePayment = () => {
+
+//     const paymentData = {
+//       sandbox: true, // Set to true for testing, false for production
+//       merchant_id: "1224489",
+//       return_url: "http://localhost:3000/payment",
+//       cancel_url: "http://localhost:3000/payment",
+//       notify_url: "http://sample.com/notify",
+//       amount: 1000, // Replace with the actual payment amount
+//       currency: "LKR", // Replace with the currency code
+
+//     };
+//     window.payhere.startPayment(paymentData);
+//   };
+//   useEffect(() => {
+//     // Payment completed
+//     window.payhere.onCompleted = () => {
+//       console.log("Payment completed. OrderID: ");
+//       // Handle the success here, e.g., update your application state
+//     };
+
+//     // Payment window closed
+//     window.payhere.onDismissed = () => {
+//       console.log("Payment dismissed");
+//       // Handle payment dismissal, e.g., show an error message to the user
+//     };
+
+//     // Error occurred
+//     window.payhere.onError = (error) => {
+//       console.log("Error: "+ error);
+//       // Handle payment errors, e.g., display an error message to the user
+//     };
+//   }, []);
+
+// const PaymentModal = ({ orderId, name, amount }) => {
+
+
+let merchantSecret  = 'Mjg5NDQxOTI4NjIxODk5MDU2NTYzMTE4OTY5ODgwNjM1OTA3MzMy';
+let merchantId      = '1224489';
+let orderId         = '12345';
+let amount          = '1000';
+let hashedSecret    = md5(merchantSecret).toString().toUpperCase();
+let amountFormated  = parseFloat( amount ).toLocaleString( 'en-us', { minimumFractionDigits : 2 } ).replaceAll(',', '');
+let currency        = 'LKR';
+let hash            = md5(merchantId + orderId + amountFormated + currency + hashedSecret).toString().toUpperCase();
+  // Put the payment variables here
+  var paymentData = {
+    sandbox: true, // if the account is sandbox or real
+    merchant_id: '1224489', // Replace your Merchant ID
+    return_url: 'http://localhost:3000/parent/payment',
+    cancel_url: 'http://localhost:3000/parent/payment',
+    notify_url: 'http://sample.com/notify',
+    order_id: orderId,
+    items: 'Saman',
+    amount: amount, 
+    currency: 'LKR',
+    hash: hash,
+    first_name: 'Saman',
+    last_name: 'Perera',
+    email: 'edugo@gmail.com',
+    phone: '0719052858',
+    address: 'No.1, Galle Road',
+    city: 'Colombo',
+    country: 'Sri Lanka',
+    delivery_address: 'No. 46, Galle road, Kalutara South', // optional field
+    delivery_city: 'Kalutara', // optional field
+    delivery_country: 'Sri Lanka', // optional field
+    custom_1: '', // optional field
+    custom_2: '', // optional field
+  };
+    
+  // Called when user completed the payment. It can be a successful payment or failure
+  window.payhere.onCompleted = function onCompleted(orderId) {
+    console.log("Payment completed. OrderID:" + orderId);
+    //Note: validate the payment and show success or failure page to the customer
+  };
+
+  // Called when user closes the payment without completing
+  window.payhere.onDismissed = function onDismissed() {
+    //Note: Prompt user to pay again or show an error page
+    console.log("Payment dismissed");
+  };
+
+  // Called when error happens when initializing payment such as invalid parameters
+  window.payhere.onError = function onError(error) {
+    // Note: show an error page
+    console.log("Error:"  + error);
+  };
+
+
+
+function pay(){
+  window.payhere.startPayment(paymentData);
+}
+  //----------------------------------------------------//
+
   const userId = localStorage.getItem("userId");
 
   // get payment details
@@ -200,9 +268,16 @@ function Payment() {
             </div>
           </div>
         </div>
+
+        <div>
+         {/* <input type="button" onClick={handlePayment} value="Pay" className="border cursor-pointer"  /> */}
+         <button onClick={pay}>Pay with Payhere</button>
+
+        </div>
       </MainLayout>
     </div>
   );
+
 }
 
 export default Payment;
