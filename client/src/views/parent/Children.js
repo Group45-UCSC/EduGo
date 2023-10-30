@@ -328,7 +328,7 @@ function Children() {
                               {/*---------------------Buttons-----------------------------*/}
                               <div className="">
                                 <NavLink
-                                  to={`/parent/Children/addnewride/${
+                                  to={`/parent/children/addnewride/${
                                     child.id
                                   }?data=${encodeURIComponent(
                                     JSON.stringify(child)
