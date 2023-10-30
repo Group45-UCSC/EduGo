@@ -263,11 +263,6 @@
 //   setChildRideTime,
 // };
 
-
-
-
-
-
 //db connection
 const pool = require("../../dbConnection");
 
@@ -314,7 +309,8 @@ const viewRideDetails = async (req, res) => {
 //---------------------------------Ride Requests Handling------------------------------------
 
 //view ride requests -> GET method
-const viewRideRequests = async (req, res) => {                    //?
+const viewRideRequests = async (req, res) => {
+  //?
   try {
     const userId = req.params.userId;
 
@@ -505,6 +501,45 @@ const setChildRideTime = async (req, res) => {
   }
 };
 
+//to get child details for next ride page -> GET method
+const viewRideChildList = async (req, res) => {
+  try {
+    const userId = req.params.userId;
+
+    const getRideId = await pool.query(
+      "SELECT ride_id, num_of_children FROM school_ride WHERE driver_id  =   '" +
+        userId +
+        "' "
+    );
+
+    const rideId = getRideId.rows[0].ride_id;
+    const numChild = getRideId.rows[0].num_of_children;
+    console.log(rideId);
+    console.log(numChild);
+
+
+    // const rideId = getRideId.rows[0];
+    // console.log(rideId);
+
+    //to get all ride school data
+    const rideChildrenData = await pool.query(
+      "SELECT ride_children.child_id, ride_children.child_status, children.school_name, children.child_name,children.image,children.pickup_location FROM ride_children INNER JOIN children ON ride_children.child_id = children.child_id WHERE children.driver_id = '" +
+        userId +
+        "' AND children.request_status = 'accepted' ORDER BY children.child_id ASC "
+    );
+
+    console.log(rideChildrenData.rows);
+
+    return res.json({
+      childDataList: rideChildrenData.rows,
+      rideId: rideId,
+    });
+  } catch (err) {
+    console.error(err.massage);
+    return res.status(500).send("Server Error");
+  }
+};
+
 module.exports = {
   viewRideDetails,
   viewRideRequests,
@@ -512,4 +547,5 @@ module.exports = {
   checkReachingSchool,
   acceptRideRequest,
   setChildRideTime,
+  viewRideChildList,
 };

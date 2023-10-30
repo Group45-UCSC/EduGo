@@ -290,10 +290,6 @@
 
 // export default NextRide;
 
-
-
-
-
 /* global google */
 import React, { useState, useEffect } from "react";
 import MainLayout from "../../components/layout/MainLayout";
@@ -319,11 +315,14 @@ const sideNavBarLinks = [
   },
 ];
 
-const GOOGLE_MAPS_API_KEY = "AIzaSyAeTBd0rn-R-OfRQO5pjSR54cRxcuOAD6s";                     //?
+const GOOGLE_MAPS_API_KEY = "AIzaSyAeTBd0rn-R-OfRQO5pjSR54cRxcuOAD6s"; //?
 
 function NextRide() {
+  //userID
+  const userId = localStorage.getItem("userId");
+
   // Define state to store child data
-  const [childData, setChildData] = useState([]);                                          //?
+  const [childData, setChildData] = useState([]); //?
   // Fetch child data from the database using useEffect
   // useEffect(() => {
   //   // Use fetch or any other method to fetch child data from the database
@@ -338,11 +337,27 @@ function NextRide() {
   //       console.error("Error fetching child data:", error);
   //     });
   // }, []); // The empty array [] ensures that this effect runs only once on component mount
-
-  useEffect(() => {                                                                                       //?
-    // Load the Google Maps script when the component mounts
+  useEffect(() => {
+    async function getChildDetails() {
+      try {
+        const response = await fetch(
+          `http://localhost:5000/edugo/driver/ride/children/view/${userId}`
+        );
+        const data = await response.json();
+        setChildData(data.childDataList);
+      } catch (err) {
+        console.error(err.message);
+      }
+    }
+    getChildDetails();
     loadGoogleMapsScript();
-  }, []);
+  }, [userId]);
+
+  // useEffect(() => {
+  //   //?
+  //   // Load the Google Maps script when the component mounts
+  //   loadGoogleMapsScript();
+  // }, []);
 
   function initMap() {
     const map = new window.google.maps.Map(document.getElementById("map"), {
@@ -408,7 +423,6 @@ function NextRide() {
     }
   };
 
-
   return (
     <div>
       <MainLayout data={sideNavBarLinks}>
@@ -437,11 +451,13 @@ function NextRide() {
                   <div className="flex justify-start gap-5">
                     <img
                       src={child.image}
-                      alt={child.name}
+                      alt='img'
                       className="w-12 rounded-full"
                     ></img>
-                    <h1 className="w-[250px] text-lg text-slate-600 pt-1">
-                      {child.name}
+                    <h1 className="w-[250px] text-sm text-slate-600 pt-1">
+                      {child.child_name} <br/>
+                      {child.pickup_location} <br/>
+                      {child.school_name} 
                     </h1>
                     <div className="flex justify-center gap-5">
                       <button className="rounded-lg bg-green-600 w-20 ">

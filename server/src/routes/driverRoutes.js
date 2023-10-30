@@ -40,6 +40,7 @@ const {
   checkReachingSchool,
   acceptRideRequest,
   setChildRideTime,
+  viewRideChildList,
 } = require("../controllers/driver/rideController");
 const {
   viewSchoolDetails,
@@ -61,6 +62,9 @@ router.route("/vehicle/add/:userId").post(addVehicle);
 router.post("/vehicle/upload/", upload.single("vehicleRegDoc"), uploadVehicle);
 
 router.route("/vehicle/viewImg/:userId").get(viewVehicleImg);
+
+//next ride page
+router.route("/ride/children/view/:userId").get(viewRideChildList);
 
 //ride page
 router.route("/ride/view/details/:userId").get(viewRideDetails);
