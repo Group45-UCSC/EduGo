@@ -49,6 +49,9 @@ function Chat() {
   const [isFileSelected, setIsFileSelected] = useState(false);
   const [chatItemsState, setChatItemsState] = useState([]);
   const [chatItems, setChatItems] = useState([]);
+  const [chatMessages, setChatMessages] = useState([]);
+  const userId = localStorage.getItem("userId");
+  // console.log(userId);
 
   useEffect(() => {
     async function viewChatItems() {
@@ -68,6 +71,25 @@ function Chat() {
     viewChatItems();
   }, []); 
 
+  useEffect(() => {
+    const receiveMessage = async() => {
+      try {
+        const response = await fetch(`http://localhost:5000/edugo/supAgent/chat/receiveMessage/${userId}`);
+
+        if (response.ok) {
+          const data= await response.json();
+          setChatMessages(data);
+        } else{
+          throw new Error(" Network response was not ok");
+        }
+      } catch (error) {
+        console.error("Error fetching chat data:", error);
+      
+      }
+    };
+    receiveMessage();
+  },[userId]);
+  
   const handleNewMessage = (chatId) => {
     setChatItemsState((prevChatItems) =>
       prevChatItems.map((chatItem) =>
@@ -77,7 +99,8 @@ function Chat() {
       )
     );
   };
-
+  
+  
   const handleChatItemClick = (chatId) => {
     setSelectedChatId(chatId);
 
@@ -109,20 +132,34 @@ function Chat() {
   // };
 
   // function to handle sending a message
-  const handleSendMessage = () => {
+  const handleSendMessage = async (userId) => {
     if (inputValue.trim() !== "") {
-      //create a new message object with the input value
-      const newMessage = {
-        sender: "You",
-        content: inputValue.trim(),
-        chatId: selectedChatId,
-      };
+      try {
+        const response = await fetch(`
+        http://localhost:5000/edugo/supAgent/chat/sendMessage/${userId}`,
+         {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            sender_id:userId,
+            receiver_id: selectedChatId,
+            message: inputValue.trim(),
+          }),
+        });
 
-      //update the sentMessage  state with the new message
-      setSentMessages((prevMessages) => [...prevMessages, newMessage]);
+        if (!response.ok) {
+          throw new Error("Network response was not ok");
+        }
 
-      //clear the input value after sending the message
-      setInputValue("");
+        const newMessage = await response.json();
+
+        setSentMessages((prevMessages) => [...prevMessages, newMessage]);
+        setInputValue("");
+      }catch (error) {
+        console.error("Error sending message:", error);
+      }
     }
   };
 
@@ -226,7 +263,7 @@ function Chat() {
                 <div className="flex justify-center items-center border-b pb-2 mb-3">
                   <img
                     src={
-                      chatItems.find((item) => item.id === selectedChatId)
+                      chatItems.find((item) => item.user_id === selectedChatId)
                         ?.avatar
                     }
                     alt="Profile"
@@ -254,28 +291,28 @@ function Chat() {
                   {/* Display the chat view for the selected chat */}
                   {/* Dummy chat messages */}
                   <div className="flex flex-col gap-3 ml-1 mt-8">
-                    {chatItems.map((chatItem) => (
-                      <div key={chatItem.id}>
-                        {selectedChatId === chatItem.id && (
+                    {chatMessages.map((chatMessage) => (
+                      <div key={chatMessages.sender_id}>
+                        {selectedChatId === chatMessage.sender_id && (
                           <div className="flex flex-col gap-3 ml-1 mt-8">
-                            {chatItem.messages.map((message, index) => (
+                            {Array.isArray(chatMessage.message) && chatMessage.message.map((message, index) => (
                               <div
                                 key={index}
                                 className={`flex gap-4 items-center p-2 ${
-                                  chatItem.id === selectedChatId
+                                  chatMessage.sender_id === selectedChatId
                                     ? "justify-start"
                                     : "justify-end"
                                 }`}
                               >
-                                <img
-                                  src={chatItem.avatar}
+                                <img-
+                                  src={chatMessage.avatar}
                                   alt="Profile"
                                   className="w-8 h-8 rounded-full bg-o"
                                 />
 
                                 <div
                                   className={`bg-gray px-5 py-2 rounded-xl flex ${
-                                    chatItem.id === 1
+                                    chatMessage.message_id === 1
                                       ? "justify-start"
                                       : "justify-end"
                                   }`}
@@ -289,7 +326,7 @@ function Chat() {
                       </div>
                     ))}
                   </div>
-                  {chatItems.find((item) => item.id === selectedChatId) &&
+                  {chatItems.find((item) => item.user_id === selectedChatId) &&
                     sentMessages
                       .filter((message) => message.chatId === selectedChatId)
                       .map((message, index) => (
