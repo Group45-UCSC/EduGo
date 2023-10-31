@@ -517,7 +517,6 @@ const viewRideChildList = async (req, res) => {
     // console.log(rideId);
     // console.log(numChild);
 
-
     // const rideId = getRideId.rows[0];
     // console.log(rideId);
 
@@ -540,6 +539,79 @@ const viewRideChildList = async (req, res) => {
   }
 };
 
+//pick status  -> PUT method
+const changePickedStatus = async (req, res) => {
+  try {
+    const { childId } = req.body;
+
+    //update ride_children table
+    const result1 = await pool.query(
+      " UPDATE ride_children SET child_status = 'picked_up' WHERE child_id = '" +
+        childId +
+        "' "
+    );
+
+    // Return a success response to the frontend
+    return res.status(200).json({
+      message: "successfull",
+    });
+  } catch (err) {
+    console.error(err.massage);
+    return res.status(500).send("Server Error");
+  }
+};
+
+//drop status  -> PUT method
+const changedroppedStatus = async (req, res) => {
+  try {
+    const { childId } = req.body;
+
+    //update ride_children table
+    const result1 = await pool.query(
+      " UPDATE ride_children SET child_status = 'dropped' WHERE child_id = '" +
+        childId +
+        "' "
+    );
+
+    // Return a success response to the frontend
+    return res.status(200).json({
+      message: "successfull",
+    });
+  } catch (err) {
+    console.error(err.massage);
+    return res.status(500).send("Server Error");
+  }
+};
+
+//end status  -> PUT method
+const rideEndStatus = async (req, res) => {
+  try {
+    const userId = req.params.userId;
+
+    //get the ride_id of the related driver
+    const getRideId = await pool.query(
+      "SELECT ride_id FROM school_ride WHERE driver_id = '" + userId + "' "
+    );
+
+    const rideId = getRideId.rows[0].ride_id;
+
+    //update ride_children table
+    const result1 = await pool.query(
+      " UPDATE ride_children SET child_status = 'idle' WHERE ride_id = '" +
+        rideId +
+        "' "
+    );
+
+    // Return a success response to the frontend
+    return res.status(200).json({
+      message: "successfull",
+    });
+  } catch (err) {
+    console.error(err.massage);
+    return res.status(500).send("Server Error");
+  }
+};
+
 module.exports = {
   viewRideDetails,
   viewRideRequests,
@@ -548,4 +620,7 @@ module.exports = {
   acceptRideRequest,
   setChildRideTime,
   viewRideChildList,
+  changePickedStatus,
+  changedroppedStatus,
+  rideEndStatus,
 };

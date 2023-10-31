@@ -423,6 +423,80 @@ function NextRide() {
     }
   };
 
+  const [statusType1, setStatusType1] = useState("pick");
+  const [statusType2, setStatusType2] = useState("drop");
+
+  //pickup button click
+  const handlePickedClick = async (childId) => {
+    try {
+      const body = {
+        childId: childId,
+      };
+      const response = await fetch(
+        `http://localhost:5000/edugo/driver/ride/child/picked`,
+        {
+          method: "PUT",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(body),
+        }
+      );
+      if (response.status === 200) {
+        const data = await response.json();
+        setStatusType1("picked");
+      } else {
+        setStatusType1("pick");
+      }
+    } catch (err) {
+      console.error(err.message);
+    }
+  };
+
+  //dropped button click
+  const handleDroppedClick = async (childId) => {
+    try {
+      const body = {
+        childId: childId,
+      };
+      const response = await fetch(
+        `http://localhost:5000/edugo/driver/ride/child/dropped`,
+        {
+          method: "PUT",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(body),
+        }
+      );
+      if (response.status === 200) {
+        const data = await response.json();
+        setStatusType2("dropped");
+      } else {
+        setStatusType2("drop");
+      }
+    } catch (err) {
+      console.error(err.message);
+    }
+  };
+
+  //End ride button click
+  const handleEndRide = async () => {
+    try {
+      const response = await fetch(
+        `http://localhost:5000/edugo/driver/ride/end/${userId}`,
+        {
+          method: "PUT",
+          headers: { "Content-Type": "application/json" },
+        }
+      );
+      if (response.status === 200) {
+        const data = await response.json();
+        setStatusType1("pick");
+        setStatusType2("drop");
+      } else {
+      }
+    } catch (err) {
+      console.error(err.message);
+    }
+  };
+
   return (
     <div>
       <MainLayout data={sideNavBarLinks}>
@@ -448,31 +522,55 @@ function NextRide() {
                   key={id}
                   className="border border-orange bg-slate-100 rounded-md p-2 mb-3"
                 >
-                  <div className="flex justify-start gap-5">
+                  <div className="flex justify-start gap-3">
                     <img
                       src={child.image}
-                      alt='img'
+                      alt="img"
                       className="w-12 rounded-full"
                     ></img>
                     <h1 className="w-[250px] text-sm text-slate-600 pt-1">
-                      {child.child_name} <br/>
-                      {child.pickup_location} <br/>
-                      {child.school_name} 
+                      {child.child_name} <br />
+                      {child.pickup_location} <br />
+                      {child.school_name}
                     </h1>
-                    <div className="flex justify-center gap-5">
-                      <button className="rounded-lg bg-green-600 w-20 ">
+                    <div className="flex justify-center gap-3">
+                      {/* <button className="rounded-lg bg-green-600 w-20 ">
                         Pick
+                      </button> */}
+                      <button
+                        onClick={() => handlePickedClick(child.child_id)}
+                        className="flex justify-center w-28 h-10 bg-green-600 rounded-md cursor-pointer hover:shadow-lg transform hover:scale-[103%] transition duration-300 ease-out"
+                      >
+                        <div className="flex mt-2 gap-3 font-semibold text-white">
+                          {statusType1}
+                        </div>
                       </button>
-                      <button className="rounded-lg bg-blue-600 w-20 ">
+                      <button
+                        onClick={() => handleDroppedClick(child.child_id)}
+                        className="flex justify-center w-28 h-10 bg-blue-600 rounded-md cursor-pointer hover:shadow-lg transform hover:scale-[103%] transition duration-300 ease-out"
+                      >
+                        <div className="flex mt-2 gap-3 font-semibold text-white">
+                          {statusType2}
+                        </div>
+                      </button>
+                      {/* <button className="rounded-lg bg-blue-600 w-20 ">
                         Drop
-                      </button>
-                      <button className="rounded-lg bg-red-600  w-20 ">
+                      </button> */}
+                      {/* <button className="rounded-lg bg-red-600  w-20 ">
                         Miss
-                      </button>
+                      </button> */}
                     </div>
                   </div>
                 </div>
               ))}
+              <button
+                onClick={() => handleEndRide()}
+                className="flex justify-center w-28 h-10 bg-red-600 rounded-md cursor-pointer hover:shadow-lg transform hover:scale-[103%] transition duration-300 ease-out"
+              >
+                <div className="flex mt-2 gap-3 font-semibold text-white">
+                  End Ride
+                </div>
+              </button>
             </div>
           </div>
         </div>
