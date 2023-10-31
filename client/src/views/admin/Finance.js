@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import MainLayout from "../../components/layout/MainLayout";
 import { AiOutlineSearch } from "react-icons/ai";
 import { BiFilterAlt } from "react-icons/bi";
@@ -26,6 +26,102 @@ const sideNavBarLinks = [
 ];
 
 function Finance() {
+
+    //revenue count
+  const [revenue, setRevcount] = useState([]);
+
+  useEffect(() => {
+    async function totalRev() {
+      try {
+        const response = await fetch(
+          `http://localhost:5000/edugo/admin/finance/revcount`
+        );
+        const data = await response.json();
+        setRevcount(data);
+      } catch (err) {
+        console.error(err.message);
+      }
+    }
+
+    totalRev();
+  });
+
+//total expenses
+const [expense, setExpcount] = useState([]);
+
+  useEffect(() => {
+    async function totalExp() {
+      try {
+        const response = await fetch(
+          `http://localhost:5000/edugo/admin/finance/expcount`
+        );
+        const data = await response.json();
+        setExpcount(data);
+      } catch (err) {
+        console.error(err.message);
+      }
+    }
+
+    totalExp();
+  });
+
+  //total profit
+const [profit, setProfit] = useState([]);
+
+useEffect(() => {
+  async function totalProfit() {
+    try {
+      const response = await fetch(
+        `http://localhost:5000/edugo/admin/finance/profitcount`
+      );
+      const data = await response.json();
+      setProfit(data);
+    } catch (err) {
+      console.error(err.message);
+    }
+  }
+
+  totalProfit();
+});
+
+//income table
+const [income, setIncome] = useState([]);
+
+useEffect(() => {
+  async function revIncomeData() {
+    try {
+      const response = await fetch(
+        `http://localhost:5000/edugo/admin/finance/income`
+      );
+      const data = await response.json();
+      setIncome(data);
+    } catch (err) {
+      console.error(err.message);
+    }
+  }
+
+  revIncomeData();
+});
+
+//income table
+const [expenseAmount, setExpense] = useState([]);
+
+useEffect(() => {
+  async function revExpenseData() {
+    try {
+      const response = await fetch(
+        `http://localhost:5000/edugo/admin/finance/expense`
+      );
+      const data = await response.json();
+      setExpense(data);
+    } catch (err) {
+      console.error(err.message);
+    }
+  }
+
+  revExpenseData();
+});
+
 
   const [toggle, setToggle] = useState(2);
 
@@ -59,9 +155,13 @@ function Finance() {
                 <div className='w-24 ml-4 mt-2 h-16 font-bold'>Net Profit</div>
                 <div className='ml-16 mt-4 w-8 h-8'><BsCoin className='h-6 w-6' /></div>
               </div>
-              <span className='font-bold ml-20 text-2xl'>1.3 M</span>
+              {profit.map((item, index) => (
+              <span className='font-bold ml-20 text-2xl'>{item.totalprofit}</span>
+              ))}
             </div>
           </div>
+
+          
 
           {/* card */}
           <div className='cardHolder h-28 w-60 rounded-md shadow-md ml-28 mt-8 flex cursor-pointer hover:scale-105 transition-transform ease-in-out' style={{ backgroundColor: '#EEEEEE' }}>
@@ -75,7 +175,9 @@ function Finance() {
                 <div className='w-24 ml-4 mt-2 h-16 font-bold'>Total Revenue</div>
                 <div className='ml-16 mt-4 w-8 h-8 '><PiTrendUpBold className='h-6 w-6' /></div>
               </div>
-              <span className='font-bold ml-20 text-2xl'>3.5 M</span>
+              {revenue.map((item, index) => (
+              <span className='font-bold ml-20 text-2xl'>{item.totalrev}</span>
+              ))}
             </div>
           </div>
 
@@ -91,7 +193,9 @@ function Finance() {
                 <div className='w-24 ml-4 mt-2 h-16 font-bold'>Total Expenses</div>
                 <div className='ml-16 mt-4 w-8 h-8'><PiTrendDownBold className='h-6 w-6' /></div>
               </div>
-              <span className='font-bold ml-20 text-2xl'>2.2 M</span>
+              {expense.map((item, index) => (
+              <span className='font-bold ml-20 text-2xl'>{item.totalexp}</span>
+              ))}
             </div>
           </div>
         </div>
@@ -140,46 +244,15 @@ function Finance() {
 
               <tbody className=''>
 
+              {income.map((item) => (
                 <tr onClick={handleClick} className='h-12 bg-[#D9D9D9] bg-opacity-60 hover:cursor-pointer  hover:bg-[#eaeaea] drop-shadow-md' >
                   <td className='text-center  p-3 ' ><BsFillArrowLeftSquareFill className="ml-8" /></td>
-                  <td>007</td>
-                  <td>2023-01-07</td>
-                  <td>08 : 00</td>
-                  <td>5000</td>
+                  <td>{item.cash_pay_id}</td>
+                  <td>{item.date}</td>
+                  <td>{item.time}</td>
+                  <td>{item.amount}</td>
                 </tr>
-
-                <tr className='h-12 bg-[#D9D9D9] bg-opacity-60 hover:cursor-pointer  hover:bg-[#eaeaea] drop-shadow-md'>
-                  <td className='text-center  p-3 ' ><BsFillArrowLeftSquareFill className="ml-8" /></td>
-                  <td>006</td>
-                  <td>2023-01-06</td>
-                  <td>05 : 00</td>
-                  <td>5000</td>
-                </tr>
-
-                <tr className='h-12 bg-[#D9D9D9] bg-opacity-60 hover:cursor-pointer  hover:bg-[#eaeaea] drop-shadow-md'>
-                  <td className='text-center  p-3 ' ><BsFillArrowLeftSquareFill className="ml-8" /></td>
-                  <td>005</td>
-                  <td>2023-01-05</td>
-                  <td>10 : 00</td>
-                  <td>5000</td>
-                </tr>
-
-                <tr className='h-12 bg-[#D9D9D9] bg-opacity-60 hover:cursor-pointer hover:bg-[#eaeaea] drop-shadow-md'>
-                  <td className='text-center  p-3 ' ><BsFillArrowLeftSquareFill className="ml-8" /></td>
-                  <td>004</td>
-                  <td>2023-01-04</td>
-                  <td>20 : 00</td>
-                  <td>5000</td>
-                </tr>
-
-                <tr className='h-12 bg-[#D9D9D9] bg-opacity-60 hover:cursor-pointer  hover:bg-[#eaeaea] drop-shadow-md'>
-                  <td className='text-center  p-3 ' ><BsFillArrowLeftSquareFill className="ml-8" /></td>
-                  <td>003</td>
-                  <td>2023-01-03</td>
-                  <td>16 : 00</td>
-                  <td>10000</td>
-                </tr>
-
+              ))}
               </tbody>
 
             </table>
@@ -195,36 +268,22 @@ function Finance() {
                   <th className='px-3.5 w-24'></th>
                   <th className='px-3.5 w-30'>Payment ID</th>
                   <th className='px-3.5 w-30'>Date</th>
-                  <th className='px-3.5 w-30'>Time</th>
+                  <th className='px-3.5 w-30'>Driver</th>
                   <th className='px-3.5 w-30'>Amount</th>
                 </tr>
               </thead>
 
               <tbody className=''>
 
+              {expenseAmount.map((item) => (
                 <tr className='h-12 bg-[#D9D9D9] bg-opacity-60 hover:cursor-pointer  hover:bg-[#eaeaea] drop-shadow-md' >
                   <td className='text-center  p-3 ' ><BsFillArrowRightSquareFill className="ml-8" /></td>
-                  <td>008</td>
-                  <td>2023-01-08</td>
-                  <td>13 : 00</td>
-                  <td>72000</td>
+                  <td>{item.deposit_id}</td>
+                  <td>{item.date}</td>
+                  <td>{item.driver_id}</td>
+                  <td>{item.amount}</td>
                 </tr>
-
-                <tr className='h-12 bg-[#D9D9D9] bg-opacity-60 hover:cursor-pointer  hover:bg-[#eaeaea] drop-shadow-md'>
-                  <td className='text-center  p-3 ' ><BsFillArrowRightSquareFill className="ml-8" /></td>
-                  <td>002</td>
-                  <td>2023-01-02</td>
-                  <td>15 : 00</td>
-                  <td>72000</td>
-                </tr>
-
-                <tr className='h-12 bg-[#D9D9D9] bg-opacity-60 hover:cursor-pointer  hover:bg-[#eaeaea] drop-shadow-md'>
-                  <td className='text-center  p-3 ' ><BsFillArrowRightSquareFill className="ml-8" /></td>
-                  <td>001</td>
-                  <td>2023-01-01</td>
-                  <td>12 : 00</td>
-                  <td>64000</td>
-                </tr>
+              ))}
 
               </tbody>
 

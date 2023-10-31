@@ -20,7 +20,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       theme: ThemeData(fontFamily: 'Poppins'),
-      initialRoute: '/students',
+      initialRoute: '/',
       routes: {
         '/': (context) => Login(),
         '/change_password': (context) => ChangePassword(),

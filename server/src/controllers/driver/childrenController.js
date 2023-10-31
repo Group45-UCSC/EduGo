@@ -1,11 +1,11 @@
 //db connection
 const pool = require("../../dbConnection");
 
+// Mobile app view children details 
 const getChildrenDetails = async (req, res) => {
     try {
         // console.log(req.params);
         const driverId = req.params.driverId;
-        const shiftType = req.params.shiftType;
 
         const childrenData = await pool.query(
             "SELECT ride_request.child_id, ride_request.school_name, ride_request.pickup_location, ride_request.ride_shift_type, children.child_id, children.child_name FROM ride_request INNER JOIN children ON ride_request.child_id = children.child_id WHERE ride_request.driver_id = '" + driverId + "' "

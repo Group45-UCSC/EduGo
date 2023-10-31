@@ -29,25 +29,9 @@ const express = require("express");
 const router = express.Router();
 
 //import functions
-const {
-  viewChildDashboard,
-  viewChildChildren,
-  ViewVehicle,
-  viewSchool,
-  viewDriverReview,
-  addChildren,
-  GetAllChildrentoMap,
-  addRideRequest,
-} = require("../controllers/parent/childController");
-const {
-  addFeedback,
-  addEdugoFeedback,
-  getDrivers,
-} = require("../controllers/parent/feedbackController");
-const {
-  viewPayment,
-  viewPastPayment,
-} = require("../controllers/parent/paymentController");
+const {  viewChildDashboard, viewChildChildren,ViewVehicle,viewSchool,viewDriverReview,addChildren, GetAllChildrentoMap, addRideRequest} = require("../controllers/parent/childController");
+const { addFeedback , addEdugoFeedback, getDrivers} = require("../controllers/parent/feedbackController");
+const { viewPayment, viewPastPayment, viewRidePayment } = require("../controllers/parent/paymentController");
 
 //create routes
 router.route("/children/addride/:userId").post(addChildren);
@@ -66,5 +50,10 @@ router.route("/children/viewVehicle/rideRequest/:userId").post(addRideRequest);
 router.route("/feedback/driverlist/:userId").get(getDrivers);
 router.route("/payment/viewprice/:userId").get(viewPayment);
 router.route("/payment/pastpayment/:userId").get(viewPastPayment);
+
+
+// MOBILE
+// view payment
+router.route("/ridePayment/:parentId").get(viewRidePayment);
 
 module.exports = router;
