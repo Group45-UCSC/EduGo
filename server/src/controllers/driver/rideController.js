@@ -612,6 +612,39 @@ const rideEndStatus = async (req, res) => {
   }
 };
 
+
+// MOBILE
+// driver rides
+const childrenCountSchool = async (req, res) => {
+  try {
+    const driverId = req.params.driverId;
+    
+    const rideChildren = await pool.query(
+      "SELECT DISTINCT school.school_id, school.school_name, school.location, school.latitude, school.longitude, COUNT(children.child_id) OVER (PARTITION BY reaching_school.school_id) AS children_count FROM school JOIN reaching_school ON reaching_school.school_id = school.school_id JOIN children ON reaching_school.driver_id = reaching_school.driver_id WHERE children.driver_id =  '" + driverId + "' "
+    );
+    // console.log(rideChildren.rows);
+      return res.json(rideChildren.rows);
+    } catch (err) {
+    console.error(err.massage);
+    return res.status(500).send("Server Error");
+  }
+};
+
+// const childrenSchool = async (req, res) => {
+//   try {
+//     const driverId = req.params.driverId;
+    
+//     const childrenName = await pool.query(
+//       "SELECT children.child_name from children WHERE children.driver_id =  '" + driverId + "' "
+//     );
+//     // console.log(rideChildren.rows);
+//       return res.json(childrenName.rows);
+//   } catch (err) {
+//     console.error(err.massage);
+//     return res.status(500).send("Server Error");
+//   }
+// };
+
 module.exports = {
   viewRideDetails,
   viewRideRequests,
@@ -623,4 +656,8 @@ module.exports = {
   changePickedStatus,
   changedroppedStatus,
   rideEndStatus,
+  
+  // MOBILE
+  childrenCountSchool,
+  // childrenSchool
 };
