@@ -514,8 +514,8 @@ const viewRideChildList = async (req, res) => {
 
     const rideId = getRideId.rows[0].ride_id;
     const numChild = getRideId.rows[0].num_of_children;
-    console.log(rideId);
-    console.log(numChild);
+    // console.log(rideId);
+    // console.log(numChild);
 
 
     // const rideId = getRideId.rows[0];
@@ -528,7 +528,7 @@ const viewRideChildList = async (req, res) => {
         "' AND children.request_status = 'accepted' ORDER BY children.child_id ASC "
     );
 
-    console.log(rideChildrenData.rows);
+    // console.log(rideChildrenData.rows);
 
     return res.json({
       childDataList: rideChildrenData.rows,

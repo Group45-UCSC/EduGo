@@ -373,7 +373,7 @@ function NextRide() {
     try {
       console.log("fetch data");
       const res = await fetch(
-        `http://localhost:5000/edugo/parent/children/view`
+        `http://localhost:5000/edugo/parent/children/map/${userId}`
       );
       const data = await res.json();
       console.log("fetch data", data);
