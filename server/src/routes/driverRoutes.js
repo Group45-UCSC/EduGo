@@ -43,6 +43,10 @@ const {
   checkReachingSchool,
   acceptRideRequest,
   setChildRideTime,
+
+  // MOBILE
+  childrenCountSchool,
+  // childrenSchool,
 } = require("../controllers/driver/rideController");
 const {
   viewSchoolDetails,
@@ -113,5 +117,10 @@ router.route("/childrenDetails/:driverId").get(getChildrenDetails);
 // ride cash payment
 router.route("/ridePayment/:driverId").get(viewRidePayment);
 
+// children count school
+router.route("/schoolChildren/:driverId").get(childrenCountSchool);
+
+// children name in school
+// router.route("/childrenSchool/:driverId").get(childrenSchool);
 
 module.exports = router;
