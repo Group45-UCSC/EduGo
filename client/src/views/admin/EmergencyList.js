@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import MainLayout from "../../components/layout/MainLayout";
 import { AiOutlineSearch } from "react-icons/ai";
 import { BiFilterAlt } from "react-icons/bi";
@@ -22,51 +22,41 @@ const sideNavBarLinks = [
 
 function AdminEmergencyList() {
 
-  const current = [
-    {
+  const [current, setCurrent] = useState([]);
 
-      id: "001",
-      v_no: "QX-1111",
-      contact: "0772326552",
-      type: "breakdown"
+  useEffect(() => {
+    async function curEmergencyList() {
+      try {
+        const response = await fetch(
+          `http://localhost:5000/edugo/admin/emergencylist/current`
+        );
+        const data = await response.json();
+        setCurrent(data);
+      } catch (err) {
+        console.error(err.message);
+      }
+    }
 
-    },
-    {
-      id: "002",
-      v_no: "QX-2222",
-      contact: "0717843131",
-      type: "breakdown"
-    },
-  ];
+    curEmergencyList();
+  });
 
-  const all = [
-    {
+  const [all, setAll] = useState([]);
 
-      id: "001",
-      v_no: "QX-1111",
-      contact: "0772326552",
-      type: "breakdown"
+  useEffect(() => {
+    async function allEmergencyList() {
+      try {
+        const response = await fetch(
+          `http://localhost:5000/edugo/admin/emergencylist/completed`
+        );
+        const data = await response.json();
+        setAll(data);
+      } catch (err) {
+        console.error(err.message);
+      }
+    }
 
-    },
-    {
-      id: "002",
-      v_no: "QX-2222",
-      contact: "0717843131",
-      type: "breakdown"
-    },
-    {
-      id: "003",
-      v_no: "QX-3333",
-      contact: "0713264141",
-      type: "breakdown"
-    },
-    {
-      id: "004",
-      v_no: "QX-4444",
-      contact: "0767276535",
-      type: "breakdown"
-    },
-  ];
+    allEmergencyList();
+  });
 
   const [toggle, setToggle] = useState(1);
 
@@ -120,11 +110,11 @@ function AdminEmergencyList() {
             onClick={() => updateToggle(2)}
             className={
               toggle === 2
-                ? "ml-1 h-11 w-44 shadow-lg bg-amber-600 scale-[102%] font-semibold text-lg pt-2 cursor-pointer"
-                : "h-11 w-44 ml-1 shadow-lg bg-orange font-semibold text-lg pt-2 cursor-pointer hover:scale-[102%] hover:bg-amber-600 transition-transform ease-in-out"
+                ? "ml-1 h-11 w-60 shadow-lg bg-amber-600 scale-[102%] font-semibold text-lg pt-2 cursor-pointer"
+                : "h-11 w-60 ml-1 shadow-lg bg-orange font-semibold text-lg pt-2 cursor-pointer hover:scale-[102%] hover:bg-amber-600 transition-transform ease-in-out"
             }
           >
-            All Emergencies
+            Completed Emergencies
           </div>
         </div>
 
@@ -145,10 +135,10 @@ function AdminEmergencyList() {
               <tbody className=''>
                 {current.map((item) => (
                   <tr onClick={handleClick} className=' bg-[#D9D9D9] bg-opacity-60 hover:cursor-pointer hover:bg-[#eaeaea] drop-shadow-md'>
-                    <td className='text-center  p-3'>{item.id}</td>
-                    <td>{item.v_no}</td>
-                    <td>{item.contact}</td>
-                    <td>{item.type}</td>
+                    <td className='text-center  p-3'>{item.emergency_id}</td>
+                    <td>{item.vehicle_no}</td>
+                    <td>{item.contact_number}</td>
+                    <td>{item.situation}</td>
                   </tr>
                 ))}
               </tbody>
@@ -172,10 +162,10 @@ function AdminEmergencyList() {
               <tbody className=''>
                 {all.map((item) => (
                   <tr onClick={handleClick} className=' bg-[#D9D9D9] bg-opacity-60 hover:cursor-pointer  hover:bg-[#eaeaea] drop-shadow-md'>
-                    <td className='text-center  p-3'>{item.id}</td>
-                    <td>{item.v_no}</td>
-                    <td>{item.contact}</td>
-                    <td>{item.type}</td>
+                    <td className='text-center  p-3'>{item.emergency_id}</td>
+                    <td>{item.vehicle_no}</td>
+                    <td>{item.contact_number}</td>
+                    <td>{item.situation}</td>
                   </tr>
                 ))}
               </tbody>
