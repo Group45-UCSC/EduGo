@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import MainLayout from "../../components/layout/MainLayout";
 import { AiOutlineSearch } from "react-icons/ai";
 import { BiFilterAlt } from "react-icons/bi";
+import { NavLink } from "react-router-dom";
 
 
 import { AiFillDashboard } from "react-icons/ai";
@@ -64,10 +65,6 @@ function AdminEmergencyList() {
     setToggle(id);
   }
 
-  const handleClick = () => {
-    window.location.href = `/admin/emergency`;
-  };
-
 
 
   return (
@@ -129,16 +126,27 @@ function AdminEmergencyList() {
                   <th className='px-3.5 w-30'>License plate</th>
                   <th className='px-3.5 w-30'>Contact</th>
                   <th className='px-3.5 w-30'>Type</th>
+                  <th className='px-3.5 w-30'> </th>
                 </tr>
               </thead>
 
               <tbody className=''>
                 {current.map((item) => (
-                  <tr onClick={handleClick} className=' bg-[#D9D9D9] bg-opacity-60 hover:cursor-pointer hover:bg-[#eaeaea] drop-shadow-md'>
+                  <tr className=' bg-[#D9D9D9] bg-opacity-60 hover:cursor-pointer hover:bg-[#eaeaea] drop-shadow-md'>
                     <td className='text-center  p-3'>{item.emergency_id}</td>
                     <td>{item.vehicle_no}</td>
                     <td>{item.contact_number}</td>
                     <td>{item.situation}</td>
+
+                    <NavLink
+                  to={`/admin/emergency/${
+                    item.emergency_id
+                  }?data=${encodeURIComponent(
+                    JSON.stringify(item)
+                  )}`}
+                >
+                  <td><button className="bg-amber-600 h-8 w-16 rounded-md hover:bg-amber-400">View</button></td>
+                  </NavLink>
                   </tr>
                 ))}
               </tbody>
@@ -156,16 +164,27 @@ function AdminEmergencyList() {
                   <th className='px-3.5 w-30'>License plate</th>
                   <th className='px-3.5 w-30'>Contact</th>
                   <th className='px-3.5 w-30'>Type</th>
+                  <th className='px-3.5 w-30'> </th>
                 </tr>
               </thead>
 
               <tbody className=''>
                 {all.map((item) => (
-                  <tr onClick={handleClick} className=' bg-[#D9D9D9] bg-opacity-60 hover:cursor-pointer  hover:bg-[#eaeaea] drop-shadow-md'>
+                  <tr className=' bg-[#D9D9D9] bg-opacity-60 hover:cursor-pointer  hover:bg-[#eaeaea] drop-shadow-md'>
                     <td className='text-center  p-3'>{item.emergency_id}</td>
                     <td>{item.vehicle_no}</td>
                     <td>{item.contact_number}</td>
                     <td>{item.situation}</td>
+
+                    <NavLink
+                  to={`/admin/emergency/${
+                    item.emergency_id
+                  }?data=${encodeURIComponent(
+                    JSON.stringify(item)
+                  )}`}
+                >
+                  <td><button className="bg-amber-600 h-8 w-16 rounded-md hover:bg-amber-400">View</button></td>
+                  </NavLink>
                   </tr>
                 ))}
               </tbody>
