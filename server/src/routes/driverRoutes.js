@@ -43,10 +43,15 @@ const {
   checkReachingSchool,
   acceptRideRequest,
   setChildRideTime,
-
+  viewRideChildList,
+  changePickedStatus,
+  changedroppedStatus,
+  rideEndStatus,
+  
   // MOBILE
   childrenCountSchool,
   // childrenSchool,
+
 } = require("../controllers/driver/rideController");
 const {
   viewSchoolDetails,
@@ -54,6 +59,7 @@ const {
   checkRideBeforeRemove,
   removeSchoolFromRide,
 } = require("../controllers/driver/schoolController");
+
 
 // MOBILE
 // Children view
@@ -73,6 +79,13 @@ router.route("/vehicle/add/:userId").post(addVehicle);
 router.post("/vehicle/upload/", upload.single("vehicleRegDoc"), uploadVehicle);
 
 router.route("/vehicle/viewImg/:userId").get(viewVehicleImg);
+
+//next ride page
+router.route("/ride/children/view/:userId").get(viewRideChildList);
+router.route("/ride/child/picked").put(changePickedStatus);
+router.route("/ride/child/dropped").put(changedroppedStatus);
+router.route("/ride/end/:userId").put(rideEndStatus);
+
 
 //ride page
 router.route("/ride/view/details/:userId").get(viewRideDetails);

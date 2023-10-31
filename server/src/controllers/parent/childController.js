@@ -25,10 +25,20 @@ const viewChildDashboard = async (req, res) => {
 
 //next ride page, get children location details to the map
 const GetAllChildrentoMap = async (req, res) => {
+  const userId = req.params.userId;
+
+  //   const getRideId = await pool.query(
+  //   "SELECT ride_id, num_of_children FROM school_ride WHERE driver_id  =   '" +
+  //     userId +
+  //     "' "
+  // );
   //?
   // console.log("GET request  received");
+  // console.log(userId);
   const selectQuery =
-    "SELECT pickup_location, ST_Y(location::geometry) AS latitude, ST_X(location::geometry) AS longitude FROM children";
+    "SELECT pickup_location, ST_Y(location::geometry) AS latitude, ST_X(location::geometry) AS longitude FROM children where driver_id = '" +
+    userId +
+    "' ";
   addRideRequest;
   pool.query(selectQuery, (err, result) => {
     if (err) {
@@ -407,7 +417,7 @@ const viewDriverReview = async (req, res) => {
 //   try {
 //     const userId = req.params.userId;
 //     const { ride_id, driver_id, child_location, school, child_id, selectedShift } = req.body;
-    
+
 //     //genarate request id
 //     const lastRequestData = await pool.query(
 //       "SELECT * FROM ride_request ORDER BY request_id DESC LIMIT 1"
@@ -508,7 +518,7 @@ const viewDriverReview = async (req, res) => {
 //         longitude: lng,
 //       },
 //     });
-    
+
 //   } catch (err) {
 //     console.error(err.massage);
 //     res.status(500).send("Server Error");
@@ -518,8 +528,15 @@ const viewDriverReview = async (req, res) => {
 const addRideRequest = async (req, res) => {
   try {
     const userId = req.params.userId;
-    const { ride_id, driver_id, child_location, school, child_id, selectedShift } = req.body;
-    
+    const {
+      ride_id,
+      driver_id,
+      child_location,
+      school,
+      child_id,
+      selectedShift,
+    } = req.body;
+
     //genarate request id
     const lastRequestData = await pool.query(
       "SELECT * FROM ride_request ORDER BY request_id DESC LIMIT 1"
@@ -552,7 +569,8 @@ const addRideRequest = async (req, res) => {
     // Extract latitude, longitude, and formatted address from the first result
     const firstResult = geocodeResponse.results[0];
     const { lat, lng } = firstResult.locations[0].latLng;
-    const formattedaddress = firstResult.locations[0].street || firstResult.locations[0].adminArea5;
+    const formattedaddress =
+      firstResult.locations[0].street || firstResult.locations[0].adminArea5;
     console.log(lat);
     console.log(lng);
     console.log(formattedaddress);
@@ -584,11 +602,13 @@ const addRideRequest = async (req, res) => {
 
     const numericPartNotify = parseInt(lastNotifiId.replace("NOT", ""), 10); // Extract numeric part and convert to integer
     const newNumericPartNotifi = numericPartNotify + 1;
-    const newNotifiId = `NOT${newNumericPartNotifi.toString().padStart(3, "0")}`; // Generate new Notification ID
+    const newNotifiId = `NOT${newNumericPartNotifi
+      .toString()
+      .padStart(3, "0")}`; // Generate new Notification ID
 
     const newNotification = await pool.query(
       "INSERT INTO notification (notification_id,sender_id, receiver_id, message, type, status ) VALUES ($1,$2,$3,$4,$5,$6) RETURNING * ",
-      [newNotifiId, userId, driver_id, 'ride request', 'parent', 'delivered']
+      [newNotifiId, userId, driver_id, "ride request", "parent", "delivered"]
     );
 
     //Update children table with request_status
@@ -598,7 +618,7 @@ const addRideRequest = async (req, res) => {
         WHERE child_id = $2
       `;
 
-    await pool.query(updateChildrenQuery, [selectedShift,child_id]);
+    await pool.query(updateChildrenQuery, [selectedShift, child_id]);
 
     //Prepare the response object including both newRideRequest and newNotification
     const response = {
@@ -620,11 +640,10 @@ const addRideRequest = async (req, res) => {
         longitude: lng,
       },
     });
-    
   } catch (err) {
     console.error(err.massage);
     res.status(500).send("Server Error");
-  }
+  }
 };
 
 // // add ride request in view vehicle page

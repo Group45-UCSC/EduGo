@@ -290,10 +290,6 @@
 
 // export default NextRide;
 
-
-
-
-
 /* global google */
 import React, { useState, useEffect } from "react";
 import MainLayout from "../../components/layout/MainLayout";
@@ -319,11 +315,14 @@ const sideNavBarLinks = [
   },
 ];
 
-const GOOGLE_MAPS_API_KEY = "AIzaSyAeTBd0rn-R-OfRQO5pjSR54cRxcuOAD6s";                     //?
+const GOOGLE_MAPS_API_KEY = "AIzaSyAeTBd0rn-R-OfRQO5pjSR54cRxcuOAD6s"; //?
 
 function NextRide() {
+  //userID
+  const userId = localStorage.getItem("userId");
+
   // Define state to store child data
-  const [childData, setChildData] = useState([]);                                          //?
+  const [childData, setChildData] = useState([]); //?
   // Fetch child data from the database using useEffect
   // useEffect(() => {
   //   // Use fetch or any other method to fetch child data from the database
@@ -338,11 +337,27 @@ function NextRide() {
   //       console.error("Error fetching child data:", error);
   //     });
   // }, []); // The empty array [] ensures that this effect runs only once on component mount
-
-  useEffect(() => {                                                                                       //?
-    // Load the Google Maps script when the component mounts
+  useEffect(() => {
+    async function getChildDetails() {
+      try {
+        const response = await fetch(
+          `http://localhost:5000/edugo/driver/ride/children/view/${userId}`
+        );
+        const data = await response.json();
+        setChildData(data.childDataList);
+      } catch (err) {
+        console.error(err.message);
+      }
+    }
+    getChildDetails();
     loadGoogleMapsScript();
-  }, []);
+  }, [userId]);
+
+  // useEffect(() => {
+  //   //?
+  //   // Load the Google Maps script when the component mounts
+  //   loadGoogleMapsScript();
+  // }, []);
 
   function initMap() {
     const map = new window.google.maps.Map(document.getElementById("map"), {
@@ -358,7 +373,7 @@ function NextRide() {
     try {
       console.log("fetch data");
       const res = await fetch(
-        `http://localhost:5000/edugo/parent/children/view`
+        `http://localhost:5000/edugo/parent/children/map/${userId}`
       );
       const data = await res.json();
       console.log("fetch data", data);
@@ -408,6 +423,79 @@ function NextRide() {
     }
   };
 
+  const [statusType1, setStatusType1] = useState("pick");
+  const [statusType2, setStatusType2] = useState("drop");
+
+  //pickup button click
+  const handlePickedClick = async (childId) => {
+    try {
+      const body = {
+        childId: childId,
+      };
+      const response = await fetch(
+        `http://localhost:5000/edugo/driver/ride/child/picked`,
+        {
+          method: "PUT",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(body),
+        }
+      );
+      if (response.status === 200) {
+        const data = await response.json();
+        setStatusType1("picked");
+      } else {
+        setStatusType1("pick");
+      }
+    } catch (err) {
+      console.error(err.message);
+    }
+  };
+
+  //dropped button click
+  const handleDroppedClick = async (childId) => {
+    try {
+      const body = {
+        childId: childId,
+      };
+      const response = await fetch(
+        `http://localhost:5000/edugo/driver/ride/child/dropped`,
+        {
+          method: "PUT",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(body),
+        }
+      );
+      if (response.status === 200) {
+        const data = await response.json();
+        setStatusType2("dropped");
+      } else {
+        setStatusType2("drop");
+      }
+    } catch (err) {
+      console.error(err.message);
+    }
+  };
+
+  //End ride button click
+  const handleEndRide = async () => {
+    try {
+      const response = await fetch(
+        `http://localhost:5000/edugo/driver/ride/end/${userId}`,
+        {
+          method: "PUT",
+          headers: { "Content-Type": "application/json" },
+        }
+      );
+      if (response.status === 200) {
+        const data = await response.json();
+        setStatusType1("pick");
+        setStatusType2("drop");
+      } else {
+      }
+    } catch (err) {
+      console.error(err.message);
+    }
+  };
 
   return (
     <div>
@@ -434,29 +522,55 @@ function NextRide() {
                   key={id}
                   className="border border-orange bg-slate-100 rounded-md p-2 mb-3"
                 >
-                  <div className="flex justify-start gap-5">
+                  <div className="flex justify-start gap-3">
                     <img
                       src={child.image}
-                      alt={child.name}
+                      alt="img"
                       className="w-12 rounded-full"
                     ></img>
-                    <h1 className="w-[250px] text-lg text-slate-600 pt-1">
-                      {child.name}
+                    <h1 className="w-[250px] text-sm text-slate-600 pt-1">
+                      {child.child_name} <br />
+                      {child.pickup_location} <br />
+                      {child.school_name}
                     </h1>
-                    <div className="flex justify-center gap-5">
-                      <button className="rounded-lg bg-green-600 w-20 ">
+                    <div className="flex justify-center gap-3">
+                      {/* <button className="rounded-lg bg-green-600 w-20 ">
                         Pick
+                      </button> */}
+                      <button
+                        onClick={() => handlePickedClick(child.child_id)}
+                        className="flex justify-center w-28 h-10 bg-green-600 rounded-md cursor-pointer hover:shadow-lg transform hover:scale-[103%] transition duration-300 ease-out"
+                      >
+                        <div className="flex mt-2 gap-3 font-semibold text-white">
+                          {statusType1}
+                        </div>
                       </button>
-                      <button className="rounded-lg bg-blue-600 w-20 ">
+                      <button
+                        onClick={() => handleDroppedClick(child.child_id)}
+                        className="flex justify-center w-28 h-10 bg-blue-600 rounded-md cursor-pointer hover:shadow-lg transform hover:scale-[103%] transition duration-300 ease-out"
+                      >
+                        <div className="flex mt-2 gap-3 font-semibold text-white">
+                          {statusType2}
+                        </div>
+                      </button>
+                      {/* <button className="rounded-lg bg-blue-600 w-20 ">
                         Drop
-                      </button>
-                      <button className="rounded-lg bg-red-600  w-20 ">
+                      </button> */}
+                      {/* <button className="rounded-lg bg-red-600  w-20 ">
                         Miss
-                      </button>
+                      </button> */}
                     </div>
                   </div>
                 </div>
               ))}
+              <button
+                onClick={() => handleEndRide()}
+                className="flex justify-center w-28 h-10 bg-red-600 rounded-md cursor-pointer hover:shadow-lg transform hover:scale-[103%] transition duration-300 ease-out"
+              >
+                <div className="flex mt-2 gap-3 font-semibold text-white">
+                  End Ride
+                </div>
+              </button>
             </div>
           </div>
         </div>
