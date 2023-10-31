@@ -247,7 +247,7 @@ useEffect(() => {
               {income.map((item) => (
                 <tr onClick={handleClick} className='h-12 bg-[#D9D9D9] bg-opacity-60 hover:cursor-pointer  hover:bg-[#eaeaea] drop-shadow-md' >
                   <td className='text-center  p-3 ' ><BsFillArrowLeftSquareFill className="ml-8" /></td>
-                  <td>{item.cash_pay_id}</td>
+                  <td>{item.income_id}</td>
                   <td>{item.date}</td>
                   <td>{item.time}</td>
                   <td>{item.amount}</td>
@@ -278,9 +278,9 @@ useEffect(() => {
               {expenseAmount.map((item) => (
                 <tr className='h-12 bg-[#D9D9D9] bg-opacity-60 hover:cursor-pointer  hover:bg-[#eaeaea] drop-shadow-md' >
                   <td className='text-center  p-3 ' ><BsFillArrowRightSquareFill className="ml-8" /></td>
-                  <td>{item.deposit_id}</td>
+                  <td>{item.expense_id}</td>
                   <td>{item.date}</td>
-                  <td>{item.driver_id}</td>
+                  <td>{item.user_id}</td>
                   <td>{item.amount}</td>
                 </tr>
               ))}
