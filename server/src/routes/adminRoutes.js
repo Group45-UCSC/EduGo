@@ -11,7 +11,7 @@ const { parentList } = require("../controllers/admin/parentController");
 const { rideCount, allrideList, ongoingList } = require("../controllers/admin/rideController");
 const { reviewList } = require("../controllers/admin/reviewController");
 const { curEmergencyList, doneEmergencyList } = require("../controllers/admin/emergencyController");
-const { totalRev, totalExp, totalProfit, revIncomeData, revExpenseData } = require("../controllers/admin/financeController");
+const { totalRev, totalExp, totalProfit, revIncomeData, revExpenseData, incomeExpense } = require("../controllers/admin/financeController");
 
 //create routes
 router.route("/addEmployee").post(addEmployee);
@@ -36,5 +36,6 @@ router.route("/finance/expcount").get(totalExp);
 router.route("/finance/profitcount").get(totalProfit);
 router.route("/finance/income").get(revIncomeData);
 router.route("/finance/expense").get(revExpenseData);
+router.route("/analysis/first").get(incomeExpense);
 
 module.exports = router;
