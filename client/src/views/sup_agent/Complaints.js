@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import ReactSwitch from "react-switch";
 import MainLayout from "../../components/layout/MainLayout";
 import { FaHome, FaBus, FaUsers, FaTimes } from "react-icons/fa";
 import { BsFillChatDotsFill } from "react-icons/bs";
@@ -40,73 +39,65 @@ function Complaints() {
           throw new Error("Network response was not ok");
         }
         const data = await response.json();
-        setComplaintData(data);
+        const updatedData = data.map((complaint) => {
+          const existingComplaint = complaintData.find((c) => c.complaint_id === complaint.complaint_id);
+          if (existingComplaint) {
+            return { ...complaint, status: existingComplaint.status };
+          }
+          return complaint;
+        });
+        setComplaintData(updatedData);
       } catch (error) {
         console.error(" Error fetching driver details", error);
       }
     }
     viewComplaints();
-  }, []);
-  // Initialize an object where the keys are complaint IDs and the values are the corresponding states.
-  const initialComplaints = complaintData.reduce((acc, complaint) => {
-    acc[complaint.complaint_id] = {
-      pending: false,
-      done: false,
-    };
-    return acc;
-  }, {});
-  
+  }, [complaintData]);
 
-  // const [complaintStates, setComplaintStates] = useState(initialComplaints);
 
   const [showPopups, setShowPopups] = useState({})
+  const [complaintStates, setComplaintStates] = useState({});
 
   const handleStatusChange = (complaintId, status) => {
-    fetch(`http://localhost:5000/edugo/supAgent/complaints/complaintStatus/${complaintId}`,{
+    // Update the local state
+    const newStatus = !complaintStates[complaintId];
+    setComplaintStates({
+      ...complaintStates,
+      [complaintId]: newStatus,
+    });
+  
+    // Save the updated state to localStorage
+    localStorage.setItem("complaintStates", JSON.stringify({
+      ...complaintStates,
+      [complaintId]: newStatus,
+    }));
+  
+    // Your fetch code here...
+    fetch(`http://localhost:5000/edugo/supAgent/complaints/complaintStatus/${complaintId}`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({status}),
+      body: JSON.stringify({ status: newStatus ? "pending" : "done" }), // Use the new status value
     })
-
       .then((response) => {
         if (response.ok) {
           setComplaintData((prevData) =>
             prevData.map((complaint) =>
               complaint.complaint_id === complaintId
-              ? {...complaint,status}
-              :complaint
-              )
-              );
+                ? { ...complaint, status: newStatus ? "pending" : "done" }
+                : complaint
+            )
+          );
         } else {
-          console.error(" Error updating status");
+          console.error("Error updating status");
         }
       })
       .catch((error) => {
         console.error("Error updating status:", error);
       });
   };
-
-//   const handlePendingChange = (complaintId, val) => {
-//   setComplaintStates((prevState) => ({
-//     ...prevState,
-//     [complaintId]: {
-//       ...prevState[complaintId],
-//       pending: val,
-//     },
-//   }));
-// };
   
-//   const handleDoneChange = (complaintId, val) => {
-//     setComplaintStates((prevState) => ({
-//       ...prevState,
-//       [complaintId]: {
-//         ...prevState[complaintId],
-//         done: val,
-//       },
-//     }));
-//   };
 
   const togglePopup = (complaintId) => {
     setShowPopups((prevPopups) => ({
