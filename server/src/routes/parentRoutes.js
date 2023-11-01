@@ -34,7 +34,10 @@ const { addFeedback , addEdugoFeedback, getDrivers} = require("../controllers/pa
 const {addComplaint, viewUserComplaints} = require("../controllers/parent/complaintController");
 const upload = require("../utils/multer");
 const { viewPayment, viewPastPayment, viewRidePayment } = require("../controllers/parent/paymentController");
-
+const {
+  sendMessage,
+  receiveMessage,
+} = require("../controllers/parent/supChatController");
 //create routes
 router.route("/children/addchild/:userId").post(addChildren);
 router.route("/feedback/add/:userId").post(addFeedback);
@@ -56,7 +59,8 @@ router.route("/complaint/add/:userId").post(upload.array("attachments"),addCompl
 router.route("/payment/pastpayment/:userId").get(viewPastPayment);
 router.route("/support/viewComplaint/:userId").get(viewUserComplaints);
 
-
+router.route("/minimizablechat/sendMessage/:userId").post(sendMessage);
+router.route("/minimizablechat/receiveMessage/:userId").get(receiveMessage);
 // MOBILE
 // view payment
 router.route("/ridePayment/:parentId").get(viewRidePayment);
