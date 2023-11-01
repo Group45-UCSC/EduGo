@@ -603,7 +603,7 @@ function ViewVehicle() {
                 </label>
               </div>
               <div className="flex justify-center items-center mt-5">
-                <NavLink
+                {/* <NavLink
                 to={`/parent/children/`}
                 >
                 <button
@@ -615,7 +615,18 @@ function ViewVehicle() {
                 >
                   Submit
                 </button>
-                </NavLink>
+                </NavLink> */}
+
+                <button
+                  className="w-36 h-12 mr-5 bg-orange rounded-lg text-xl cursor-pointer"
+                  onClick={() => {
+                    handleSelectRideClick();
+                    setOpenModal(false);
+                  }}
+                >
+                  Submit
+                </button>
+                {/* ------------------------------- */}
                 <button
                   className="w-36 h-12  bg-orange rounded-lg text-xl cursor-pointer"
                   onClick={() => {
@@ -658,6 +669,7 @@ function ViewVehicle() {
     const child_id = child.child_id;
 
     console.log('Selected Shift:', selectedShift);
+    console.log(driver_id);
 
     // Call the function when the button is clicked
     handleSelectRide(ride_id, driver_id, child_location, school, child_id);
@@ -675,7 +687,6 @@ function ViewVehicle() {
     try {
       const body = { ride_id, driver_id, child_location, school, child_id, selectedShift };
 
-      console.log(body)
 
       const response = await fetch(
         `http://localhost:5000/edugo/parent/children/viewVehicle/rideRequest/${userId}`,
@@ -803,6 +814,7 @@ function ViewVehicle() {
                 <div className="flex justify-center mt-2">
                   <h1 className="">
                     Condition : {vehicleData.condition_status}
+                    Driver Id : {vehicleData.driver_id}
                   </h1>
                 </div>
               </div>
