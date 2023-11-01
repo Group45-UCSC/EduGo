@@ -113,7 +113,7 @@ function Emergency() {
                         JSON.stringify(item)
                       )}`}
                     >
-                    <td className='text-center'> <button  className="bg-gradient-to-b from-amber-500 to-amber-300  w-40 h-9 ml-4 mt-1 mb-1 rounded-lg shadow-md hover:shadow-lg transform hover:scale-[103%] trasition duration-300 ease-out  hover:cursor-pointer"> View more..</button></td>
+                    <td className='text-center'> <button className="bg-gradient-to-b from-amber-500 to-amber-300  w-40 h-9 ml-4 mt-1 mb-1 rounded-lg shadow-md hover:shadow-lg transform hover:scale-[103%] trasition duration-300 ease-out  hover:cursor-pointer"> View more..</button></td>
                     </NavLink>
 
               </tr>

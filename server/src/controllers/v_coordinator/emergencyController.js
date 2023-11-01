@@ -50,6 +50,25 @@ const emergencyls = async (req, res) => {
       return res.status(500).send("Server Error");
     }
     };
+
+        // dashboard nowemergencytble
+        const emergencynow = async (req, res) => {
+
+          try{
+          //db query
+          const emergencyData = await pool.query(
+            "SELECT * FROM emergency  e INNER JOIN registered_users u ON u.user_id = e.user_id INNER JOIN vehicle v on v.vehicle_id = e.vehicle_id WHERE status = 'not-complete';",
+          );
+        
+          return res.json(emergencyData.rows);
+          } catch (err) {
+          console.error(err.message);
+          return res.status(500).send("Server Error");
+        }
+        };
+
+
+        
   
-  module.exports = { emergencyls, emchildren, emergencyCount };
+  module.exports = { emergencyls, emchildren, emergencyCount, emergencynow };
   
