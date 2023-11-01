@@ -17,6 +17,7 @@ const {
   receiveMessage,
 } = require("../controllers/sup_agent/chatController");
 const {viewProfileDetails} = require("../controllers/sup_agent/profileController")
+const {viewComplaints} = require("../controllers/sup_agent/complaintController");
 //create routes
 // router.route("/complaints/all").get(viewAllComplaints);
 router.route("/parents/viewParent").get(viewParentDetails);
@@ -27,5 +28,6 @@ router.route("/chat/viewChat").get(viewChatItems);
 router.route("/chat/sendMessage/:userId").post(sendMessage);
 router.route("/chat/receiveMessage/:userId").get(receiveMessage);
 router.route("/supAgentProfile/viewDetails/:userId").get(viewProfileDetails);
+router.route("/complaints/viewComplaints").get(viewComplaints);
 
 module.exports = router;
