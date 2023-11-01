@@ -34,7 +34,7 @@ const { addFeedback , addEdugoFeedback, getDrivers} = require("../controllers/pa
 const { viewPayment, viewPastPayment, viewRidePayment } = require("../controllers/parent/paymentController");
 
 //create routes
-router.route("/children/addride/:userId").post(addChildren);
+router.route("/children/addchild/:userId").post(addChildren);
 router.route("/feedback/add/:userId").post(addFeedback);
 router.route("/edugofeedback/add/:userId").post(addEdugoFeedback);
 router.route("/dashboard/children/:userId").get(viewChildDashboard);

@@ -450,19 +450,19 @@
 
 
 
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { AiFillDashboard } from "react-icons/ai";
+import { BsStar, BsStarFill } from "react-icons/bs";
 import { FaChild } from "react-icons/fa";
 import {
+  MdOutlineRateReview,
   MdPayments,
   MdSupportAgent,
-  MdOutlineRateReview,
 } from "react-icons/md";
-import { BsStar, BsStarFill } from "react-icons/bs";
-import MainLayout from "../../components/layout/MainLayout";
 import { NavLink, useLocation } from "react-router-dom";
-import user from "../../images/user.png";
 import swal from "sweetalert";
+import MainLayout from "../../components/layout/MainLayout";
+import user from "../../images/user.png";
 
 const sideNavBarLinks = [
   {
@@ -674,6 +674,8 @@ function ViewVehicle() {
   ) => {
     try {
       const body = { ride_id, driver_id, child_location, school, child_id, selectedShift };
+
+      console.log(body)
 
       const response = await fetch(
         `http://localhost:5000/edugo/parent/children/viewVehicle/rideRequest/${userId}`,
