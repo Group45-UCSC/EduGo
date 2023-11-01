@@ -184,17 +184,17 @@
 
 
 import React, { useState } from "react";
-import FormInput from "../../components/layout/FormInput";
 import { AiFillDashboard } from "react-icons/ai";
 import { FaChild } from "react-icons/fa";
 import {
+  MdOutlineRateReview,
   MdPayments,
   MdSupportAgent,
-  MdOutlineRateReview,
 } from "react-icons/md";
+import swal from "sweetalert";
+import FormInput from "../../components/layout/FormInput";
 import MainLayout from "../../components/layout/MainLayout";
 import addchild from "../../images/addchild.png";
-import swal from "sweetalert";
 import LocationInput from "./LocationInput";
 
 const sideNavBarLinks = [
@@ -218,6 +218,8 @@ function AddChild() {
     childname: "",
     pickupLocation: "",
     schoolName: "",
+    pickupAddress : "",
+    pickupLatLng : null
     // pickupTime: "",            ?
     // schoolEndTime: "",
   });
@@ -285,14 +287,15 @@ function AddChild() {
     try {
       const body = {
         childname: values.childname,
-        pickupLocation: values.pickupLocation,
+        pickupLocation: values.pickupLatLng,
         schoolName: values.schoolName,
+        pickupAddress: values.pickupAddress
         // pickupTime: values.pickupTime, ?
         // schoolEndTime: values.schoolEndTime,
       };
 
       const response = await fetch(
-        `http://localhost:5000/edugo/parent/children/addride/${userId}`,
+        `http://localhost:5000/edugo/parent/children/addchild/${userId}`,
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -348,8 +351,14 @@ function AddChild() {
                       <LocationInput
                         key={input.id}
                         value={values.pickupLocation}
-                        onChange={(address) =>
-                          setValues({ ...values, pickupLocation: address })
+                        onChange={(add) =>{
+                          console.log("add",add);
+                            setValues({ ...values, pickupLocation: add })
+                            if(typeof add ==='object' && add !==null){
+                              setValues({ ...values, pickupLocation: add.address })
+                              setValues({ ...values, pickupLatLng: add.latLng })
+                            }
+                        }
                         }
                       />
                     ) : (

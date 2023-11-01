@@ -1,8 +1,11 @@
 // ignore_for_file: prefer_const_constructors, use_key_in_widget_constructors, prefer_const_literals_to_create_immutables, non_constant_identifier_names, prefer_const_constructors_in_immutables
 
+import 'dart:async';
 import 'package:flutter/material.dart';
 import './navbar.dart';
-// import 'package:google_maps_flutter/google_maps_flutter.dart'; // Import the Google Maps package
+import 'package:geolocator/geolocator.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart' as google_maps;
+
 
 class LocationPage extends StatelessWidget {
   @override
@@ -24,8 +27,6 @@ class LocationPage extends StatelessWidget {
           Column(
             children: [
               _buildCard(context, 'Child 1'),
-              _buildCard(context, 'Child 2'),
-              _buildCard(context, 'Child 3'),
             ],
           ),
         ],
@@ -93,21 +94,99 @@ class LocationPage extends StatelessWidget {
   }
 }
 
-class MapPage extends StatelessWidget {
+class MapPage extends StatefulWidget {
   final String locationName;
 
   MapPage({required this.locationName});
 
   @override
+  State<MapPage> createState() => _MapPageState();
+}
+
+class _MapPageState extends State<MapPage> {
+
+  final Completer<google_maps.GoogleMapController> _controller = Completer();
+
+  static const google_maps.CameraPosition _initailPosition = google_maps.CameraPosition(
+    target: google_maps.LatLng(6.9022172,79.8612785),
+    zoom: 14,
+  );
+
+  final List<google_maps.Marker> myMarker = [];
+  final List<google_maps.Marker> markerList = const [
+    google_maps.Marker(
+        markerId: google_maps.MarkerId('First'),
+        position: google_maps.LatLng(6.9022172, 79.8612785),
+        infoWindow: google_maps.InfoWindow(
+          title: "UCSC",
+        )),
+  ];
+
+  @override
+  void initState() {
+    super.initState();
+    myMarker.addAll(markerList);
+    packData();
+  }
+
+  Future<Position> getUserLocation() async {
+    await Geolocator.requestPermission()
+        .then((value) {})
+        .onError((error, stackTrace) {
+      print('error$error');
+    });
+
+    return await Geolocator.getCurrentPosition();
+  }
+
+  packData() {
+    getUserLocation().then((value) async {
+      print("My Location");
+      print('${value.latitude} ${value.longitude}');
+
+      myMarker.add(
+        google_maps.Marker(
+          markerId: google_maps.MarkerId('Second'),
+          position: google_maps.LatLng(value.latitude, value.longitude),
+          infoWindow: google_maps.InfoWindow(
+            title: 'My Location',
+          ),
+        ),
+      );
+      google_maps.CameraPosition cameraPosition = google_maps.CameraPosition(
+        target: google_maps.LatLng(value.latitude, value.longitude),
+        zoom: 14,
+      );
+
+      final google_maps.GoogleMapController controller = await _controller.future;
+
+      controller.animateCamera(google_maps.CameraUpdate.newCameraPosition(cameraPosition));
+      setState(() {
+
+      });
+    });
+  }
+
+  Widget buildGoogleMap(BuildContext context) {
+    return Scaffold(
+      body: google_maps.GoogleMap(
+        initialCameraPosition:  _initailPosition,
+        markers: Set<google_maps.Marker>.of(myMarker),
+        onMapCreated: (google_maps.GoogleMapController controller) {
+          _controller.complete(controller);
+        },
+      ),
+      
+    );
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Map: $locationName'), backgroundColor: Color(0xFF999999)),
+      appBar: AppBar(title: Text('Map: ${widget.locationName}'), backgroundColor: Color(0xFF999999)),
       body: Center(
-        child: Image.asset('assets/images/ss3.png'),
+        child: buildGoogleMap(context),
       ),
     );
   }
-}
-
-GoogleMap() {
 }

@@ -232,6 +232,7 @@ function AddSchoolRide() {
                         <p>Model: {vehicleData.vehicle_model}</p>
                         <p>Start: {vehicleData.location_morning_ride}</p>
                         <p>Start: {vehicleData.vehicle_no}</p>
+                        <p>{vehicleData.driver_id}</p>
                       </div>
                       <NavLink
                         to={`/parent/children/addnewride/viewvehicle/${
