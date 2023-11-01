@@ -44,4 +44,22 @@ const newComplaintsCount = async (req, res) => {
     });
   }
 };
-module.exports = {complaintStatus, newComplaintsCount};
+const chatCount = async (req, res) => {
+  try {
+    const query = await pool.query(`
+    SELECT COUNT(*) AS user_count
+FROM registered_users
+WHERE user_role IN ('parent', 'driver')
+    
+    `);
+    const data = query.rows;
+    res.status(200).json(data);
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({
+      status: "error",
+      message: "Internal server error",
+    });
+  }
+}
+module.exports = {complaintStatus, newComplaintsCount, chatCount};

@@ -18,7 +18,7 @@ const {
 } = require("../controllers/sup_agent/chatController");
 const {viewProfileDetails} = require("../controllers/sup_agent/profileController")
 const {viewComplaints, updateStatus} = require("../controllers/sup_agent/complaintController");
-const {complaintStatus, newComplaintsCount} = require("../controllers/sup_agent/dashboardController");
+const {complaintStatus, newComplaintsCount, chatCount} = require("../controllers/sup_agent/dashboardController");
 //create routes
 // router.route("/complaints/all").get(viewAllComplaints);
 router.route("/parents/viewParent").get(viewParentDetails);
@@ -33,5 +33,6 @@ router.route("/complaints/viewComplaints").get(viewComplaints);
 router.route("/complaints/complaintStatus/:complaintId").post(updateStatus);
 router.route("/supagentdashboardpg/complaintStatus").get(complaintStatus);
 router.route("/supagentdashboardpg/newcomplaintStatus").get(newComplaintsCount);
+router.route("/supagentdashboardpg/chatCount").get(chatCount);
 
 module.exports = router;
