@@ -169,7 +169,7 @@ function App() {
           <Route exact path="/vc/vrrequest/" element={<VRRequest />} />
           <Route exact path="/vc/ccrequest" element={<CCRequest />} />
           <Route exact path="/vc/vcmodal/:id" element={<VCmodal/>} />
-          <Route exact path="/vc/vrmodal/:id" element={<VRmodal/>} />
+          <Route exact path="/vc/vrmodal/:vehicle_id" element={<VRmodal/>} />
 
           <Route exact path="/sup_agent/dashboard" element={<SupAgentDashboardPg />} />
           <Route exact path="/sup_agent/parents" element={<SupParents />} />

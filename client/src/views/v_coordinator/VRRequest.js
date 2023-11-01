@@ -62,18 +62,18 @@ function VRRequest() {
 
               <tbody className='shadow-md drop-shadow-md '>
 
-              {vrequest.map((item) => ( 
+              {vrequest.map((vehicle) => ( 
                 <tr className=' bg-[#D9D9D9]  hover:cursor-pointer hover:bg-[#eaeaea] drop-shadow-md '>
-                    <td className='text-center'>{item.vehicle_type}</td>
-                    <td className='text-center pt-2 pb-2 '>{item.user_name}</td>
-                    <td className='text-center'>{item.nic}</td>
-                    <td className='text-center'>{item.contact_number}</td>
+                    <td className='text-center'>{vehicle.vehicle_type}</td>
+                    <td className='text-center pt-2 pb-2 '>{vehicle.user_name}</td>
+                    <td className='text-center'>{vehicle.nic}</td>
+                    <td className='text-center'>{vehicle.contact_number}</td>
 
                     <NavLink
                       to={`/vc/vrmodal/${
-                        item.driver_id
+                        vehicle.vehicle_id
                       }?data=${encodeURIComponent(
-                        JSON.stringify(item)
+                        JSON.stringify(vehicle)
                       )}`} 
                      > 
                     <td className='text-center'>

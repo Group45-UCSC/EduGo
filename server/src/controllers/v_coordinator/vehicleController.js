@@ -128,11 +128,15 @@ const ccrequestList = async (req, res) => {
   
       //update ride request table
       const result1 = await pool.query(
-        "UPDATE vehicle SET verify_status = 'rejected' WHERE vehicle_id = '" + vehicleId + "'",
+        " UPDATE vehicle SET verify_status = 'rejected' WHERE vehicle_id = '" + vehicleId + "' "
       );
-      return res.json({
-        data1: result1.rows,
-      });
+    // Return a success response to the frontend
+    return res.status(200).json({
+      message: "successfull",
+      results: {
+        result1
+      },
+    });
     } catch (err) {
       console.error(err.massage);
       return res.status(500).send("Server Error");

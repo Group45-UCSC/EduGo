@@ -289,10 +289,16 @@ function AddChild() {
         childname: values.childname,
         pickupLocation: values.pickupLatLng,
         schoolName: values.schoolName,
-        pickupAddress: values.pickupAddress
+        pickupAddress: values.pickupLocation
+      
         // pickupTime: values.pickupTime, ?
         // schoolEndTime: values.schoolEndTime,
       };
+     
+      console.log("a" + values.pickupLocation);
+      console.log("b" + values.pickupLocation);
+      console.log("c" + values.childname);
+     
 
       const response = await fetch(
         `http://localhost:5000/edugo/parent/children/addchild/${userId}`,
@@ -355,7 +361,7 @@ function AddChild() {
                           console.log("add",add);
                             setValues({ ...values, pickupLocation: add })
                             if(typeof add ==='object' && add !==null){
-                              setValues({ ...values, pickupLocation: add.address })
+                              setValues({ ...values, pickupAddress: add })
                               setValues({ ...values, pickupLatLng: add.latLng })
                             }
                         }
