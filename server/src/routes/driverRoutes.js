@@ -35,7 +35,7 @@ const {
   // MOBILE
   viewRidePayment,
 } = require("../controllers/driver/financeController");
-const {addComplaint} = require("../controllers/driver/complaintController");
+const {addComplaint,viewUserComplaints } = require("../controllers/driver/complaintController");
 
 const {
   viewRideDetails,
@@ -139,5 +139,7 @@ router.route("/schoolChildren/:driverId").get(childrenCountSchool);
 
 //support page
 router.route("/complaint/add/:userId").post(addComplaint);
+router.route("/support/viewComplaint/:userId").get(viewUserComplaints);
+
 
 module.exports = router;
