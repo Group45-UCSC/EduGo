@@ -64,7 +64,7 @@ function VcRides() {
 
     return (
 
-      <div className="h-screen">
+      <div className="">
         <MainLayout data={sideNavBarLinks}>
   
         {/* topic */}
@@ -138,7 +138,7 @@ function VcRides() {
         <div className={toggle === 2 ? "details" : "details hidden"}>
         <div className='ml-12 mr-12 mt-7 shadow-md overflow-auto '>
 
-          <table className='w-full text-center mb-5 border-separate border-spacing-y-2 border border-slate-50 '>
+          <table className='w-full text-center mb-64 border-separate border-spacing-y-2 border border-slate-50 '>
             <thead className='border-y-4 border-white drop-shadow '>
               <tr className=' bg-[#999999] text-white border-b-2 text-[18px] drop-shadow-md '>
                 <th className='px-3.5 p-1 w-24 '>ID</th>
@@ -155,7 +155,7 @@ function VcRides() {
             {allride.map((item) => ( 
               <tr className=' bg-[#D9D9D9] bg-opacity-60 hover:cursor-pointer hover:bg-[#eaeaea] drop-shadow-md'>
                   <td className='text-center  p-3'>{item.ride_id}</td>
-                  <td>{item.vehicle_number}</td>
+                  <td>{item.vehicle_no}</td>
                   <td>{item.location_morning_ride}</td>
                   <td>{item.location_noon_ride}</td>
                   <td>{item.contact_number}</td>
@@ -183,7 +183,7 @@ function VcRides() {
     
           <div className={toggle === 1 ? "details" : "details hidden"}>
           <div className='ml-12 mr-12 mt-7 shadow-md overflow-auto '>
-            <table className='w-full text-center mb-52 border-separate border-spacing-y-2 border border-slate-50 '>
+            <table className='w-full text-center mb-72 border-separate border-spacing-y-2 border border-slate-50 '>
               <thead className='border-y-4 border-white drop-shadow '>
                 <tr className=' bg-[#999999] text-white border-b-2 text-[18px] drop-shadow-md '>
                   <th className='px-3.5 p-1 w-24 '>ID</th>
@@ -200,7 +200,7 @@ function VcRides() {
                 {ongoing.map((item) => (
                 <tr className=' bg-[#D9D9D9] bg-opacity-60 hover:cursor-pointer  hover:bg-[#eaeaea] drop-shadow-md'>
                     <td className='text-center  p-3'>{item.ride_id}</td>
-                    <td>{item.vehicle_number}</td>
+                    <td>{item.vehicle_no}</td>
                     <td>{item.location_morning_ride}</td>
                     <td>{item.location_noon_ride}</td>
                     <td>{item.contact_number}</td>

@@ -1,4 +1,6 @@
 const pool = require("../../dbConnection");
+const express = require('express');
+const app = express();
 
 //view all vechicle list
 const vehicleList = async (req, res) => {
@@ -6,7 +8,8 @@ const vehicleList = async (req, res) => {
   try {
     //db query
     const vehicleData = await pool.query(
-      "SELECT * FROM vehicle v INNER JOIN registered_users u ON v.driver_id = u.user_id",
+      "SELECT * FROM vehicle v INNER JOIN registered_users u ON v.driver_id = u.user_id WHERE verify_status = 'accepted';"
+
     );
 
   return res.json(vehicleData.rows);
@@ -23,7 +26,7 @@ const vehicledetails = async (req, res) => {
   try {
     //db query
     const vehicleDatas = await pool.query(
-      "SELECT vehicle.vehicle_id , vehicle.vehicle_type, vehicle.vehicle_model, vehicle.vehicle_no, vehicle.make, vehicle.manufacture_year, vehicle.engine_no, vehicle.chassis.no, school_ride.ride_type, school_ride.location_morning_ride, school_ride.location_noon_ride  FROM vehicle INNER JOIN school_ride ON vehicle.vehicle_id = school_ride.vehicle_id",
+      "SELECT * FROM vehicle v INNER JOIN school_ride sr ON v.vehicle_id = sr.vehicle_id",
     );
 
   return res.json(vehicleDatas.rows);
@@ -40,7 +43,7 @@ const vehiclerequest = async (req, res) => {
   try {
     //db query
     const requestDatas = await pool.query(
-      "SELECT * FROM vehicle_verify vv INNER JOIN registered_users u ON u.user_id = vv.driver_id",
+      "SELECT * FROM vehicle v INNER JOIN registered_users u ON v.driver_id = u.user_id WHERE verify_status = 'pending';"
     );
   return res.json(requestDatas.rows);
   } catch (err) {
@@ -72,7 +75,7 @@ const ccrequestList = async (req, res) => {
     try{
     //db query
     const requestData = await pool.query(
-      "SELECT COUNT(*) FROM (SELECT * FROM vehicle_verify) AS vehicle_verify_count",
+      "SELECT COUNT(*) FROM (SELECT * FROM vehicle) AS vehicle_verify_count WHERE verify_status = 'pending'",
     );
   
     return res.json(requestData.rows);
@@ -114,4 +117,27 @@ const ccrequestList = async (req, res) => {
     return res.status(500).send("Server Error");
   }
   };
-module.exports = { vehicleList, vehicledetails, vehiclerequest,ccrequestList,VerifyrequstCount, ccrequestCount, requestform };
+
+
+
+  //reject ride request  -> PUT method
+  const rejectvehiRequest = async (req, res) => {
+    try {
+      // const vehicleId = req.params.vehicleId;
+      const { vehicleId } = req.body;
+  
+      //update ride request table
+      const result1 = await pool.query(
+        "UPDATE vehicle SET verify_status = 'rejected' WHERE vehicle_id = '" + vehicleId + "'",
+      );
+      return res.json({
+        data1: result1.rows,
+      });
+    } catch (err) {
+      console.error(err.massage);
+      return res.status(500).send("Server Error");
+    }
+  };
+
+
+module.exports = { rejectvehiRequest, vehicleList, vehicledetails, vehiclerequest,ccrequestList,VerifyrequstCount, ccrequestCount, requestform,  };
