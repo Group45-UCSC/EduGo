@@ -36,6 +36,6 @@ router.route("/vrrequest/requestdetails").get(vehiclerequest);
 router.route("/dashboard/ccCount").get(ccrequestCount);
 router.route("/ccrequest/ccrequestls").get(ccrequestList);
 router.route("/vrrequest/requestform").get(requestform);
-router.route("/vrmodal/rform/:vehicleId").put(rejectvehiRequest);
+router.route("/vrmodal/rform").put(rejectvehiRequest);
 
 module.exports = router;
