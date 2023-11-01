@@ -246,7 +246,7 @@ function Children() {
                                 <div>{child.ride_id}</div>
                               ) : (
                                 <div>
-                                  {child.request_status === "accept" ? (
+                                  {child.request_status === "accepted" ? (
                                     <div>Accepted</div>
                                   ) : child.request_status === "reject" ? (
                                     <div>Rejected</div>
@@ -328,7 +328,7 @@ function Children() {
                               {/*---------------------Buttons-----------------------------*/}
                               <div className="">
                                 <NavLink
-                                  to={`/parent/Children/addnewride/${
+                                  to={`/parent/children/addnewride/${
                                     child.id
                                   }?data=${encodeURIComponent(
                                     JSON.stringify(child)

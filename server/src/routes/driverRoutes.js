@@ -31,6 +31,9 @@ const {
   viewIncomeChart,
   viewTotalIncome,
   viewChildFees,
+
+  // MOBILE
+  viewRidePayment,
 } = require("../controllers/driver/financeController");
 
 const {
@@ -52,9 +55,15 @@ const {
   removeSchoolFromRide,
 } = require("../controllers/driver/schoolController");
 
-const {
-  getChildrenDetails,
+
+// MOBILE
+// Children view
+const { 
+  getChildrenDetails ,
 } = require("../controllers/driver/childrenController");
+
+
+
 
 //create routes
 router.route("/dashboard/hasride/:userId").get(hasRide);
@@ -109,7 +118,12 @@ router.route("/deposit/cashpayments/view/:userId").get(viewCashPaymentData);
 router.route("/feedback/add/:userId").post(addFeedback);
 router.route("/feedback/view/:userId").get(viewFeedback);
 
-// //get children details for a specific shift type
+// MOBILE
+// Children details page
 router.route("/childrenDetails/:driverId").get(getChildrenDetails);
+
+// ride cash payment
+router.route("/ridePayment/:driverId").get(viewRidePayment);
+
 
 module.exports = router;

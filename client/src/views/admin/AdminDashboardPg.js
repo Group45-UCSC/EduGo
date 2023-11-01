@@ -121,7 +121,10 @@ function AdminDashboardPg() {
 
   const [viewPopup, setViewPopup] = useState(false);
 
-  function showPopup() {
+  const [selectedRow, setSelectedRow] = useState(null);
+
+  const showPopup = (item) => {
+    setSelectedRow(item);
     setViewPopup(true);
   }
 
@@ -346,7 +349,7 @@ function AdminDashboardPg() {
             <tbody className=''>
               {rev.map((item) => (
                 
-                <tr onClick={showPopup} className=' bg-[#D9D9D9] bg-opacity-60 hover:cursor-pointer  hover:bg-[#eaeaea] drop-shadow-md'>
+                <tr onClick={() => showPopup(item)} className=' bg-[#D9D9D9] bg-opacity-60 hover:cursor-pointer  hover:bg-[#eaeaea] drop-shadow-md'>
                   <td className='text-center  p-3 ' >{item.rating_id}</td>
                   <td>{item.vehicle_no}</td>
                   <td>{item.user_id}</td>
@@ -375,17 +378,22 @@ function AdminDashboardPg() {
                 <div className="rounded-[8px] bg-slate-100 mb-3 mt-[15%] w-3/4 ml-80 border-[1px] border-orange  items-center justify-between px-[30px] py-3 cursor-pointer hover:shadow-lg transform hover:scale-[101%] transition duration-300 ease-out">
                   <div className="flex  w-full mb-3">
                     <div className="flex justify-start gap-2 ">
-                      <img src={rev.u_image} alt="user_image" className="bg-slate-300 w-8 cursor-pointer rounded-full p-1"></img>
-                      <h1 className="mt-1">{rev.user_name}</h1>
+                      <img src={selectedRow.user_image} alt="user_image" className="bg-slate-300 w-8 cursor-pointer rounded-full p-1"></img>
+                      <h1 className="mt-1">{selectedRow.user_name}</h1>
 
                     </div>
-                    <div className="flex justify-end mt-2  ml-auto">
-                      <RatingStars rating={rev.rating} />
-                    </div>
+                    <div className="ml-16 text-sm">
+                    <p>Posted on : {selectedRow.date}</p>
+                    <p>Time : {selectedRow.time}</p>
+                    <p>Driver ID : {selectedRow.driver_id}</p>
                   </div>
+                    <div className="flex justify-end mt-2  ml-auto">
+                      <RatingStars rating={selectedRow.rating} />
+                    </div>
+                  </div>   
 
                   <div>
-                    {rev.message}
+                    <p>Review : {selectedRow.message} </p>
                   </div>
 
                 </div>

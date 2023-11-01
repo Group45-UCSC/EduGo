@@ -128,6 +128,7 @@ class _StudentPageState extends State<StudentPage> {
                 ),
               ),
             ),
+            SizedBox(height: 20),
             // Tabs for organizing data
             TabBar(
               isScrollable: true,
@@ -138,7 +139,7 @@ class _StudentPageState extends State<StudentPage> {
               ),
               tabs: tabData.keys.map((tab) => Tab(text: tab)).toList(),
             ),
-
+            SizedBox(height: 10),
             // Search input
             searchData(),
 

@@ -19,88 +19,76 @@ class ParentHomePage extends StatefulWidget {
 class _ParentHomePageState extends State<ParentHomePage> {
   final Completer<google_maps.GoogleMapController> _controller = Completer();
 
-  static const google_maps.CameraPosition _kGooglePlex = google_maps.CameraPosition(
-    target: google_maps.LatLng(7, 80),
-    zoom: 10,
+  static const google_maps.CameraPosition _initailPosition = google_maps.CameraPosition(
+    target: google_maps.LatLng(6.9022172,79.8612785),
+    zoom: 14,
   );
 
-  final List<google_maps.Marker> _markers = <google_maps.Marker>[
+  final List<google_maps.Marker> myMarker = [];
+  final List<google_maps.Marker> markerList = const [
     google_maps.Marker(
-        markerId: google_maps.MarkerId('1'),
-        position: google_maps.LatLng(7, 80),
-        infoWindow: google_maps.InfoWindow(title: 'My Location'))
+        markerId: google_maps.MarkerId('First'),
+        position: google_maps.LatLng(6.9022172, 79.8612785),
+        infoWindow: google_maps.InfoWindow(
+          title: "UCSC",
+        )),
   ];
 
-  Future<void> loadData() async{
-    getUserCurrentLocation().then((value) async {
-      print('My location');
-      print(value.latitude.toString() + " " + value.longitude.toString());
-
-      _markers.add(google_maps.Marker(
-          markerId: google_maps.MarkerId('2'),
-          position: google_maps.LatLng(value.latitude, value.longitude),
-          infoWindow: google_maps.InfoWindow(title: 'My Current')));
-
-      final google_maps.CameraPosition cameraPosition = google_maps.CameraPosition(
-        zoom: 10,
-        target: google_maps.LatLng(value.latitude, value.longitude)
-      );
-
-      final google_maps.GoogleMapController controller = await _controller.future;
-
-      controller.animateCamera(google_maps.CameraUpdate.newCameraPosition(cameraPosition));
-      setState(() {});
-    });
+  @override
+  void initState() {
+    super.initState();
+    myMarker.addAll(markerList);
+    packData();
   }
 
-  Future<Position> getUserCurrentLocation() async {
+  Future<Position> getUserLocation() async {
     await Geolocator.requestPermission()
         .then((value) {})
         .onError((error, stackTrace) {
-      print("error" + error.toString());
+      print('error$error');
     });
 
     return await Geolocator.getCurrentPosition();
   }
 
-  @override
-  void initState() {
-    super.initState();
-    loadData();
+  packData() {
+    getUserLocation().then((value) async {
+      print("My Location");
+      print('${value.latitude} ${value.longitude}');
+
+      myMarker.add(
+        google_maps.Marker(
+          markerId: google_maps.MarkerId('Second'),
+          position: google_maps.LatLng(value.latitude, value.longitude),
+          infoWindow: google_maps.InfoWindow(
+            title: 'My Location',
+          ),
+        ),
+      );
+      google_maps.CameraPosition cameraPosition = google_maps.CameraPosition(
+        target: google_maps.LatLng(value.latitude, value.longitude),
+        zoom: 14,
+      );
+
+      final google_maps.GoogleMapController controller = await _controller.future;
+
+      controller.animateCamera(google_maps.CameraUpdate.newCameraPosition(cameraPosition));
+      setState(() {
+
+      });
+    });
   }
 
   Widget buildGoogleMap(BuildContext context) {
     return Scaffold(
       body: google_maps.GoogleMap(
-        initialCameraPosition: _kGooglePlex,
-        markers: Set<google_maps.Marker>.of(_markers),
+        initialCameraPosition:  _initailPosition,
+        markers: Set<google_maps.Marker>.of(myMarker),
         onMapCreated: (google_maps.GoogleMapController controller) {
           _controller.complete(controller);
         },
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () async {
-          getUserCurrentLocation().then((value) async {
-            print('My current location');
-            print(value.latitude.toString() + " " + value.longitude.toString());
-
-            _markers.add(google_maps.Marker(
-                markerId: google_maps.MarkerId('2'),
-                position: google_maps.LatLng(value.latitude, value.longitude),
-                infoWindow: google_maps.InfoWindow(title: 'Initial location')));
-
-            google_maps.CameraPosition cameraPosition = google_maps.CameraPosition(
-                zoom: 14, target: google_maps.LatLng(value.latitude, value.longitude));
-
-            final google_maps.GoogleMapController controller = await _controller.future;
-
-            controller.animateCamera(
-              google_maps.CameraUpdate.newCameraPosition(cameraPosition));
-              setState(() {});
-          });
-        },
-        child: Icon(Icons.local_activity),
-      ),
+      
     );
   }
 
