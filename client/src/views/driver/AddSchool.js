@@ -54,7 +54,7 @@ function AddSchool() {
     try {
       const body = {
         school: values.schoolName,
-        location: values.schoolLocation,
+        address: values.schoolLocation,
       };
 
       const response = await fetch(

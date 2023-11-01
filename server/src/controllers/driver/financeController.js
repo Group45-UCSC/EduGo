@@ -39,7 +39,7 @@ const addDeposit = async (req, res) => {
         userId,
         depositedAmount,
         depositedDate,
-        "August",
+        "November",
         depositSlip,
         false,
       ]

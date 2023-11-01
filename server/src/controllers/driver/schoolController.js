@@ -103,9 +103,77 @@ const removeSchoolFromRide = async (req, res) => {
   }
 };
 
+const AddSchool = async (req, res) => {
+  try {
+    const { school, address } = req.body;
+
+    // Generate school id
+    const lastSchoolData = await pool.query(
+      "SELECT * FROM school ORDER BY school_id DESC LIMIT 1"
+    );
+
+    const lastSchoolId = lastSchoolData.rows[0]?.school_id || "SCH0001";
+
+    const numericPart = parseInt(lastSchoolId.replace("SCH", ""), 10); // Extract numeric part and convert to an integer
+    const newNumericPart = numericPart + 1;
+    const newSchoolId = `SCH${newNumericPart.toString().padStart(5, "0")}`; 
+
+    // Make a geocoding request to MapQuest API
+    const geocodeResponse = await rp({
+      //?
+      uri: "https://www.mapquestapi.com/geocoding/v1/address",
+      qs: {
+        key: mapQuestApiKey,
+        location: address,
+      },
+      json: true,
+    });
+
+    // Check if the geocoding response contains results
+    if (!geocodeResponse.results || geocodeResponse.results.length === 0) {
+      return res.status(400).json({ error: "Invalid address" });
+    }
+
+    // Extract latitude, longitude, and formatted address from the first result
+    const firstResult = geocodeResponse.results[0];
+    const { lat, lng } = firstResult.locations[0].latLng;
+    const formattedaddress =
+      firstResult.locations[0].street || firstResult.locations[0].adminArea5;
+    console.log(lat);
+    console.log(lng);
+    console.log(formattedaddress);
+
+    const newSchool = await pool.query(
+      "INSERT INTO school (school_id, school_name, address, location, formattedaddress) VALUES ($1, $2, $3, ST_GeomFromText($4), $5) RETURNING *",
+      [
+        newSchoolId,
+        school,
+        address,
+        `POINT(${lng} ${lat})`,
+        formattedaddress,
+      ]
+    );
+
+    return res.status(200).json({
+      success: true,
+      data: {
+        address: undefined,
+        location: { type: "Point", coordinates: [lng, lat] },
+        formattedaddress,
+        latitude: lat,
+        longitude: lng,
+      },
+    });
+  } catch (error) {
+    console.error(error.message);
+    res.status(500).send("Server Error");
+  } //?
+};
+
 module.exports = {
   viewSchoolDetails,
   selectSchool,
   checkRideBeforeRemove,
   removeSchoolFromRide,
+  AddSchool,
 };

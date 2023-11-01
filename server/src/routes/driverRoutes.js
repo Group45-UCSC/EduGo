@@ -53,6 +53,7 @@ const {
   selectSchool,
   checkRideBeforeRemove,
   removeSchoolFromRide,
+  AddSchool,
 } = require("../controllers/driver/schoolController");
 
 
@@ -93,6 +94,7 @@ router.route("/ride/request/accept/:userId").put(acceptRideRequest);
 router.route("/ride/set/ridetime/").post(setChildRideTime);
 
 //school page
+router.route("/school/addnew").get(AddSchool);
 router.route("/ride/view/school/:userId").get(viewSchoolDetails);
 router.route("/ride/select/school/:userId").post(selectSchool);
 router
