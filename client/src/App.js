@@ -149,9 +149,9 @@ function App() {
           <Route exact path="/admin/VCoordinator/:user_id" element={<AdminVCoordinator />} />
           <Route exact path="/admin/DriverInfo/:user_id" element={<AdminDriverInfo />} />
           <Route exact path="/admin/VehicleInfo/:vehicle_id" element={<AdminVehicleInfo />} />
-          <Route exact path="/admin/ParentsInfo" element={<AdminParentsInfo />} />
+          <Route exact path="/admin/ParentsInfo/:user_id" element={<AdminParentsInfo />} />
           <Route exact path="/admin/AddEmployee" element={<AdminAddEmployee />} />
-          <Route exact path="/admin/Emergency" element={<AdminEmergency />} />
+          <Route exact path="/admin/Emergency/:emergency_id" element={<AdminEmergency />} />
           <Route exact path="/admin/Analysis" element={<AdminAnalysis />} />
           <Route exact path="/admin/EmergencyList" element={<AdminEmergencyList />} />
           <Route exact path="/admin/Condition" element={<AdminCondition />} />

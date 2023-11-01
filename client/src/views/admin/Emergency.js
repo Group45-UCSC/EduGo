@@ -1,4 +1,5 @@
 import React, {useState} from "react";
+import { useLocation } from "react-router-dom";
 import MainLayout from "../../components/layout/MainLayout";
 import { FaMapMarkerAlt } from "react-icons/fa";
 import { AiOutlineClose } from "react-icons/ai";
@@ -20,6 +21,10 @@ const sideNavBarLinks = [
 ];
 
 function AdminEmergency() {
+
+    const location = useLocation();
+    const dataParam = new URLSearchParams(location.search).get("data");
+    const item = JSON.parse(decodeURIComponent(dataParam));
 
     const [viewPopup, setViewPopup] = useState(false);
 
@@ -43,18 +48,17 @@ function AdminEmergency() {
           <div className="bg-slate-200 h-84 ml-12 w-[750px] mt-8 rounded-lg shadow-md overflow-auto leading-8 font-semibold">
             <div className="ml-8 mt-4 flex">
               <div className="flex-1">
-                <p className="mb-1">Emergency: Breakdown</p>
-                <p className="mb-1">Status: Active</p>
-                <p className="mb-1">License No: QL-1111</p>
-                <p className="mb-1">Type: Van</p>
-                <p className="mb-1">Contact: 071-xxxxxxx</p>
+                <p className="mb-1">Emergency: {item.situation}</p>
+                <p className="mb-1">Status: {item.status}</p>
+                <p className="mb-1">License No: {item.vehicle_no}</p>
+                <p className="mb-1">Type: {item.vehicle_type}</p>
+                <p className="mb-1">Contact: {item.contact_number}</p>
               </div>
               <div className="mr-16">
-                <p className="mb-1">Make: Nissan</p>
-                <p className="mb-1">Model: Caravan 2003</p>
+                <p className="mb-1">Make: {item.make}</p>
+                <p className="mb-1">Model: {item.vehicle_model}</p>
                 <p className="mb-1">No of Children: 12</p>
-                <p className="mb-1">Date: 2023/08/03</p>
-                <p className="mb-1">Time: 08.15</p>
+                <p className="mb-1">Date: {item.date}</p>
               </div>
             </div>
             <div className="ml-[30%]">Assigned Vehicle Coordinator : None</div>
