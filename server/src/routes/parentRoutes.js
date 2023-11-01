@@ -31,8 +31,7 @@ const router = express.Router();
 //import functions
 const {  viewChildDashboard, viewChildChildren,ViewVehicle,viewSchool,viewDriverReview,addChildren, GetAllChildrentoMap, addRideRequest} = require("../controllers/parent/childController");
 const { addFeedback , addEdugoFeedback, getDrivers} = require("../controllers/parent/feedbackController");
-const { viewPayment, viewPastPayment } = require("../controllers/parent/paymentController");
-const {addComplaint} = require("../controllers/parent/complaintController");
+const {addComplaint, viewUserComplaints} = require("../controllers/parent/complaintController");
 const upload = require("../utils/multer");
 const { viewPayment, viewPastPayment, viewRidePayment } = require("../controllers/parent/paymentController");
 
@@ -55,6 +54,7 @@ router.route("/payment/viewprice/:userId").get(viewPayment);
 router.route("/payment/pastpayment/:userId").get(viewPastPayment)
 router.route("/complaint/add/:userId").post(upload.array("attachments"),addComplaint);
 router.route("/payment/pastpayment/:userId").get(viewPastPayment);
+router.route("/support/viewComplaint/:userId").get(viewUserComplaints);
 
 
 // MOBILE

@@ -45,4 +45,28 @@ const addComplaint = async (req, res) => {
   }
 };
 
-module.exports = { addComplaint };
+const viewUserComplaints = async (req, res) => {
+  try {
+    const userId = req.params.userId;
+
+    const complaints = await pool.query(
+      `SELECT pc.*, cs.status
+      FROM parent_complaint pc
+      LEFT JOIN complaint_status cs ON pc.complaint_id = cs.complaint_id
+      WHERE pc.user_id = $1`,
+     [userId]
+    );
+
+    res.status(200).json(complaints.rows);
+  } catch (error) {
+    console.error("Error:", error);
+    res.status(500).json({
+      status: "error",
+      message: "Internal server error",
+    });
+  }
+};
+
+
+
+module.exports = { addComplaint, viewUserComplaints };
