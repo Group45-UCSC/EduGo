@@ -41,6 +41,9 @@ function EmergencyDetails() {
     window.location.href = `/vc/track`;
   };
 
+  // Assuming "item.status" contains the status information
+  const isStatusNotComplete = item.status !== "complete";
+
   return (
     <MainLayout data={sideNavBarLinks}>
     <div>
@@ -66,6 +69,7 @@ function EmergencyDetails() {
           </div>  
         </div>
       
+      
         {/* buttons */}
         <div className='absolute float-right mt-24  ml-[750px] mr-[200px]'>
         <button onClick={handleClick} className="bg-gradient-to-b from-amber-500 to-amber-300  w-48 h-9 ml-4 mt-2 mb-2 rounded-lg shadow-md hover:shadow-lg transform hover:scale-[103%] trasition duration-300 ease-out  hover:cursor-pointer">
@@ -90,11 +94,20 @@ function EmergencyDetails() {
               </button>
         </div>
 
-
-        
+          {/* Conditional rendering of the form based on the status */}
+          {isStatusNotComplete && (
+                    <div className="ml-20 pt-[310px] ">
+                      {/* Your form JSX here */}
+                      <form className="">
+                        <input type="text" placeholder="what is your action" className="w-[600px] h-[100px] pl-6  rounded-lg shadow-md drop-shadow-md"></input>
+                        <button type="submit" className="bg-gradient-to-b from-amber-500 to-amber-300  w-32 h-9 ml-28 mt-2  rounded-lg shadow-md hover:shadow-lg transform hover:scale-[103%] trasition duration-300 ease-out  hover:cursor-pointer"> <b>SUBMIT</b></button>
+                      </form>
+                    </div>
+                  )}
+                  
 
         {/* Childern in that vehicle */}
-        <div className='ml-20 mt-4 mr-12 pt-80 mb-12 overflow-auto w-[1000px] '>
+        <div className='ml-20 pt-80 mt-4 mr-12 mb-4 overflow-auto w-[1000px] '>
         <table className=' border-separate border-spacing-y-2 border border-slate-50  w-[1000px]'>
           <thead className='border-y-4 border-white drop-shadow '>
             <tr className=' bg-[#999999] text-white border-b-2 text-[18px] drop-shadow-md '>
@@ -111,7 +124,7 @@ function EmergencyDetails() {
             <tr className=' bg-[#D9D9D9] bg-opacity-60 hover:cursor-pointer hover:bg-[#eaeaea] drop-shadow-md'>
                 <td className='text-center  p-3'>{itemchildren.child_id} </td>
                 <td className='text-center'>{itemchildren.child_name}</td>
-                <td className='text-center'>{itemchildren.child_name}</td>
+                <td className='text-center'>{itemchildren.contact_no}</td>
                 <td className='text-center'>{itemchildren.school_name}</td>
                 <td className='text-center'>
                 <button className="bg-gradient-to-b from-amber-500 to-amber-300  w-40 h-9 ml-4 mt-2 mb-2 rounded-lg shadow-md hover:shadow-lg transform hover:scale-[103%] trasition duration-300 ease-out  hover:cursor-pointer">

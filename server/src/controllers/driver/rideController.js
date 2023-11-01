@@ -614,6 +614,21 @@ const rideEndStatus = async (req, res) => {
 
 
 // MOBILE
+// view ride_request
+const viewMRideRequests = async (req, res) => {
+  //?
+  try {
+    const userId = req.params.userId;
+
+    //get ride request data
+    const rideRequest = await pool.query("SELECT ride_request.pickup_location, ride_request.school_name, ride_request.parent_id, ride_request.request_status, ride_request.child_id, ride_request.ride_shift_type, children.school_id, children.child_name FROM ride_request INNER JOIN children ON ride_request.child_id = children.child_id WHERE ride_request.driver_id = '" + userId + "' AND ride_request.request_status = 'pending' ORDER BY ride_request.request_id ASC");
+
+    return res.json(rideRequest.rows);
+  } catch (err) {
+    console.error(err.massage);
+    return res.status(500).send("Server Error");
+  }
+};
 // driver rides
 const childrenCountSchool = async (req, res) => {
   try {
@@ -658,6 +673,7 @@ module.exports = {
   rideEndStatus,
   
   // MOBILE
+  viewMRideRequests,
   childrenCountSchool,
   // childrenSchool
 };

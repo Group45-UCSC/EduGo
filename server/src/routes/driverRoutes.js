@@ -49,6 +49,7 @@ const {
   rideEndStatus,
   
   // MOBILE
+  viewMRideRequests,
   childrenCountSchool,
   // childrenSchool,
 
@@ -66,6 +67,7 @@ const {
 // Children view
 const { 
   getChildrenDetails ,
+  getChildrenCount,
 } = require("../controllers/driver/childrenController");
 
 
@@ -126,6 +128,8 @@ router.route("/feedback/add/:userId").post(addFeedback);
 router.route("/feedback/view/:userId").get(viewFeedback);
 
 // MOBILE
+// view ride request
+router.route("/rideRequest/:userId").get(viewMRideRequests);
 // Children details page
 router.route("/childrenDetails/:driverId").get(getChildrenDetails);
 
@@ -134,6 +138,8 @@ router.route("/ridePayment/:driverId").get(viewRidePayment);
 
 // children count school
 router.route("/schoolChildren/:driverId").get(childrenCountSchool);
+
+router.route("/childrens/:driverId").get(getChildrenCount);
 
 // children name in school
 // router.route("/childrenSchool/:driverId").get(childrenSchool);

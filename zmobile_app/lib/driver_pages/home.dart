@@ -8,6 +8,8 @@ import './navbar.dart';
 import 'financial.dart';
 import 'rides.dart';
 import 'students.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
 
 class DriverHomePage extends StatefulWidget {
   const DriverHomePage({Key? key}) : super(key: key);
@@ -17,9 +19,10 @@ class DriverHomePage extends StatefulWidget {
 
 class _DriverHomePageState extends State<DriverHomePage> {
   final Completer<GoogleMapController> _controller = Completer();
+  int childCount = 0;
 
   static const CameraPosition _initailPosition = CameraPosition(
-    target: LatLng(6.9022172,79.8612785),
+    target: LatLng(6.9022172, 79.8612785),
     zoom: 14,
   );
 
@@ -38,6 +41,27 @@ class _DriverHomePageState extends State<DriverHomePage> {
     super.initState();
     myMarker.addAll(markerList);
     packData();
+    fetchChildCount(); // Fetch child count when the widget is initialized
+  }
+
+  Future<void> fetchChildCount() async {
+    final url = Uri.parse('http://10.0.2.2:5000/edugo/driver/childrens/DRV001');
+    
+    try {
+      final response = await http.get(url);
+      if (response.statusCode == 200) {
+        final data = json.decode(response.body);
+        setState(() {
+          childCount = data['childCount'];
+        });
+      } else {
+        // Handle the error case
+        print('Failed to fetch child count. Status code: ${response.statusCode}');
+      }
+    } catch (e) {
+      // Handle exceptions
+      print('Error fetching child count: $e');
+    }
   }
 
   Future<Position> getUserLocation() async {
@@ -72,9 +96,7 @@ class _DriverHomePageState extends State<DriverHomePage> {
       final GoogleMapController controller = await _controller.future;
 
       controller.animateCamera(CameraUpdate.newCameraPosition(cameraPosition));
-      setState(() {
-
-      });
+      setState(() {});
     });
   }
 
@@ -198,9 +220,9 @@ class _DriverHomePageState extends State<DriverHomePage> {
                 ),
               ),
               SizedBox(height: 8),
-              Text(
-                '15',
-                style: TextStyle(fontSize: 16),
+              Align(
+                alignment: Alignment.center,
+                child: Text('$childCount'), // Display the fetched child count
               ),
             ],
           ),
@@ -209,7 +231,6 @@ class _DriverHomePageState extends State<DriverHomePage> {
     );
   }
 
-  
   Widget _buildPaymentsCard(BuildContext context) {
     return GestureDetector(
       onTap: () {
