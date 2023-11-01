@@ -302,34 +302,28 @@ function Chat() {
                   {/* Display the chat view for the selected chat */}
                   {/* Dummy chat messages */}
                   <div className="flex flex-col gap-3 ml-1 mt-8">
-                    
-                      {chatMessages.map((chatMessage) => (
-                        <div key={chatMessage.message_id}>
-                          {/* Display chat messages for the selected chat (assuming 'selectedChatId' is set elsewhere) */}
-                          {selectedChatId === chatMessage.sender_id ||
-                          selectedChatId === chatMessage.receiver_id ? (
-                            <div className="flex gap-4 items-center p-2">
-                              <img
-                                src={chatMessage.avatar}
-                                alt="Profile"
-                                className="w-8 h-8 rounded-full bg-o"
-                              />
+  {chatMessages.map((chatMessage) => (
+    <div key={chatMessage.message_id}>
+      {selectedChatId === chatMessage.sender_id || selectedChatId === chatMessage.receiver_id ? (
+        <div
+          className={`flex gap-4 items-center p-2 ${
+            userId === chatMessage.sender_id ? 'justify-end' : 'justify-start'
+          }`}
+        >
+          <div
+            className={`bg-${userId === chatMessage.sender_id ? 'orange' : 'gray'} px-5 py-2 rounded-xl flex ${
+              userId === chatMessage.sender_id ? 'justify-start' : 'justify-end'
+            }`}
+          >
+            <p>{chatMessage.message}</p>
+          </div>
+        </div>
+      ) : null}
+    </div>
+  ))}
+</div>
 
-                              <div
-                                className={`bg-gray px-5 py-2 rounded-xl flex ${
-                                  selectedChatId === chatMessage.sender_id
-                                    ? "justify-start"
-                                    : "justify-end"
-                                }`}
-                              >
-                                <p>{chatMessage.message}</p>
-                              </div>
-                            </div>
-                          ) : null}
-                        </div>
-                      ))}
-                    
-                  </div>
+
                   {chatItems.find((item) => item.user_id === selectedChatId) &&
                     sentMessages
                       .filter((message) => message.receiver_id === selectedChatId)

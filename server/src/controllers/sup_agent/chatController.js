@@ -29,7 +29,7 @@ const sendMessage = async (req,res) => {
     const newNumericPart = numericPart + 1;
     const newMessageId = `M${newNumericPart.toString().padStart(3, "0")}`;
     const newMessage = await pool.query(
-      "INSERT INTO chat (message_id, sender_id, receiver_id, message) VALUES ($1, $2, $3) RETURNING *",
+      "INSERT INTO chat (message_id, sender_id, receiver_id, message) VALUES ($1, $2, $3, $4) RETURNING *",
       [newMessageId, userId, receiver_id, message]
     );
 
@@ -46,7 +46,8 @@ const receiveMessage = async (req, res) => {
     const userId = req.params.userId;
     console.log(userId);
     const query = await pool.query (
-      "SELECT * FROM chat WHERE receiver_id = $1",[userId]
+      "SELECT message_id, sender_id, receiver_id, message FROM chat WHERE sender_id = $1 OR receiver_id = $1",
+      [userId]
       
     );
 
