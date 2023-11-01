@@ -129,9 +129,9 @@ function App() {
           <Route exact path="/parent/children" element={<ParentChildren />} />
           <Route exact path="/parent/children/addchild" element={<AddChild />} />
           <Route exact path="/parent/children/childrendetails/:id" element={<ChildrenDetails />} />
-          <Route exact path="parent/children/addnewride/viewvehicle/:id" element={<ViewVehicle />} />
+          <Route exact path="/parent/children/addnewride/viewvehicle/:id" element={<ViewVehicle />} />
           <Route exact path="/parent/children/childlocation/:id" element={<ViewChildLocation />} />
-          <Route exact path="/parent/Children/addnewride/:id" element={<AddSchoolRide />} />
+          <Route exact path="/parent/children/addnewride/:id" element={<AddSchoolRide />} />
           <Route exact path="/parent/children/viewride/:id" element={<ViewRide />} />
           <Route exact path="/parent/payment" element={<ParentPayment />} />
           <Route exact path="/parent/support" element={<ParentSupport />} />
@@ -149,9 +149,9 @@ function App() {
           <Route exact path="/admin/VCoordinator/:user_id" element={<AdminVCoordinator />} />
           <Route exact path="/admin/DriverInfo/:user_id" element={<AdminDriverInfo />} />
           <Route exact path="/admin/VehicleInfo/:vehicle_id" element={<AdminVehicleInfo />} />
-          <Route exact path="/admin/ParentsInfo" element={<AdminParentsInfo />} />
+          <Route exact path="/admin/ParentsInfo/:user_id" element={<AdminParentsInfo />} />
           <Route exact path="/admin/AddEmployee" element={<AdminAddEmployee />} />
-          <Route exact path="/admin/Emergency" element={<AdminEmergency />} />
+          <Route exact path="/admin/Emergency/:emergency_id" element={<AdminEmergency />} />
           <Route exact path="/admin/Analysis" element={<AdminAnalysis />} />
           <Route exact path="/admin/EmergencyList" element={<AdminEmergencyList />} />
           <Route exact path="/admin/Condition" element={<AdminCondition />} />

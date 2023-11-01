@@ -63,9 +63,7 @@ function AdminChildrenList() {
   function updateToggle(id) {
     setToggle(id);
   }
-  const handleClickP = () => {
-    window.location.href = `/admin/parentsinfo`;
-  };
+  
   return (
     <div>
       <MainLayout data={sideNavBarLinks}>
@@ -153,18 +151,29 @@ function AdminChildrenList() {
                   <th className='px-3.5 w-30'>Address</th>
                   <th className='px-3.5 w-30'>Contact</th>
                   <th className='px-3.5 w-30'>Children</th>
+                  <th className='px-3.5 w-30'> </th>
                 </tr>
               </thead>
 
               <tbody className=''>
                 {parent.map((item) => (
-                  <tr onClick={handleClickP} className=' bg-[#D9D9D9] bg-opacity-60 hover:cursor-pointer hover:bg-[#eaeaea] drop-shadow-md'>
+                  <tr className=' bg-[#D9D9D9] bg-opacity-60 hover:cursor-pointer hover:bg-[#eaeaea] drop-shadow-md'>
                     <td className='text-center  p-3'>{item.user_id}</td>
                     <td>{item.user_name}</td>
                     <td>{item.user_email}</td>
                     <td>{item.address}</td>
                     <td>{item.contact_number}</td>
                     <td>{item.num_of_registered_children}</td>
+
+                    <NavLink
+                  to={`/admin/parentsinfo/${
+                    item.user_id
+                  }?data=${encodeURIComponent(
+                    JSON.stringify(item)
+                  )}`}
+                >
+                  <td><button className="bg-amber-600 h-8 w-16 rounded-md hover:bg-amber-400">View</button></td>
+                  </NavLink>
                   </tr>
                 ))}
               </tbody>

@@ -10,6 +10,8 @@ const { childCount, childList } = require("../controllers/admin/childController"
 const { parentList } = require("../controllers/admin/parentController");
 const { rideCount, allrideList, ongoingList } = require("../controllers/admin/rideController");
 const { reviewList } = require("../controllers/admin/reviewController");
+const { curEmergencyList, doneEmergencyList } = require("../controllers/admin/emergencyController");
+const { totalRev, totalExp, totalProfit, revIncomeData, revExpenseData, incomeExpense } = require("../controllers/admin/financeController");
 
 //create routes
 router.route("/addEmployee").post(addEmployee);
@@ -27,5 +29,13 @@ router.route("/dashboard/childcount").get(childCount);
 router.route("/dashboard/conditioncount").get(conditionCount);
 router.route("/condition/list").get(conditionList);
 router.route("/dashboard/reviews").get(reviewList);
+router.route("/emergencylist/current").get(curEmergencyList);
+router.route("/emergencylist/completed").get(doneEmergencyList);
+router.route("/finance/revcount").get(totalRev);
+router.route("/finance/expcount").get(totalExp);
+router.route("/finance/profitcount").get(totalProfit);
+router.route("/finance/income").get(revIncomeData);
+router.route("/finance/expense").get(revExpenseData);
+router.route("/analysis/first").get(incomeExpense);
 
 module.exports = router;

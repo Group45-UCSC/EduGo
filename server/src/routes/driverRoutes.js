@@ -31,6 +31,9 @@ const {
   viewIncomeChart,
   viewTotalIncome,
   viewChildFees,
+
+  // MOBILE
+  viewRidePayment,
 } = require("../controllers/driver/financeController");
 
 const {
@@ -40,6 +43,15 @@ const {
   checkReachingSchool,
   acceptRideRequest,
   setChildRideTime,
+  viewRideChildList,
+  changePickedStatus,
+  changedroppedStatus,
+  rideEndStatus,
+  
+  // MOBILE
+  childrenCountSchool,
+  // childrenSchool,
+
 } = require("../controllers/driver/rideController");
 const {
   viewSchoolDetails,
@@ -47,6 +59,16 @@ const {
   checkRideBeforeRemove,
   removeSchoolFromRide,
 } = require("../controllers/driver/schoolController");
+
+
+// MOBILE
+// Children view
+const { 
+  getChildrenDetails ,
+} = require("../controllers/driver/childrenController");
+
+
+
 
 //create routes
 router.route("/dashboard/hasride/:userId").get(hasRide);
@@ -57,6 +79,13 @@ router.route("/vehicle/add/:userId").post(addVehicle);
 router.post("/vehicle/upload/", upload.single("vehicleRegDoc"), uploadVehicle);
 
 router.route("/vehicle/viewImg/:userId").get(viewVehicleImg);
+
+//next ride page
+router.route("/ride/children/view/:userId").get(viewRideChildList);
+router.route("/ride/child/picked").put(changePickedStatus);
+router.route("/ride/child/dropped").put(changedroppedStatus);
+router.route("/ride/end/:userId").put(rideEndStatus);
+
 
 //ride page
 router.route("/ride/view/details/:userId").get(viewRideDetails);
@@ -93,5 +122,18 @@ router.route("/deposit/cashpayments/view/:userId").get(viewCashPaymentData);
 //feedback page
 router.route("/feedback/add/:userId").post(addFeedback);
 router.route("/feedback/view/:userId").get(viewFeedback);
+
+// MOBILE
+// Children details page
+router.route("/childrenDetails/:driverId").get(getChildrenDetails);
+
+// ride cash payment
+router.route("/ridePayment/:driverId").get(viewRidePayment);
+
+// children count school
+router.route("/schoolChildren/:driverId").get(childrenCountSchool);
+
+// children name in school
+// router.route("/childrenSchool/:driverId").get(childrenSchool);
 
 module.exports = router;

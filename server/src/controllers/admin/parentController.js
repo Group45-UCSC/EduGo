@@ -6,7 +6,7 @@ const parentList = async (req, res) => {
     try{
     //db query
     const parentData = await pool.query(
-      "SELECT * FROM parent p INNER JOIN registered_users u ON p.user_id = u.user_id LEFT JOIN children c ON p.user_id = c.parent_id",
+      "SELECT * FROM parent p INNER JOIN registered_users u ON p.user_id = u.user_id",
     );
   
     return res.json(parentData.rows);

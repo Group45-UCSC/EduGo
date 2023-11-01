@@ -375,16 +375,16 @@ function DriverDashboardPg() {
                 <div className=" h-[180px] rounded-[8px] bg-slate-100 border-l-[4px] border-orange flex items-center justify-between px-[30px] cursor-pointer hover:shadow-lg transform hover:scale-[103%] transition duration-300 ease-out">
                   <div>
                     <h1 className="text-[20px] leading-[24px] font-bold text-[#5a5c69] mt-[5px] pb-1">
-                      Your Next Ride is on
+                      Your Ride
                     </h1>
-                    <h2 className="text-[#B589DF] text-[12px] leading-[17px] font-bold">
+                    {/* <h2 className="text-[#B589DF] text-[12px] leading-[17px] font-bold">
                       Tomorrow at 5.45 a.m
                     </h2>
                     <h2 className="text-[#B589DF] text-[12px] leading-[17px] font-bold">
                       From Homagama
-                    </h2>
+                    </h2> */}
                   </div>
-                  <FaRegCalendarMinus fontSize={28} color="" />
+                  {/* <FaRegCalendarMinus fontSize={28} color="" /> */}
                 </div>
               </NavLink>
               {/* end of next ride box */}
