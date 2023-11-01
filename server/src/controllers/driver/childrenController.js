@@ -18,6 +18,25 @@ const getChildrenDetails = async (req, res) => {
     }
 };
 
+const getChildrenCount = async (req, res) => {
+    try {
+        // console.log(req.params);
+        const driverId = req.params.driverId;
+
+        const childrenData = await pool.query(
+            "SELECT COUNT(*) FROM children WHERE children.driver_id = '" + driverId + "' "
+        );
+
+        const childCount = childrenData.rows[0].childCount;
+        console.log(childCount);
+        return res.json(childCount.rows);
+    } catch (error) {
+        console.error(error.message);
+        return res.status(500).send("Server Error");
+    }
+};
+
 module.exports = {
     getChildrenDetails,
+    getChildrenCount,
 }
