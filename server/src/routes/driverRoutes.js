@@ -145,7 +145,6 @@ router.route("/complaint/add/:userId").post(addComplaint);
 router.route("/support/viewComplaint/:userId").get(viewUserComplaints);
 
 router.route("/minimizablechat/sendMessage/:userId").post(sendMessage);
-
 router.route("/minimizablechat/receiveMessage/:userId").get(receiveMessage);
 
 

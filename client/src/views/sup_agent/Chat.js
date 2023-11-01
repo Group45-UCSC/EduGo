@@ -84,25 +84,29 @@ function Chat() {
         if (response.ok) {
           const data = await response.json();
           setChatMessages(data);
+
+          // Handle new messages and update unread counts
+          setChatItemsState((prevChatItems) =>
+            prevChatItems.map((chatItem) => {
+              if (chatItem.id === data.chatId) {
+                return {
+                  ...chatItem,
+                  unreadCount: chatItem.unreadCount + 1,
+                };
+              }
+              return chatItem;
+            })
+          );
         } else {
-          throw new Error(" Network response was not ok");
+          throw new Error("Network response was not ok");
         }
       } catch (error) {
         console.error("Error fetching chat data:", error);
       }
     };
+
     receiveMessage();
   }, [userId]);
-
-  const handleNewMessage = (chatId) => {
-    setChatItemsState((prevChatItems) =>
-      prevChatItems.map((chatItem) =>
-        chatItem.id === chatId
-          ? { ...chatItem, unreadCount: chatItem.unreadCount + 1 }
-          : chatItem
-      )
-    );
-  };
 
   const handleChatItemClick = (chatId) => {
     setSelectedChatId(chatId);
@@ -302,31 +306,41 @@ function Chat() {
                   {/* Display the chat view for the selected chat */}
                   {/* Dummy chat messages */}
                   <div className="flex flex-col gap-3 ml-1 mt-8">
-  {chatMessages.map((chatMessage) => (
-    <div key={chatMessage.message_id}>
-      {selectedChatId === chatMessage.sender_id || selectedChatId === chatMessage.receiver_id ? (
-        <div
-          className={`flex gap-4 items-center p-2 ${
-            userId === chatMessage.sender_id ? 'justify-end' : 'justify-start'
-          }`}
-        >
-          <div
-            className={`bg-${userId === chatMessage.sender_id ? 'orange' : 'gray'} px-5 py-2 rounded-xl flex ${
-              userId === chatMessage.sender_id ? 'justify-start' : 'justify-end'
-            }`}
-          >
-            <p>{chatMessage.message}</p>
-          </div>
-        </div>
-      ) : null}
-    </div>
-  ))}
-</div>
-
+                    {chatMessages.map((chatMessage) => (
+                      <div key={chatMessage.message_id}>
+                        {selectedChatId === chatMessage.sender_id ||
+                        selectedChatId === chatMessage.receiver_id ? (
+                          <div
+                            className={`flex gap-4 items-center p-2 ${
+                              userId === chatMessage.sender_id
+                                ? "justify-end"
+                                : "justify-start"
+                            }`}
+                          >
+                            <div
+                              className={`bg-${
+                                userId === chatMessage.sender_id
+                                  ? "orange"
+                                  : "gray"
+                              } px-5 py-2 rounded-xl flex ${
+                                userId === chatMessage.sender_id
+                                  ? "justify-start"
+                                  : "justify-end"
+                              }`}
+                            >
+                              <p>{chatMessage.message}</p>
+                            </div>
+                          </div>
+                        ) : null}
+                      </div>
+                    ))}
+                  </div>
 
                   {chatItems.find((item) => item.user_id === selectedChatId) &&
                     sentMessages
-                      .filter((message) => message.receiver_id === selectedChatId)
+                      .filter(
+                        (message) => message.receiver_id === selectedChatId
+                      )
                       .map((message, index) => (
                         <div
                           key={index}
