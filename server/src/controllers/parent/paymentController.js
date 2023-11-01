@@ -13,7 +13,7 @@ const viewPayment = async (req, res) => {
       "SELECT rp.parent_id,rp.child_id,rp.amount, rp.related_month, rp.pay_status, c.child_name FROM ride_payment rp INNER JOIN children c ON rp.child_id = c.child_id WHERE rp.parent_id = $1 AND rp.related_month = $2 ",
       [userId, currentMonth]
     );
-
+    
     return res.json(paymentData.rows);
   } catch (err) {
     console.error(err.massage);

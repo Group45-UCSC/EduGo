@@ -139,7 +139,8 @@ const viewChildChildren = async (req, res) => {
 const addChildren = async (req, res) => {
   try {
     const userId = req.params.userId;
-    const { childname, pickupLocation, schoolName } = req.body;
+    const { childname, pickupLocation, schoolName,pickupAddress } = req.body;
+    // console.log(req.body);
 
     // Generate child id
     const lastChildData = await pool.query(
@@ -175,29 +176,30 @@ const addChildren = async (req, res) => {
     // );
 
     // Make a geocoding request to MapQuest API
-    const geocodeResponse = await rp({
-      //?
-      uri: "https://www.mapquestapi.com/geocoding/v1/address",
-      qs: {
-        key: mapQuestApiKey,
-        location: pickupLocation,
-      },
-      json: true,
-    });
+  
+    // const geocodeResponse = await rp({
+    //   //?
+    //   uri: `https://www.mapquestapi.com/geocoding/v1/address?key=${mapQuestApiKey}`,
+    //   qs: {
+    //     location: pickupLocation,
+    //   },
+    //   json: true,
+    // });
+    // console.log(geocodeResponse);
 
     // Check if the geocoding response contains results
-    if (!geocodeResponse.results || geocodeResponse.results.length === 0) {
-      return res.status(400).json({ error: "Invalid address" });
-    }
+    // if (!geocodeResponse.results || geocodeResponse.results.length === 0) {
+    //   return res.status(400).json({ error: "Invalid address" });
+    // }
 
     // Extract latitude, longitude, and formatted address from the first result
-    const firstResult = geocodeResponse.results[0];
-    const { lat, lng } = firstResult.locations[0].latLng;
-    const formattedaddress =
-      firstResult.locations[0].street || firstResult.locations[0].adminArea5;
-    console.log(lat);
-    console.log(lng);
-    console.log(formattedaddress);
+    // const firstResult = geocodeResponse.results[0];
+    const { lat, lng } = pickupLocation
+    // const formattedaddress =
+    //   firstResult.locations[0].street || firstResult.locations[0].adminArea5;
+    // console.log(lat);
+    // console.log(lng);
+    // console.log(formattedaddress);
 
     const newChild = await pool.query(
       "INSERT INTO children (child_id, parent_id, school_name, pickup_location, location, formattedaddress, child_name,ride_status) VALUES ($1, $2, $3, $4, ST_GeomFromText($5), $6, $7, $8) RETURNING *",
@@ -205,9 +207,9 @@ const addChildren = async (req, res) => {
         newChildId,
         userId,
         schoolName,
-        pickupLocation,
+        pickupAddress,
         `POINT(${lng} ${lat})`,
-        formattedaddress,
+        pickupAddress,
         childname,
         "notreg",
       ]
@@ -218,7 +220,7 @@ const addChildren = async (req, res) => {
       data: {
         address: undefined,
         location: { type: "Point", coordinates: [lng, lat] },
-        formattedaddress,
+        pickupAddress,
         latitude: lat,
         longitude: lng,
       },
