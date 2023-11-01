@@ -47,35 +47,66 @@ function Complaints() {
     }
     viewComplaints();
   }, []);
-  const initialComplaints = complaintData.map((complaint) => ({
-    complaint_id: complaint.complaint_id,
-    pendingChecked: false,
-    doneChecked: false,
-  }));
+  // Initialize an object where the keys are complaint IDs and the values are the corresponding states.
+  const initialComplaints = complaintData.reduce((acc, complaint) => {
+    acc[complaint.complaint_id] = {
+      pending: false,
+      done: false,
+    };
+    return acc;
+  }, {});
+  
 
-  const [complaintStates, setComplaintStates] = useState(initialComplaints);
+  // const [complaintStates, setComplaintStates] = useState(initialComplaints);
 
   const [showPopups, setShowPopups] = useState({})
 
-  const handlePendingChange = (complaintId, val) => {
-    setComplaintStates((prevState) => {
-      return prevState.map((state) =>
-        state.complaint_id === complaintId
-          ? { ...state, pendingChecked: val }
-          : state
-      );
-    });
+  const handleStatusChange = (complaintId, status) => {
+    fetch(`http://localhost:5000/edugo/supAgent/complaints/complaintStatus/${complaintId}`,{
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({status}),
+    })
+
+      .then((response) => {
+        if (response.ok) {
+          setComplaintData((prevData) =>
+            prevData.map((complaint) =>
+              complaint.complaint_id === complaintId
+              ? {...complaint,status}
+              :complaint
+              )
+              );
+        } else {
+          console.error(" Error updating status");
+        }
+      })
+      .catch((error) => {
+        console.error("Error updating status:", error);
+      });
   };
 
-  const handleDoneChange = (complaintId, val) => {
-    setComplaintStates((prevState) => {
-      return prevState.map((state) =>
-        state.complaint_id === complaintId
-          ? { ...state, doneChecked: val }
-          : state
-      );
-    });
-  };
+//   const handlePendingChange = (complaintId, val) => {
+//   setComplaintStates((prevState) => ({
+//     ...prevState,
+//     [complaintId]: {
+//       ...prevState[complaintId],
+//       pending: val,
+//     },
+//   }));
+// };
+  
+//   const handleDoneChange = (complaintId, val) => {
+//     setComplaintStates((prevState) => ({
+//       ...prevState,
+//       [complaintId]: {
+//         ...prevState[complaintId],
+//         done: val,
+//       },
+//     }));
+//   };
 
   const togglePopup = (complaintId) => {
     setShowPopups((prevPopups) => ({
@@ -120,29 +151,21 @@ function Complaints() {
                       <div className="">
                         <div className="flex flex-row gap-3">
                           <h className="font-semibold">Pending Mode</h>
-                          <ReactSwitch
-                            checked={
-                              complaintStates[complaint.complaint_id]
-                                ?.pendingChecked || false
-                            }
-                            onChange={(val) =>
-                              handlePendingChange(complaint.complaint_id, val)
-                            }
-                          />
+                          <input
+                        type="checkbox"
+                        checked={complaint.status === "pending"}
+                        onChange={() => handleStatusChange(complaint.complaint_id, "pending")}
+                      />
                         </div>
                       </div>
                       <div className="">
                         <div className="flex flex-row gap-3">
                           <h className="font-semibold">Done</h>
-                          <ReactSwitch
-                            checked={
-                              complaintStates[complaint.complaint_id]
-                                ?.doneChecked || false
-                            }
-                            onChange={(val) =>
-                              handleDoneChange(complaint.complaint_id, val)
-                            }
-                          />
+                          <input
+                        type="checkbox"
+                        checked={complaint.status === "done"}
+                        onChange={() => handleStatusChange(complaint.complaint_id, "done")}
+                      />
                         </div>
                       </div>
                     </div>

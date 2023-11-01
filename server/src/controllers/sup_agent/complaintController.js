@@ -14,7 +14,6 @@ const viewComplaints = async (req, res) => {
     JOIN registered_users ru ON pc.user_id = ru.user_id;
     
       `);
-
     const data = query.rows;
     res.status(200).json(data);
   } catch (err) {
@@ -26,4 +25,24 @@ const viewComplaints = async (req, res) => {
   }
 };
 
-module.exports = { viewComplaints };
+const updateStatus = async (req,res) => {
+  const {complaintId} = req.params;
+  const {status} = req.body;
+
+  try {
+    await pool.query(
+      `INSERT INTO complaint_status (complaint_id, status) VALUES ($1, $2)`,
+      [complaintId, status]
+    );
+    res.status(200).json({status:"success"});
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({
+      status:"error",
+      message: " Internal server error",
+    });
+  }
+
+};
+
+module.exports = { viewComplaints, updateStatus };
