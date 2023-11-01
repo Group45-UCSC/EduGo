@@ -1,10 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import MainLayout from "../../components/layout/MainLayout";
 import { FaHome, FaBus, FaUsers } from "react-icons/fa";
 import { BsFillChatDotsFill } from "react-icons/bs";
 import { HiOutlineChat } from "react-icons/hi";
-import {MdOutlinePending,MdDoneAll} from "react-icons/md"
-import {GoReport} from "react-icons/go"
+import { MdOutlinePending, MdDoneAll } from "react-icons/md";
+import { GoReport } from "react-icons/go";
 
 import { Link } from "react-router-dom";
 import {
@@ -45,8 +45,51 @@ const CustomTooltip = ({ active, payload }) => {
 };
 
 function SupAgentDashboardPg() {
-  const [selectedPeriod, setSelectedPeriod] = useState("This Week");
+  const [statusCounts, setStatusCounts] = useState({
+    pendingCount: 0,
+    completedCount: 0,
+  });
+  const [newComplaintCount, setNewComplaintCount] = useState(0);
 
+  useEffect(() => {
+    async function fetchComplaintStatusCounts() {
+      try {
+        const response = await fetch(
+          "http://localhost:5000/edugo/supAgent/supagentdashboardpg/complaintStatus"
+        );
+        if (!response.ok) {
+          throw new Error("Network response was not ok");
+        }
+        const data = await response.json();
+        const pendingCount = parseInt(data.pendingcount, 10);
+        const completedCount = parseInt(data.completedcount, 10);
+        setStatusCounts({ pendingCount, completedCount });
+      } catch (error) {
+        console.error("Error fetching complaint status counts:", error);
+      }
+    }
+
+    fetchComplaintStatusCounts();
+  });
+  useEffect(() => {
+    async function fetchNewComplaintCount() {
+      try {
+        const response = await fetch("http://localhost:5000/edugo/supAgent/supagentdashboardpg/newcomplaintStatus");
+        if (!response.ok) {
+          throw new Error("Network response was not ok");
+        }
+        const data = await response.json();
+        const newCount = parseInt(data[0].newcount, 10);
+
+        setNewComplaintCount(newCount);
+      } catch (error) {
+        console.error("Error fetching new complaint count:", error);
+      }
+    }
+
+    fetchNewComplaintCount();
+  }, []);
+  const [selectedPeriod, setSelectedPeriod] = useState("This Week");
   const handlePeriodChange = (period) => {
     setSelectedPeriod(period);
     // Perform any additional actions based on the selected period
@@ -62,7 +105,7 @@ function SupAgentDashboardPg() {
                   <GoReport className="text-5xl text-[#22c55e]" />
                   <div className="text-xl flex-col">
                     <strong>New Complaints</strong>{" "}
-                    <p className="ml-[2rem] mt-3 text-2xl font-semibold">2</p>
+                    <p className="ml-[2rem] mt-3 text-2xl font-semibold">{newComplaintCount}</p>
                   </div>
                 </div>
               </Link>
@@ -73,7 +116,9 @@ function SupAgentDashboardPg() {
                   <MdOutlinePending className="text-5xl text-orange" />
                   <div className="text-xl flex-col">
                     <strong>Pending...</strong>{" "}
-                    <p className="ml-[2rem] mt-3 text-2xl font-semibold">1</p>
+                    <p className="ml-[2rem] mt-3 text-2xl font-semibold">
+                      {statusCounts.pendingCount}
+                    </p>
                   </div>
                 </div>
               </Link>
@@ -84,7 +129,9 @@ function SupAgentDashboardPg() {
                   <MdDoneAll className="text-5xl text-[#0369a1]" />
                   <div className="text-xl flex-col">
                     <strong>Completed Complaints</strong>{" "}
-                    <p className="ml-[2rem] mt-3 text-2xl font-semibold">5</p>
+                    <p className="ml-[2rem] mt-3 text-2xl font-semibold">
+                      {statusCounts.completedCount}
+                    </p>
                   </div>
                 </div>
               </Link>
@@ -114,7 +161,7 @@ function SupAgentDashboardPg() {
           </div>
         </div>
         <div className="grid grid-cols-2 gap-2">
-          <div className="col-span-1 "></div>
+          <div className="col-span-2 "></div>
           <div className="col-span-1 flex flex-col gap-[5rem]">
             <div className="col-span-1 bg-[#1d1a49] pt-5 rounded-xl mb-8">
               <div className="flex flex-row">
