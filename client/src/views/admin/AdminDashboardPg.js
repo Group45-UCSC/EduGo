@@ -13,6 +13,7 @@ import { FaChild } from "react-icons/fa";
 import { FaUserGroup } from "react-icons/fa6";
 import { BsFillCarFrontFill } from "react-icons/bs";
 import { FaShippingFast } from "react-icons/fa";
+import parentpic from "../../images/parent1.png";
 
 const sideNavBarLinks = [
   { title: "Dashboard", path: "/admin/dashboard", icon: <AiFillDashboard /> },
@@ -378,7 +379,7 @@ function AdminDashboardPg() {
                 <div className="rounded-[8px] bg-slate-100 mb-3 mt-[15%] w-3/4 ml-80 border-[1px] border-orange  items-center justify-between px-[30px] py-3 cursor-pointer hover:shadow-lg transform hover:scale-[101%] transition duration-300 ease-out">
                   <div className="flex  w-full mb-3">
                     <div className="flex justify-start gap-2 ">
-                      <img src={selectedRow.user_image} alt="user_image" className="bg-slate-300 w-8 cursor-pointer rounded-full p-1"></img>
+                      <img src={parentpic} alt="user_image" className="bg-slate-300 w-16 cursor-pointer rounded-full p-1"></img>
                       <h1 className="mt-1">{selectedRow.user_name}</h1>
 
                     </div>
