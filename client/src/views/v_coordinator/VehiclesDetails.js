@@ -1,4 +1,4 @@
-import React,{useState} from "react";
+import React from "react";
 import MainLayout from "../../components/layout/MainLayout";
 import dlcard from "../../images/dlcard.jpg";
 import VehiCarousel from "../../components/carousel/VehiCarousel";
@@ -61,11 +61,11 @@ function VehiclesDetails(onClose) {
 
 
     // calender
-    const [isCalendarVisible, setCalendarVisibility] = useState(false); // Calendar initially invisible
+    // const [isCalendarVisible, setCalendarVisibility] = useState(false); // Calendar initially invisible
 
-    const handleToggle = () => {
-    setCalendarVisibility(!isCalendarVisible); // Toggle calendar visibility
-    }
+    // const handleToggle = () => {
+    // setCalendarVisibility(!isCalendarVisible); // Toggle calendar visibility
+    // }
 
 
   return (
@@ -149,19 +149,19 @@ function VehiclesDetails(onClose) {
         </div>
 
                     {/* secondsqure */}
-                    <div className="mt-4 ml-32 pl-8 pt-4 pb-3 mb-6 bg-[rgb(244,244,244)] w-[900px] h-[500px] rounded-lg shadow-md drop-shadow-md">
-                    <h1 className="font-bold p-1 text-[19px]">
+                    {/* <div className="mt-4 ml-32 pl-8 pt-4 pb-3 mb-6 bg-[rgb(244,244,244)] w-[900px] h-[500px] rounded-lg shadow-md drop-shadow-md"> */}
+                    {/* <h1 className="font-bold p-1 text-[19px]">
                       Feedback Report
-                    </h1>
+                    </h1> */}
 
                     <form className="">
                         {/* critiria */}
                         <div className="pl-4 mb-3">
-                            <h1 className="font-bold p-1 text-[16px] text-red-500">
+                            {/* <h1 className="font-bold p-1 text-[16px] text-red-500">
                               Evaluation criteria
-                            </h1>
+                            </h1> */}
 
-                            <div className="ml-4">
+                            {/* <div className="ml-4">
                                 <input type="checkbox" id="critiria1" name="critiria1" value="one"></input>
                                 <label for="critiria1"> Exterior Condition</label><br/>
                                 <input type="checkbox" id="critiria2" name="critiria2" value="two"></input>
@@ -178,31 +178,31 @@ function VehiclesDetails(onClose) {
                                 <label for="critiria7"> Transmission and Drivetrain </label><br/>
                                 <input type="checkbox" id="critiria8" name="critiria8" value="eight"></input>
                                 <label for="critiria8"> Electrical and Electronics </label><br/>
-                            </div>
+                            </div> */}
                             
                         </div>
-                            <input type="text" placeholder="Comment on the vehicle condition here..." className="w-[850px] h-[100px] pl-6 pt-1 pb-2 mb-3 rounded-lg shadow-md drop-shadow-md"></input>
+                            {/* <input type="text" placeholder="Comment on the vehicle condition here..." className="w-[850px] h-[100px] pl-6 pt-1 pb-2 mb-3 rounded-lg shadow-md drop-shadow-md"></input> */}
                         
-                        <div className="grid grid-cols-2 gap-[50px] mt-4">
+                        {/* <div className="grid grid-cols-2 gap-[50px] mt-4"> */}
                             {/* switchone */}
                             <div className="grid grid-cols-3 gap-[10px] ml-3">
-                                <h1> <b>Pass</b></h1>
+                                {/* <h1> <b>Pass</b></h1>
 
                                 <label for="check" class="-ml-20 w-20 h-10 rounded-full relative bg-gradient-to-b from-amber-500 to-amber-300  shadow-md hover:shadow-lg cursor-pointer ">
                                     <input type="checkbox" id="check" class="sr-only peer"  checked={isCalendarVisible} onChange={handleToggle}></input>
                                     <span className="w-2/5 h-4/5 bg-green-800 absolute rounded-full transform transition-transform duration-700 ease-in-out m-1 peer-checked:bg-red-700 peer-checked:left-10 "></span>
                                 </label>
-                                <h1 className="-ml-28"><b>Fail</b></h1>
+                                <h1 className="-ml-28"><b>Fail</b></h1> */}
                                 {/* Render the calendar field only if isCalendarVisible is true */}
-                                {isCalendarVisible &&  <input type="date" className="ml-2"/>}
+                                {/* {isCalendarVisible &&  <input type="date" className="ml-2"/>} */}
 
                             </div>
 
                             {/* switchtwo */}
-                            <button className="ml-[710px] fixed p-2 mb-2 font-semibold bg-gradient-to-b from-amber-500 to-amber-300 w-32  rounded-lg shadow-md hover:shadow-lg transform hover:scale-[102%] trasition duration-300 ease-out  hover:cursor-pointer" >Submit</button><br/>
-                        </div>
+                            {/* <button type="submit" className="ml-[710px] fixed p-2 mb-2 font-semibold bg-gradient-to-b from-amber-500 to-amber-300 w-32  rounded-lg shadow-md hover:shadow-lg transform hover:scale-[102%] trasition duration-300 ease-out  hover:cursor-pointer" >Submit</button><br/> */}
+                        {/* </div> */}
                     </form>
-                </div>
+                {/* </div> */}
 
 
 

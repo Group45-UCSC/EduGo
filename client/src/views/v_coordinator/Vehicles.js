@@ -34,7 +34,6 @@ function Vehicles() {
     vehicleList();
   });
 
-
   return (
     <MainLayout data={sideNavBarLinks}>
 

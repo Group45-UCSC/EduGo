@@ -47,7 +47,7 @@ function PrReports({visible, onClose}) {
     if (!visible) return null;
     return (
      
-      <div className="pt-10 fixed inset-0 bg-black bg-opacity-90 backdrop-blur-sm">
+      <div className="pt-10 fixed inset-0 bg-black bg-opacity-80 backdrop-blur-sm">
         <div className="ml-[80px] pt-4 bg-[#F4F4F4] w-[770px] h-[610px] rounded-lg shadow-lg drop-shadow-lg">
         {/* topic */}
         <div className='font-bold ml-12 mt-4 text-2xl'>Previous Reports</div>

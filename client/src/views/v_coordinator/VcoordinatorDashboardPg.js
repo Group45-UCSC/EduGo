@@ -4,6 +4,7 @@ import { AiFillDashboard } from "react-icons/ai";
 import { BsFillCarFrontFill } from "react-icons/bs";
 import { FaShippingFast } from "react-icons/fa";
 import { FaCarCrash } from "react-icons/fa";
+import { NavLink } from "react-router-dom";
 
 
 const sideNavBarLinks = [
@@ -86,6 +87,23 @@ function VcoordinatorDashboardPg() {
         ccrequestCount();
       });
 
+      //nowemergencytble
+      const [emergencynow, setemergencynow] = useState([]);
+      useEffect(() => {
+        async function emergencynow() {
+          try {
+            const response = await fetch(
+              `http://localhost:5000/edugo/vc/dashboard/emergencynow`
+            );
+            const data = await response.json();
+            setemergencynow(data);
+          } catch (err) {
+            console.error(err.message);
+          }
+        }
+        emergencynow();
+      });
+
   const handleClick = () => {
     window.location.href = `/vc/vrrequest`;
   };
@@ -94,9 +112,6 @@ function VcoordinatorDashboardPg() {
     window.location.href = `/vc/ccrequest`;
   };
 
-  const handleClick3 = () => {
-    window.location.href = `/vc/emergencydetails`;
-  };
 
   const handleClick4 = () => {
     window.location.href = `/vc/rides`;
@@ -107,7 +122,8 @@ function VcoordinatorDashboardPg() {
       <MainLayout data={sideNavBarLinks}>
 
  
-      <div>
+      <div className="h-screen">
+        <div>
           <h1 className='ml-12 mt-10 font-semibold text-[25px]'>
             Dashboard
           </h1>
@@ -192,64 +208,48 @@ function VcoordinatorDashboardPg() {
       </div>
 
 
-{/* table of children */}
-<div className='ml-16 mt-3 mb-24 mr-16 shadow-md w-[1000px]'>
-<table className=' border-separate border-spacing-y-2 border border-slate-50 w-[1000px]'>
+{/* table of emergency-now*/}
+<div className='ml-16 mt-3 mr-6 shadow-md w-[1000px]'>
+<table className='border-separate border-spacing-y-2 border border-slate-50 w-[1000px]'>
   <thead className='border-y-4 border-white drop-shadow '>
     <tr className=' bg-[#999999] text-white border-b-2 text-[18px] drop-shadow-md '>
-      <th className='px-3.5 pt-2 pb-2 w-52 pl-16 '>Situation</th>
-      <th className='px-3.5 w-44 pl-16'>Type</th>
-      <th className='px-3.5 w-48 pl-16'>Registration</th>
-      <th className='px-3.5 w-48 pl-12'>Contact</th> 
-      <th className='px-3.5 w-52 pl-12'></th>
+      <th className='px-3.5 pt-2 pb-2  pl-8 '>Situation</th>
+      <th className='px-3.5 '>Type</th>
+      <th className='px-3.5'>Vehicle number</th>
+      <th className='px-3.5'>Contact</th> 
+      <th className='px-3.5 pl-12'></th>
     
     </tr>
   </thead>
 
   <tbody className='shadow-md drop-shadow-md '>
+  {emergencynow.map((item) => ( 
     <tr className=' bg-[#D9D9D9]  hover:cursor-pointer hover:bg-[#eaeaea] drop-shadow-md '>
-        <td className='text-center pt-2 pb-2 '>Breakdown</td>
-        <td className='text-center'>Van</td>
-        <td className='text-center'>QL-2234</td>
-        <td className='text-center'>071-xxxxxxx</td>
+        <td className='text-center pt-2 pb-2 '>{item.situation}</td>
+        <td className='text-center'>{item.vehicle_type}</td>
+        <td className='text-center'>{item.vehicle_no}</td>
+        <td className='text-center'>{item.contact_number}</td>
+
+        <NavLink
+          to={`/vc/emergencydetails/${
+            item.emergency_id
+              }?data=${encodeURIComponent(
+              JSON.stringify(item)
+              )}`}
+              >
+                
         <td className='text-center'>
-              <button  onClick={handleClick3}  className="bg-gradient-to-b from-amber-500 to-amber-300  w-40 h-9 ml-4 mt-2 mb-2 rounded-lg shadow-md hover:shadow-lg transform hover:scale-[104%] trasition duration-300 ease-out  hover:cursor-pointer">View more...</button>
+              <button className="bg-gradient-to-b from-amber-500 to-amber-300  w-40 h-9 ml-4 mt-2 mb-2 rounded-lg shadow-md hover:shadow-lg transform hover:scale-[104%] trasition duration-300 ease-out  hover:cursor-pointer">View more...</button>
         </td>
-    </tr>
-    
-    <tr className=' bg-[#D9D9D9]  hover:cursor-pointer  hover:bg-[#eaeaea] drop-shadow-md' >
-      <td className='text-center pt-2 pb-2 '>Accident</td>
-      <td className='text-center'>Bus</td>
-      <td className='text-center'>RK-2889</td>
-      <td className='text-center'>071-xxxxxxx</td>
-      <td className='text-center'>
-        <button  onClick={handleClick3}   className="bg-gradient-to-b from-amber-500 to-amber-300  w-40 h-9 ml-4 mt-2 mb-2 rounded-lg shadow-md hover:shadow-lg transform hover:scale-[104%] trasition duration-300 ease-out  hover:cursor-pointer">View more...</button>
-      </td>
+        </NavLink>
     </tr>
 
-    <tr className=' bg-[#D9D9D9]  hover:cursor-pointer  hover:bg-[#eaeaea] drop-shadow-md'>
-      <td className='text-center pt-2 pb-2 '>Breakdown</td>
-      <td className='text-center'>Van</td>
-      <td className='text-center'>SD-2934</td>
-      <td className='text-center'>071-xxxxxxx</td>
-      <td className='text-center'>
-        <button  onClick={handleClick3}  className="bg-gradient-to-b from-amber-500 to-amber-300  w-40 h-9 ml-4 mt-2 mb-2 rounded-lg shadow-md hover:shadow-lg transform hover:scale-[104%] trasition duration-300 ease-out  hover:cursor-pointer">View more...</button>
-      </td>
-    </tr>
-
-    <tr className=' bg-[#D9D9D9]  hover:cursor-pointer  hover:bg-[#eaeaea] drop-shadow-md'>
-      <td className='text-center pt-2 pb-2 '>Breakdown</td>
-      <td className='text-center'>Van</td>
-      <td className='text-center'>SD-2934</td>
-      <td className='text-center'>071-xxxxxxx</td>
-      <td className='text-center'>
-        <button  onClick={handleClick3}  className="bg-gradient-to-b from-amber-500 to-amber-300  w-40 h-9 ml-4 mt-2 mb-2 rounded-lg shadow-md hover:shadow-lg transform hover:scale-[104%] trasition duration-300 ease-out  hover:cursor-pointer">View more...</button>
-      </td>
-    </tr>
+     ))}
   </tbody>
 
 </table>
 </div>
+</div> 
       </MainLayout>
     </div>
   );
