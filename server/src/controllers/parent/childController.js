@@ -250,6 +250,7 @@ const ViewVehicle = async (req, res) => {
     const vehicleData = await pool.query(
       "SELECT * FROM vehicle INNER JOIN school_ride ON vehicle.vehicle_id = school_ride.vehicle_id "
     );
+    // console.log(vehicleData);
 
     return res.json(vehicleData.rows);
   } catch (err) {
@@ -539,6 +540,9 @@ const addRideRequest = async (req, res) => {
       selectedShift,
     } = req.body;
 
+    console.log(req.body);
+
+
     //genarate request id
     const lastRequestData = await pool.query(
       "SELECT * FROM ride_request ORDER BY request_id DESC LIMIT 1"
@@ -573,9 +577,20 @@ const addRideRequest = async (req, res) => {
     const { lat, lng } = firstResult.locations[0].latLng;
     const formattedaddress =
       firstResult.locations[0].street || firstResult.locations[0].adminArea5;
-    console.log(lat);
-    console.log(lng);
-    console.log(formattedaddress);
+    // console.log(lat);
+    // console.log(lng);
+    // console.log(formattedaddress);
+    // console.log(        newRequestId,
+    //   child_location,
+    //   `POINT(${lng} ${lat})`,
+    //   formattedaddress,
+    //   school,
+    //   ride_id,
+    //   "pending",
+    //   driver_id,
+    //   child_id,
+    //   userId,
+    //   selectedShift);
 
     //Insert into ride request table
     const newRideRequest = await pool.query(
