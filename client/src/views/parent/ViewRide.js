@@ -98,9 +98,9 @@ function ViewRide() {
           </h1>
           <div className="flex justify-end w-5/6 ml-24 mb-4">
             <NavLink
-              to={`/parent/Children/addnewride?child=${encodeURIComponent(
-                JSON.stringify(child)
-              )}`}
+              to={`/parent/children/addnewride/${
+                child.id
+              }?data=${encodeURIComponent(JSON.stringify(child))}`}
             >
               <button className="flex justify-center w-56 h-10 bg-orange rounded-md cursor-pointer hover:shadow-lg transform hover:scale-[103%] transition duration-300 ease-out">
                 <div className="flex mt-2 gap-3 font-semibold">

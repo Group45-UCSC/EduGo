@@ -1,3 +1,4 @@
+import React,{useState} from "react";
 import MainLayout from "../../components/layout/MainLayout";
 import dlcard from "../../images/dlcard.jpg";
 import VehiCarousel from "../../components/carousel/VehiCarousel";
@@ -5,7 +6,7 @@ import { AiFillDashboard } from "react-icons/ai";
 import { BsFillCarFrontFill } from "react-icons/bs";
 import { FaShippingFast } from "react-icons/fa";
 import { FaCarCrash } from "react-icons/fa";
-import React,{useState} from "react";
+import { useLocation } from "react-router-dom";
 
 
 // Carouselimage
@@ -54,14 +55,18 @@ const sideNavBarLinks = [
 
 function VehiclesDetails(onClose) {
     
+  const location = useLocation();
+  const dataParam = new URLSearchParams(location.search).get("data");
+  const item = JSON.parse(decodeURIComponent(dataParam));
+
 
     // calender
     const [isCalendarVisible, setCalendarVisibility] = useState(false); // Calendar initially invisible
 
-
     const handleToggle = () => {
     setCalendarVisibility(!isCalendarVisible); // Toggle calendar visibility
     }
+
 
   return (
     <MainLayout data={sideNavBarLinks}>
@@ -73,10 +78,10 @@ function VehiclesDetails(onClose) {
 
 
         {/* details container */}
-        <div className=" mt-8 mb-10 grid grid-cols-2 gap-1">
+        <div className=" mt-8 mb-10 grid grid-cols-3 gap-1">
 
             {/* vehicle details container */}
-            <div className='bg-slate-200 h-[480px] ml-40 w-[380px] mt-8 rounded-lg shadow-md drop-shadow-md'>
+            <div className='bg-slate-200 h-[480px] ml-10 w-[350px] mt-8 rounded-lg shadow-md drop-shadow-md'>
             
                 <div className='mt-4 ml-8 leading-8 font-semibold'>
                   <div className='font-bold text-[19px] pt-3 pb-2'>
@@ -85,23 +90,42 @@ function VehiclesDetails(onClose) {
                     </h1>
                   </div>
 
-                <p className='mb-1'>Type: van</p>
-                <p className='mb-1'>Make: Toyota</p>
-                <p className='mb-1'>Model: Hiace Dolphin 2001</p>
-                <p className='mb-1'>Year: 2001</p>
-                <p className='mb-1'>License number: NA - 6111</p>
-                <p className='mb-1'>Engine Number: LH 1989</p>
-                <p className='mb-1'>Chassis Number: 1ABCD2EFGH14JKL</p>
-                <p className='mb-1'>Starting: Homagama</p>
-                <p className='mb-1'>Destination: Maharagama</p>
-                <p className='mb-1'>Ride Status: Ongoing</p>
+                <p className='mb-1'>Type: {item.vehicle_type}</p>
+                <p className='mb-1'>Make: {item.make}</p>
+                <p className='mb-1'>Model: {item.vehicle_model}</p>
+                <p className='mb-1'>Year: {item.manufacture_year}</p>
+                <p className='mb-1'>License number: {item.vehicle_no}</p>
+                <p className='mb-1'>Engine Number: {item.engine_no} </p>
+                <p className='mb-1'>Chassis Number: {item.chassis_no} </p>
+                <p className='mb-1'>Starting: {item.location_morning_ride}</p>
+                <p className='mb-1'>Destination: {item.location_noon_ride}</p>
+                <p className='mb-1'>Ride Status: arshs</p>
                 <p className='mb-1'>Last checked:2023/06/27</p>
                 </div>
             </div>
 
 
+            {/* owner details container */}
+            <div className='bg-slate-200 h-[480px] ml-8 w-[350px] mt-8 rounded-lg shadow-md drop-shadow-md'>
+            
+                <div className='mt-4 ml-8 leading-8 font-semibold'>
+                  <div className='font-bold text-[19px] pt-3 pb-2'>
+                    <h1>
+                      Owner Details
+                    </h1>
+                  </div>
+
+                <p className='mb-1'>Name: Rasindu Vimanga</p>
+                <p className='mb-1'>NIC: 948897724V</p>
+                <p className='mb-1'>Contact: 071-1231234</p>
+                <p className='mb-1'>Address: No:08, Baseline Road, Colombo</p>
+                <p className='mb-1'>Birthday: 1938-01-01</p>
+                </div>
+            </div>
+
+
             {/* driver details container */}
-            <div className='bg-slate-200 h-[480px] ml-8 w-[380px] mt-8 rounded-lg shadow-md drop-shadow-md'>
+            <div className='bg-slate-200 h-[480px] ml-5 w-[350px] mt-8 rounded-lg shadow-md drop-shadow-md'>
             
                 <div className='mt-4 ml-8 leading-8 font-semibold'>
                 <div className='font-bold text-[19px] pt-3 pb-2'>
@@ -110,12 +134,12 @@ function VehiclesDetails(onClose) {
                   </h1>
                 </div>
 
-                <p className='mb-1'>Name: Rasindu Vimanga</p>
-                <p className='mb-1'>Email: rasindu@gmail.com</p>
-                <p className='mb-1'>NIC: 980011234V</p>
-                <p className='mb-1'>Contact: 077-1231234</p>
-                <p className='mb-1'>Address: No:10, Queens Road, Colombo 03</p>
-                <p className='mb-1'>Birthday: 1998-01-01</p>
+                <p className='mb-1'>Name: {item.user_name}</p>
+                <p className='mb-1'>Email: {item.user_email}</p>
+                <p className='mb-1'>NIC: {item.nic}</p>
+                <p className='mb-1'>Contact: {item.contact_number}</p>
+                <p className='mb-1'>Address: {item.address}</p>
+                <p className='mb-1'>Birthday: {item.birthday}</p>
                 <p className='mb-1'>License Photo:</p>
 
                 <img src={dlcard} alt="dl card" className="ml-[25%] h-[100px]"></img>

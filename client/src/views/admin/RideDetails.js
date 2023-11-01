@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useLocation, NavLink } from "react-router-dom";
 import MainLayout from "../../components/layout/MainLayout";
 import driverpic from "../../images/driver1.png";
 import { AiFillDashboard } from "react-icons/ai";
@@ -8,6 +9,7 @@ import { FaChild } from "react-icons/fa";
 import { FaUserGroup } from "react-icons/fa6";
 import { BsFillCarFrontFill } from "react-icons/bs";
 import { FaShippingFast } from "react-icons/fa";
+
 
 const sideNavBarLinks = [
   { title: "Dashboard", path: "/admin/dashboard", icon: <AiFillDashboard /> },
@@ -19,6 +21,10 @@ const sideNavBarLinks = [
 ];
 
 function AdminRideDetails() {
+
+    const location = useLocation();
+    const dataParam = new URLSearchParams(location.search).get("data");
+    const item = JSON.parse(decodeURIComponent(dataParam));
 
   const [viewPopup, setViewPopup] = useState(false);
 
@@ -32,14 +38,6 @@ function AdminRideDetails() {
 
   const child = () => {
     window.location.href = `/admin/children`;
-  };
-
-  const driver = () => {
-    window.location.href = `/admin/driverinfo`;
-  };
-
-  const vehicle = () => {
-    window.location.href = `/admin/vehicleinfo`;
   };
 
   return (
@@ -58,40 +56,57 @@ function AdminRideDetails() {
             {/* Driver's and vehicles detail container */}
             <div className='flex '>
               {/* driver's details container */}
-              <div onClick={driver} className='bg-slate-200 w-[275px] h-80 ml-12 mt-8 rounded-lg shadow-md cursor-pointer'>
+              <div className='bg-slate-200 w-[275px] h-80 ml-12 mt-8 rounded-lg shadow-md cursor-pointer'>
+              <NavLink
+                  to={`/admin/driverinfo/${
+                    item.user_id
+                  }?data=${encodeURIComponent(
+                    JSON.stringify(item)
+                  )}`}
+                >
                 <div className='font-bold text-[19px] mt-4 ml-8'>
                   Driver's details
                 </div>
                 <div className='mt-4 ml-8'>
-                  <p className='mb-1'>ID: 002</p>
-                  <p className='mb-1'>Name: Sachithra Dissanayake</p>
-                  <p className='mb-1'>Email: Sachithra@gmail.com</p>
-                  <p className='mb-1'>NIC: 951234678V</p>
-                  <p className='mb-1'>Contact: 071-xxxxxxx</p>
-                  <p className='mb-1'>Address: Pitipana, Homagama</p>
+                  <p className='mb-1'>ID: {item.user_id}</p>
+                  <p className='mb-1'>Name: {item.user_name}</p>
+                  <p className='mb-1'>Email: {item.user_email}</p>
+                  <p className='mb-1'>NIC: {item.nic}</p>
+                  <p className='mb-1'>Contact: {item.contact_number}</p>
+                  <p className='mb-1'>Address: {item.address}</p>
                 </div>
+                </NavLink>
               </div>
 
               {/* Vehicle details container */}
-              <div onClick={vehicle} className='bg-slate-200 w-[275px] h-80 ml-12 mt-8 rounded-lg shadow-md cursor-pointer'>
+              <div className='bg-slate-200 w-[275px] h-80 ml-12 mt-8 rounded-lg shadow-md cursor-pointer'>
+              <NavLink
+                  to={`/admin/vehicleinfo/${
+                    item.vehicle_id
+                  }?data=${encodeURIComponent(
+                    JSON.stringify(item)
+                  )}`}
+                >
                 <div className='font-bold text-[19px] mt-4 ml-8'>
                   Vehicle details
                 </div>
                 <div className='mt-4 ml-8'>
-                  <p className='mb-1'>Type: van</p>
-                  <p className='mb-1'>Make: Toyota</p>
-                  <p className='mb-1'>Model: Hiace Dolphin 2001</p>
-                  <p className='mb-1'>License number: NA - 6111</p>
-                  <p className='mb-1'>Starting: Homagama</p>
-                  <p className='mb-1'>Destination: Maharagama</p>
-                  <p className='mb-1'>Start time: 06.00 AM</p>
+                  <p className='mb-1'>Type: {item.vehicle_type}</p>
+                  <p className='mb-1'>Make: {item.make}</p>
+                  <p className='mb-1'>Model: {item.vehicle_model}</p>
+                  <p className='mb-1'>License number: {item.vehicle_no}</p>
+                  <p className='mb-1'>Morning ride: {item.location_morning_ride}</p>
+                  <p className='mb-1'>Morning start: {item.time_morning_ride}</p>
+                  <p className='mb-1'>Noon ride: {item.location_noon_ride}</p>
+                  <p className='mb-1'>Noon start: {item.time_noon_ride}</p>
                 </div>
+                </NavLink>
               </div>
             </div>
           </div>
           {/* status & location */}
           <div className='absolute -mt-24 overflow-auto'>
-            <h2 className='ml-20 font-semibold text-[17px]'>Ride Status : Ongoing</h2>
+            <h2 className='ml-20 font-semibold text-[17px]'>Ride Status : {item.ride_type}</h2>
             <div className='bg-gradient-to-b from-amber-500 to-amber-300 w-28 h-9 ml-28 mt-4 rounded-lg shadow-md hover:shadow-lg transform hover:scale-[102%] trasition duration-300 ease-out  hover:cursor-pointer'>
               <div onClick={showPopup} className='ml-4 mt-4 text-lg'>
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-7 h-7 pt-1">

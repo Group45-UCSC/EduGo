@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import MainLayout from "../../components/layout/MainLayout";
 import { FaBeer } from "react-icons/fa";
 import {
@@ -16,44 +16,6 @@ import {
   Line,
 } from "recharts";
 
-const data = [
-  {
-    name: "February",
-    income: 5000000,
-    expense: 3000000,
-    profit: 2000000,
-  },
-  {
-    name: "March",
-    income: 4000000,
-    expense: 2900000,
-    profit: 1100000,
-  },
-  {
-    name: "April",
-    income: 5000000,
-    expense: 3700000,
-    profit: 1300000,
-  },
-  {
-    name: "May",
-    income: 4000000,
-    expense: 2500000,
-    profit: 1500000,
-  },
-  {
-    name: "June",
-    income: 4500000,
-    expense: 2900000,
-    profit: 1600000,
-  },
-  {
-    name: "July",
-    income: 5000000,
-    expense: 2800000,
-    profit: 2200000,
-  },
-];
 
 const sideNavBarLinks = [
   { title: "Dashboard", path: "/admin/dashboard", icon: <FaBeer /> },
@@ -65,6 +27,25 @@ const sideNavBarLinks = [
 ];
 
 function AdminAnalysis() {
+
+  const [incExpdata, setIncExp] = useState([]);
+
+  useEffect(() => {
+    async function incomeExpense() {
+      try {
+        const response = await fetch(
+          `http://localhost:5000/edugo/admin/analysis/first`
+        );
+        const data = await response.json();
+        setIncExp(data);
+      } catch (err) {
+        console.error(err.message);
+      }
+    }
+
+    incomeExpense();
+  });
+
   return (
     <div>
       <MainLayout data={sideNavBarLinks}>
@@ -78,7 +59,7 @@ function AdminAnalysis() {
             <BarChart
               width={500}
               height={300}
-              data={data}
+              data={incExpdata}
               margin={{
                 top: 5,
                 right: 30,
@@ -87,12 +68,12 @@ function AdminAnalysis() {
               }}
             >
               <CartesianGrid strokeDasharray="3 3" />
-              <XAxis dataKey="name" />
+              <XAxis dataKey="month_name" />
               <YAxis />
               <Tooltip />
               <Legend />
-              <Bar dataKey="income" fill="#8884d8" />
-              <Bar dataKey="expense" fill="#82ca9d" />
+              <Bar dataKey="total_income" fill="#8884d8" />
+              <Bar dataKey="total_expense" fill="#82ca9d" />
             </BarChart>
           </ResponsiveContainer>
         </div>
@@ -103,7 +84,7 @@ function AdminAnalysis() {
             <LineChart
               width={500}
               height={300}
-              data={data}
+              data={incExpdata}
               margin={{
                 top: 5,
                 right: 30,
@@ -112,7 +93,7 @@ function AdminAnalysis() {
               }}
             >
               <CartesianGrid strokeDasharray="3 3" />
-              <XAxis dataKey="name" />
+              <XAxis dataKey="month_name" />
               <YAxis />
               <Tooltip />
               <Legend />

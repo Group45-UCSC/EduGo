@@ -31,16 +31,45 @@ const {
   viewIncomeChart,
   viewTotalIncome,
   viewChildFees,
+
+  // MOBILE
+  viewRidePayment,
 } = require("../controllers/driver/financeController");
 const {addComplaint} = require("../controllers/driver/complaintController");
 
-const { viewRideDetails } = require("../controllers/driver/rideController");
+const {
+  viewRideDetails,
+  viewRideRequests,
+  rejectRideRequest,
+  checkReachingSchool,
+  acceptRideRequest,
+  setChildRideTime,
+  viewRideChildList,
+  changePickedStatus,
+  changedroppedStatus,
+  rideEndStatus,
+  
+  // MOBILE
+  childrenCountSchool,
+  // childrenSchool,
+
+} = require("../controllers/driver/rideController");
 const {
   viewSchoolDetails,
   selectSchool,
   checkRideBeforeRemove,
   removeSchoolFromRide,
 } = require("../controllers/driver/schoolController");
+
+
+// MOBILE
+// Children view
+const { 
+  getChildrenDetails ,
+} = require("../controllers/driver/childrenController");
+
+
+
 
 //create routes
 router.route("/dashboard/hasride/:userId").get(hasRide);
@@ -52,8 +81,22 @@ router.post("/vehicle/upload/", upload.single("vehicleRegDoc"), uploadVehicle);
 
 router.route("/vehicle/viewImg/:userId").get(viewVehicleImg);
 
+//next ride page
+router.route("/ride/children/view/:userId").get(viewRideChildList);
+router.route("/ride/child/picked").put(changePickedStatus);
+router.route("/ride/child/dropped").put(changedroppedStatus);
+router.route("/ride/end/:userId").put(rideEndStatus);
+
+
 //ride page
 router.route("/ride/view/details/:userId").get(viewRideDetails);
+router.route("/ride/requests/view/:userId").get(viewRideRequests);
+router.route("/ride/request/reject/:childId,:requestId").put(rejectRideRequest);
+router
+  .route("/ride/request/school/check/:userId,:schoolId")
+  .get(checkReachingSchool);
+router.route("/ride/request/accept/:userId").put(acceptRideRequest);
+router.route("/ride/set/ridetime/").post(setChildRideTime);
 
 //school page
 router.route("/ride/view/school/:userId").get(viewSchoolDetails);
@@ -80,6 +123,19 @@ router.route("/deposit/cashpayments/view/:userId").get(viewCashPaymentData);
 //feedback page
 router.route("/feedback/add/:userId").post(addFeedback);
 router.route("/feedback/view/:userId").get(viewFeedback);
+
+// MOBILE
+// Children details page
+router.route("/childrenDetails/:driverId").get(getChildrenDetails);
+
+// ride cash payment
+router.route("/ridePayment/:driverId").get(viewRidePayment);
+
+// children count school
+router.route("/schoolChildren/:driverId").get(childrenCountSchool);
+
+// children name in school
+// router.route("/childrenSchool/:driverId").get(childrenSchool);
 
 //support page
 router.route("/complaint/add/:userId").post(addComplaint);

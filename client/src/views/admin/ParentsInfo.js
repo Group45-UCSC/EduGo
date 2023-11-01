@@ -1,4 +1,5 @@
 import React, {useState} from "react";
+import { useLocation } from "react-router-dom";
 import MainLayout from "../../components/layout/MainLayout";
 import parentpic from "../../images/parent1.png";
 import { AiFillDashboard } from "react-icons/ai";
@@ -18,6 +19,11 @@ const sideNavBarLinks = [
 ];
 
 function AdminParentsInfo() {
+
+    const location = useLocation();
+    const dataParam = new URLSearchParams(location.search).get("data");
+    const item = JSON.parse(decodeURIComponent(dataParam));
+
     const [toggle, setToggle] = useState(1);
 
   function updateToggle(id) {
@@ -47,13 +53,13 @@ function AdminParentsInfo() {
                     <div className='font-bold text-[19px] pt-4 pb-2'>
                         Parent's details
                     </div>
-                        <p className='mb-1'>ID: 002</p>
-                        <p className='mb-1'>Name: Pamudu Kumarage</p>
-                        <p className='mb-1'>Email: pamudu@gmail.com</p>
-                        <p className='mb-1'>NIC: 951234678V</p>
-                        <p className='mb-1'>Contact: 071-xxxxxxx</p>
-                        <p className='mb-1'>Address: Pitipana, Homagama</p>
-                        <p className='mb-1'>Dependents: 2</p>
+                        <p className='mb-1'>ID: {item.user_id}</p>
+                        <p className='mb-1'>Name: {item.user_name}</p>
+                        <p className='mb-1'>Email: {item.user_email}</p>
+                        <p className='mb-1'>NIC: {item.nic}</p>
+                        <p className='mb-1'>Contact: {item.contact_number}</p>
+                        <p className='mb-1'>Address: {item.address}</p>
+                        <p className='mb-1'>Children: {item.num_of_registered_children}</p>
                     </div>
                 </div>
 
