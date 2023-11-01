@@ -51,12 +51,15 @@ function Chat() {
   const [chatItems, setChatItems] = useState([]);
   const [chatMessages, setChatMessages] = useState([]);
   const userId = localStorage.getItem("userId");
+  // const [userId, setUserId] = useState("");
   // console.log(userId);
 
   useEffect(() => {
     async function viewChatItems() {
       try {
-        const response = await fetch("http://localhost:5000/edugo/supAgent/chat/viewChat");
+        const response = await fetch(
+          "http://localhost:5000/edugo/supAgent/chat/viewChat"
+        );
 
         if (!response.ok) {
           throw new Error("Network response was not ok");
@@ -69,27 +72,28 @@ function Chat() {
       }
     }
     viewChatItems();
-  }, []); 
+  }, []);
 
   useEffect(() => {
-    const receiveMessage = async() => {
+    const receiveMessage = async () => {
       try {
-        const response = await fetch(`http://localhost:5000/edugo/supAgent/chat/receiveMessage/${userId}`);
+        const response = await fetch(
+          `http://localhost:5000/edugo/supAgent/chat/receiveMessage/${userId}`
+        );
 
         if (response.ok) {
-          const data= await response.json();
+          const data = await response.json();
           setChatMessages(data);
-        } else{
+        } else {
           throw new Error(" Network response was not ok");
         }
       } catch (error) {
         console.error("Error fetching chat data:", error);
-      
       }
     };
     receiveMessage();
-  },[userId]);
-  
+  }, [userId]);
+
   const handleNewMessage = (chatId) => {
     setChatItemsState((prevChatItems) =>
       prevChatItems.map((chatItem) =>
@@ -99,8 +103,7 @@ function Chat() {
       )
     );
   };
-  
-  
+
   const handleChatItemClick = (chatId) => {
     setSelectedChatId(chatId);
 
@@ -132,22 +135,23 @@ function Chat() {
   // };
 
   // function to handle sending a message
-  const handleSendMessage = async (userId) => {
+  const handleSendMessage = async () => {
     if (inputValue.trim() !== "") {
       try {
-        const response = await fetch(`
-        http://localhost:5000/edugo/supAgent/chat/sendMessage/${userId}`,
-         {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            sender_id:userId,
-            receiver_id: selectedChatId,
-            message: inputValue.trim(),
-          }),
-        });
+        const response = await fetch(
+          `http://localhost:5000/edugo/supAgent/chat/sendMessage/${userId}`,
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              sender_id: userId,
+              receiver_id: selectedChatId,
+              message: inputValue.trim(),
+            }),
+          }
+        );
 
         if (!response.ok) {
           throw new Error("Network response was not ok");
@@ -157,7 +161,7 @@ function Chat() {
 
         setSentMessages((prevMessages) => [...prevMessages, newMessage]);
         setInputValue("");
-      }catch (error) {
+      } catch (error) {
         console.error("Error sending message:", error);
       }
     }
@@ -195,7 +199,9 @@ function Chat() {
                 </div>
                 {parentChatItems
                   .filter((item) =>
-                    item.user_name.toLowerCase().includes(searchQuery.toLowerCase())
+                    item.user_name
+                      .toLowerCase()
+                      .includes(searchQuery.toLowerCase())
                   )
                   .map((item, index) => (
                     <div
@@ -227,7 +233,9 @@ function Chat() {
                 </div>
                 {driverChatItems
                   .filter((item) =>
-                    item.user_name.toLowerCase().includes(searchQuery.toLowerCase())
+                    item.user_name
+                      .toLowerCase()
+                      .includes(searchQuery.toLowerCase())
                   )
                   .map((item, index) => (
                     <div
@@ -270,7 +278,10 @@ function Chat() {
                     className="w-8 h-8 rounded-full mr-3"
                   />
                   <p className="text-gray-800 font-semibold">
-                    {chatItems.find((item) => item.user_id === selectedChatId)?.user_name}
+                    {
+                      chatItems.find((item) => item.user_id === selectedChatId)
+                        ?.user_name
+                    }
                   </p>
                 </div>
               ) : (
@@ -291,51 +302,44 @@ function Chat() {
                   {/* Display the chat view for the selected chat */}
                   {/* Dummy chat messages */}
                   <div className="flex flex-col gap-3 ml-1 mt-8">
-                    {chatMessages.map((chatMessage) => (
-                      <div key={chatMessages.sender_id}>
-                        {selectedChatId === chatMessage.sender_id && (
-                          <div className="flex flex-col gap-3 ml-1 mt-8">
-                            {Array.isArray(chatMessage.message) && chatMessage.message.map((message, index) => (
+                    
+                      {chatMessages.map((chatMessage) => (
+                        <div key={chatMessage.message_id}>
+                          {/* Display chat messages for the selected chat (assuming 'selectedChatId' is set elsewhere) */}
+                          {selectedChatId === chatMessage.sender_id ||
+                          selectedChatId === chatMessage.receiver_id ? (
+                            <div className="flex gap-4 items-center p-2">
+                              <img
+                                src={chatMessage.avatar}
+                                alt="Profile"
+                                className="w-8 h-8 rounded-full bg-o"
+                              />
+
                               <div
-                                key={index}
-                                className={`flex gap-4 items-center p-2 ${
-                                  chatMessage.sender_id === selectedChatId
+                                className={`bg-gray px-5 py-2 rounded-xl flex ${
+                                  selectedChatId === chatMessage.sender_id
                                     ? "justify-start"
                                     : "justify-end"
                                 }`}
                               >
-                                <img-
-                                  src={chatMessage.avatar}
-                                  alt="Profile"
-                                  className="w-8 h-8 rounded-full bg-o"
-                                />
-
-                                <div
-                                  className={`bg-gray px-5 py-2 rounded-xl flex ${
-                                    chatMessage.message_id === 1
-                                      ? "justify-start"
-                                      : "justify-end"
-                                  }`}
-                                >
-                                  <p>{message}</p>
-                                </div>
+                                <p>{chatMessage.message}</p>
                               </div>
-                            ))}
-                          </div>
-                        )}
-                      </div>
-                    ))}
+                            </div>
+                          ) : null}
+                        </div>
+                      ))}
+                    
                   </div>
                   {chatItems.find((item) => item.user_id === selectedChatId) &&
                     sentMessages
-                      .filter((message) => message.chatId === selectedChatId)
+                      .filter((message) => message.receiver_id === selectedChatId)
                       .map((message, index) => (
                         <div
                           key={index}
                           className="flex gap-3 items-center p-2 justify-end"
                         >
                           <div className="bg-orange px-5 py-2 rounded-xl flex">
-                            <p>{message.content}</p>
+                            <p>{message.message}</p>
                           </div>
                         </div>
                       ))}
@@ -375,7 +379,7 @@ function Chat() {
                     className={`h-6 w-6 text-${
                       inputValue.trim() !== "" ? "orange" : "black"
                     } cursor-pointer hover:text-orange `}
-                    onClick={handleSendMessage} //calll the function t send the message
+                    onClick={() => handleSendMessage(userId, inputValue)} //calll the function t send the message
                   />
                 </div>
               )}

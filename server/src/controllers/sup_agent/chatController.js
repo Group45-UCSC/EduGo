@@ -46,7 +46,7 @@ const receiveMessage = async (req, res) => {
     const userId = req.params.userId;
     console.log(userId);
     const query = await pool.query (
-      "SELECT * FROM chat WHERE receiver_id = 'SUP001'",
+      "SELECT * FROM chat WHERE receiver_id = $1",[userId]
       
     );
 
