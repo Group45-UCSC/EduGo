@@ -68,7 +68,10 @@ const {
   getChildrenDetails ,
 } = require("../controllers/driver/childrenController");
 
-
+const {
+  sendMessage,
+  receiveMessage,
+} = require("../controllers/driver/supChatController");
 
 
 //create routes
@@ -140,6 +143,10 @@ router.route("/schoolChildren/:driverId").get(childrenCountSchool);
 //support page
 router.route("/complaint/add/:userId").post(addComplaint);
 router.route("/support/viewComplaint/:userId").get(viewUserComplaints);
+
+router.route("/minimizablechat/sendMessage/:userId").post(sendMessage);
+
+router.route("/minimizablechat/receiveMessage/:userId").get(receiveMessage);
 
 
 module.exports = router;
