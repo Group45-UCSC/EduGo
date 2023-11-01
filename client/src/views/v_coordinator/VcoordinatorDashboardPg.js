@@ -1,9 +1,11 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import MainLayout from "../../components/layout/MainLayout";
 import { AiFillDashboard } from "react-icons/ai";
 import { BsFillCarFrontFill } from "react-icons/bs";
 import { FaShippingFast } from "react-icons/fa";
 import { FaCarCrash } from "react-icons/fa";
+import { NavLink } from "react-router-dom";
+
 
 const sideNavBarLinks = [
   { title: "Dashboard", path: "/vc/dashboard", icon: <AiFillDashboard /> },
@@ -14,6 +16,94 @@ const sideNavBarLinks = [
 
 function VcoordinatorDashboardPg() {
 
+
+   //vehicle ongoing count
+   const [ongoingridecount, setongoingridecount] = useState([]);
+   useEffect(() => {
+     async function ongoingridecount() {
+       try {
+         const response = await fetch(
+           `http://localhost:5000/edugo/vc/dashboard/ongoingridecount`
+         );
+         const data = await response.json();
+         setongoingridecount(data);
+       } catch (err) {
+         console.error(err.message);
+       }
+     }
+     ongoingridecount();
+   });
+
+
+      //vehicle emergency count
+      const [emergencycount, setemergencycount] = useState([]);
+      useEffect(() => {
+        async function emergencycount() {
+          try {
+            const response = await fetch(
+              `http://localhost:5000/edugo/vc/dashboard/emergencycount`
+            );
+            const data = await response.json();
+            setemergencycount(data);
+          } catch (err) {
+            console.error(err.message);
+          }
+        }
+        emergencycount();
+      });
+
+
+     //vehicle verify count
+      const [verifycount, setverifycount] = useState([]);
+      useEffect(() => {
+        async function VerifyrequstCount() {
+          try {
+            const response = await fetch(
+              `http://localhost:5000/edugo/vc/dashboard/verifycount`
+            );
+            const data = await response.json();
+            setverifycount(data);
+          } catch (err) {
+            console.error(err.message);
+          }
+        }
+        VerifyrequstCount();
+      });
+
+      //vehicle cc reuest count
+      const [CCcount, setCCcount] = useState([]);
+      useEffect(() => {
+        async function ccrequestCount() {
+          try {
+            const response = await fetch(
+              `http://localhost:5000/edugo/vc/dashboard/ccCount`
+            );
+            const data = await response.json();
+            setCCcount(data);
+          } catch (err) {
+            console.error(err.message);
+          }
+        }
+        ccrequestCount();
+      });
+
+      //nowemergencytble
+      const [emergencynow, setemergencynow] = useState([]);
+      useEffect(() => {
+        async function emergencynow() {
+          try {
+            const response = await fetch(
+              `http://localhost:5000/edugo/vc/dashboard/emergencynow`
+            );
+            const data = await response.json();
+            setemergencynow(data);
+          } catch (err) {
+            console.error(err.message);
+          }
+        }
+        emergencynow();
+      });
+
   const handleClick = () => {
     window.location.href = `/vc/vrrequest`;
   };
@@ -22,9 +112,6 @@ function VcoordinatorDashboardPg() {
     window.location.href = `/vc/ccrequest`;
   };
 
-  const handleClick3 = () => {
-    window.location.href = `/vc/emergencydetails`;
-  };
 
   const handleClick4 = () => {
     window.location.href = `/vc/rides`;
@@ -35,7 +122,8 @@ function VcoordinatorDashboardPg() {
       <MainLayout data={sideNavBarLinks}>
 
  
-      <div>
+      <div className="h-screen">
+        <div>
           <h1 className='ml-12 mt-10 font-semibold text-[25px]'>
             Dashboard
           </h1>
@@ -50,9 +138,9 @@ function VcoordinatorDashboardPg() {
               Emergency
             </h2>
 
-            <h1 className='text-[20px] leading-[24px] font-bold mt-[15px] ml-3'> 
-              4 
-            </h1>
+            {emergencycount.map((items) => (
+              <h1 className='text-[20px] leading-[24px] font-bold mt-[15px] ml-3'>{items.count}</h1>
+              ))}
 
           </div>
           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6  ">
@@ -63,13 +151,13 @@ function VcoordinatorDashboardPg() {
         <div onClick={handleClick4} className='h-[100px] rounded-[8px] bg-[#EEEEEE] border-l-8 border-[#FF9900] pl-6 flex items-center justify-between px-[30px] cursor-pointer hover:shadow-lg transform hover:scale-[103%] trasition duration-300 ease-out shadow-md'>
           <div>
 
-            <h2 className='text-[#000000] text-[18px] leading-[17px] font-bold'> 
+            <h2 className='text-[#2f6d21] text-[18px] leading-[17px] font-bold'> 
               Ongoing transports
             </h2>
 
-            <h1 className='text-[20px] leading-[24px] font-bold mt-[15px] ml-3'> 
-              10 
-            </h1>
+            {ongoingridecount.map((item) => (
+              <h1 className='text-[20px] leading-[24px] font-bold mt-[15px] ml-3'>{item.count}</h1>
+              ))}
 
           </div>
           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
@@ -86,9 +174,9 @@ function VcoordinatorDashboardPg() {
               Vehicle Register Requests
             </h2>
 
-            <h1 className='text-[20px] leading-[24px] font-bold mt-[15px] ml-3'> 
-              2 
-            </h1>
+            {verifycount.map((item) => (
+              <h1 className='text-[20px] leading-[24px] font-bold mt-[15px] ml-3'>{item.count}</h1>
+              ))}
 
           </div>
           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
@@ -106,9 +194,9 @@ function VcoordinatorDashboardPg() {
               Condition Check
             </h2>
 
-            <h1 className='text-[20px] leading-[24px] font-bold mt-[15px] ml-3'> 
-              4 
-            </h1>
+            {CCcount.map((item) => (
+              <h1 className='text-[20px] leading-[24px] font-bold mt-[15px] ml-3'>{item.count}</h1>
+              ))}
 
           </div>
           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
@@ -120,64 +208,48 @@ function VcoordinatorDashboardPg() {
       </div>
 
 
-{/* table of children */}
-<div className='ml-16 mt-3 mb-24 mr-16 shadow-md w-[1000px]'>
-<table className=' border-separate border-spacing-y-2 border border-slate-50 w-[1000px]'>
+{/* table of emergency-now*/}
+<div className='ml-16 mt-3 mr-6 shadow-md w-[1000px]'>
+<table className='border-separate border-spacing-y-2 border border-slate-50 w-[1000px]'>
   <thead className='border-y-4 border-white drop-shadow '>
     <tr className=' bg-[#999999] text-white border-b-2 text-[18px] drop-shadow-md '>
-      <th className='px-3.5 pt-2 pb-2 w-52 pl-16 '>Situation</th>
-      <th className='px-3.5 w-44 pl-16'>Type</th>
-      <th className='px-3.5 w-48 pl-16'>Registration</th>
-      <th className='px-3.5 w-48 pl-12'>Contact</th> 
-      <th className='px-3.5 w-52 pl-12'></th>
+      <th className='px-3.5 pt-2 pb-2  pl-8 '>Situation</th>
+      <th className='px-3.5 '>Type</th>
+      <th className='px-3.5'>Vehicle number</th>
+      <th className='px-3.5'>Contact</th> 
+      <th className='px-3.5 pl-12'></th>
     
     </tr>
   </thead>
 
   <tbody className='shadow-md drop-shadow-md '>
+  {emergencynow.map((item) => ( 
     <tr className=' bg-[#D9D9D9]  hover:cursor-pointer hover:bg-[#eaeaea] drop-shadow-md '>
-        <td className='text-center pt-2 pb-2 '>Breakdown</td>
-        <td className='text-center'>Van</td>
-        <td className='text-center'>QL-2234</td>
-        <td className='text-center'>071-xxxxxxx</td>
+        <td className='text-center pt-2 pb-2 '>{item.situation}</td>
+        <td className='text-center'>{item.vehicle_type}</td>
+        <td className='text-center'>{item.vehicle_no}</td>
+        <td className='text-center'>{item.contact_number}</td>
+
+        <NavLink
+          to={`/vc/emergencydetails/${
+            item.emergency_id
+              }?data=${encodeURIComponent(
+              JSON.stringify(item)
+              )}`}
+              >
+                
         <td className='text-center'>
-              <button  onClick={handleClick3}  className="bg-gradient-to-b from-amber-500 to-amber-300  w-40 h-9 ml-4 mt-2 mb-2 rounded-lg shadow-md hover:shadow-lg transform hover:scale-[104%] trasition duration-300 ease-out  hover:cursor-pointer">View more...</button>
+              <button className="bg-gradient-to-b from-amber-500 to-amber-300  w-40 h-9 ml-4 mt-2 mb-2 rounded-lg shadow-md hover:shadow-lg transform hover:scale-[104%] trasition duration-300 ease-out  hover:cursor-pointer">View more...</button>
         </td>
-    </tr>
-    
-    <tr className=' bg-[#D9D9D9]  hover:cursor-pointer  hover:bg-[#eaeaea] drop-shadow-md' >
-      <td className='text-center pt-2 pb-2 '>Accident</td>
-      <td className='text-center'>Bus</td>
-      <td className='text-center'>RK-2889</td>
-      <td className='text-center'>071-xxxxxxx</td>
-      <td className='text-center'>
-        <button  onClick={handleClick3}   className="bg-gradient-to-b from-amber-500 to-amber-300  w-40 h-9 ml-4 mt-2 mb-2 rounded-lg shadow-md hover:shadow-lg transform hover:scale-[104%] trasition duration-300 ease-out  hover:cursor-pointer">View more...</button>
-      </td>
+        </NavLink>
     </tr>
 
-    <tr className=' bg-[#D9D9D9]  hover:cursor-pointer  hover:bg-[#eaeaea] drop-shadow-md'>
-      <td className='text-center pt-2 pb-2 '>Breakdown</td>
-      <td className='text-center'>Van</td>
-      <td className='text-center'>SD-2934</td>
-      <td className='text-center'>071-xxxxxxx</td>
-      <td className='text-center'>
-        <button  onClick={handleClick3}  className="bg-gradient-to-b from-amber-500 to-amber-300  w-40 h-9 ml-4 mt-2 mb-2 rounded-lg shadow-md hover:shadow-lg transform hover:scale-[104%] trasition duration-300 ease-out  hover:cursor-pointer">View more...</button>
-      </td>
-    </tr>
-
-    <tr className=' bg-[#D9D9D9]  hover:cursor-pointer  hover:bg-[#eaeaea] drop-shadow-md'>
-      <td className='text-center pt-2 pb-2 '>Breakdown</td>
-      <td className='text-center'>Van</td>
-      <td className='text-center'>SD-2934</td>
-      <td className='text-center'>071-xxxxxxx</td>
-      <td className='text-center'>
-        <button  onClick={handleClick3}  className="bg-gradient-to-b from-amber-500 to-amber-300  w-40 h-9 ml-4 mt-2 mb-2 rounded-lg shadow-md hover:shadow-lg transform hover:scale-[104%] trasition duration-300 ease-out  hover:cursor-pointer">View more...</button>
-      </td>
-    </tr>
+     ))}
   </tbody>
 
 </table>
 </div>
+</div> 
       </MainLayout>
     </div>
   );

@@ -1,9 +1,100 @@
-// ignore_for_file: use_key_in_widget_constructors, prefer_const_constructors, prefer_const_literals_to_create_immutables, sized_box_for_whitespace
+// ignore_for_file: use_key_in_widget_constructors, prefer_const_constructors, prefer_const_literals_to_create_immutables, sized_box_for_whitespace, avoid_print
 
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
 import './navbar.dart';
 
-class FinancialPage extends StatelessWidget {
+class FinancialPage extends StatefulWidget {
+  const FinancialPage({super.key});
+
+  @override
+  State<FinancialPage> createState() => _FinancialPageState();
+}
+
+class _FinancialPageState extends State<FinancialPage> {
+  // Data variables
+  List<Map<String, dynamic>> data = [];
+  List<Map<String, dynamic>> filteredData = [];
+  final String driverId = 'DRV001';
+
+  // Data organized by tab
+  Map<String, List<Map<String, dynamic>>> tabData = {
+    'paid': [],
+    'not_paid': [],
+    'pending': [],
+  };
+
+  // Controller for search input
+  TextEditingController searchController = TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+
+    // Fetch initial data
+    fetchData();
+  }
+
+  // Fetch ride payment details from an API
+  Future<void> fetchData() async {
+    try {
+      final result = await viewRidePayment(driverId);
+      for (var item in result) {
+        final payStatus = item['pay_status'];
+        tabData[payStatus]?.add(item);
+      }
+
+      setState(() {
+        data = result;
+
+        // Initialize filtered data
+        filteredData = data;
+      });
+    } catch (e) {
+      print('Error fetching data: $e');
+    }
+  }
+
+  // Fetch children details using HTTP
+  Future<List<Map<String, dynamic>>> viewRidePayment(String driverId) async {
+    final url =
+      Uri.parse('http://10.0.2.2:5000/edugo/driver/ridePayment/$driverId');
+
+    final response = await http.get(url);
+
+    if (response.statusCode == 200) {
+      final List<dynamic> responseData = json.decode(response.body);
+      return responseData.cast<Map<String, dynamic>>();
+    } else {
+      throw Exception('Failed to load data');
+    }
+  }
+
+  // Filter the data based on the search query
+  void performSearch(String query) {
+    if (query.isEmpty) {
+      setState(() {
+        // Reset to the original data
+        filteredData = data;
+      });
+      return;
+    }
+
+    // Filtering Data
+    setState(() {
+      filteredData = data
+      .where((item) =>
+        item['child_name']
+        .toLowerCase()
+        .contains(query.toLowerCase()) ||
+      getMonthName(item['related_month'])
+        .toLowerCase()
+        .contains(query.toLowerCase()))
+      .toList();
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Navbar(
@@ -37,7 +128,7 @@ class FinancialPage extends StatelessWidget {
             ),
             SizedBox(height: 10),
             // Search bar
-           Padding(
+            Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16.0),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.end,
@@ -49,6 +140,10 @@ class FinancialPage extends StatelessWidget {
                         color: Colors.grey[200],
                       ),
                       child: TextField(
+                        controller: searchController,
+                        onChanged: (query) {
+                          performSearch(query);
+                        },
                         decoration: InputDecoration(
                           hintText: 'Search',
                           prefixIcon: Icon(Icons.search),
@@ -59,16 +154,15 @@ class FinancialPage extends StatelessWidget {
                     ),
                   ),
                   SizedBox(width: 8),
-                  
                 ],
               ),
             ),
             Expanded(
               child: TabBarView(
                 children: [
-                  _buildOngoingTabContent(context),
-                  _buildNotPayTabContent(),
-                  _buildPayTabContent(),
+                  _buildTabContent(context, 'pending'),
+                  _buildTabContent(context, 'not_paid'),
+                  _buildTabContent(context, 'paid'),
                 ],
               ),
             ),
@@ -78,110 +172,43 @@ class FinancialPage extends StatelessWidget {
     );
   }
 
-  Widget _buildNotPayTabContent() {
+  Widget _buildTabContent(BuildContext context, String payStatus) {
+    final tabDataForStatus = tabData[payStatus] ?? [];
+    final isPending = payStatus == 'pending';
+
     return SingleChildScrollView(
       child: DataTable(
-        columns: const <DataColumn>[
+        columnSpacing: 10.0,
+        columns: <DataColumn>[
           DataColumn(label: Text('Name')),
           DataColumn(label: Text('Month')),
           DataColumn(label: Text('Payment')),
+          if (isPending) DataColumn(label: Text('Action')),
         ],
-        rows: [
-          _buildDataRowForPay('Child 6', 'September', '2500'),
-          _buildDataRowForPay('Child 7', 'September', '3000'),
-          _buildDataRowForPay('Child 8', 'September', '2000'),
-          _buildDataRowForPay('Child 9', 'September', '2500'),
-          _buildDataRowForPay('Child 10', 'September', '3000'),
-          
-         
-        ],
+        rows: tabDataForStatus.map((item) {
+          final monthNumber = item['related_month'];
+          final monthName = getMonthName(monthNumber);
+
+          final cells = <DataCell>[
+            DataCell(Text(item['child_name'].toString())),
+            DataCell(Text(monthName)),
+            DataCell(Text(item['amount'].toString())),
+          ];
+          if (isPending) {
+            cells.add(
+              DataCell(
+                ElevatedButton(
+                  onPressed: () {
+                    _showConfirmationDialog(context);
+                  },
+                  child: Text('Paid'),
+                ),
+              ),
+            );
+          }
+          return DataRow(cells: cells);
+        }).toList(),
       ),
-    );
-  }
-
-
-  Widget _buildOngoingTabContent(BuildContext context) {
-    return SingleChildScrollView(
-      child: Container(
-        width: MediaQuery.of(context).size.width,
-        child: DataTable(
-          columnSpacing: 8,
-          columns: const <DataColumn>[
-            DataColumn(label: Text('Name')),
-            DataColumn(label: Text('Month')),
-            DataColumn(label: Text('Payment')),
-            DataColumn(label: Text('Action')),
-          ],
-          rows: [
-            _buildDataRow(context, 'Child 1', 'September', '2500'),
-            _buildDataRow(context, 'Child 2', 'September', '3000'),
-            _buildDataRow(context, 'Child 3', 'September', '2000'),
-            _buildDataRow(context, 'Child 4', 'September', '2500'),
-            _buildDataRow(context, 'Child 5', 'September', '3000'),
-          ],
-        ),
-      ),
-    );
-  }
-
-  Widget _buildPayTabContent() {
-    return SingleChildScrollView(
-      child: DataTable(
-        columns: const <DataColumn>[
-          DataColumn(label: Text('Name')),
-          DataColumn(label: Text('Month')),
-          DataColumn(label: Text('Payment')),
-        ],
-        rows: [
-          _buildDataRowForPay('Child 1', 'August', '2500'),
-          _buildDataRowForPay('Child 2', 'August', '3000'),
-          _buildDataRowForPay('Child 3', 'August', '2000'),
-          _buildDataRowForPay('Child 4', 'August', '2500'),
-          _buildDataRowForPay('Child 5', 'August', '3000'),
-          _buildDataRowForPay('Child 1', 'July', '2500'),
-          _buildDataRowForPay('Child 2', 'July', '3000'),
-          _buildDataRowForPay('Child 3', 'July', '2000'),
-          _buildDataRowForPay('Child 1', 'June', '2500'),
-          _buildDataRowForPay('Child 2', 'June', '3000'),
-          _buildDataRowForPay('Child 3', 'June', '2000'),
-          _buildDataRowForPay('Child 4', 'June', '2000'),
-          _buildDataRowForPay('Child 5', 'June', '3000'),
-          _buildDataRowForPay('Child 6', 'June', '2000'),
-          _buildDataRowForPay('Child 1', 'May', '2500'),
-          _buildDataRowForPay('Child 2', 'May', '3000'),
-          _buildDataRowForPay('Child 3', 'May', '2000'),
-          _buildDataRowForPay('Child 4', 'May', '2000'),
-          _buildDataRowForPay('Child 5', 'May', '3000'),
-          _buildDataRowForPay('Child 6', 'May', '2000'),
-        ],
-      ),
-    );
-  }
-
-  DataRow _buildDataRow(
-      BuildContext context, String name, String month, String payment) {
-    return DataRow(
-      cells: <DataCell>[
-        DataCell(Text(name)),
-        DataCell(Text(month)),
-        DataCell(Text(payment)),
-        DataCell(ElevatedButton(
-          onPressed: () {
-            _showConfirmationDialog(context);
-          },
-          child: Text('Received'),
-        )),
-      ],
-    );
-  }
-
-  DataRow _buildDataRowForPay(String name, String month, String payment) {
-    return DataRow(
-      cells: <DataCell>[
-        DataCell(Text(name)),
-        DataCell(Text(month)),
-        DataCell(Text(payment)),
-      ],
     );
   }
 
@@ -191,17 +218,17 @@ class FinancialPage extends StatelessWidget {
       builder: (BuildContext context) {
         return AlertDialog(
           title: Text('Confirm Payment'),
-          content: Text('Are you sure you want to confirm this payment?'),
+          content: Text('Did you receive this payment?'),
           actions: [
             TextButton(
               onPressed: () {
-                Navigator.pop(context); // Close the dialog
+                Navigator.pop(context);
               },
               child: Text('No'),
             ),
             TextButton(
               onPressed: () {
-                Navigator.pop(context); // Close the dialog
+                Navigator.pop(context);
               },
               child: Text('Yes'),
             ),
@@ -209,5 +236,30 @@ class FinancialPage extends StatelessWidget {
         );
       },
     );
+  }
+
+
+  // Get month with name
+  String getMonthName(int month) {
+    const List<String> monthNames = [
+      'January',
+      'February',
+      'March',
+      'April',
+      'May',
+      'June',
+      'July',
+      'August',
+      'September',
+      'October',
+      'November',
+      'December',
+    ];
+
+    if (month >= 1 && month <= 12) {
+      return monthNames[month - 1];
+    }
+
+    return 'Unknown';
   }
 }

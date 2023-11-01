@@ -74,6 +74,8 @@ import VcFeedback from "./views/v_coordinator/Feedback";
 import VRRequest from "./views/v_coordinator/VRRequest";
 import CCRequest from "./views/v_coordinator/CCRequest";
 import VcProfile from "./views/v_coordinator/VcProfile";
+import VCmodal from "./views/v_coordinator/VCmodal";
+import VRmodal from "./views/v_coordinator/VRmodal";
 
 
 import SupAgentDashboardPg from "./views/sup_agent/SupAgentDashboardPg";
@@ -82,6 +84,7 @@ import SupParents from "./views/sup_agent/Parents";
 import SupDrivers from "./views/sup_agent/Drivers";
 import SupAgentProfile from "./views/sup_agent/SupAgentProfile";
 import Complaints from "./views/sup_agent/Complaints";
+
 // import DriverVehicleDetails from "./views/sup_agent/DriverVehicleDetails";
 // import ParentChildDetails from "./views/sup_agent/ParentChildDetails";
 
@@ -126,9 +129,9 @@ function App() {
           <Route exact path="/parent/children" element={<ParentChildren />} />
           <Route exact path="/parent/children/addchild" element={<AddChild />} />
           <Route exact path="/parent/children/childrendetails/:id" element={<ChildrenDetails />} />
-          <Route exact path="parent/children/addnewride/viewvehicle/:id" element={<ViewVehicle />} />
+          <Route exact path="/parent/children/addnewride/viewvehicle/:id" element={<ViewVehicle />} />
           <Route exact path="/parent/children/childlocation/:id" element={<ViewChildLocation />} />
-          <Route exact path="/parent/Children/addnewride/:id" element={<AddSchoolRide />} />
+          <Route exact path="/parent/children/addnewride/:id" element={<AddSchoolRide />} />
           <Route exact path="/parent/children/viewride/:id" element={<ViewRide />} />
           <Route exact path="/parent/payment" element={<ParentPayment />} />
           <Route exact path="/parent/support" element={<ParentSupport />} />
@@ -155,17 +158,18 @@ function App() {
 
           <Route exact path="/vc/dashboard" element={<VcoordinatorDashboardPg />} />
           <Route exact path="/vc/vehicles" element={<VcVehicles />} />
-          <Route exact path="/vc/vehiclesdetails" element={<VcVehiclesDetails />} />
+          <Route exact path="/vc/vehiclesdetails/:id" element={<VcVehiclesDetails />} />
           <Route exact path="/vc/rides" element={<VcRides />} />
-          <Route exact path="/vc/ridesdetails" element={<VcRidesDetails />} />
+          <Route exact path="/vc/ridesdetails/:id" element={<VcRidesDetails />} />
           <Route exact path="/vc/track" element={<VcTrack />} />
           <Route exact path="/vc/emergency" element={<VcEmergency />} />
-          <Route exact path="/vc/emergencydetails" element={<VcEmergencyDetails />} />
+          <Route exact path="/vc/emergencydetails/:id" element={<VcEmergencyDetails />} />
           <Route exact path="/vc/conditioncheck" element={<VcConditionCheck />} />
           <Route exact path="/vc/feedback" element={<VcFeedback />} />
-          <Route exact path="/vc/vrrequest" element={<VRRequest />} />
+          <Route exact path="/vc/vrrequest/" element={<VRRequest />} />
           <Route exact path="/vc/ccrequest" element={<CCRequest />} />
-
+          <Route exact path="/vc/vcmodal/:id" element={<VCmodal/>} />
+          <Route exact path="/vc/vrmodal/:vehicle_id" element={<VRmodal/>} />
 
           <Route exact path="/sup_agent/dashboard" element={<SupAgentDashboardPg />} />
           <Route exact path="/sup_agent/parents" element={<SupParents />} />

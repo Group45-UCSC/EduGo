@@ -6,7 +6,7 @@ const ridealllist = async (req, res) => {
     try {
     //db query
     const allrideList = await pool.query(
-        "SELECT school_ride.ride_id, school_ride.ride_type, school_ride.location_morning_ride, school_ride.location_noon_ride, registered_users.contact_number, vehicle.vehicle_no FROM school_ride INNER JOIN registered_users ON registered_users.user_id = school_ride.driver_id INNER JOIN vehicle ON school_ride.vehicle_id = vehicle.vehicle_id;" ,
+        "SELECT * FROM school_ride sr INNER JOIN registered_users u ON u.user_id = sr.driver_id INNER JOIN vehicle v on v.vehicle_id = sr.vehicle_id;" ,
         );
 
     return res.json(allrideList.rows);
@@ -23,7 +23,7 @@ const ridealllist = async (req, res) => {
     try{
     //db query
     const ongoingData = await pool.query(
-      "SELECT school_ride.ride_id, school_ride.ride_type, school_ride.location_morning_ride, school_ride.location_noon_ride, registered_users.contact_number, vehicle.vehicle_no FROM school_ride INNER JOIN registered_users ON registered_users.user_id = school_ride.driver_id INNER JOIN vehicle ON school_ride.vehicle_id = vehicle.vehicle_id WHERE ride_type = 'Ongoing';" ,
+      "SELECT * FROM school_ride sr INNER JOIN registered_users u ON u.user_id = sr.driver_id INNER JOIN vehicle v on v.vehicle_id = sr.vehicle_id WHERE ride_type = 'ongoing';" ,
     );
   
     return res.json(ongoingData.rows);
@@ -32,5 +32,43 @@ const ridealllist = async (req, res) => {
     return res.status(500).send("Server Error");
   }
   };
+
+
+
+  // dashboard ongoingRideCount count
+  const OngoingRideCount = async (req, res) => {
+
+  try{
+  //db query
+  const OngoingData = await pool.query(
+    "SELECT COUNT(*) FROM (SELECT * FROM school_ride WHERE ride_type = 'ongoing') AS ongoing_rides_count",
+  );
+
+  return res.json(OngoingData.rows);
+  } catch (err) {
+  console.error(err.message);
+  return res.status(500).send("Server Error");
+}
+};
+
+//view school children inthe ride 
+const srchildren = async (req, res) => {
+    
+  try {
+  //db query
+  const ridechildrenList = await pool.query(
+      "SELECT * FROM children c INNER JOIN driver d ON c.driver_id = d.user_id",
+      );
+
+  return res.json(ridechildrenList.rows);
+  } catch (err) {
+    console.log(err.message);
+    return res.status(500).send("Server Error");
+  }
+};
+
+
+
+
   
-  module.exports = { ridealllist, ongoingList};
+  module.exports = { ridealllist, ongoingList, OngoingRideCount, srchildren};

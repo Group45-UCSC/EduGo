@@ -1,0 +1,42 @@
+//db connection
+const pool = require("../../dbConnection");
+
+// Mobile app view children details 
+const getChildrenDetails = async (req, res) => {
+    try {
+        // console.log(req.params);
+        const driverId = req.params.driverId;
+
+        const childrenData = await pool.query(
+            "SELECT ride_request.child_id, ride_request.school_name, ride_request.pickup_location, ride_request.ride_shift_type, children.child_id, children.child_name FROM ride_request INNER JOIN children ON ride_request.child_id = children.child_id WHERE ride_request.driver_id = '" + driverId + "' "
+        );
+
+        return res.json(childrenData.rows);
+    } catch (error) {
+        console.error(error.message);
+        return res.status(500).send("Server Error");
+    }
+};
+
+const getChildrenCount = async (req, res) => {
+    try {
+        // console.log(req.params);
+        const driverId = req.params.driverId;
+
+        const childrenData = await pool.query(
+            "SELECT COUNT(*) FROM children WHERE children.driver_id = '" + driverId + "' "
+        );
+
+        const childCount = childrenData.rows[0].childCount;
+        console.log(childCount);
+        return res.json(childCount.rows);
+    } catch (error) {
+        console.error(error.message);
+        return res.status(500).send("Server Error");
+    }
+};
+
+module.exports = {
+    getChildrenDetails,
+    getChildrenCount,
+}

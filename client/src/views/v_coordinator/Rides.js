@@ -4,6 +4,7 @@ import { AiFillDashboard } from "react-icons/ai";
 import { BsFillCarFrontFill } from "react-icons/bs";
 import { FaShippingFast } from "react-icons/fa";
 import { FaCarCrash } from "react-icons/fa";
+import { NavLink } from "react-router-dom";
 
 const sideNavBarLinks = [
   { title: "Dashboard", path: "/vc/dashboard", icon: <AiFillDashboard /> },
@@ -53,116 +54,6 @@ function VcRides() {
   });
 
 
-
-  // all rides details
-
-  // const allride = [
-  //   {
-  //     id: "001",
-  //     v_no: "PI - 1111",
-  //     departure:"Homagama",
-  //     destination: "Colombo 5",
-  //     contact: "0711234567",
-  //     status: "ongoing"
-  //   },
-
-  //   {
-  //     id: "002",
-  //     v_no: "PX - 2222",
-  //     departure:"Homagama",
-  //     destination: "Colombo 5",
-  //     contact: "0711234567",
-  //     status: "complete"
-  //   },
-
-  //   {
-  //     id: "003",
-  //     v_no: "PI - 3333",
-  //     departure:"Homagama",
-  //     destination: "Colombo 5",
-  //     contact: "0711234567",
-  //     status: "complete"
-  //   },
-
-  //   {
-  //     id: "004",
-  //     v_no: "PX - 4444",
-  //     departure:"Homagama",
-  //     destination: "Colombo 5",
-  //     contact: "0711234567",
-  //     status: "complete"
-  //   },
-
-  //   {
-  //     id: "005",
-  //     v_no: "PI - 5555",
-  //     departure:"Homagama",
-  //     destination: "Colombo 5",
-  //     contact: "0711234567",
-  //     status: "ongoing"
-  //   },
-
-  //   {
-  //     id: "006",
-  //     v_no: "PI - 6666",
-  //     departure:"Homagama",
-  //     destination: "Colombo 5",
-  //     contact: "0711234567",
-  //     status: "complete"
-  //   },
-
-  //   {
-  //     id: "007",
-  //     v_no: "PX - 7777",
-  //     departure:"Homagama",
-  //     destination: "Colombo 5",
-  //     contact: "0711234567",
-  //     status: "complete"
-  //   },
-
-  //   {
-  //     id: "008",
-  //     v_no: "PI - 8888",
-  //     departure:"Homagama",
-  //     destination: "Colombo 5",
-  //     contact: "0711234567",
-  //     status: "ongoing"
-  //   }
-  // ];
-
-
-   // ongoing rides details
-
-
-  // const ongoingrides = [
-  //   {
-  //     id: "001",
-  //     v_no: "PI - 1111",
-  //     departure:"Homagama",
-  //     destination: "Colombo 5",
-  //     contact: "0711234567",
-  //     status: "ongoing"
-  //   },
-
-  //   {
-  //     id: "005",
-  //     v_no: "PI - 5555",
-  //     departure:"Homagama",
-  //     destination: "Colombo 5",
-  //     contact: "0711234567",
-  //     status: "ongoing"
-  //   },
-
-  //   {
-  //     id: "008",
-  //     v_no: "PI - 8888",
-  //     departure:"Homagama",
-  //     destination: "Colombo 5",
-  //     contact: "0711234567",
-  //     status: "ongoing"
-  //   }
-  // ];
-
   // switch the tabes
 
     const [toggle, setToggle] = useState(1);
@@ -170,16 +61,10 @@ function VcRides() {
     function updateToggle(id) {
       setToggle(id);
     }
-  
-    // redirect the page
-    const handleClick = () => {
-      window.location.href = `/vc/ridesdetails`;
-    };
-
 
     return (
 
-      <div className="h-screen">
+      <div className="">
         <MainLayout data={sideNavBarLinks}>
   
         {/* topic */}
@@ -251,9 +136,9 @@ function VcRides() {
   
         {/* allrides table */}
         <div className={toggle === 2 ? "details" : "details hidden"}>
-        <div className='ml-32 mr-32 shadow-md overflow-auto '>
+        <div className='ml-12 mr-12 mt-7 shadow-md overflow-auto '>
 
-          <table className='w-full text-center mb-5 border-separate border-spacing-y-2 border border-slate-50 '>
+          <table className='w-full text-center mb-64 border-separate border-spacing-y-2 border border-slate-50 '>
             <thead className='border-y-4 border-white drop-shadow '>
               <tr className=' bg-[#999999] text-white border-b-2 text-[18px] drop-shadow-md '>
                 <th className='px-3.5 p-1 w-24 '>ID</th>
@@ -261,19 +146,31 @@ function VcRides() {
                 <th className='px-3.5 w-30'>Departure</th>
                 <th className='px-3.5 w-30'>Destination</th>
                 <th className='px-3.5 w-30'>Contact</th>
-                <th className='px-3.5 w-30'>Status</th>  
+                <th className='px-3.5 w-30'>Status</th>
+                <th className='px-3.5 w-30'></th>   
               </tr>
             </thead>
   
             <tbody className=''>
             {allride.map((item) => ( 
-              <tr onClick={handleClick} className=' bg-[#D9D9D9] bg-opacity-60 hover:cursor-pointer hover:bg-[#eaeaea] drop-shadow-md'>
+              <tr className=' bg-[#D9D9D9] bg-opacity-60 hover:cursor-pointer hover:bg-[#eaeaea] drop-shadow-md'>
                   <td className='text-center  p-3'>{item.ride_id}</td>
-                  <td>{item.vehicle_number}</td>
+                  <td>{item.vehicle_no}</td>
                   <td>{item.location_morning_ride}</td>
                   <td>{item.location_noon_ride}</td>
                   <td>{item.contact_number}</td>
                   <td>{item.ride_type}</td>
+
+                  <NavLink
+                      to={`/vc/ridesdetails/${
+                        item.ride_id
+                      }?data=${encodeURIComponent(
+                        JSON.stringify(item)
+                      )}`}
+                    >
+                    <td className='text-center'> <button  className="bg-gradient-to-b from-amber-500 to-amber-300  w-40 h-9 ml-4 mt-[1px] mb-[1px] rounded-lg shadow-md hover:shadow-lg transform hover:scale-[103%] trasition duration-300 ease-out  hover:cursor-pointer"> View more..</button></td>
+                    </NavLink>
+
               </tr>
               ))}
             </tbody>
@@ -285,9 +182,8 @@ function VcRides() {
           </div>
     
           <div className={toggle === 1 ? "details" : "details hidden"}>
-          <div className='ml-32 mr-32 shadow-md overflow-auto '>
-            
-            <table className='w-full text-center mb-52 border-separate border-spacing-y-2 border border-slate-50 '>
+          <div className='ml-12 mr-12 mt-7 shadow-md overflow-auto '>
+            <table className='w-full text-center mb-72 border-separate border-spacing-y-2 border border-slate-50 '>
               <thead className='border-y-4 border-white drop-shadow '>
                 <tr className=' bg-[#999999] text-white border-b-2 text-[18px] drop-shadow-md '>
                   <th className='px-3.5 p-1 w-24 '>ID</th>
@@ -295,19 +191,32 @@ function VcRides() {
                   <th className='px-3.5 w-30'>Departure</th>
                   <th className='px-3.5 w-30'>Destination</th>
                   <th className='px-3.5 w-30'>Contact</th>
-                  <th className='px-3.5 w-30'>Status</th>  
+                  <th className='px-3.5 w-30'>Status</th>
+                  <th className='px-3.5 w-30'></th>  
                 </tr>
               </thead>
     
               <tbody className=''>
                 {ongoing.map((item) => (
-                <tr onClick={handleClick} className=' bg-[#D9D9D9] bg-opacity-60 hover:cursor-pointer  hover:bg-[#eaeaea] drop-shadow-md'>
+                <tr className=' bg-[#D9D9D9] bg-opacity-60 hover:cursor-pointer  hover:bg-[#eaeaea] drop-shadow-md'>
                     <td className='text-center  p-3'>{item.ride_id}</td>
-                    <td>{item.vehicle_number}</td>
+                    <td>{item.vehicle_no}</td>
                     <td>{item.location_morning_ride}</td>
                     <td>{item.location_noon_ride}</td>
                     <td>{item.contact_number}</td>
                     <td>{item.ride_type}</td>
+
+                    <NavLink
+                      to={`/vc/ridesdetails/${
+                        item.ride_id
+                      }?data=${encodeURIComponent(
+                        JSON.stringify(item)
+                      )}`}
+                    >
+                    <td className='text-center'> <button  className="bg-gradient-to-b from-amber-500 to-amber-300  w-40 h-9 ml-4 mt-[1px] mb-[1px] rounded-lg shadow-md hover:shadow-lg transform hover:scale-[103%] trasition duration-300 ease-out  hover:cursor-pointer"> View more..</button></td>
+
+                    </NavLink>
+
                 </tr>
               ))}
               </tbody>

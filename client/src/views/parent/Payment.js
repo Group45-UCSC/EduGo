@@ -7,6 +7,9 @@ import {
   MdSupportAgent,
   MdOutlineRateReview,
 } from "react-icons/md";
+import md5 from 'crypto-js/md5';
+import { NavLink } from "react-router-dom";
+import swal from "sweetalert";
 
 const sideNavBarLinks = [
   {
@@ -25,42 +28,210 @@ const sideNavBarLinks = [
 ];
 
 function Payment() {
-  // const data = [
-  //   {
-  //     amount: 2400,
-  //     for: "2023/04/01 - 2023/04/30",
-  //     payed: "2023/04/27",
-  //   },
-  //   {
-  //     amount: 2400,
-  //     for: "2023/04/01 - 2023/04/30",
-  //     payed: "2023/04/27",
-  //   },
-  //   {
-  //     amount: 2400,
-  //     for: "2023/04/01 - 2023/04/30",
-  //     payed: "2023/04/27",
-  //   },
-  //   {
-  //     amount: 2400,
-  //     for: "2023/04/01 - 2023/04/30",
-  //     payed: "2023/04/27",
-  //   },
-  //   {
-  //     amount: 2400,
-  //     for: "2023/04/01 - 2023/04/30",
-  //     payed: "2023/04/27",
-  //   },
-  //   {
-  //     amount: 2400,
-  //     for: "2023/04/01 - 2023/04/30",
-  //     payed: "2023/04/27",
-  //   },
-  // ];
+
+//   // Payhere function-----------------------------------//
+
+
+function pay_payhere(price, child_name){
+  
+
+let merchantSecret  = 'Mjg5NDQxOTI4NjIxODk5MDU2NTYzMTE4OTY5ODgwNjM1OTA3MzMy';
+let merchantId      = '1224489';
+let orderId         = '12345';
+let amount          = price;
+let hashedSecret    = md5(merchantSecret).toString().toUpperCase();
+let amountFormated  = parseFloat( amount ).toLocaleString( 'en-us', { minimumFractionDigits : 2 } ).replaceAll(',', '');
+let currency        = 'LKR';
+let hash            = md5(merchantId + orderId + amountFormated + currency + hashedSecret).toString().toUpperCase();
+  // Put the payment variables here
+  var paymentData = {
+    sandbox: true, // if the account is sandbox or real
+    merchant_id: '1224489', // Replace your Merchant ID
+    return_url: 'http://localhost:3000/parent/payment',
+    cancel_url: 'http://localhost:3000/parent/payment',
+    notify_url: 'http://sample.com/notify',
+    order_id: orderId,
+    items: child_name,
+    amount: amount, 
+    currency: 'LKR',
+    hash: hash,
+    first_name: child_name,
+    last_name: 'Perera',
+    email: 'edugo@gmail.com',
+    phone: '0719052858',
+    address: 'No.1, Galle Road',
+    city: 'Colombo',
+    country: 'Sri Lanka',
+    delivery_address: 'No. 46, Galle road, Kalutara South', // optional field
+    delivery_city: 'Kalutara', // optional field
+    delivery_country: 'Sri Lanka', // optional field
+    custom_1: '', // optional field
+    custom_2: '', // optional field
+  };
+    
+  // Called when user completed the payment. It can be a successful payment or failure
+  window.payhere.onCompleted = function onCompleted(orderId) {
+    console.log("Payment completed. OrderID:" + orderId);
+    //Note: validate the payment and show success or failure page to the customer
+  };
+
+  // Called when user closes the payment without completing
+  window.payhere.onDismissed = function onDismissed() {
+    //Note: Prompt user to pay again or show an error page
+    console.log("Payment dismissed");
+  };
+
+  // Called when error happens when initializing payment such as invalid parameters
+  window.payhere.onError = function onError(error) {
+    // Note: show an error page
+    console.log("Error:"  + error);
+  };
+
+
+
+// function pay_payhere(){
+//   window.payhere.startPayment(paymentData);
+// }
+window.payhere.startPayment(paymentData);
+}
+  //----------------------------------------------------//
+
+  const [selectedShift, setSelectedShift] = useState(''); // State to store the selected shift
+
+  const handleShiftChange = (event) => {
+    setSelectedShift(event.target.value);
+  };
+
+
+
+
+
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+  };
+  const [modalOpen, setModalOpen] = useState(false);
+  function Modal({ setOpenModal }) {
+    return (
+      <div>
+        <form
+          className="bg-white p-0 px-60 rounded-lg "
+          onSubmit={handleSubmit}
+        >
+          <div className="fixed top-0 left-0 w-screen  bg-stone-900/75 flex justify-center items-center  h-screen bg-gradient-to-b from-opacity-70 to-opacity-30">
+            <div className="w-1/3  rounded-lg bg-white shadow-md flex flex-col p-5 ">
+              <div className="flex justify-end">
+                <button
+                  className="text-2xl cursor-pointer "
+                  onClick={() => {
+                    setOpenModal(false);
+                  }}
+                >
+                  X
+                </button>
+              </div>
+              <div className="">
+                <h1 className="text-[#5a5c69] text-[24px] leading-8 font-normal cursor-pointer text-center">
+                  Select paymenth method
+                </h1>
+              </div>
+              <div className="flex justify-center items-center mt-5 px-5">
+                <label>
+                  <input
+                    type="radio"
+                    name="shift"
+                    value="cash"
+                    checked={selectedShift === "cash"}
+                    onChange={handleShiftChange}
+                  />
+                  Cash Payment
+                </label>
+                <label>
+                  <input
+                    type="radio"
+                    name="shift"
+                    value="card"
+                    checked={selectedShift === "card"}
+                    onChange={handleShiftChange}
+                  />
+                  Card Payment
+                </label>
+
+              </div>
+              <div className="flex justify-center items-center mt-5">
+                <NavLink
+                to={`/parent/payment/`}
+                >
+                <button
+                  className="w-36 h-12 mr-5 bg-orange rounded-lg text-xl cursor-pointer"
+                  onClick={() => {
+                    handleSelectRideClick();
+                    setOpenModal(false);
+                  }}
+                >
+                  Submit
+                </button>
+                </NavLink>
+                <button
+                  className="w-36 h-12  bg-orange rounded-lg text-xl cursor-pointer"
+                  onClick={() => {
+                    setOpenModal(false);
+                  }}
+                  id="cancelBtn"
+                >
+                  Cancel
+                </button>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+    );
+  }
+
+  // Get a reference to the button element by its ID
+  const handleSelectRideClick = () => {
+
+    if (!selectedShift) {
+      // Display a SweetAlert alert for the user
+      swal({
+        title: "Please select a payment method (cash or card)!",
+        icon: "warning", // You can change the icon to "error" for an error message
+        buttons: {
+          confirm: {
+            className:
+              "bg-orange text-white px-10 py-2 rounded-lg items-center hover:bg-gray",
+          },
+        },
+      });
+      return; // Do not proceed with the submission
+    }
+
+ 
+
+    console.log('Selected Shift:', selectedShift);
+
+    // Call the function when the button is clicked
+    // handleSelectRide();
+    
+    if(selectedShift === "card" && paymentAmount){
+      
+      pay_payhere(paymentAmount, 'Sasindu')
+    }
+  };
+
+
+
+
+
+  //----------------------------------------------------//
+
   const userId = localStorage.getItem("userId");
 
   // get payment details
   const [payment, setPayment] = useState([]);
+  const [paymentAmount, setPaymentAmount] = useState(null);
+  console.log(payment);
   useEffect(() => {
     async function paymentData() {
       try {
@@ -68,6 +239,8 @@ function Payment() {
           `http://localhost:5000/edugo/parent/payment/viewprice/${userId}`
         );
         const data = await response.json();
+        // console.log(data);
+        setPaymentAmount(data[0].amount);
         setPayment(data);
       } catch (err) {
         console.error(err.message);
@@ -151,8 +324,9 @@ function Payment() {
                       {pay.pay_status === "notpaid" ? (
                         <div className="flex justify-center w-1/3">
                           <button className="flex justify-center w-[350px] h-10 bg-orange rounded-md cursor-pointer hover:shadow-lg transform hover:scale-[103%] transition duration-300 ease-out">
-                            <div className="flex mt-2 gap-3 font-semibold">
-                              Pay Now
+                            <div className="flex mt-2 gap-3 font-semibold" >
+                            {/* <button onClick={() => pay_payhere(pay.amount, pay.child_name)}>Pay Now</button> */}
+                            <button onClick={() => {setModalOpen(true);}}>Pay Now</button>
                             </div>
                           </button>
                         </div>
@@ -200,9 +374,17 @@ function Payment() {
             </div>
           </div>
         </div>
+
+        <div>
+         {/* <input type="button" onClick={handlePayment} value="Pay" className="border cursor-pointer"  /> */}
+         {/* <button onClick={pay}>Pay with Payhere</button> */}
+
+        </div>
+        {modalOpen && <Modal setOpenModal={setModalOpen} />}
       </MainLayout>
     </div>
   );
+
 }
 
 export default Payment;
