@@ -645,6 +645,23 @@ const childrenCountSchool = async (req, res) => {
   }
 };
 
+// riding types
+const ridingTimes = async (req, res) => {
+  try {
+    const driverId = req.params.driverId;
+    
+    const rideTime = await pool.query(
+      "SELECT time_morning_ride, time_noon_ride FROM school_ride WHERE driver_id =  '" + driverId + "' "
+    );
+    // console.log(rideChildren.rows);
+      return res.json(rideTime.rows);
+    } catch (err) {
+    console.error(err.massage);
+    return res.status(500).send("Server Error");
+  }
+};
+
+
 // const childrenSchool = async (req, res) => {
 //   try {
 //     const driverId = req.params.driverId;
@@ -675,5 +692,6 @@ module.exports = {
   // MOBILE
   viewMRideRequests,
   childrenCountSchool,
+  ridingTimes,
   // childrenSchool
 };

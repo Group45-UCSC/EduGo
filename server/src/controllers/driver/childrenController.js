@@ -24,12 +24,10 @@ const getChildrenCount = async (req, res) => {
         const driverId = req.params.driverId;
 
         const childrenData = await pool.query(
-            "SELECT COUNT(*) FROM children WHERE children.driver_id = '" + driverId + "' "
+            "SELECT COUNT(*) FROM children WHERE driver_id = '" + driverId + "' "
         );
 
-        const childCount = childrenData.rows[0].childCount;
-        console.log(childCount);
-        return res.json(childCount.rows);
+        return res.json(childrenData.rows);
     } catch (error) {
         console.error(error.message);
         return res.status(500).send("Server Error");

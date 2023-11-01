@@ -51,6 +51,7 @@ const {
   // MOBILE
   viewMRideRequests,
   childrenCountSchool,
+  ridingTimes,
   // childrenSchool,
 
 } = require("../controllers/driver/rideController");
@@ -138,6 +139,9 @@ router.route("/ridePayment/:driverId").get(viewRidePayment);
 router.route("/schoolChildren/:driverId").get(childrenCountSchool);
 
 router.route("/childrens/:driverId").get(getChildrenCount);
+
+// routing times
+router.route("/times/:driverId").get(ridingTimes);
 
 // children name in school
 // router.route("/childrenSchool/:driverId").get(childrenSchool);
