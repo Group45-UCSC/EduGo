@@ -78,17 +78,11 @@
 //     reviewData();
 //   }, [driver_id]);
 
-
 //   const [selectedShift, setSelectedShift] = useState(''); // State to store the selected shift
 
 //   const handleShiftChange = (event) => {
 //     setSelectedShift(event.target.value);
 //   };
-
-
-
-
-
 
 //   const handleSubmit = (e) => {
 //     e.preventDefault();
@@ -442,14 +436,6 @@
 
 // export default ViewVehicle;
 
-
-
-
-
-
-
-
-
 import React, { useEffect, useState } from "react";
 import { AiFillDashboard } from "react-icons/ai";
 import { BsStar, BsStarFill } from "react-icons/bs";
@@ -530,17 +516,11 @@ function ViewVehicle() {
     reviewData();
   }, [driver_id]);
 
-
-  const [selectedShift, setSelectedShift] = useState(''); // State to store the selected shift
+  const [selectedShift, setSelectedShift] = useState(""); // State to store the selected shift
 
   const handleShiftChange = (event) => {
     setSelectedShift(event.target.value);
   };
-
-
-
-
-
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -646,7 +626,6 @@ function ViewVehicle() {
 
   // Get a reference to the button element by its ID
   const handleSelectRideClick = () => {
-
     if (!selectedShift) {
       // Display a SweetAlert alert for the user
       swal({
@@ -668,7 +647,7 @@ function ViewVehicle() {
     const school = child.school_name;
     const child_id = child.child_id;
 
-    console.log('Selected Shift:', selectedShift);
+    console.log("Selected Shift:", selectedShift);
     console.log(driver_id);
 
     // Call the function when the button is clicked
@@ -685,8 +664,14 @@ function ViewVehicle() {
     child_id
   ) => {
     try {
-      const body = { ride_id, driver_id, child_location, school, child_id, selectedShift };
-
+      const body = {
+        ride_id,
+        driver_id,
+        child_location,
+        school,
+        child_id,
+        selectedShift,
+      };
 
       const response = await fetch(
         `http://localhost:5000/edugo/parent/children/viewVehicle/rideRequest/${userId}`,
@@ -880,11 +865,16 @@ function ViewVehicle() {
                     >
                       <div className="flex  w-full mb-3">
                         <div className="flex justify-start gap-2 ">
-                          <img
+                          {/* <img
                             src={review.u_image}
                             alt="user_image"
                             className="bg-slate-300 w-8 cursor-pointer rounded-full p-1"
-                          ></img>
+                          ></img> */}
+                          <img
+                            src="https://static.vecteezy.com/system/resources/previews/008/442/086/non_2x/illustration-of-human-icon-user-symbol-icon-modern-design-on-blank-background-free-vector.jpg"
+                            alt="Profile"
+                            className="w-10 h-10 rounded-full mr-3"
+                          />
                           <h1 className="mt-1">{review.u_name}</h1>
                         </div>
                         <div className="flex justify-end mt-2  ml-auto">
