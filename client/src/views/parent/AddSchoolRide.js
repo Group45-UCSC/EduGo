@@ -208,7 +208,6 @@ function AddSchoolRide() {
         <div className="pt-6 px-6">
           <h1 className="text-[#5a5c69] text-[28px] leading-8 font-normal cursor-pointer">
             School Van <br></br>
-            child id:{child.child_id}
           </h1>
           <div className="App mb-7">
             <main>
@@ -216,11 +215,11 @@ function AddSchoolRide() {
                 {vehicle.length > 0 ? (
                   vehicle.map((vehicleData) => (
                     <div className="product mx-3 my-3" key={vehicleData.id}>
-                      <img
-                        className="product-image"
-                        src={vehicleData.image}
-                        alt={vehicleData.image}
-                      />
+                    <img
+                        src="https://www.toyota.lk/wp-content/uploads/2017/03/has360_1.jpg"
+                        alt="Profile"
+                        className="w-50 h-50 rounded-md mr-3"
+                      />
                       <RatingStars rating={vehicleData.rating} />
                       <div className=" justify-center p-2">
                         <span className="product-price font-mono">
