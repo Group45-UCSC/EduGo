@@ -74,12 +74,8 @@ function AdminParentsInfo() {
                     {/* rest of details */}
                     <div className='mt-4 ml-3 overflow-auto'>
                         <div onClick={child} className='mt-2 ml-4 p-2 w-64 h-16 font-serif cursor-pointer rounded-md bg-slate-50 shadow-md'>
-                            <p>Name: Pasindu Sanjeewa</p>
-                            <p>Vehicle: NA - 1111</p>
-                        </div>
-                        <div onClick={child} className='mt-2 ml-4 p-2 w-64 h-16 font-serif cursor-pointer rounded-md bg-slate-50 shadow-md'>
-                            <p>Name: Kavindu Sanjeewa</p>
-                            <p>Vehicle: NA - 1111</p>
+                            <p>Name: {item.child_name}</p>
+                            <p>Ride: {item.ride_id}</p>
                         </div>
                     </div>
                 </div>
@@ -111,31 +107,31 @@ function AdminParentsInfo() {
 
                     <tbody className=''>
                         <tr className=' bg-[#D9D9D9] bg-opacity-60 hover:cursor-pointer hover:bg-[#eaeaea] drop-shadow-md'>
-                            <td className='text-center  p-3'> XX1</td>
+                            <td className='text-center  p-3'> TR0001</td>
                             <td>2023-01-01</td>
                             <td>5000</td>
-                            <td>001</td>
+                            <td>C0001</td>
                         </tr>
                         
                         <tr className=' bg-[#D9D9D9] bg-opacity-60 hover:cursor-pointer  hover:bg-[#eaeaea] drop-shadow-md' >
-                        <td className='text-center  p-3'> XX2</td>
+                        <td className='text-center  p-3'> TR0002</td>
                             <td>2023-01-05</td>
                             <td>5000</td>
-                            <td>002</td>
+                            <td>C0002</td>
                         </tr>
 
                         <tr className=' bg-[#D9D9D9] bg-opacity-60 hover:cursor-pointer  hover:bg-[#eaeaea] drop-shadow-md'>
-                        <td className='text-center  p-3'> XX3</td>
+                        <td className='text-center  p-3'> TR0003</td>
                             <td>2023-02-01</td>
                             <td>5000</td>
-                            <td>001</td>
+                            <td>C0001</td>
                         </tr>
 
                         <tr className=' bg-[#D9D9D9] bg-opacity-60 hover:cursor-pointer  hover:bg-[#eaeaea] drop-shadow-md'>
-                        <td className='text-center  p-3'> XX4</td>
+                        <td className='text-center  p-3'> TR0004</td>
                             <td>2023-01-05</td>
                             <td>5000</td>
-                            <td>002</td>
+                            <td>C0002</td>
                         </tr>
                     </tbody>
 
@@ -160,19 +156,19 @@ function AdminParentsInfo() {
 
                     <tbody className=''>
                         <tr className=' bg-[#D9D9D9] bg-opacity-60 hover:cursor-pointer hover:bg-[#eaeaea] drop-shadow-md'>
-                            <td className='text-center  p-3'> XX1</td>
+                            <td className='text-center  p-3'> C0001</td>
                             <td>2023-01-01</td>
                             <td>2023-01-31</td>
                             <td>5000</td>
-                            <td>001</td>
+                            <td>DRV001</td>
                         </tr>
                         
                         <tr className=' bg-[#D9D9D9] bg-opacity-60 hover:cursor-pointer  hover:bg-[#eaeaea] drop-shadow-md' >
-                        <td className='text-center  p-3'> XX2</td>
+                        <td className='text-center  p-3'> C0002</td>
                             <td>2023-01-05</td>
                             <td>2023-02-05</td>
                             <td>5000</td>
-                            <td>002</td>
+                            <td>DRV002</td>
                         </tr>
                     </tbody>
 

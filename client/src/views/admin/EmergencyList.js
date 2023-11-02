@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import MainLayout from "../../components/layout/MainLayout";
-import { AiOutlineSearch } from "react-icons/ai";
-import { BiFilterAlt } from "react-icons/bi";
+// import { AiOutlineSearch } from "react-icons/ai";
+// import { BiFilterAlt } from "react-icons/bi";
 import { NavLink } from "react-router-dom";
 
 
@@ -74,7 +74,7 @@ function AdminEmergencyList() {
         <h1 className="text-[#5a5c69] pt-[25px] px-[25px] text-[28px] leading-8 font-normal cursor-pointer">Emergency List</h1>
 
         {/* filter and search button */}
-        <div className="flex mt-8 ml-[57%]">
+        {/* <div className="flex mt-8 ml-[57%]">
           <div className="flex border border-slate-400 w-40 rounded-md h-8">
             <form action=''>
               <input type="text" placeholder='Filter here' className='overflow-auto pl-2 pt-1 w-32 bg-transparent float-left border-collapse'></input>
@@ -88,10 +88,10 @@ function AdminEmergencyList() {
               < AiOutlineSearch className="text-slate-400 float-right h-5 w-5 mt-1 ml-1 hover:cursor-pointer" />
             </form>
           </div>
-        </div>
+        </div> */}
 
         {/*emergency button container */}
-        <div className="flex text-center ml-32 mt-4">
+        <div className="flex text-center ml-32 mt-12">
           {/* buttons */}
           <div
             onClick={() => updateToggle(1)}
