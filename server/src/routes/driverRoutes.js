@@ -76,7 +76,7 @@ const {
 //create routes
 router.route("/dashboard/hasride/:userId").get(hasRide);
 // router.route("/add/vehicle/:userId").post(addVehicle);
-router.route("/vehicledetails/:userId").get(viewVehicle);
+router.route("/vehicle/view/:userId").get(viewVehicle);
 
 router.route("/vehicle/add/:userId").post(addVehicle);
 router.post("/vehicle/upload/", upload.single("vehicleRegDoc"), uploadVehicle);

@@ -47,6 +47,13 @@ const selectSchool = async (req, res) => {
       [rideId, schoolId, userId]
     );
 
+    //insert into children
+    // const selectedSchoolforchild = await pool.query(
+    //   "UPDATE children SET school_id = $1 WHERE child_id = '" +
+    //     childId +
+    //     "' "
+    // );
+
     return res.json(selectedSchool.rows[0]);
   } catch (err) {
     console.error(err.message);
@@ -118,51 +125,17 @@ const AddSchool = async (req, res) => {
     const newNumericPart = numericPart + 1;
     const newSchoolId = `SCH${newNumericPart.toString().padStart(5, "0")}`; 
 
-    // Make a geocoding request to MapQuest API
-    const geocodeResponse = await rp({
-      //?
-      uri: "https://www.mapquestapi.com/geocoding/v1/address",
-      qs: {
-        key: mapQuestApiKey,
-        location: address,
-      },
-      json: true,
-    });
-
-    // Check if the geocoding response contains results
-    if (!geocodeResponse.results || geocodeResponse.results.length === 0) {
-      return res.status(400).json({ error: "Invalid address" });
-    }
-
-    // Extract latitude, longitude, and formatted address from the first result
-    const firstResult = geocodeResponse.results[0];
-    const { lat, lng } = firstResult.locations[0].latLng;
-    const formattedaddress =
-      firstResult.locations[0].street || firstResult.locations[0].adminArea5;
-    console.log(lat);
-    console.log(lng);
-    console.log(formattedaddress);
-
     const newSchool = await pool.query(
-      "INSERT INTO school (school_id, school_name, address, location, formattedaddress) VALUES ($1, $2, $3, ST_GeomFromText($4), $5) RETURNING *",
+      "INSERT INTO school (school_id, school_name, address) VALUES ($1, $2, $3) RETURNING *",
       [
         newSchoolId,
         school,
         address,
-        `POINT(${lng} ${lat})`,
-        formattedaddress,
       ]
     );
 
     return res.status(200).json({
       success: true,
-      data: {
-        address: undefined,
-        location: { type: "Point", coordinates: [lng, lat] },
-        formattedaddress,
-        latitude: lat,
-        longitude: lng,
-      },
     });
   } catch (error) {
     console.error(error.message);

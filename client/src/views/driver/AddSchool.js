@@ -105,6 +105,36 @@ function AddSchool() {
             <div className=" w-3/5 mt-44 flex items-center justify-center">
               <form onSubmit={handleSubmit}>
                 <div className="p-3 w-[500px] h-[500px] ">
+                  <form action="" onSubmit={handleSubmit}>
+                    <div className="mb-10 relative">
+                      <div className="flex items-center">
+                        <input
+                          className="w-full px-3 py-3 border-b bg-[#f0f0f0] border-orange focus:border-gray outline-none"
+                          type="text"
+                          name="schoolName"
+                          placeholder="Enter school Name"
+                          // onChange={handleInput}
+                        />
+                      </div>
+                    </div>
+                    <div className="mb-1 relative">
+                      <div className="flex items-center">
+                        <input
+                          className="w-full px-3 py-3 border-b bg-[#f0f0f0] border-orange focus:border-gray outline-none"
+                          type="text"
+                          name="schoolLocation"
+                          placeholder="Enter address"
+                          // onChange={handleInput}
+                        />
+                      </div>
+                    </div>
+                    <button
+                      type="submit"
+                      className="w-full my-6 py-3 bg-orange text-white font-bold rounded-lg hover:bg-gray hover:text-black"
+                    >
+                      Submit
+                    </button>
+                  </form>
                   {/* Use the LocationInput component */}
                   {/* {inputs.map((input) =>
                     input.name === "pickupLocation" ? (
@@ -132,34 +162,8 @@ function AddSchool() {
                     Submit
                   </button> */}
 
-                  <form action="" onSubmit={handleSubmit}>
-                    <div className="mb-10 relative">
-                      <div className="flex items-center">
-                        <input
-                          className="w-full px-3 py-3 border-b bg-[#f0f0f0] border-orange focus:border-gray outline-none"
-                          type="text"
-                          name="schoolName"
-                          placeholder="Enter School Name"
-                        />
-                      </div>
-                    </div>
-                    <div className="mb-1 relative">
-                      <div className="flex items-center">
-                        <input
-                          className="w-full px-3 py-3 border-b bg-[#f0f0f0] border-orange focus:border-gray outline-none"
-                          type="text"
-                          name="location"
-                          placeholder="Enter School Location"
-                        />
-                      </div>
-                    </div>
-                    <button
-                      type="submit"
-                      className="w-full my-10 py-3 bg-orange text-white font-bold rounded-lg hover:bg-gray hover:text-black"
-                    >
-                      Submit
-                    </button>
-                  </form>
+             
+                   
                 </div>
               </form>
             </div>
