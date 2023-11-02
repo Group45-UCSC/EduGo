@@ -1,9 +1,9 @@
+import { GoogleMap, LoadScript, Marker } from "@react-google-maps/api";
 import React, { useState } from "react";
 import PlacesAutocomplete, {
   geocodeByAddress,
   getLatLng,
 } from "react-places-autocomplete";
-import { GoogleMap, Marker, LoadScript } from "@react-google-maps/api";
 import FormInput from "../../components/layout/FormInput";
 
 const colomboDistrictBounds = {

@@ -33,15 +33,16 @@ const addDeposit = async (req, res) => {
 
     //3. insert the new vehicle inside our database
     const newDeposit = await pool.query(
-      "INSERT INTO cash_deposit (deposit_id, driver_id, amount, date, month, slip_image, verify_status ) VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING * ",
+      "INSERT INTO cash_deposit (deposit_id, driver_id, amount, date, related_month, slip_image, verify_status, year ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING * ",
       [
         newDepositId,
         userId,
         depositedAmount,
         depositedDate,
-        "August",
+        11,
         depositSlip,
-        false,
+        true,
+        2023,
       ]
     );
     //6. register success
@@ -123,9 +124,10 @@ const viewRidePayment = async (req, res) => {
     const driverId = req.params.driverId;
     console.log(driverId);
     const ridePaymentData = await pool.query(
-      "SELECT ride_payment.related_month, ride_payment.year, ride_payment.pay_status, ride_payment.amount, children.child_name FROM ride_payment INNER JOIN children ON ride_payment.child_id = children.child_id WHERE ride_payment.driver_id = '" + driverId + "'"
+      "SELECT ride_payment.related_month, ride_payment.year, ride_payment.pay_status, ride_payment.amount, children.child_name FROM ride_payment INNER JOIN children ON ride_payment.child_id = children.child_id WHERE ride_payment.driver_id = '" +
+        driverId +
+        "'"
     );
-    
 
     return res.json(ridePaymentData.rows);
   } catch (err) {
@@ -227,7 +229,6 @@ const viewChildFees = async (req, res) => {
     // console.log(childFeeList.rows);
 
     return res.json(childFeeList.rows);
-
   } catch (err) {
     console.error(err.massage);
     return res.status(500).send("Server Error");

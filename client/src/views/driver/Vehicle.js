@@ -1,7 +1,8 @@
-import React, { useState } from "react";
+import React from "react";
 import MainLayout from "../../components/layout/MainLayout";
 import { AiFillDashboard, AiFillCar } from "react-icons/ai";
 import { FaRegEdit } from "react-icons/fa";
+import { useState, useEffect } from "react";
 import {
   MdPayments,
   MdSupportAgent,
@@ -38,33 +39,54 @@ const SliderData = [
     alt: "img3",
   },
 ];
-const vehicleData = [
-  {
-    id: 1,
-    rating: 4,
-    price: "RS. 380/KM",
-    type: "Van",
-    vnumber: "PJ-0525",
-    model: "Hiace",
-    options: "AIR CONDITION, POWER STEERING, POWER MIRROR, POWER WINDOW",
-    start: "Pannipitiya",
-    shift1: "Pannipitiya at 5.45 a.m.",
-    shift2: "Kirulapone at 12.45 a.m.",
-    licenseEXP: "2024/8/10",
-    dname: "L.A. Sarath kumara",
-    status: "verified",
-    school: [
-      "Alexandra College",
-      "Bishop's College",
-      "C.W.W Kannangara College",
-      "Isipathana College",
-    ],
-    children: 12,
-    sheets: 15,
-  },
-];
+// const vehicleData = [
+//   {
+//     id: 1,
+//     rating: 4,
+//     price: "RS. 380/KM",
+//     type: "Van",
+//     vnumber: "PJ-0525",
+//     model: "Hiace",
+//     options: "AIR CONDITION, POWER STEERING, POWER MIRROR, POWER WINDOW",
+//     start: "Pannipitiya",
+//     shift1: "Pannipitiya at 5.45 a.m.",
+//     shift2: "Kirulapone at 12.45 a.m.",
+//     licenseEXP: "2024/8/10",
+//     dname: "L.A. Sarath kumara",
+//     status: "verified",
+//     school: [
+//       "Alexandra College",
+//       "Bishop's College",
+//       "C.W.W Kannangara College",
+//       "Isipathana College",
+//     ],
+//     children: 12,
+//     sheets: 15,
+//   },
+// ];
 
 function Vehicle() {
+  //userID
+  const userId = localStorage.getItem("userId");
+
+  const [vehicleData, setVehicleData] = useState([]);
+
+  useEffect(() => {
+    async function vehicleDetails() {
+      try {
+        const response = await fetch(
+          `http://localhost:5000/edugo/driver/vehicle/view/${userId}`
+        );
+        const data = await response.json();
+        setVehicleData(data);
+      } catch (err) {
+        console.error(err.message);
+      }
+    }
+
+    vehicleDetails();
+  }, [userId]);
+
   const [current, setCurrent] = useState(0);
   const length = SliderData.length;
 
@@ -88,10 +110,13 @@ function Vehicle() {
             Vehicle Details
           </h1>
           <div className=" h-12 flex justify-end">
-                  <button className="flex justify-center w-40 h-10 bg-orange rounded-md cursor-pointer hover:shadow-lg transform hover:scale-[103%] transition duration-300 ease-out">
-                    <div className="flex mt-2 gap-3 font-semibold text-xl"><FaRegEdit className="mt-1" />Edit</div>
-                  </button>
-                </div>
+            <button className="flex justify-center w-40 h-10 bg-orange rounded-md cursor-pointer hover:shadow-lg transform hover:scale-[103%] transition duration-300 ease-out">
+              <div className="flex mt-2 gap-3 font-semibold text-xl">
+                <FaRegEdit className="mt-1" />
+                Edit
+              </div>
+            </button>
+          </div>
           <div className=" flex justify-center">
             <section className="relative w-2/3 h-[220px] flex justify-center items-center">
               <MdKeyboardArrowLeft
@@ -122,33 +147,40 @@ function Vehicle() {
           </div>
           {vehicleData.map((vehicleData) => (
             <div className="flex mb-[10px] gap-2">
-              <div className=" w-2/3 bg-slate-200 rounded-[8px]">
+              <div className=" w-3/3 bg-slate-200 rounded-[8px]">
                 <div className="grid grid-cols-2 grid-rows-2 h-[250px] mx-2 my-2 gap-2 text-sm ">
                   <div className="p-3 space-y-2">
-                    <div >Ride ID : {vehicleData.id}</div>
-                    <div>Type : {vehicleData.type}</div>
-                    <div>Vehicle number :{vehicleData.vnumber}</div>
-                    <div>Model : {vehicleData.model}</div>
-                    <div className="flex">Options <div className="font-thin">: {vehicleData.options}</div></div>
-                    <div>License expire date : {vehicleData.licenseEXP}</div>
-                    <div>Vehicle Registration Number : D1203</div>
+                    <div>Ride ID : {vehicleData.vehicle_id}</div>
+                    <div>Type : {vehicleData.vehicle_type}</div>
+                    <div>Vehicle number :{vehicleData.vehicle_no}</div>
+                    <div>Model : {vehicleData.vehicle_model}</div>
+                    
+                    <div>License expire date : 2024/03/11</div>
+                   
                   </div>
                   <div className="p-3 space-y-2">
-                    <div className="mb-1">Childrens: {vehicleData.children}</div>
                     <div className="mb-1">
+                      Number of Seats: {vehicleData.num_of_seats}
+                    </div>
+                    <div>Vehicle Registration Number : {vehicleData.registration_no}</div>
+                    <div className="flex">
+                      Options{" "}
+                      <div className="font-thin">: AIR CONDITION, POWER STEERING, POWER MIRROR, POWER WINDOW</div>
+                    </div>
+                    {/* <div className="mb-1">
                       Number of availabe sheets:{" "}
                       {vehicleData.sheets - vehicleData.children}
+                    </div> */}
+                    {/* <div className="mb-1">
+                      Shift 1 start:{vehicleData.shift1}
                     </div>
-                    <div className="mb-1">Shift 1 start:{vehicleData.shift1}</div>
-                    <div className="">Shift 2 start: {vehicleData.shift2}</div>
-                    <div className="">Condition: {vehicleData.status}</div>
-                    <div className="mb-1">Pay rate: {vehicleData.price}</div>
+                    <div className="">Shift 2 start: {vehicleData.shift2}</div> */}
+                    <div className="">Condition: {vehicleData.condition_status}</div>
+                    {/* <div className="mb-1">Pay rate: {vehicleData.price}</div> */}
                   </div>
                 </div>
-
-
               </div>
-              <div className=" w-1/3 bg-slate-200 rounded-[8px]">
+              <div className=" w-0/3 bg-slate-200 rounded-[8px]">
                 {/* <div className="flex items-center justify-center p-2">
                   <h1 className="text-lg text-slate-600">Reaching Schools</h1>
                 </div> */}
@@ -161,12 +193,13 @@ function Vehicle() {
                       {school}
                     </div>
                   ))} */}
-                  <div className=" mt-[120px]">
-                  <button className="flex justify-center w-40 h-10 bg-orange rounded-md cursor-pointer hover:shadow-lg transform hover:scale-[103%] transition duration-300 ease-out">
-                    <div className="flex mt-1 gap-3 font-semibold text-xl">Add Ride</div>
-                  </button>
-                  </div>
-
+                  {/* <div className=" mt-[120px]">
+                    <button className="flex justify-center w-40 h-10 bg-orange rounded-md cursor-pointer hover:shadow-lg transform hover:scale-[103%] transition duration-300 ease-out">
+                      <div className="flex mt-1 gap-3 font-semibold text-xl">
+                        Add Ride
+                      </div>
+                    </button>
+                  </div> */}
                 </div>
               </div>
             </div>

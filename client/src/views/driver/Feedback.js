@@ -215,7 +215,7 @@ function Feedback() {
                       placeholder="What's your experience?"
                       onChange={handleInput}
                     />
-                    <div className="flex justify-center w-5/6 ">
+                    <div className="flex justify-center mt-4 w-6/6 ">
                       <button
                         type="submit"
                         className="flex justify-center w-full h-10 bg-orange rounded-md cursor-pointer hover:shadow-lg transform hover:scale-[103%] transition duration-300 ease-out"
@@ -234,21 +234,21 @@ function Feedback() {
                 <div className="h-8 mb-3 flex justify-center">
                   <h1 className="text-xl font-bold ">Driver Reviews</h1>
                 </div>
-                <div className=" px-3 mx-2 rounded-md h-[460px] overflow-y-auto">
+                <div className=" px-3 mx-2 rounded-md h-[400px] overflow-y-auto">
                   {reviews.map((review) => (
                     <div
                       key={review.feedback_id}
-                      className="rounded-[8px] bg-slate-100 mb-3 mt-3  border-[1px] border-orange  items-center justify-between px-[30px] py-3 cursor-pointer hover:shadow-lg transform hover:scale-[101%] transition duration-300 ease-out"
+                      className="rounded-[8px] bg-slate-100 mb-3 mt-3  border-[1px] border-orange  items-center justify-between px-[30px] py-1 cursor-pointer hover:shadow-lg transform hover:scale-[101%] transition duration-300 ease-out"
                     >
-                      <div className="flex  w-full mb-3">
-                        <div className="flex justify-start gap-2 ">
-                          <img
+                      <div className="flex w-full mb-3">
+                        {/* <div className="flex justify-start gap-2 "> */}
+                          {/* <img
                             // src={review.u_image}
                             alt="user_image"
                             className="bg-slate-300 w-8 cursor-pointer rounded-full p-1"
-                          ></img>
-                          {/* <h1 className="mt-1">{review.u_name}</h1> */}
-                        </div>
+                          ></img> */} 
+                          <h1 className="mt-1">{review.sender_id}</h1>
+                        {/* </div> */}
                         <div className="flex justify-end mt-2  ml-auto">
                           <RatingStars rating={review.rating} />
                         </div>

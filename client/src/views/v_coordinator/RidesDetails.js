@@ -112,7 +112,7 @@ function RidesDetails() {
             <tr className=' bg-[#999999] text-white border-b-2 text-[18px] drop-shadow-md '>
               <th className='px-3.5 p-1 w-30  '>ID</th>
               <th className='px-3.5 w-30 pl-28 '>Name</th>
-              <th className='px-3.5 w-30 pl-16'>Contact</th>
+              {/* <th className='px-3.5 w-30 pl-16'>Contact</th> */}
               <th className='px-3.5 w-30 pl-20 '>School</th>
               <th className='px-3.5 w-30 pl-16'>Status</th>  
             </tr>
@@ -123,7 +123,7 @@ function RidesDetails() {
             <tr className=' bg-[#D9D9D9] bg-opacity-60 hover:cursor-pointer hover:bg-[#eaeaea] drop-shadow-md'>
                 <td className='text-center  p-3'> {item.child_id}</td>
                 <td className='text-center'>{item.child_name}</td>
-                <td className='text-center'>{item.child_id}</td>
+                {/* <td className='text-center'>{item.contact_number}</td> */}
                 <td className='text-center'>{item.school_id}</td>
                 <td className='text-center'>{item.status}</td>
             </tr>

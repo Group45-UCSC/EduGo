@@ -35,6 +35,7 @@ const {
   // MOBILE
   viewRidePayment,
 } = require("../controllers/driver/financeController");
+const {addComplaint,viewUserComplaints } = require("../controllers/driver/complaintController");
 
 const {
   viewRideDetails,
@@ -60,6 +61,7 @@ const {
   selectSchool,
   checkRideBeforeRemove,
   removeSchoolFromRide,
+  AddSchool,
 } = require("../controllers/driver/schoolController");
 
 
@@ -70,13 +72,16 @@ const {
   getChildrenCount,
 } = require("../controllers/driver/childrenController");
 
-
+const {
+  sendMessage,
+  receiveMessage,
+} = require("../controllers/driver/supChatController");
 
 
 //create routes
 router.route("/dashboard/hasride/:userId").get(hasRide);
 // router.route("/add/vehicle/:userId").post(addVehicle);
-router.route("/vehicledetails/:userId").get(viewVehicle);
+router.route("/vehicle/view/:userId").get(viewVehicle);
 
 router.route("/vehicle/add/:userId").post(addVehicle);
 router.post("/vehicle/upload/", upload.single("vehicleRegDoc"), uploadVehicle);
@@ -101,6 +106,7 @@ router.route("/ride/request/accept/:userId").put(acceptRideRequest);
 router.route("/ride/set/ridetime/").post(setChildRideTime);
 
 //school page
+router.route("/school/addnew").get(AddSchool);
 router.route("/ride/view/school/:userId").get(viewSchoolDetails);
 router.route("/ride/select/school/:userId").post(selectSchool);
 router
@@ -145,5 +151,13 @@ router.route("/times/:driverId").get(ridingTimes);
 
 // children name in school
 // router.route("/childrenSchool/:driverId").get(childrenSchool);
+
+//support page
+router.route("/complaint/add/:userId").post(addComplaint);
+router.route("/support/viewComplaint/:userId").get(viewUserComplaints);
+
+router.route("/minimizablechat/sendMessage/:userId").post(sendMessage);
+router.route("/minimizablechat/receiveMessage/:userId").get(receiveMessage);
+
 
 module.exports = router;

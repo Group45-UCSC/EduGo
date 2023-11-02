@@ -150,6 +150,7 @@ const addChildren = async (req, res) => {
   try {
     const userId = req.params.userId;
     const { childname, pickupLocation, schoolName,pickupAddress } = req.body;
+    console.log(pickupAddress);
     // console.log(req.body);
 
     // Generate child id
@@ -185,31 +186,33 @@ const addChildren = async (req, res) => {
     //   0, // Seconds
     // );
 
-    // Make a geocoding request to MapQuest API
+// Make a geocoding request to MapQuest API
+const geocodeResponse = await rp({
+  uri: `https://www.mapquestapi.com/geocoding/v1/address?key=${mapQuestApiKey}`,
+  qs: {
+    key: mapQuestApiKey,
+    location: pickupLocation.lat + ',' + pickupLocation.lng, // Combine lat and lng
+  },
+  json: true,
+  timeout: 5000,
+});
+
+// Check if the geocoding response contains results
+if (!geocodeResponse.results || geocodeResponse.results.length === 0) {
+  return res.status(400).json({ error: "Invalid address" });
+}
+
+// Extract latitude, longitude, and formatted address from the first result
+const firstResult = geocodeResponse.results[0];
+const { lat, lng } = firstResult.locations[0].latLng; // Correctly extract lat and lng
+const formattedaddress =
+  firstResult.locations[0].street || firstResult.locations[0].adminArea5;
+
+// console.log(lat);
+// console.log(lng);
+// console.log(formattedaddress);
+
   
-    // const geocodeResponse = await rp({
-    //   //?
-    //   uri: `https://www.mapquestapi.com/geocoding/v1/address?key=${mapQuestApiKey}`,
-    //   qs: {
-    //     location: pickupLocation,
-    //   },
-    //   json: true,
-    // });
-    // console.log(geocodeResponse);
-
-    // Check if the geocoding response contains results
-    // if (!geocodeResponse.results || geocodeResponse.results.length === 0) {
-    //   return res.status(400).json({ error: "Invalid address" });
-    // }
-
-    // Extract latitude, longitude, and formatted address from the first result
-    // const firstResult = geocodeResponse.results[0];
-    const { lat, lng } = pickupLocation
-    // const formattedaddress =
-    //   firstResult.locations[0].street || firstResult.locations[0].adminArea5;
-    // console.log(lat);
-    // console.log(lng);
-    // console.log(formattedaddress);
 
     const newChild = await pool.query(
       "INSERT INTO children (child_id, parent_id, school_name, pickup_location, location, formattedaddress, child_name,ride_status) VALUES ($1, $2, $3, $4, ST_GeomFromText($5), $6, $7, $8) RETURNING *",
@@ -219,7 +222,7 @@ const addChildren = async (req, res) => {
         schoolName,
         pickupAddress,
         `POINT(${lng} ${lat})`,
-        pickupAddress,
+        formattedaddress,
         childname,
         "notreg",
       ]
@@ -237,7 +240,7 @@ const addChildren = async (req, res) => {
     });
   } catch (error) {
     console.error(error.message);
-    res.status(500).send("Server Error");
+    res.status(500).json({ error: "An error occurred" });
   } //?
 };
 
@@ -540,7 +543,6 @@ const addRideRequest = async (req, res) => {
       selectedShift,
     } = req.body;
 
-    console.log(req.body);
 
 
     //genarate request id
@@ -580,17 +582,7 @@ const addRideRequest = async (req, res) => {
     // console.log(lat);
     // console.log(lng);
     // console.log(formattedaddress);
-    // console.log(        newRequestId,
-    //   child_location,
-    //   `POINT(${lng} ${lat})`,
-    //   formattedaddress,
-    //   school,
-    //   ride_id,
-    //   "pending",
-    //   driver_id,
-    //   child_id,
-    //   userId,
-    //   selectedShift);
+
 
     //Insert into ride request table
     const newRideRequest = await pool.query(

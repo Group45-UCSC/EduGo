@@ -203,7 +203,7 @@ function Ride() {
               {/* left column */}
               <div className=" grid grid-rows-6">
                 {/* upper row */}
-                <div className="row-span-2 mb-5 rounded-lg bg-slate-300">
+                <div className="row-span-1 mb-5 rounded-lg bg-slate-300">
                   {rideDataList.map((ride, index) => (
                     <div className="h-7 my-5 p-6 mx-10">
                       <h1 className="text-base text-black-600 font-bold">
@@ -217,14 +217,14 @@ function Ride() {
                               Starts :
                             </span>
                             {ride.location_morning_ride} at{" "}
-                            {ride.time_morning_ride}
+                            6.00 AM
                           </div>
                         ) : (
                           <div>
                             <span className="pr-8 text-[#5a5c69]">
                               Starts :
                             </span>
-                            {ride.location_noon_ride} at {ride.time_noon_ride}
+                            {ride.location_noon_ride} at 12.45 PM
                           </div>
                         )}
                         {/* <span className=" pr-20 text-[#5a5c69]">PayRate:</span>{" "}

@@ -31,8 +31,13 @@ const router = express.Router();
 //import functions
 const {  viewChildDashboard, viewChildChildren,ViewVehicle,viewSchool,viewDriverReview,addChildren, GetAllChildrentoMap, addRideRequest, childCount} = require("../controllers/parent/childController");
 const { addFeedback , addEdugoFeedback, getDrivers} = require("../controllers/parent/feedbackController");
+const {addComplaint, viewUserComplaints} = require("../controllers/parent/complaintController");
+const upload = require("../utils/multer");
 const { viewPayment, viewPastPayment, viewRidePayment } = require("../controllers/parent/paymentController");
-
+const {
+  sendMessage,
+  receiveMessage,
+} = require("../controllers/parent/supChatController");
 //create routes
 router.route("/children/addchild/:userId").post(addChildren);
 router.route("/feedback/add/:userId").post(addFeedback);
@@ -49,9 +54,13 @@ router
 router.route("/children/viewVehicle/rideRequest/:userId").post(addRideRequest);
 router.route("/feedback/driverlist/:userId").get(getDrivers);
 router.route("/payment/viewprice/:userId").get(viewPayment);
+router.route("/payment/pastpayment/:userId").get(viewPastPayment)
+router.route("/complaint/add/:userId").post(upload.array("attachments"),addComplaint);
 router.route("/payment/pastpayment/:userId").get(viewPastPayment);
+router.route("/support/viewComplaint/:userId").get(viewUserComplaints);
 
-
+router.route("/minimizablechat/sendMessage/:userId").post(sendMessage);
+router.route("/minimizablechat/receiveMessage/:userId").get(receiveMessage);
 // MOBILE
 // children count
 router.route("/childrens/:userId").get(childCount);

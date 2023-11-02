@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect} from "react";
 import { AiOutlinePaperClip, AiOutlineSend } from "react-icons/ai";
 import { FaWindowMinimize } from "react-icons/fa";
 import { FiMaximize2 } from "react-icons/fi";
@@ -7,24 +7,78 @@ function MinimizableChat({ zIndex }) {
   const [isMinimized, setIsMinimized] = useState(true);
   const [inputValue, setInputValue] = useState("");
   const [sentMessages, setSentMessages] = useState([]);
+  const [chatMessages, setChatMessages] = useState([]);
+  const [selectedChatId, setSelectedChatId] = useState(null);
+
+  const userId = localStorage.getItem("userId");
 
   const handleToggle = () => {
     setIsMinimized((prev) => !prev);
   };
+  useEffect(() => {
+    const receiveMessage = async () => {
+      try {
+        const response = await fetch(
+          `http://localhost:5000/edugo/driver/minimizablechat/receiveMessage/${userId}`
+        );
 
-  const handleSendMessage = () => {
+        if (response.ok) {
+          const data = await response.json();
+          setChatMessages(data);
+        } else {
+          throw new Error(" Network response was not ok");
+        }
+      } catch (error) {
+        console.error("Error fetching chat data:", error);
+      }
+    };
+    receiveMessage();
+  }, [userId]);
+
+  const handleSendMessage = async () => {
     if (inputValue.trim() !== "") {
-      //create a new message object with the input value
-      const newMessage = {
-        sender: "You",
-        content: inputValue.trim(),
-        // chatId: selectedChatId,
-      };
-      //update the sentMessage  state with the new message
-      setSentMessages((prevMessages) => [...prevMessages, newMessage]);
-      setInputValue("");
+      try {
+        const response = await fetch(
+          `http://localhost:5000/edugo/driver/minimizablechat/sendMessage/${userId}`,
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              sender_id: userId,
+              receiver_id: "SUP001",
+              message: inputValue.trim(),
+            }),
+          }
+        );
+
+        if (!response.ok) {
+          throw new Error("Network response was not ok");
+        }
+
+        const newMessage = await response.json();
+
+        setSentMessages((prevMessages) => [...prevMessages, newMessage]);
+        setInputValue("");
+      } catch (error) {
+        console.error("Error sending message:", error);
+      }
     }
   };
+  // const handleSendMessage = () => {
+  //   if (inputValue.trim() !== "") {
+  //     //create a new message object with the input value
+  //     const newMessage = {
+  //       sender: "You",
+  //       content: inputValue.trim(),
+  //       // chatId: selectedChatId,
+  //     };
+  //     //update the sentMessage  state with the new message
+  //     setSentMessages((prevMessages) => [...prevMessages, newMessage]);
+  //     setInputValue("");
+  //   }
+  // };
 
   const handleFileChange = (e) => {
     const file = e.target.files[0]; // Get the selected file
@@ -51,7 +105,7 @@ function MinimizableChat({ zIndex }) {
               className="h-10 w-10 object-cover border-2 border-[#22c55e] rounded-full"
             />
             <div className="flex flex-row gap-10">
-              <h1 className="font-semibold text-lg">John Doe (Sup_agent)</h1>
+              <h1 className="font-semibold text-lg">(Sup_agent)</h1>
               <div className="flex items-center text-black">
               <div className="w-3 h-3 bg-[#22c55e] rounded-full"></div>
               </div>
@@ -64,16 +118,23 @@ function MinimizableChat({ zIndex }) {
             {/* Chat messages */}
             <div className="mb-4">
               {/* ... Add chat messages here */}
-              <div className="flex items-start justify-start mb-2">
+              <div className="flex flex-col gap-3 items-start justify-start mb-2">
                 <div className="bg-gray px-5 py-2 rounded-xl flex justify-start">
                   Hi there! How can I help you today?
                 </div>
+                {chatMessages.map((message, index) => (
+                <div key={index} className=" justify-start">
+                  <div className="bg-gray px-5 py-2 rounded-xl flex">
+                    {message.message}
+                  </div>
+                </div>
+              ))}
               </div>
               <div className="">
               {sentMessages.map((message, index) => (
                 <div key={index} className="flex  gap-3 items-center p-2 justify-end">
                   <div className="bg-orange px-5 py-2 rounded-xl flex">
-                    {message.content}
+                    {message.message}
                   </div>
                 </div>
               ))}
