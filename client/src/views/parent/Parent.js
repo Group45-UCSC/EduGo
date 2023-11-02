@@ -389,7 +389,7 @@ function Parent() {
           </h1>
 
           <div className="grid grid-cols-2 grid-rows-3 gap-3 mt-[20px] pb-[12px]">
-            {/* Registered Children */}
+            
             <div className=" h-[160px] rounded-[8px] bg-slate-200 border-l-[4px] border-orange flex items-center justify-between px-[30px] cursor-pointer hover:shadow-lg transform hover:scale-[103%] transition duration-300 ease-out">
               <div>
                 <h1 className="text-[20px] leading-[24px] font-bold text-[#5a5c69]  pb-5">
