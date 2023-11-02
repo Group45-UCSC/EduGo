@@ -29,7 +29,7 @@ const express = require("express");
 const router = express.Router();
 
 //import functions
-const {  viewChildDashboard, viewChildChildren,ViewVehicle,viewSchool,viewDriverReview,addChildren, GetAllChildrentoMap, addRideRequest} = require("../controllers/parent/childController");
+const {  viewChildDashboard, viewChildChildren,ViewVehicle,viewSchool,viewDriverReview,addChildren, GetAllChildrentoMap, addRideRequest, childCount} = require("../controllers/parent/childController");
 const { addFeedback , addEdugoFeedback, getDrivers} = require("../controllers/parent/feedbackController");
 const {addComplaint, viewUserComplaints} = require("../controllers/parent/complaintController");
 const upload = require("../utils/multer");
@@ -62,6 +62,9 @@ router.route("/support/viewComplaint/:userId").get(viewUserComplaints);
 router.route("/minimizablechat/sendMessage/:userId").post(sendMessage);
 router.route("/minimizablechat/receiveMessage/:userId").get(receiveMessage);
 // MOBILE
+// children count
+router.route("/childrens/:userId").get(childCount);
+
 // view payment
 router.route("/ridePayment/:parentId").get(viewRidePayment);
 
