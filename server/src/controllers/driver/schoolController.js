@@ -47,6 +47,13 @@ const selectSchool = async (req, res) => {
       [rideId, schoolId, userId]
     );
 
+    //insert into children
+    // const selectedSchoolforchild = await pool.query(
+    //   "UPDATE children SET school_id = $1 WHERE child_id = '" +
+    //     childId +
+    //     "' "
+    // );
+
     return res.json(selectedSchool.rows[0]);
   } catch (err) {
     console.error(err.message);
@@ -103,9 +110,43 @@ const removeSchoolFromRide = async (req, res) => {
   }
 };
 
+const AddSchool = async (req, res) => {
+  try {
+    const { school, address } = req.body;
+
+    // Generate school id
+    const lastSchoolData = await pool.query(
+      "SELECT * FROM school ORDER BY school_id DESC LIMIT 1"
+    );
+
+    const lastSchoolId = lastSchoolData.rows[0]?.school_id || "SCH0001";
+
+    const numericPart = parseInt(lastSchoolId.replace("SCH", ""), 10); // Extract numeric part and convert to an integer
+    const newNumericPart = numericPart + 1;
+    const newSchoolId = `SCH${newNumericPart.toString().padStart(5, "0")}`; 
+
+    const newSchool = await pool.query(
+      "INSERT INTO school (school_id, school_name, address) VALUES ($1, $2, $3) RETURNING *",
+      [
+        newSchoolId,
+        school,
+        address,
+      ]
+    );
+
+    return res.status(200).json({
+      success: true,
+    });
+  } catch (error) {
+    console.error(error.message);
+    res.status(500).send("Server Error");
+  } //?
+};
+
 module.exports = {
   viewSchoolDetails,
   selectSchool,
   checkRideBeforeRemove,
   removeSchoolFromRide,
+  AddSchool,
 };

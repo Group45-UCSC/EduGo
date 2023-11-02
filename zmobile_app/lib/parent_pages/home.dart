@@ -8,6 +8,8 @@ import './navbar.dart';
 import 'children.dart';
 import 'payment.dart';
 import 'location_tracking.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
 
 class ParentHomePage extends StatefulWidget {
   const ParentHomePage({Key? key}) : super(key: key);
@@ -18,6 +20,8 @@ class ParentHomePage extends StatefulWidget {
 
 class _ParentHomePageState extends State<ParentHomePage> {
   final Completer<google_maps.GoogleMapController> _controller = Completer();
+  String childCountString = '';
+  int childCount = 0;
 
   static const google_maps.CameraPosition _initailPosition =
       google_maps.CameraPosition(
@@ -40,7 +44,39 @@ class _ParentHomePageState extends State<ParentHomePage> {
     super.initState();
     myMarker.addAll(markerList);
     packData();
+    fetchChildCount();
   }
+
+  Future<void> fetchChildCount() async {
+  final url = Uri.parse('http://10.0.2.2:5000/edugo/parent/childrens/PR0001');
+
+  try {
+    final response = await http.get(url);
+    if (response.statusCode == 200) {
+      final List<dynamic> dataList = json.decode(response.body);
+
+      if (dataList.isNotEmpty) {
+        int totalChildCount = 0;
+        for (var item in dataList) {
+          if (item is Map<String, dynamic> && item.containsKey('num_of_registered_children')) {
+            totalChildCount += int.tryParse(item['num_of_registered_children'].toString()) ?? 0;
+          }
+        }
+
+        childCount = totalChildCount;
+        print(childCount);
+        setState(() {});
+      } else {
+        print('No data found in the JSON response');
+      }
+    } else {
+      print('Failed to fetch child count. Status code: ${response.statusCode}');
+    }
+  } catch (e) {
+    print('Error fetching child count: $e');
+  }
+}
+
 
   Future<Position> getUserLocation() async {
     await Geolocator.requestPermission()
@@ -175,16 +211,8 @@ class _ParentHomePageState extends State<ParentHomePage> {
               SizedBox(height: 8),
               // Childre namses
               Align(
-                alignment: Alignment.centerLeft,
-                child: Text('Child 1'),
-              ),
-              Align(
-                alignment: Alignment.centerLeft,
-                child: Text('Child 2'),
-              ),
-              Align(
-                alignment: Alignment.centerLeft,
-                child: Text('Child 3'),
+                alignment: Alignment.center,
+                child: Text('$childCount'), // Display the fetched child count
               ),
             ],
           ),
@@ -227,7 +255,7 @@ class _ParentHomePageState extends State<ParentHomePage> {
               ),
               Align(
                 alignment: Alignment.centerLeft,
-                child: Text('Due Date: 05/09/2023'),
+                child: Text('Due Date: 09/11/2023'),
               ),
               Align(
                 alignment: Alignment.centerLeft,

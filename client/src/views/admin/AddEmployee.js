@@ -1,6 +1,7 @@
 import React, {useState} from "react";
 import MainLayout from "../../components/layout/MainLayout";
 import Empimg  from "../../images/empimg.png";
+import Swal from 'sweetalert';
 
 import { AiFillDashboard } from "react-icons/ai";
 import { BsCoin } from "react-icons/bs";
@@ -59,15 +60,25 @@ function AdminAddEmployee() {
             body: JSON.stringify(formData),
           }
         );
-        if (response.status === 201) {
-          console.log("User created successfully");
+        if (response.ok) {
+          Swal({
+            icon: 'success',
+            title: 'Employee added successfully',
+            showConfirmButton: false,
+            timer: 3000
+          });
+          
           // Do something here, like showing a success message to the user or redirecting.
         } else {
           console.error("Failed to create user");
         }
         
       } catch (err) {
-        console.error(err.message);
+        Swal({
+          icon: 'error',
+          title: 'Failed to create employee',
+          text: err.message
+        });
       }
     
   };
@@ -105,7 +116,7 @@ function AdminAddEmployee() {
 
                     <label htmlFor="role">Recruit as : </label>
                     <select name="role" value={formData.role} onChange={handleInput} className="ml-4 border-2" style={{backgroundColor:'#999999'}}>
-                        <option value="supAgent">Support Agent</option>
+                        <option value="supagent">Support Agent</option>
                         <option value="vc">Vehicle Coordinator</option>
                         
                     </select><br />

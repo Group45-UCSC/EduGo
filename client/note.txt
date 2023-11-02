@@ -24,6 +24,7 @@ npm i react-switch
 npm install date-fns
 npm i react-places-autocomplete
 npm install react-modal
+npm install crypto-js
 
 
 

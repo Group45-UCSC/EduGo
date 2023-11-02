@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import MainLayout from "../../components/layout/MainLayout";
 import { FaChild, FaSearch, FaPhone } from "react-icons/fa";
 import {
@@ -37,10 +37,29 @@ function Support() {
   const [selectedChatId, setSelectedChatId] = useState(null);
   const [searchQuery, setSearchQuery] = useState("");
   const [complaints, setComplaints] = useState([]);
+  const userId = localStorage.getItem("userId");
 
   const handleComplaintSubmit = (newComplaint) => {
     setComplaints([...complaints, newComplaint]); // Assuming complaints is your state array
   };
+
+  useEffect(() => {
+    async function viewComplaints() {
+      try {
+        const response = await fetch(
+          `http://localhost:5000/edugo/parent/support/viewComplaint/${userId}`
+        );
+        if (!response.ok) {
+          throw new Error(" Nework response was not ok");
+        }
+        const data = await response.json();
+        setComplaints(data);
+      }catch (error) {
+        console.error(" Error fetching driver details" , error);
+      }
+    }
+    viewComplaints(); 
+  },[userId]);
 
   const handleChatItemClick = (chatId) => {
     setSelectedChatId(chatId);
@@ -301,15 +320,15 @@ function Support() {
                 {complaints.map((complaint, index) => (
                   <div key={index} className="ml-3 pt-5">
                     <p>
-                      <strong>Complaint Type:</strong> {complaint.complaintType}
+                      <strong>Complaint Type:</strong> {complaint.complainttype}
                     </p>
                     <p>
                       <strong>Complaint Details:</strong>{" "}
-                      {complaint.complaintDetails}
+                      {complaint.complaintdetails}
                     </p>
                     <p>
                       <strong>Date of Occurrence:</strong>{" "}
-                      {complaint.dateOfOccurrence}
+                      {complaint.dateofoccurrence}
                     </p>
                     <p>
                       <strong>Attachments:</strong>{" "}
@@ -318,7 +337,7 @@ function Support() {
                       ))}
                     </p>
                     <div className="pt-2 text-lg flex flex-row font-medium">
-                      Status:<p className="text-[#16a34a] pl-3">Pending...</p>
+                      Status:<p className="text-[#16a34a] pl-3">{complaint.status}</p>
                     </div>
                   </div>
                 ))}

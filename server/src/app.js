@@ -68,7 +68,7 @@ const userRoutes = require("./routes/userRoutes");
 app.use("/edugo/admin", adminRouter);
 app.use("/edugo/driver", driverRouter);
 app.use("/edugo/parent", parentRoutes);
-app.use("edugo/supAgent", supAgentRoutes);
+app.use("/edugo/supAgent", supAgentRoutes);
 app.use("/edugo/vc", vcRoutes);
 app.use("/edugo/user", userRoutes);
 
