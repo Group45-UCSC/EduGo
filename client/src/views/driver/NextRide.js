@@ -218,7 +218,7 @@ function NextRide() {
               <div className="w-[90%] h-[90%] mt-6" id="map"></div>
             </div>
 
-            <div className="w-1/2 h-[495px] bg-slate-200 rounded-md px-3">
+            <div className="w-1/2 h-[495px] mb-28 bg-slate-200 rounded-md px-3">
               <div className="my-3 text-xl flex justify-center mt-5 mb-5 ">
                 <h1 className="font-semibold text-slate-600">
                   Today available Children
