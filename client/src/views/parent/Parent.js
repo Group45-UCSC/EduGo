@@ -459,11 +459,16 @@ function Parent() {
                   className="border border-orange rounded-[8px] flex h-[60px] px-3 py-2 gap-4 my-1 "
                 >
                   <div className="">
-                    <img
+                    {/* <img
                       src={child.image}
                       alt="child_image"
                       className="w-12 border border-slate-400 rounded-full p-[3px]"
-                    />
+                    /> */}
+                    <img
+                        src="https://static.vecteezy.com/system/resources/previews/008/442/086/non_2x/illustration-of-human-icon-user-symbol-icon-modern-design-on-blank-background-free-vector.jpg"
+                        alt="Profile"
+                        className="w-10 h-10 rounded-full mr-3"
+                      />
                   </div>
                   <div className="pt-3 w-[300px] text-slate-800 ">
                     {child.ride_status === "ride" ? (
@@ -474,7 +479,7 @@ function Parent() {
                       </span>
                     ) : child.ride_status === "notreg" ? (
                       <span className="font-bold text-blue-600">
-                        Not Registered
+                        Not Ride
                       </span>
                     ) : (
                       <span className="font-bold text-gray-600">
