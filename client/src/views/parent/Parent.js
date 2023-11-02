@@ -29,7 +29,7 @@ const sideNavBarLinks = [
 ];
 
 function Parent() {
-  const userName = localStorage.getItem('userName');
+  const userName = localStorage.getItem("userName");
 
   const notifications = [
     {
@@ -109,12 +109,14 @@ function Parent() {
   //user id
   const userId = localStorage.getItem("userId");
 
-  const[children, setChildren] = useState([]);
+  const [children, setChildren] = useState([]);
 
   useEffect(() => {
     async function childrenData() {
       try {
-        const response = await fetch(`http://localhost:5000/edugo/parent/dashboard/children/${userId}`); 
+        const response = await fetch(
+          `http://localhost:5000/edugo/parent/dashboard/children/${userId}`
+        );
         const data = await response.json();
         setChildren(data);
       } catch (err) {
@@ -229,8 +231,9 @@ function Parent() {
                     switch (notification.type) {
                       case "payment":
                         return (
-                          <div >
-                            <button className="w-36 h-9 bg-orange hover:bg-black hover:text-white rounded-lg text-xl cursor-pointer" 
+                          <div>
+                            <button
+                              className="w-36 h-9 bg-orange hover:bg-black hover:text-white rounded-lg text-xl cursor-pointer"
                               onClick={() => {
                                 setOpenModal(false);
                               }}
@@ -270,16 +273,17 @@ function Parent() {
                       case "paymentReminder":
                         return (
                           <NavLink to="/parent/payment">
-                          <div >
-                            <button className="w-36 h-9 bg-orange hover:bg-black hover:text-white rounded-lg text-xl cursor-pointer" 
-                              onClick={() => {
-                                setOpenModal(false);
-                              }}
-                              id="cancelBtn"
-                            >
-                              Pay
-                            </button>
-                          </div>
+                            <div>
+                              <button
+                                className="w-36 h-9 bg-orange hover:bg-black hover:text-white rounded-lg text-xl cursor-pointer"
+                                onClick={() => {
+                                  setOpenModal(false);
+                                }}
+                                id="cancelBtn"
+                              >
+                                Pay
+                              </button>
+                            </div>
                           </NavLink>
                         );
                       case "rideRequest":
@@ -387,8 +391,7 @@ function Parent() {
       <MainLayout data={sideNavBarLinks}>
         <div className=" px-6">
           <h1 className="text-[#5a5c69] text-[28px] leading-8 font-normal cursor-pointer">
-            Hello {userName}!
-            {/* Dashboard */}
+            Hello {userName}!{/* Dashboard */}
           </h1>
 
           <div className="grid grid-cols-2 grid-rows-3 gap-3 mt-[20px] pb-[12px]">
@@ -396,16 +399,12 @@ function Parent() {
             <div className=" h-[160px] rounded-[8px] bg-slate-200 border-l-[4px] border-orange flex items-center justify-between px-[30px] cursor-pointer hover:shadow-lg transform hover:scale-[103%] transition duration-300 ease-out">
               <div>
                 <h1 className="text-[20px] leading-[24px] font-bold text-[#5a5c69]  pb-5">
-                  Registered Children (3)
+                  Registered Children
                 </h1>
                 <div className="text-[#B589DF] text-[12px] leading-[17px] font-bold">
-                {children.map((child) => (
-
-                  <div key={child.child_id}>
-                    {child.child_name}
-                  </div>
-                  
-                ))}
+                  {children.map((child) => (
+                    <div key={child.child_id}>{child.child_name}</div>
+                  ))}
                 </div>
               </div>
               <FaRegCalendarMinus fontSize={28} color="" />
@@ -457,41 +456,43 @@ function Parent() {
               <div className=" mb-1 p-3 flex justify-center">
                 <div className="text-[20px] leading-[24px] font-bold text-[#5a5c69]">
                   {" "}
-                  Ongoing Ride{" "}
+                  Children Status{" "}
                 </div>
               </div>
               {children.map((child) => (
                 <div
                   key={child.child_id}
-                  className="border border-orange rounded-[8px] flex h-[80px] px-3 py-3 gap-3"
+                  className="border border-orange rounded-[8px] flex h-[60px] px-3 py-2 gap-4 my-1 "
                 >
                   <div className="">
                     <img
                       src={child.image}
                       alt="child_image"
-                      className="w-14 border border-slate-400 rounded-full p-[3px]"
+                      className="w-12 border border-slate-400 rounded-full p-[3px]"
                     />
                   </div>
                   <div className="pt-3 w-[300px] text-slate-800 ">
-                    {child.status === "On ride" ? (
-                      <span className="font-bold text-green-600">
-                        {child.status}
+                    {child.ride_status === "ride" ? (
+                      <span className="font-bold text-green-600">Ride</span>
+                    ) : child.ride_status === "notride" ? (
+                      <span className="font-bold text-gray-400">
+                        Not Ongoing Ride
+                      </span>
+                    ) : child.ride_status === "notreg" ? (
+                      <span className="font-bold text-blue-600">
+                        Not Registered
                       </span>
                     ) : (
-                      <span className=" flex">
-                        Next picked up time :{" "}
-                        <div className=" font-semibold text-lg">
-                          {" "}
-                          {/* {child.pickupTime} */}
-                        </div>{" "}
+                      <span className="font-bold text-gray-600">
+                        Unknown Status
                       </span>
                     )}
                   </div>
-                  {child.status === "On ride" && (
+                  {child.ride_status === "notride" && (
                     <NavLink to="/parent/children/childlocation">
-                    <div className="border-2 border-white cursor-pointer rounded-md w-8 h-8 mt-3 pt-2 pl-[6px] ml-24">
-                      <FaEye className="text-blue-700 hover:text-black"></FaEye>
-                    </div>
+                      <div className="border-2 border-white cursor-pointer rounded-md w-8 h-8 mt-3 pt-2 pl-[6px] ml-24">
+                        <FaEye className="text-blue-700 hover:text-black"></FaEye>
+                      </div>
                     </NavLink>
                   )}
                 </div>

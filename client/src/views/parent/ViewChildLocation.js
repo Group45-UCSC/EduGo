@@ -100,7 +100,7 @@ function ViewChildLocation(props) {
                           Name:
                         </h3>
                         <div className="text-[12px] font-semibold">
-                          {child.name}
+                          {child.child_name}
                         </div>
                       </div>
                       <div className="flex gap-1">
@@ -108,7 +108,7 @@ function ViewChildLocation(props) {
                           School Name:
                         </h3>
                         <div className="text-[12px] font-semibold">
-                          {child.schoolName}
+                          {child.school_name}
                         </div>
                       </div>
                       <div className="flex gap-1">
@@ -116,7 +116,7 @@ function ViewChildLocation(props) {
                           School Ride:
                         </h3>
                         <div className="text-[12px] font-semibold">
-                          {child.schoolRide}
+                          {child.ride_id}
                         </div>
                       </div>
                     </div>
