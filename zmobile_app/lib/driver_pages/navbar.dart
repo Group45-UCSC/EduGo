@@ -139,7 +139,7 @@ class _NavbarState extends State<Navbar> {
                     backgroundImage: AssetImage('assets/images/profile.png'),
                   ),
                   Text(
-                    'Kawya Sandamini',
+                    'Kawya Jayasiri',
                     style: TextStyle(
                       color: Colors.white,
                       fontSize: 18,

@@ -37,7 +37,7 @@ class Navbar extends StatelessWidget {
                     backgroundImage: AssetImage('assets/images/profile.png'),
                   ),
                   Text(
-                    'Kawya Sandamini',
+                    'Malith Silva',
                     style: TextStyle(
                       color: Colors.white,
                       fontSize: 18,
