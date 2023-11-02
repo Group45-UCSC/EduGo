@@ -20,9 +20,9 @@ class _PaymentPageState extends State<PaymentPage> {
 
   // Data organized by tab
   Map<String, List<Map<String, dynamic>>> tabData = {
-    'not_paid': [],
-    'pending': [],
-    'paid': [],
+    'Not Paid': [],
+    'Pending': [],
+    'Paid': [],
   };
 
   // Controller for search input
@@ -163,9 +163,9 @@ class _PaymentPageState extends State<PaymentPage> {
             Expanded(
               child: TabBarView(
                 children: [
-                  _buildTabContent(context, 'not_paid'),
-                  _buildTabContent(context, 'pending'),
-                  _buildTabContent(context, 'paid'),
+                  _buildTabContent(context, 'Not Paid'),
+                  _buildTabContent(context, 'Pending'),
+                  _buildTabContent(context, 'Paid'),
                 ],
               ),
             ),
@@ -177,7 +177,7 @@ class _PaymentPageState extends State<PaymentPage> {
 
   Widget _buildTabContent(BuildContext context, String payStatus) {
     final tabDataForStatus = tabData[payStatus] ?? [];
-    final isPending = payStatus == 'not_paid';
+    final isPending = payStatus == 'Not Paid';
 
     return SingleChildScrollView(
       child: DataTable(

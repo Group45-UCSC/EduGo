@@ -6,8 +6,8 @@ import { FaChild } from "react-icons/fa";
 import { FaUserGroup } from "react-icons/fa6";
 import { BsFillCarFrontFill } from "react-icons/bs";
 import { FaShippingFast } from "react-icons/fa";
-import { AiOutlineSearch } from "react-icons/ai";
-import { BiFilterAlt } from "react-icons/bi";
+// import { AiOutlineSearch } from "react-icons/ai";
+// import { BiFilterAlt } from "react-icons/bi";
 import { NavLink } from "react-router-dom";
 
 const sideNavBarLinks = [
@@ -71,7 +71,7 @@ function AdminRides() {
         <h1 className="text-[#5a5c69] pt-[25px] px-[25px] text-[28px] leading-8 font-normal cursor-pointer">School rides details</h1>
 
         {/* filter and search button */}
-        <div className="flex mt-8 ml-[57%]">
+        {/* <div className="flex mt-8 ml-[57%]">
           <div className="flex border border-slate-400 w-40 rounded-md h-8">
             <form action=''>
               <input type="text" placeholder='Filter here' className='overflow-auto pl-2 pt-1 w-32 bg-transparent float-left border-collapse'></input>
@@ -85,10 +85,10 @@ function AdminRides() {
               < AiOutlineSearch className="text-slate-400 float-right h-5 w-5 mt-1 ml-1 hover:cursor-pointer" />
             </form>
           </div>
-        </div>
+        </div> */}
 
         {/*employees button container */}
-        <div className="flex text-center ml-32 mt-4">
+        <div className="flex text-center ml-32 mt-12">
           {/* buttons */}
           <div
             onClick={() => updateToggle(1)}
@@ -115,7 +115,7 @@ function AdminRides() {
 
         {/* rides table */}
         <div className={toggle === 1 ? "details" : "details hidden"}>
-          <div className='ml-32 mr-32 shadow-md overflow-auto mb-48'>
+          <div className='ml-32 mr-32 shadow-md overflow-auto mb-60'>
             <table className='w-full text-center border-separate border-spacing-y-2 border border-slate-50 '>
               <thead className='border-y-4 border-white drop-shadow '>
                 <tr className=' bg-[#999999] text-white border-b-2 text-[18px] drop-shadow-md '>
@@ -159,7 +159,7 @@ function AdminRides() {
         </div>
 
         <div className={toggle === 2 ? "details" : "details hidden"}>
-          <div className='ml-32 mr-32 shadow-md overflow-auto'>
+          <div className='ml-32 mr-32 mb-48 shadow-md overflow-auto'>
             <table className='w-full text-center border-separate border-spacing-y-2 border border-slate-50 '>
               <thead className='border-y-4 border-white drop-shadow '>
                 <tr className=' bg-[#999999] text-white border-b-2 text-[18px] drop-shadow-md '>

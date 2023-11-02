@@ -11,10 +11,10 @@ const sideNavBarLinks = [
 ];
 
 function SupAgentProfile() {
-  const [name, setName] = useState("John Doe");
-  const [address, setAddress] = useState("123 Main Street");
-  const [email, setEmail] = useState("johndoe@example.com");
-  const [contact, setContact] = useState("0782577381");
+  const [name, setName] = useState("");
+  const [address, setAddress] = useState("");
+  const [email, setEmail] = useState("");
+  const [contact, setContact] = useState("");
 
   // Original values before editing
   const [originalName, setOriginalName] = useState(name);
@@ -35,6 +35,41 @@ function SupAgentProfile() {
   const [confirmNewPassword, setConfirmNewPassword] = useState("");
   const [passwordsMatch, setPasswordsMatch] = useState(false);
   const [changePasswordSuccess, setChangePasswordSuccess] = useState(false);
+  const userId = localStorage.getItem("userId");
+  console.log("userId from localStorage:", userId);
+
+  useEffect(() => {
+    async function viewDetails() {
+      try {
+        const response = await fetch(
+          `http://localhost:5000/edugo/supAgent/supAgentProfile/viewDetails/${userId}`
+        );
+        if (!response.ok) {
+          throw new Error(" Nework response was not ok");
+        }
+        const data = await response.json();
+        if (data.length > 0) {
+          const user = data[0]; // Assuming you want the first user if there are multiple
+  
+          // Populate the fields from the API response
+          setName(user.user_name);
+          setEmail(user.user_email);
+          setContact(user.contact_number || ""); // Use an empty string if 'contact_number' is null
+          setAddress(user.address || ""); // Use an empty string if 'address' is null
+  
+          // Set the original values
+          setOriginalName(user.user_name);
+          setOriginalEmail(user.user_email);
+          setOriginalContact(user.contact_number || ""); // Use an empty string if 'contact_number' is null
+          setOriginalAddress(user.address || ""); // Use an empty string if 'address' is null
+        }
+      } catch (error) {
+        console.error(" Error fetching driver details", error);
+      }
+    }
+    viewDetails();
+  },[userId]);
+
   useEffect(() => {
     if (confirmNewPassword === newPassword) {
       setPasswordsMatch(true);
@@ -237,7 +272,10 @@ function SupAgentProfile() {
                           onChange={handleNameChange}
                         />
                       ) : (
-                        <div className="font-semibold px-5">{name}</div>
+                        <div className="font-semibold px-5">{name}
+                        {console.log('name:', name)}
+                        </div>
+                        
                       )}
                       {nameEditing ? (
                         <div className="flex flex-row mx-1 gap-2">
@@ -393,7 +431,7 @@ function SupAgentProfile() {
           {/* -------------login password--------------- */}
           <div className="col-span-1  w-full h-[41rem] gap-5 ">
             <div className="bg-[orange] w-full mt-10  p-5">
-            <div className="text-2xl font-semibold pb-2">Change Password</div>
+              <div className="text-2xl font-semibold pb-2">Change Password</div>
               <div className="bg-[#EEEEEE]  w-full h-full p-5">
                 <div className="flex flex-col gap-5">
                   <div>

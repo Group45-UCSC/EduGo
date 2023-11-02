@@ -2,8 +2,8 @@ import React, { useState, useEffect } from "react";
 import MainLayout from "../../components/layout/MainLayout";
 import { BsStar, BsStarFill } from "react-icons/bs";
 import { AiOutlineClose } from "react-icons/ai";
-import { AiOutlineSearch } from "react-icons/ai";
-import { BiFilterAlt } from "react-icons/bi";
+// import { AiOutlineSearch } from "react-icons/ai";
+// import { BiFilterAlt } from "react-icons/bi";
 import { FaBusAlt } from "react-icons/fa";
 import { FaWrench } from "react-icons/fa";
 import { BsFillExclamationOctagonFill } from "react-icons/bs";
@@ -13,6 +13,7 @@ import { FaChild } from "react-icons/fa";
 import { FaUserGroup } from "react-icons/fa6";
 import { BsFillCarFrontFill } from "react-icons/bs";
 import { FaShippingFast } from "react-icons/fa";
+import parentpic from "../../images/parent1.png";
 
 const sideNavBarLinks = [
   { title: "Dashboard", path: "/admin/dashboard", icon: <AiFillDashboard /> },
@@ -318,7 +319,7 @@ function AdminDashboardPg() {
         <h3 className="text-[#5a5c69] pt-[25px] px-[25px] text-[24px] leading-8 font-normal cursor-pointer">Reviews</h3>
 
         {/* filter and search button */}
-        <div className="flex mt-8 ml-[57%]">
+        {/* <div className="flex mt-8 ml-[57%]">
           <div className="flex border border-slate-400 w-40 rounded-md h-8">
             <form action=''>
               <input type="text" placeholder='Filter here' className='overflow-auto pl-2 pt-1 w-32 bg-transparent float-left border-collapse'></input>
@@ -332,9 +333,9 @@ function AdminDashboardPg() {
               < AiOutlineSearch className="text-slate-400 float-right h-5 w-5 mt-1 ml-1 hover:cursor-pointer" />
             </form>
           </div>
-        </div>
+        </div> */}
 
-        <div className='ml-32 mr-32 shadow-md overflow-auto '>
+        <div className='ml-32 mt-12 mr-32 mb-32 shadow-md overflow-auto '>
           <table className='w-full text-center border-separate border-spacing-y-2 border border-slate-50 '>
             <thead className='border-y-4 border-white drop-shadow '>
               <tr className=' bg-[#999999] text-white border-b-2 text-[18px] drop-shadow-md '>
@@ -378,7 +379,7 @@ function AdminDashboardPg() {
                 <div className="rounded-[8px] bg-slate-100 mb-3 mt-[15%] w-3/4 ml-80 border-[1px] border-orange  items-center justify-between px-[30px] py-3 cursor-pointer hover:shadow-lg transform hover:scale-[101%] transition duration-300 ease-out">
                   <div className="flex  w-full mb-3">
                     <div className="flex justify-start gap-2 ">
-                      <img src={selectedRow.user_image} alt="user_image" className="bg-slate-300 w-8 cursor-pointer rounded-full p-1"></img>
+                      <img src={parentpic} alt="user_image" className="bg-slate-300 w-16 cursor-pointer rounded-full p-1"></img>
                       <h1 className="mt-1">{selectedRow.user_name}</h1>
 
                     </div>

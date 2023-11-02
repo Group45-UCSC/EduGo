@@ -129,6 +129,7 @@ const viewVehicle = async (req, res) => {
 
     const query = "SELECT * FROM vehicle WHERE driver_id=  '" + userId + "'"; // Replace with your actual table name
     const result = await pool.query(query);
+    console.log(result.rows);
     res.json(result.rows);
   } catch (err) {
     console.log(err.message);

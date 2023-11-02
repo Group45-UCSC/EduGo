@@ -33,9 +33,37 @@ function EmergencyDetails() {
        emchildrenList();
      });
 
+
+     const [ setStatusType] = useState("Done");
+     const handlecommentClick = async (emergency_id) => {
+      try {
+        const body = {
+          emergency_id: emergency_id
+        };
+        const response = await fetch(
+          `http://localhost:5000/edugo/vc/emergencydetails/comment`,
+          {
+            method: "PUT",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(body),
+          }
+        );
+        if (response.status === 200) {
+          // const data = await response.json();
+          setStatusType("done");
+        } else {
+          setStatusType("done");
+        }
+      } catch (err) {
+        console.error(err.message);
+      }
+    };
+
+
   const location = useLocation();
   const dataParam = new URLSearchParams(location.search).get("data");
   const item = JSON.parse(decodeURIComponent(dataParam));
+  const emergency = JSON.parse(decodeURIComponent(dataParam)); 
 
   const handleClick = () => {
     window.location.href = `/vc/track`;
@@ -93,17 +121,6 @@ function EmergencyDetails() {
                 <b>Assign </b>
               </button>
         </div>
-
-          {/* Conditional rendering of the form based on the status */}
-          {isStatusNotComplete && (
-                    <div className="ml-20 pt-[310px] ">
-                      {/* Your form JSX here */}
-                      <form className="">
-                        <input type="text" placeholder="what is your action" className="w-[600px] h-[100px] pl-6  rounded-lg shadow-md drop-shadow-md"></input>
-                        <button type="submit" className="bg-gradient-to-b from-amber-500 to-amber-300  w-32 h-9 ml-28 mt-2  rounded-lg shadow-md hover:shadow-lg transform hover:scale-[103%] trasition duration-300 ease-out  hover:cursor-pointer"> <b>SUBMIT</b></button>
-                      </form>
-                    </div>
-                  )}
                   
 
         {/* Childern in that vehicle */}
@@ -113,7 +130,7 @@ function EmergencyDetails() {
             <tr className=' bg-[#999999] text-white border-b-2 text-[18px] drop-shadow-md '>
               <th className='px-3.5 p-1 w-24 '>ID</th>
               <th className='px-3.5 w-30'>Name</th>
-              <th className='px-3.5 w-30'>Contact</th>
+              {/* <th className='px-3.5 w-30'>Contact</th> */}
               <th className='px-3.5 w-30'>school</th>
               <th className='px-3.5 w-'>Action</th>  
             </tr>
@@ -124,7 +141,7 @@ function EmergencyDetails() {
             <tr className=' bg-[#D9D9D9] bg-opacity-60 hover:cursor-pointer hover:bg-[#eaeaea] drop-shadow-md'>
                 <td className='text-center  p-3'>{itemchildren.child_id} </td>
                 <td className='text-center'>{itemchildren.child_name}</td>
-                <td className='text-center'>{itemchildren.contact_no}</td>
+                {/* <td className='text-center'>{itemchildren.contact_no}</td> */}
                 <td className='text-center'>{itemchildren.school_name}</td>
                 <td className='text-center'>
                 <button className="bg-gradient-to-b from-amber-500 to-amber-300  w-40 h-9 ml-4 mt-2 mb-2 rounded-lg shadow-md hover:shadow-lg transform hover:scale-[103%] trasition duration-300 ease-out  hover:cursor-pointer">
@@ -142,6 +159,17 @@ function EmergencyDetails() {
         </table>
       </div>
         
+        {/* Conditional rendering of the form based on the status */}
+          {isStatusNotComplete && (
+                    <div className="ml-20 pt-[10px] mb-10 ">
+                      {/* Your form JSX here */}
+                      <form className="">
+                        <input type="text" placeholder="what is your action" className="w-[600px] h-[100px] pl-6 bg-slate-200  rounded-lg shadow-md drop-shadow-md"></input>
+                        <button onClick={() => handlecommentClick(emergency.emergency_id)} type="submit" className="bg-gradient-to-b from-amber-500 to-amber-300  w-32 h-9 ml-28 mt-2  rounded-lg shadow-md hover:shadow-lg transform hover:scale-[103%] trasition duration-300 ease-out  hover:cursor-pointer"> <b>SUBMIT</b></button>
+                      </form>
+                    </div>
+                  )}
+
     </div>
     </MainLayout>
   )
