@@ -209,7 +209,7 @@ function Drivers() {
                     <th className="px-4 py-4 text-left">ID</th>
                     <th className="px-4 py-4 text-left">Name</th>
                     <th className="px-4 py-4 text-left">Contact</th>
-                    <th className="px-4 py-4 text-left">Address</th>
+                    {/* <th className="px-4 py-4 text-left">Address</th> */}
                     <th className="px-4 py-4 text-left">NIC number</th>
                   </tr>
                 </thead>
@@ -228,7 +228,7 @@ function Drivers() {
                       <td className="text-left px-4 py-4">{driver.user_id}</td>
                       <td className="text-left px-4 py-4">{driver.user_name}</td>
                       <td className="text-left px-4 py-4">{driver.contact_number}</td>
-                      <td className="text-left px-4 py-4">{driver.address}</td>
+                      {/* <td className="text-left px-4 py-4">{driver.address}</td> */}
                       <td className="text-left px-4 py-4">{driver.nic}</td>
                     </tr>
                   ))}

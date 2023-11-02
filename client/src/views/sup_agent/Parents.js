@@ -229,7 +229,7 @@ function Parents() {
                     <th className="px-4 py-4 text-left">Name</th>
                     <th className="px-4 py-4 text-left">NIC number</th>
                     <th className="px-4 py-4 text-left">Contact</th>
-                    <th className="px-4 py-4 text-left">Address</th>
+                    {/* <th className="px-4 py-4 text-left">Address</th> */}
                   </tr>
                 </thead>
 
@@ -304,7 +304,7 @@ function Parents() {
                     <th className="px-4 py-4 text-left">ID</th>
                     <th className="px-4 py-4 text-left">Name</th>
                     <th className="px-4 py-4 text-left">School</th>
-                    <th className="px-4 py-4 text-left">Address</th>
+                    {/* <th className="px-4 py-4 text-left">Address</th> */}
                     <th className="px-4 py-4 text-left">Contact</th>
                     <th className="px-4 py-4 text-left">V Number</th>
                   </tr>
@@ -336,9 +336,9 @@ function Parents() {
                         <td className="text-left px-4 py-4">
                           {children.school_id}
                         </td>
-                        <td className="text-left px-4 py-4">
+                        {/* <td className="text-left px-4 py-4">
                           {children.address}
-                        </td>
+                        </td> */}
                         <td className="text-left px-4 py-4">
                           {children.contact}
                         </td>
@@ -388,10 +388,10 @@ function Parents() {
                         <strong className="mr-2">Contact No:</strong>{" "}
                         {selectedRow.contact_number}
                       </p>
-                      <p>
+                      {/* <p>
                         <strong className="mr-2">Address:</strong>{" "}
                         {selectedRow.address}
-                      </p>
+                      </p> */}
                     </div>
                   </div>
 
@@ -496,10 +496,10 @@ function Parents() {
                               <strong className="mr-2">Contact No:</strong>{" "}
                               {parent.contact_number}
                             </p>
-                            <p>
+                            {/* <p>
                               <strong className="mr-2">Address:</strong>{" "}
                               {parent.address}
-                            </p>
+                            </p> */}
                           </div>
                         ))}
 
