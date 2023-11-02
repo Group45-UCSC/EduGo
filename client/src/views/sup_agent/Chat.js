@@ -218,7 +218,7 @@ function Chat() {
                       onClick={() => handleChatItemClick(item.user_id)}
                     >
                       <img
-                        src={item.avatar}
+                        src="https://static.vecteezy.com/system/resources/previews/008/442/086/non_2x/illustration-of-human-icon-user-symbol-icon-modern-design-on-blank-background-free-vector.jpg"
                         alt="Profile"
                         className="w-10 h-10 rounded-full mr-3"
                       />
@@ -252,7 +252,7 @@ function Chat() {
                       onClick={() => handleChatItemClick(item.user_id)}
                     >
                       <img
-                        src={item.avatar}
+                        src="https://static.vecteezy.com/system/resources/previews/008/442/086/non_2x/illustration-of-human-icon-user-symbol-icon-modern-design-on-blank-background-free-vector.jpg"
                         alt="Profile"
                         className="w-10 h-10 rounded-full mr-3"
                       />
@@ -274,10 +274,8 @@ function Chat() {
               {selectedChatId ? (
                 <div className="flex justify-center items-center border-b pb-2 mb-3">
                   <img
-                    src={
-                      chatItems.find((item) => item.user_id === selectedChatId)
-                        ?.avatar
-                    }
+                    src="https://static.vecteezy.com/system/resources/previews/008/442/086/non_2x/illustration-of-human-icon-user-symbol-icon-modern-design-on-blank-background-free-vector.jpg"
+        
                     alt="Profile"
                     className="w-8 h-8 rounded-full mr-3"
                   />
