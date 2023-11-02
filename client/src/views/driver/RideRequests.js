@@ -553,11 +553,7 @@ function RideRequests(props) {
                 >
                   <div className="flex-col items-center justify-center">
                     <div className="flex justify-center py-3">
-                      <img
-                        // src={request.image}
-                        alt={request.request_id}
-                        className="bg-slate-300 w-32 h-[100px] cursor-pointer rounded-full p-1"
-                      ></img>
+                      
                     </div>
 
                     <div className="mt-3 ml-3 px-2 text-slate-600">
