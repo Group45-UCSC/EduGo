@@ -113,7 +113,7 @@ function EmergencyDetails() {
             <tr className=' bg-[#999999] text-white border-b-2 text-[18px] drop-shadow-md '>
               <th className='px-3.5 p-1 w-24 '>ID</th>
               <th className='px-3.5 w-30'>Name</th>
-              <th className='px-3.5 w-30'>Contact</th>
+              {/* <th className='px-3.5 w-30'>Contact</th> */}
               <th className='px-3.5 w-30'>school</th>
               <th className='px-3.5 w-'>Action</th>  
             </tr>
@@ -124,7 +124,7 @@ function EmergencyDetails() {
             <tr className=' bg-[#D9D9D9] bg-opacity-60 hover:cursor-pointer hover:bg-[#eaeaea] drop-shadow-md'>
                 <td className='text-center  p-3'>{itemchildren.child_id} </td>
                 <td className='text-center'>{itemchildren.child_name}</td>
-                <td className='text-center'>{itemchildren.contact_no}</td>
+                {/* <td className='text-center'>{itemchildren.contact_no}</td> */}
                 <td className='text-center'>{itemchildren.school_name}</td>
                 <td className='text-center'>
                 <button className="bg-gradient-to-b from-amber-500 to-amber-300  w-40 h-9 ml-4 mt-2 mb-2 rounded-lg shadow-md hover:shadow-lg transform hover:scale-[103%] trasition duration-300 ease-out  hover:cursor-pointer">

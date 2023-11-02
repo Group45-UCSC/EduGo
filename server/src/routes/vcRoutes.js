@@ -19,6 +19,8 @@ const {ccrequestCount} = require("../controllers/v_coordinator/vehicleController
 const {ccrequestList} = require("../controllers/v_coordinator/vehicleController");
 const {requestform} = require("../controllers/v_coordinator/vehicleController");
 const {rejectvehiRequest} = require("../controllers/v_coordinator/vehicleController");
+const {acceptvehiRequest} = require("../controllers/v_coordinator/vehicleController");
+
 
 //create routes
 router.route("/vehicles/vehicle").get(vehicleList);
@@ -37,5 +39,7 @@ router.route("/dashboard/ccCount").get(ccrequestCount);
 router.route("/ccrequest/ccrequestls").get(ccrequestList);
 router.route("/vrrequest/requestform").get(requestform);
 router.route("/vrmodal/rform").put(rejectvehiRequest);
+router.route("/vrmodal/accept").put(acceptvehiRequest);
+
 
 module.exports = router;
