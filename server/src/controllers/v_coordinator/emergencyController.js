@@ -68,7 +68,31 @@ const emergencyls = async (req, res) => {
         };
 
 
+        //update emergency comment
+        const updatecomment = async (req, res) => {
+          try {
+            // const userId = req.params.userId;
+            const { emergency_id } = req.body;
+        
+              //update ride request table
+              const result1 = await pool.query(
+                " UPDATE emergency SET comment = 'done', status = 'complete' WHERE emergency_id = '" + emergency_id + "' "
+              );
+              // Return a success response to the frontend
+              return res.status(200).json({
+                message: "successfull",
+                results: {
+                  result1
+                },
+              });
+              } catch (err) {
+                console.error(err.massage);
+                return res.status(500).send("Server Error");
+              }
+          };
+        
+        
         
   
-  module.exports = { emergencyls, emchildren, emergencyCount, emergencynow };
+  module.exports = {updatecomment, emergencyls, emchildren, emergencyCount, emergencynow };
   
