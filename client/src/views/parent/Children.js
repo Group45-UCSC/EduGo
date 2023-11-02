@@ -212,11 +212,11 @@ function Children() {
                             child.id
                           }?data=${encodeURIComponent(JSON.stringify(child))}`}
                         >
-                          <img
-                            src={child.image}
-                            alt="user"
-                            className="bg-slate-300 w-32 h-[110px] cursor-pointer rounded-full p-1"
-                          />
+                    <img
+                        src="https://static.vecteezy.com/system/resources/previews/008/442/086/non_2x/illustration-of-human-icon-user-symbol-icon-modern-design-on-blank-background-free-vector.jpg"
+                        alt="Profile"
+                        className="w-20 h-25 rounded-full mr-3"
+                      />
                         </NavLink>
                       </div>
                       <div className="w-[230px]  ">
