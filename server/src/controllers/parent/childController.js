@@ -738,6 +738,23 @@ const addRideRequest = async (req, res) => {
 
 //uuuuuuuu
 
+// MOBILE
+// show children count
+
+const childCount = async (req, res) => {
+  try {
+    const userId = req.params.userId;
+
+    const count = await pool.query(
+      "SELECT num_of_registered_children FROM parent WHERE user_id  =   '" + userId + "' "
+    );
+    
+      return res.json(count.rows);
+  } catch (err) {
+    console.error(err.massage);
+    return res.status(500).send("Server Error");
+  }
+};
 //db connection
 
 module.exports = {
@@ -749,4 +766,7 @@ module.exports = {
   addRideRequest,
   addChildren,
   GetAllChildrentoMap,
+
+  // MOBILE
+  childCount
 };

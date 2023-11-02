@@ -8,7 +8,7 @@ const getChildrenDetails = async (req, res) => {
         const driverId = req.params.driverId;
 
         const childrenData = await pool.query(
-            "SELECT ride_request.child_id, ride_request.school_name, ride_request.pickup_location, ride_request.ride_shift_type, children.child_id, children.child_name FROM ride_request INNER JOIN children ON ride_request.child_id = children.child_id WHERE ride_request.driver_id = '" + driverId + "' "
+            "SELECT children.child_name, children.school_name, children.pickup_location, children.ride_shift_type FROM children WHERE children.driver_id = '" + driverId + "' "
         );
 
         return res.json(childrenData.rows);

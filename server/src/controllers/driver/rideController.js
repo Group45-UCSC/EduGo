@@ -635,7 +635,7 @@ const childrenCountSchool = async (req, res) => {
     const driverId = req.params.driverId;
     
     const rideChildren = await pool.query(
-      "SELECT DISTINCT school.school_id, school.school_name, school.location, school.latitude, school.longitude, COUNT(children.child_id) OVER (PARTITION BY reaching_school.school_id) AS children_count FROM school JOIN reaching_school ON reaching_school.school_id = school.school_id JOIN children ON reaching_school.driver_id = reaching_school.driver_id WHERE children.driver_id =  '" + driverId + "' "
+      "SELECT school.school_name, school.location, school.latitude, school.longitude, COUNT(children.child_id) AS children_count FROM school LEFT JOIN children ON school.school_name = children.school_name WHERE children.driver_id  =  '" + driverId + "' GROUP BY school.school_name, school.location, school.latitude, school.longitude   "
     );
     // console.log(rideChildren.rows);
       return res.json(rideChildren.rows);

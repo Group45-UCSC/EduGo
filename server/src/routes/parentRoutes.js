@@ -29,7 +29,7 @@ const express = require("express");
 const router = express.Router();
 
 //import functions
-const {  viewChildDashboard, viewChildChildren,ViewVehicle,viewSchool,viewDriverReview,addChildren, GetAllChildrentoMap, addRideRequest} = require("../controllers/parent/childController");
+const {  viewChildDashboard, viewChildChildren,ViewVehicle,viewSchool,viewDriverReview,addChildren, GetAllChildrentoMap, addRideRequest, childCount} = require("../controllers/parent/childController");
 const { addFeedback , addEdugoFeedback, getDrivers} = require("../controllers/parent/feedbackController");
 const { viewPayment, viewPastPayment, viewRidePayment } = require("../controllers/parent/paymentController");
 
@@ -53,6 +53,9 @@ router.route("/payment/pastpayment/:userId").get(viewPastPayment);
 
 
 // MOBILE
+// children count
+router.route("/childrens/:userId").get(childCount);
+
 // view payment
 router.route("/ridePayment/:parentId").get(viewRidePayment);
 
