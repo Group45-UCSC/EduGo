@@ -47,7 +47,7 @@ function Vehicles() {
           <div>
 
              {/* search */} 
-            <div className='float-right '>
+            {/* <div className='float-right '>
 
               <form action=''>
                 <input type="text" placeholder='Search..' className=' mt-1 overflow-auto w-40 mr-32  border border-slate-400 pl-2 rounded-md'> 
@@ -57,10 +57,10 @@ function Vehicles() {
                 </svg>
               </form>
 
-            </div>
+            </div> */}
 
             {/* filter */}   
-            <div className='float-right '>
+            {/* <div className='float-right '>
 
               <form action=''>
                 <input type="text" placeholder='Filter here' className=' mt-1 overflow-auto w-40 mr-8  border border-slate-400 pl-2 rounded-md '> 
@@ -70,7 +70,7 @@ function Vehicles() {
                 </svg>
               </form>
               
-            </div>
+            </div> */}
 
           </div>
 

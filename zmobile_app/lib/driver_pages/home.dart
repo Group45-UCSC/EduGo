@@ -19,7 +19,10 @@ class DriverHomePage extends StatefulWidget {
 
 class _DriverHomePageState extends State<DriverHomePage> {
   final Completer<GoogleMapController> _controller = Completer();
+  String childCountString = '';
   int childCount = 0;
+  String morningRideTimeData = '';
+  String noonRideTimeData = '';
 
   static const CameraPosition _initailPosition = CameraPosition(
     target: LatLng(6.9022172, 79.8612785),
@@ -41,22 +44,36 @@ class _DriverHomePageState extends State<DriverHomePage> {
     super.initState();
     myMarker.addAll(markerList);
     packData();
-    fetchChildCount(); // Fetch child count when the widget is initialized
+    fetchChildCount();
+    fetchRoutingTimes();
   }
 
   Future<void> fetchChildCount() async {
     final url = Uri.parse('http://10.0.2.2:5000/edugo/driver/childrens/DRV001');
-    
+
     try {
       final response = await http.get(url);
       if (response.statusCode == 200) {
-        final data = json.decode(response.body);
-        setState(() {
-          childCount = data['childCount'];
-        });
+        final List<dynamic> dataList = json.decode(response.body);
+
+        if (dataList.isNotEmpty) {
+          final data = dataList.first;
+          if (data is Map<String, dynamic> && data.containsKey('count')) {
+            childCountString = data['count'].toString();
+            childCount = int.tryParse(childCountString) ?? 0;
+
+            setState(() {});
+          } else {
+            print('childCount not found in the JSON response');
+          }
+        } else {
+          print('No data found in the JSON response');
+          // Handle the case where the response is empty
+        }
       } else {
         // Handle the error case
-        print('Failed to fetch child count. Status code: ${response.statusCode}');
+        print(
+            'Failed to fetch child count. Status code: ${response.statusCode}');
       }
     } catch (e) {
       // Handle exceptions
@@ -72,6 +89,41 @@ class _DriverHomePageState extends State<DriverHomePage> {
     });
 
     return await Geolocator.getCurrentPosition();
+  }
+
+  Future<void> fetchRoutingTimes() async {
+    final url = Uri.parse('http://10.0.2.2:5000/edugo/driver/times/DRV001');
+
+    try {
+      final response = await http.get(url);
+      if (response.statusCode == 200) {
+        final List<dynamic> routingTimesData = json.decode(response.body);
+
+        if (routingTimesData.isNotEmpty) {
+          final Map<String, dynamic> routingTimes = routingTimesData.first;
+
+          // Extract the morning and noon ride times
+          final String morningRideTime = routingTimes['time_morning_ride'];
+          final String noonRideTime = routingTimes['time_noon_ride'];
+          print(routingTimesData);
+          // Update the UI with the routing times data
+          setState(() {
+            morningRideTimeData = morningRideTime;
+            noonRideTimeData = noonRideTime;
+          });
+
+          print(morningRideTime);
+          print(noonRideTime);
+        } else {
+          print('No routing times data found in the JSON response');
+        }
+      } else {
+        print(
+            'Failed to fetch routing times data. Status code: ${response.statusCode}');
+      }
+    } catch (e) {
+      print('Error fetching routing times data: $e');
+    }
   }
 
   packData() {
@@ -153,7 +205,9 @@ class _DriverHomePageState extends State<DriverHomePage> {
                         ),
                       ),
                       SizedBox(height: 8),
-                      Text('Morning: 6:00 AM      Evening: 2:00 PM'),
+                      Text(
+                        'Morning: $morningRideTimeData      Evening: $noonRideTimeData'
+                      ),
                     ],
                   ),
                 ),

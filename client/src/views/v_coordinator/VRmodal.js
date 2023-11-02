@@ -110,7 +110,7 @@ function VRmodal() {
     // };
 
   const [statusType2, setStatusType2] = useState("DECLINE");
-
+  const [statusType1, setStatusType1] = useState("ACCEPT");
 
   //decline button click
   const handleRejectClick = async (vehicleId) => {
@@ -127,7 +127,7 @@ function VRmodal() {
         }
       );
       if (response.status === 200) {
-        const data = await response.json();
+        // const data = await response.json();
         setStatusType2("rejected");
       } else {
         setStatusType2("reject");
@@ -136,6 +136,33 @@ function VRmodal() {
       console.error(err.message);
     }
   };
+
+  //..........................................................
+    //decline button click
+    const handleAcceptClick = async (vehicleId) => {
+      try {
+        const body = {
+          vehicleId: vehicleId
+        };
+        const response = await fetch(
+          `http://localhost:5000/edugo/vc/vrmodal/accept`,
+          {
+            method: "PUT",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(body),
+          }
+        );
+        if (response.status === 200) {
+          // const data = await response.json();
+          setStatusType1("accepted");
+        } else {
+          setStatusType1("accept");
+        }
+      } catch (err) {
+        console.error(err.message);
+      }
+    };
+
 
   return (
     <div>
@@ -178,7 +205,9 @@ function VRmodal() {
                 <button onClick={() => handleRejectClick(vehicle.vehicle_id)} className="ml-[80px] mt-6 p-2 mb-4 font-semibold bg-gradient-to-b from-red-600 to-red-400 w-32  rounded-lg shadow-md hover:shadow-lg transform hover:scale-[102%] trasition duration-300 ease-out  hover:cursor-pointer drop-shadow-md" >
                       {statusType2}
                 </button>
-                <button type="submit" className="ml-[80px] mt-6 p-2 mb-4 font-semibold bg-gradient-to-b from-green-600 to-green-400 w-32  rounded-lg shadow-md hover:shadow-lg transform hover:scale-[102%] trasition duration-300 ease-out  hover:cursor-pointer drop-shadow-md" >ACCEPT</button>
+                <button onClick={() => handleAcceptClick(vehicle.vehicle_id)} type="submit" className="ml-[80px] mt-6 p-2 mb-4 font-semibold bg-gradient-to-b from-green-600 to-green-400 w-32  rounded-lg shadow-md hover:shadow-lg transform hover:scale-[102%] trasition duration-300 ease-out  hover:cursor-pointer drop-shadow-md" >
+                      {statusType1}
+                </button>
                 </form>    
             </div>
             </MainLayout>  

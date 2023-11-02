@@ -20,9 +20,9 @@ class _FinancialPageState extends State<FinancialPage> {
 
   // Data organized by tab
   Map<String, List<Map<String, dynamic>>> tabData = {
-    'paid': [],
-    'not_paid': [],
-    'pending': [],
+    'Paid': [],
+    'Not Paid': [],
+    'Pending': [],
   };
 
   // Controller for search input
@@ -160,9 +160,9 @@ class _FinancialPageState extends State<FinancialPage> {
             Expanded(
               child: TabBarView(
                 children: [
-                  _buildTabContent(context, 'pending'),
-                  _buildTabContent(context, 'not_paid'),
-                  _buildTabContent(context, 'paid'),
+                  _buildTabContent(context, 'Pending'),
+                  _buildTabContent(context, 'Not Paid'),
+                  _buildTabContent(context, 'Paid'),
                 ],
               ),
             ),
@@ -174,7 +174,7 @@ class _FinancialPageState extends State<FinancialPage> {
 
   Widget _buildTabContent(BuildContext context, String payStatus) {
     final tabDataForStatus = tabData[payStatus] ?? [];
-    final isPending = payStatus == 'pending';
+    final isPending = payStatus == 'Pending';
 
     return SingleChildScrollView(
       child: DataTable(
