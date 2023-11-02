@@ -144,8 +144,8 @@ function DriverDashboardPg() {
                   <br />
                   <div className="text-slate-500 text-sm">
                     {" "}
-                    Received on {notification.Date} at {"  "}
-                    {notification.Time}
+                    Received on {notification.Date} 
+                    
                   </div>
                 </p>
 
@@ -307,19 +307,19 @@ function DriverDashboardPg() {
   }
 
   const notifications = [
-    {
-      id: 1,
-      type: "vehicle",
-      Date: "2023/07/30",
-      Time: "8.50 a.m.",
-      From: "Vehicle coordinator",
-      Message:
-        "Your vehicle Condition verification is reach to out of date! Please check it for the continous riding.",
-    },
+    // {
+    //   id: 1,
+    //   type: "vehicle",
+    //   Date: "2023/07/30",
+    //   Time: "8.50 a.m.",
+    //   From: "Vehicle coordinator",
+    //   Message:
+    //     "Your vehicle Condition verification is reach to out of date! Please check it for the continous riding.",
+    // },
     {
       id: 2,
       type: "rideRequest",
-      Date: "2023/07/25",
+      Date: "2023/11/02",
       Time: "4.45 p.m.",
       From: "ParentId",
       Message: "New Student ride request",
@@ -342,20 +342,20 @@ function DriverDashboardPg() {
     },
     {
       id: 5,
-      type: "profile",
+      type: "payment",
       Date: "2023/07/03",
       Time: "9.35 p.m.",
       From: "vehicle coordinator",
-      Message: "Your driving License expires soon",
+      Message: "New Payment received",
     },
-    {
-      id: 6,
-      type: "missedRequest",
-      Date: "2023/08/05",
-      Time: "6.24 a.m.",
-      From: "parentId:p007",
-      Message: "Request to pickup missed child: C004",
-    },
+    // {
+    //   id: 6,
+    //   type: "missedRequest",
+    //   Date: "2023/08/05",
+    //   Time: "6.24 a.m.",
+    //   From: "parentId:p007",
+    //   Message: "Request to pickup missed child: C004",
+    // },
   ];
 
   return (
@@ -396,7 +396,7 @@ function DriverDashboardPg() {
                       Vehicle
                     </h1>
                     <NavLink to="/driver/vehicle/add">
-                      <button>Add vehicle</button>
+                      {/* <button>Add vehicle</button> */}
                     </NavLink>
                     <div className="flex gap-x-20">
                       <div className="w-40 ">
@@ -411,8 +411,8 @@ function DriverDashboardPg() {
                         )}
                       </div>
                       <div className="">
-                        <h2 className="font-medium">PJ-4893</h2>
-                        <h2>VID3001</h2>
+                        {/* <h2 className="font-medium">PJ-4893</h2>
+                        <h2>VID3001</h2> */}
                       </div>
                     </div>
                   </div>
@@ -485,7 +485,7 @@ function DriverDashboardPg() {
                     <div className=" flex justify-between mt-4">
                       <div className="text-blue-800 text-xs">{notifi.Date}</div>
                       <div className="justify-end text-xs text-slate-600">
-                        {notifi.Time}
+                        {/* {notifi.Time} */}
                       </div>
                     </div>
                   </div>
