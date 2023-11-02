@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import MainLayout from "../../components/layout/MainLayout";
 import { FaSearch, FaPhone } from "react-icons/fa";
 import {
@@ -35,10 +35,29 @@ function Support() {
   const [selectedChatId, setSelectedChatId] = useState(null);
   const [searchQuery, setSearchQuery] = useState("");
   const [complaints, setComplaints] = useState([]);
+  const userId = localStorage.getItem("userId");
 
   const handleChatItemClick = (chatId) => {
     setSelectedChatId(chatId);
   };
+
+  useEffect(() => {
+    async function viewComplaints() {
+      try {
+        const response = await fetch(
+          `http://localhost:5000/edugo/driver/support/viewComplaint/${userId}`
+        );
+        if (!response.ok) {
+          throw new Error(" Nework response was not ok");
+        }
+        const data = await response.json();
+        setComplaints(data);
+      }catch (error) {
+        console.error(" Error fetching driver details" , error);
+      }
+    }
+    viewComplaints(); 
+  },[userId]);
   const handleFileChange = (e) => {
     const file = e.target.files[0]; // Get the selected file
     if (file) {
@@ -297,9 +316,9 @@ function Support() {
                 <h className=" text-3xl font-semibold">All Complaints</h>
                 {complaints.map((complaint, index) => (
                   <div key={index} className="ml-3 pt-5">
-                    <p><strong>Complaint Type:</strong> {complaint.complaintType}</p>
-                    <p><strong>Complaint Details:</strong> {complaint.complaintDetails}</p>
-                    <p><strong>Date of Occurrence:</strong> {complaint.dateOfOccurrence}</p>
+                    <p><strong>Complaint Type:</strong> {complaint.complainttype}</p>
+                    <p><strong>Complaint Details:</strong> {complaint.complaintdetails}</p>
+                    <p><strong>Date of Occurrence:</strong> {complaint.dateofoccurrence}</p>
                     <p><strong>Attachments:</strong>
                       {" "}
                       {complaint.attachments.map((file, index) => (
@@ -310,7 +329,7 @@ function Support() {
                       {" "}
                       {complaint.sendToVC ? "Yes" : "No"}
                     </p>
-                    <div className="pt-2 text-lg flex flex-row font-medium">Status:<p className="text-[#16a34a] pl-3">Pending...</p></div>
+                    <div className="pt-2 text-lg flex flex-row font-medium">Status:<p className="text-[#16a34a] pl-3">{complaint.status}</p></div>
                   </div>
                 ))}
               </div>

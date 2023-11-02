@@ -35,6 +35,7 @@ const {
   // MOBILE
   viewRidePayment,
 } = require("../controllers/driver/financeController");
+const {addComplaint,viewUserComplaints } = require("../controllers/driver/complaintController");
 
 const {
   viewRideDetails,
@@ -70,7 +71,10 @@ const {
   getChildrenCount,
 } = require("../controllers/driver/childrenController");
 
-
+const {
+  sendMessage,
+  receiveMessage,
+} = require("../controllers/driver/supChatController");
 
 
 //create routes
@@ -143,5 +147,13 @@ router.route("/childrens/:driverId").get(getChildrenCount);
 
 // children name in school
 // router.route("/childrenSchool/:driverId").get(childrenSchool);
+
+//support page
+router.route("/complaint/add/:userId").post(addComplaint);
+router.route("/support/viewComplaint/:userId").get(viewUserComplaints);
+
+router.route("/minimizablechat/sendMessage/:userId").post(sendMessage);
+router.route("/minimizablechat/receiveMessage/:userId").get(receiveMessage);
+
 
 module.exports = router;
